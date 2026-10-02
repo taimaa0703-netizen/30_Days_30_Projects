@@ -441,18 +441,21 @@ footer {
     flex-direction: column !important;
     align-items: flex-start !important;
     white-space: normal !important;
+    width: 100% !important;
 
     font-size: clamp(48px, 15vw, 70px);
     line-height: 0.95;
   }
 
-  .hero-title .sparkle {
-    display: block !important;
-    margin: 12px 0 !important;
-    font-size: 0.35em;
-  }
-
+  .hero-title .sparkle,
   .hero-title > span:last-child {
     display: block !important;
+    width: fit-content;
+    flex: none !important;
+  }
+
+  .hero-title .sparkle {
+    margin: 12px 0 !important;
+    font-size: 0.35em;
   }
 }
