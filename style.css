@@ -1,0 +1,475 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --black: #09070a;
+  --card: #121014;
+  --card-hover: #181319;
+
+  --pink: #ff5fa2;
+  --soft-pink: #eaa1bd;
+  --burgundy: #661f3b;
+
+  --white: #fff9fc;
+  --gray: #958b92;
+}
+
+body {
+  background:
+    radial-gradient(circle at 80% 10%, #40142c 0%, transparent 25%),
+    radial-gradient(circle at 10% 45%, #21101d 0%, transparent 22%),
+    var(--black);
+
+  color: var(--white);
+  font-family: "DM Sans", sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+
+/* NAV */
+
+nav {
+  width: 92%;
+  max-width: 1300px;
+
+  margin: auto;
+  padding: 30px 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.logo {
+  font-family: "Playfair Display", serif;
+  font-size: 25px;
+  color: var(--pink);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--gray);
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pink);
+
+  box-shadow: 0 0 10px var(--pink);
+}
+
+
+/* HERO */
+
+.hero {
+  width: 92%;
+  max-width: 1300px;
+
+  margin: auto;
+  padding: 110px 0 100px;
+}
+
+.eyebrow {
+  color: var(--pink);
+  letter-spacing: 4px;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-family: "Playfair Display", serif;
+
+  font-size: clamp(65px, 10vw, 145px);
+  line-height: .83;
+  letter-spacing: -5px;
+
+  max-width: 1100px;
+}
+
+.hero h1 span {
+  display: block;
+
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #ffb4d2,
+    #ff5fa2
+  );
+
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero-text {
+  max-width: 520px;
+
+  color: var(--gray);
+
+  font-size: 17px;
+  line-height: 1.7;
+
+  margin-top: 45px;
+}
+
+.scroll-text {
+  margin-top: 65px;
+
+  font-size: 10px;
+  letter-spacing: 3px;
+
+  color: #655b62;
+}
+
+
+/* PROGRESS */
+
+.progress-section {
+  width: 92%;
+  max-width: 1300px;
+
+  margin: auto;
+  padding: 40px 0 90px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  margin-bottom: 20px;
+}
+
+.progress-info p {
+  color: var(--gray);
+  font-size: 10px;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+
+.progress-info h2 {
+  font-size: 28px;
+}
+
+.progress-info small {
+  color: var(--gray);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+#progressPercentage {
+  color: var(--pink);
+  font-size: 13px;
+}
+
+.progress-bar {
+  height: 4px;
+  width: 100%;
+
+  background: #201b20;
+  border-radius: 20px;
+
+  overflow: hidden;
+}
+
+#progressFill {
+  height: 100%;
+  width: 0%;
+
+  background: linear-gradient(
+    90deg,
+    var(--burgundy),
+    var(--pink)
+  );
+
+  box-shadow: 0 0 20px var(--pink);
+
+  transition: width .8s ease;
+}
+
+
+/* PROJECT SECTION */
+
+.projects-section {
+  width: 92%;
+  max-width: 1300px;
+
+  margin: auto;
+  padding-bottom: 130px;
+}
+
+.section-title {
+  margin-bottom: 45px;
+}
+
+.section-title p {
+  color: var(--pink);
+  font-size: 10px;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+.section-title h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 42px;
+}
+
+
+/* GRID */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+
+/* PROJECT CARD */
+
+.project-card {
+  min-height: 290px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.01)
+    );
+
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 18px;
+
+  padding: 25px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  position: relative;
+  overflow: hidden;
+
+  transition:
+    transform .35s ease,
+    border .35s ease,
+    background .35s ease;
+}
+
+.project-card::before {
+  content: "";
+
+  position: absolute;
+
+  width: 150px;
+  height: 150px;
+
+  background: var(--pink);
+
+  filter: blur(100px);
+  opacity: 0;
+
+  right: -70px;
+  bottom: -70px;
+
+  transition: opacity .4s;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+
+  border-color: rgba(255,95,162,.35);
+
+  background: var(--card-hover);
+}
+
+.project-card:hover::before {
+  opacity: .18;
+}
+
+
+/* NUMBER */
+
+.project-number {
+  font-size: 11px;
+  color: #665c63;
+  letter-spacing: 2px;
+}
+
+
+/* LOCK */
+
+.lock-area {
+  text-align: center;
+}
+
+.lock {
+  font-size: 30px;
+  display: block;
+
+  filter: grayscale(1);
+  opacity: .4;
+
+  margin-bottom: 10px;
+}
+
+.locked-text {
+  color: #625960;
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+
+/* UNLOCKED */
+
+.project-card.unlocked {
+  border-color: rgba(255,95,162,.25);
+}
+
+.project-card.unlocked .project-number {
+  color: var(--pink);
+}
+
+.project-content h3 {
+  font-family: "Playfair Display", serif;
+
+  font-size: 27px;
+
+  margin-bottom: 10px;
+}
+
+.project-content p {
+  color: var(--gray);
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.tags {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+
+  margin-top: 18px;
+}
+
+.tag {
+  padding: 5px 9px;
+
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 20px;
+
+  font-size: 9px;
+  color: var(--soft-pink);
+}
+
+.project-link {
+  margin-top: 25px;
+
+  color: var(--white);
+
+  font-size: 10px;
+  letter-spacing: 2px;
+
+  text-decoration: none;
+
+  display: inline-block;
+}
+
+.project-link:hover {
+  color: var(--pink);
+}
+
+
+/* FOOTER */
+
+footer {
+  width: 92%;
+  max-width: 1300px;
+
+  margin: auto;
+
+  border-top: 1px solid rgba(255,255,255,.08);
+
+  padding: 30px 0 45px;
+
+  display: flex;
+  justify-content: space-between;
+
+  color: #5f555c;
+
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero {
+    padding-top: 80px;
+  }
+
+  .hero h1 {
+    letter-spacing: -3px;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  nav {
+    padding: 20px 0;
+  }
+
+  .nav-right span:last-child,
+  .status-dot {
+    display: none;
+  }
+
+  .hero {
+    padding: 80px 0 70px;
+  }
+
+  .hero h1 {
+    font-size: 60px;
+    letter-spacing: -3px;
+  }
+
+  .hero-text {
+    font-size: 15px;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card {
+    min-height: 240px;
+  }
+
+  .section-title h2 {
+    font-size: 34px;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+}
