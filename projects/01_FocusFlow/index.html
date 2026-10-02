@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>FocusFlow | Day 01</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <main class="app">
+
+    <header>
+      <span class="logo">FF.</span>
+      <span class="day">DAY 01 / 30</span>
+    </header>
+
+    <section class="intro">
+      <p class="eyebrow">DEEP WORK TIMER</p>
+
+      <h1>Focus<span>Flow.</span></h1>
+
+      <p class="subtitle">
+        The focus timer that catches you procrastinating 👀
+      </p>
+    </section>
+
+
+    <section class="card">
+
+      <!-- SETUP -->
+      <div id="setupScreen">
+
+        <label class="question" for="focusTask">
+          WHAT ARE YOU FOCUSING ON?
+        </label>
+
+        <input
+          id="focusTask"
+          type="text"
+          maxlength="60"
+          placeholder="e.g. Finish my Java assignment"
+        >
+
+        <p class="question time-question">
+          HOW LONG CAN YOU STAY FOCUSED?
+        </p>
+
+        <div class="time-options">
+          <button class="time-btn" data-minutes="15">15 min</button>
+          <button class="time-btn active" data-minutes="25">25 min</button>
+          <button class="time-btn" data-minutes="45">45 min</button>
+          <button class="time-btn" id="customBtn">Custom</button>
+        </div>
+
+        <div class="custom-box" id="customBox">
+          <input
+            id="customMinutes"
+            type="number"
+            min="1"
+            max="180"
+            placeholder="Minutes"
+          >
+          <button id="setCustomBtn">Set</button>
+        </div>
+
+      </div>
+
+
+      <!-- TIMER -->
+      <div class="timer-circle">
+
+        <svg viewBox="0 0 300 300">
+          <circle
+            class="ring-bg"
+            cx="150"
+            cy="150"
+            r="140"
+          ></circle>
+
+          <circle
+            class="ring-progress"
+            id="progressRing"
+            cx="150"
+            cy="150"
+            r="140"
+          ></circle>
+        </svg>
+
+        <div class="timer-content">
+
+          <p class="timer-label">FOCUS SESSION</p>
+
+          <div class="timer">
+            <span id="minutes">25</span>:<span id="seconds">00</span>
+          </div>
+
+          <p id="status">
+            Ready when you are.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- CONTROLS -->
+      <div class="controls">
+
+        <button id="resetBtn" aria-label="Reset">
+          ↻
+        </button>
+
+        <button id="startBtn">
+          Start Focus
+        </button>
+
+      </div>
+
+
+      <!-- LIVE SESSION INFO -->
+      <div class="live-stats">
+
+        <div>
+          <strong id="distractionCount">0</strong>
+          <span>ESCAPES 👀</span>
+        </div>
+
+        <div>
+          <strong id="awayTime">00:00</strong>
+          <span>TIME AWAY</span>
+        </div>
+
+      </div>
+
+
+      <!-- RESULT -->
+      <div class="result-screen" id="resultScreen">
+
+        <span class="result-star">✦</span>
+
+        <p class="result-label">
+          SESSION COMPLETE
+        </p>
+
+        <h2 id="resultTitle">
+          You did it.
+        </h2>
+
+        <p class="task-result">
+          You gave
+          <strong id="resultTask"></strong>
+          your attention.
+        </p>
+
+
+        <div class="score-wrap">
+
+          <span>FOCUS SCORE</span>
+
+          <strong id="focusScore">
+            100%
+          </strong>
+
+        </div>
+
+
+        <div class="result-grid">
+
+          <div>
+            <strong id="resultMinutes">25</strong>
+            <span>MINUTES</span>
+          </div>
+
+          <div>
+            <strong id="resultEscapes">0</strong>
+            <span>ESCAPES</span>
+          </div>
+
+          <div>
+            <strong id="resultStreak">25:00</strong>
+            <span>BEST STREAK</span>
+          </div>
+
+        </div>
+
+
+        <p id="reaction"></p>
+
+        <div class="personal-best" id="personalBest">
+          🏆 NEW PERSONAL BEST
+        </div>
+
+        <button id="againBtn">
+          Focus again
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <div class="best-score">
+      PERSONAL BEST
+      <strong id="bestScore">—</strong>
+    </div>
+
+
+    <footer>
+      <span>30 DAYS • 30 PROJECTS</span>
+      <span>TAIMAA SIAM</span>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

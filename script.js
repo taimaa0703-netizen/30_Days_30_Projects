@@ -2,9 +2,9 @@ const projects = [
   {
     day: 1,
     name: "FocusFlow",
-    description: "A simple Pomodoro timer for focused study sessions.",
+    description: "Stay focused. FocusFlow will know when you don’t. 👀",
     tags: ["HTML", "CSS", "JavaScript"],
-    link: "#",
+    link: "projects/01_FocusFlow/",
     unlocked: true
   },
 
