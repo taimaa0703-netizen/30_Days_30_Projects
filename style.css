@@ -92,16 +92,17 @@ nav {
 .hero h1 {
   font-family: "Playfair Display", serif;
 
-  font-size: clamp(65px, 10vw, 145px);
-  line-height: .83;
-  letter-spacing: -5px;
+  font-size: clamp(60px, 8vw, 120px);
+  line-height: 0.95;
+  letter-spacing: -3px;
 
-  max-width: 1100px;
+  max-width: 1200px;
 }
 
 .hero h1 span {
   display: block;
-
+  font-size: 0.92em;
+  margin-top: 12px;
   background: linear-gradient(
     90deg,
     #fff5fa 0%,
@@ -114,6 +115,7 @@ nav {
   color: transparent;
 
   text-shadow: 0 0 35px rgba(255, 95, 162, 0.12);
+
 }
 
 .hero-text {
