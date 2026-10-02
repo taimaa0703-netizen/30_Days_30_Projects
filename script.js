@@ -83,7 +83,7 @@ projects.forEach(project => {
         <a
           href="${project.link}"
           class="project-link"
-          target="_blank"
+          
         >
           VIEW PROJECT →
         </a>
