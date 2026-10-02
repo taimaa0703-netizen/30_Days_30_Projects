@@ -448,6 +448,11 @@ footer {
   .hero h1 {
     letter-spacing: -3px;
   }
+  @media (max-width: 600px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 }
 
