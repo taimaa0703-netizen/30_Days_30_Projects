@@ -92,11 +92,12 @@ nav {
 .hero h1 {
   font-family: "Playfair Display", serif;
 
-  font-size: clamp(60px, 8vw, 120px);
+  font-size: clamp(55px, 7.5vw, 110px);
   line-height: 0.95;
   letter-spacing: -3px;
 
-  max-width: 1200px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .hero h1 span {
