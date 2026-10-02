@@ -104,13 +104,16 @@ nav {
 
   background: linear-gradient(
     90deg,
-    #ffffff,
-    #ffb4d2,
-    #ff5fa2
+    #fff5fa 0%,
+    #ffc2dc 45%,
+    #ff79b5 100%
   );
 
   -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
+
+  text-shadow: 0 0 35px rgba(255, 95, 162, 0.12);
 }
 
 .hero-text {
