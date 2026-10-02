@@ -88,21 +88,39 @@ nav {
   font-size: 12px;
   margin-bottom: 20px;
 }
-
-.hero h1 {
+.hero-title {
   font-family: "Playfair Display", serif;
-
-font-size: clamp(55px, 5.8vw, 100px);  line-height: 0.95;
+  font-size: clamp(55px, 6vw, 100px);
+  font-weight: 400;
+  line-height: 1;
   letter-spacing: -3px;
 
+  white-space: nowrap;
   width: 100%;
-  max-width: 100%;
 }
 
-.hero h1 span {
-  display: block;
-  font-size: 0.70em;
-  margin-top: 12px;
+.hero-title span {
+  color: #f6bfd8;
+}
+
+.hero-title .sparkle {
+  color: #ff5fa2;
+  font-size: 0.35em;
+  margin: 0 18px;
+  vertical-align: middle;
+
+  text-shadow:
+    0 0 10px rgba(255, 95, 162, 0.8),
+    0 0 25px rgba(255, 95, 162, 0.4);
+}
+
+.hero-word {
+  padding-left: 12px;
+  margin-left: -12px;
+  color: #fff9fc;
+}
+
+.projects-line .hero-word {
   background: linear-gradient(
     90deg,
     #fff5fa 0%,
@@ -112,12 +130,9 @@ font-size: clamp(55px, 5.8vw, 100px);  line-height: 0.95;
 
   -webkit-background-clip: text;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: transparent;
-
-  text-shadow: 0 0 35px rgba(255, 95, 162, 0.12);
-
 }
-
 .hero-text {
   max-width: 520px;
 
