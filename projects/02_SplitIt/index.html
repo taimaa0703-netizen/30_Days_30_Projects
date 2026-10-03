@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Split It | Day 02</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main class="app">
+
+    <!-- HEADER -->
+    <header>
+      <span class="logo">SI.</span>
+      <span class="day">DAY 02 / 30</span>
+    </header>
+
+
+    <!-- INTRO -->
+    <section class="intro">
+
+      <p class="eyebrow">DINNER WITHOUT THE DRAMA</p>
+
+      <h1>Split <span>It.</span></h1>
+
+      <p class="subtitle">
+        You enjoy the dinner. We'll handle the math. 🍝
+      </p>
+
+    </section>
+
+
+    <!-- MAIN CARD -->
+    <section class="card">
+
+      <!-- BILL -->
+      <div class="bill-section">
+
+        <label for="billAmount">
+          TOTAL BILL
+        </label>
+
+        <div class="money-input">
+          <span>₪</span>
+
+          <input
+            id="billAmount"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="0.00"
+          >
+        </div>
+
+      </div>
+
+
+      <!-- FRIENDS -->
+      <div class="friends-section">
+
+        <div class="section-title">
+          <span>WHO'S HERE?</span>
+          <span id="friendCount">0 friends</span>
+        </div>
+
+        <div id="friendsList"></div>
+
+        <div class="add-friend">
+
+          <input
+            id="friendName"
+            type="text"
+            maxlength="20"
+            placeholder="Friend's name"
+          >
+
+          <button id="addFriendBtn">
+            + Add
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- SPLIT MODE -->
+      <div class="mode-section">
+
+        <p class="section-label">
+          HOW DO YOU WANT TO SPLIT?
+        </p>
+
+        <div class="mode-options">
+
+  <button class="mode-btn active" data-mode="equal">
+    <span>⚖️</span>
+    <strong>Split the total</strong>
+    <small>Enter one bill & divide it</small>
+  </button>
+
+  <button class="mode-btn" data-mode="items">
+    <span>🍕</span>
+    <strong>Pay for what you had</strong>
+    <small>Everyone pays for their items</small>
+  </button>
+
+</div>
+
+      </div>
+
+
+      <!-- ITEMS MODE -->
+      <div class="items-section" id="itemsSection">
+
+        <div class="section-title">
+          <span>WHAT DID WE ORDER?</span>
+        </div>
+
+        <div id="itemsList"></div>
+
+        <button id="addItemBtn" class="secondary-btn">
+          + Add an item
+        </button>
+
+      </div>
+
+
+      <!-- ACTION -->
+      <button id="splitBtn" class="split-btn">
+        Split the bill ✦
+      </button>
+
+    </section>
+
+
+    <!-- RESULTS -->
+    <section class="result-card" id="resultCard">
+
+      <p class="eyebrow">ALL SET ✦</p>
+
+      <h2>Who pays what?</h2>
+
+      <div id="paymentResults"></div>
+
+       <!-- I GOT YOU -->
+<div class="cover-section">
+
+  <p class="section-label">
+    FEELING GENEROUS? 💗
+  </p>
+
+  <p class="cover-text">
+    Cover a friend's share.
+  </p>
+
+  <div class="cover-selects">
+
+    <select id="coverPayer">
+      <option value="">Who are you?</option>
+    </select>
+
+    <span>→</span>
+
+    <select id="coverFriend">
+      <option value="">Who are you covering?</option>
+    </select>
+
+  </div>
+
+  <button id="coverBtn">
+    I got you 💗
+  </button>
+
+  <p id="coverMessage"></p>
+
+</div>
+      <!-- WHO OWES WHO -->
+      <div class="owes-section">
+
+        <p class="section-label">
+          WHO OWES WHO? 👀
+        </p>
+
+        <div id="owesResults"></div>
+
+      </div>
+
+
+      <button id="copyBtn">
+        Copy to group chat 📲
+      </button>
+
+      <button id="newBillBtn" class="text-btn">
+        Start a new bill
+      </button>
+
+    </section>
+
+
+    <footer>
+      <span>30 DAYS • 30 PROJECTS</span>
+      <span>TAIMAA SIAM</span>
+    </footer>
+
+  </main>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>

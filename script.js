@@ -10,11 +10,11 @@ const projects = [
 
   {
     day: 2,
-    name: "Split It",
-    description: "Split bills quickly between friends.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    link: "#",
-    unlocked: false
+  name: "Split It",
+  description: "No drama. Just the bill. 💸",
+  tags: ["HTML", "CSS", "JavaScript"],
+  link: "projects/02_SplitIt/",
+  unlocked: true
   },
 
   {
@@ -132,3 +132,4 @@ document.getElementById("progressPercentage").textContent =
 
 document.getElementById("progressFill").style.width =
   percentage + "%";
+
