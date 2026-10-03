@@ -9,13 +9,13 @@ const projects = [
   },
 
   {
-    day: 2,
+  day: 2,
   name: "Split It",
   description: "No drama. Just the bill. 💸",
   tags: ["HTML", "CSS", "JavaScript"],
   link: "projects/02_SplitIt/",
   unlocked: true
-  },
+},
 
   {
     day: 3,
