@@ -688,12 +688,17 @@ function showResults(results) {
   resultCard.classList.add(
     "show"
   );
-
+  history.pushState(
+  { screen: "results" },
+  "",
+  "#results"
+);
 
   resultCard.scrollIntoView({
     behavior: "smooth",
     block: "start"
   });
+
 }
 
 
@@ -1044,3 +1049,27 @@ newBillBtn.addEventListener("click", () => {
 // ========================
 
 renderFriends();
+
+window.addEventListener("popstate", () => {
+
+  // If results are currently open,
+  // go back to editing the bill
+  if (resultCard.classList.contains("show")) {
+
+    resultCard.classList.remove("show");
+    mainCard.style.display = "block";
+
+    if (selectedMode === "items") {
+      showCalculatedTotal();
+      renderItems();
+      updateCalculatedTotal();
+    }
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+
+});

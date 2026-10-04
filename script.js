@@ -19,11 +19,11 @@ const projects = [
 
   {
     day: 3,
-    name: "Password Check",
-    description: "Check how strong your password really is.",
-    tags: ["JavaScript"],
-    link: "#",
-    unlocked: false
+  name: "Who's Most Likely To?",
+  description: "We all know who. Let's make it official. 👀",
+  tags: ["HTML", "CSS", "JavaScript"],
+  link: "projects/03_WhosMostLikelyTo/",
+  unlocked: true
   }
 ];
 

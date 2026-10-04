@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Who's Most Likely To? | Day 03</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main class="app">
+
+    <header>
+      <span class="logo">WMLT.</span>
+      <span class="day">DAY 03 / 30</span>
+    </header>
+
+
+    <!-- ===================== -->
+    <!-- START SCREEN -->
+    <!-- ===================== -->
+
+    <section class="screen active" id="setupScreen">
+
+      <div class="hero">
+        <p class="eyebrow">FRIENDSHIP TEST INCOMING 👀</p>
+
+        <h1>
+          Who's Most
+          <span>Likely To?</span>
+        </h1>
+
+        <p class="subtitle">
+          We all know who. Let's make it official.
+        </p>
+      </div>
+
+
+      <div class="card">
+
+        <div class="section-title">
+          <span>ADD YOUR CREW</span>
+          <span id="playerCount">0 players</span>
+        </div>
+
+        <div id="playersList"></div>
+
+        <div class="add-player">
+
+          <input
+            id="playerName"
+            type="text"
+            maxlength="18"
+            placeholder="Friend's name"
+          >
+
+          <button id="addPlayerBtn">
+            + Add
+          </button>
+
+        </div>
+
+
+        <div class="vibe-section">
+
+          <p class="section-label">
+            PICK THE VIBE
+          </p>
+
+          <div class="vibes">
+
+            <button class="vibe-btn active" data-vibe="funny">
+              😂
+              <span>Funny</span>
+            </button>
+
+            <button class="vibe-btn" data-vibe="friends">
+              💗
+              <span>Friends</span>
+            </button>
+
+            <button class="vibe-btn" data-vibe="work">
+              💼
+              <span>Work</span>
+            </button>
+
+            <button class="vibe-btn" data-vibe="savage">
+              🔥
+              <span>Savage</span>
+            </button>
+
+            <button class="vibe-btn" data-vibe="mixed">
+              🎲
+              <span>Mixed</span>
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="custom-section">
+
+          <p class="section-label">
+            GOT AN INSIDE JOKE?
+          </p>
+
+          <div class="custom-question">
+
+            <input
+              id="customQuestion"
+              type="text"
+              maxlength="100"
+              placeholder="Who's most likely to..."
+            >
+
+            <button id="addQuestionBtn">
+              +
+            </button>
+
+          </div>
+
+          <p id="questionMessage"></p>
+
+        </div>
+
+
+        <button id="startBtn" class="main-btn">
+          Start the drama 👀
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================== -->
+    <!-- GAME SCREEN -->
+    <!-- ===================== -->
+
+    <section class="screen" id="gameScreen">
+
+      <div class="game-top">
+
+        <button id="quitBtn" class="back-btn">
+          ←
+        </button>
+
+        <span id="questionCounter">
+          1 / 10
+        </span>
+
+      </div>
+
+
+      <div class="progress">
+        <div id="progressFill"></div>
+      </div>
+
+
+      <div class="question-card">
+
+        <p class="eyebrow">
+          WHO'S MOST LIKELY TO...
+        </p>
+
+        <h2 id="questionText">
+          be late to their own wedding? 😂
+        </h2>
+
+      </div>
+
+
+      <p class="vote-label">
+        TAP YOUR ANSWER 👇
+      </p>
+
+      <div id="voteOptions" class="vote-options"></div>
+
+    </section>
+
+
+    <!-- ===================== -->
+    <!-- RESULTS -->
+    <!-- ===================== -->
+
+    <section class="screen" id="resultsScreen">
+
+      <div class="results-header">
+
+        <p class="eyebrow">
+          THE RESULTS ARE IN ✦
+        </p>
+
+        <h2>
+          Well... this is awkward. 👀
+        </h2>
+
+      </div>
+
+
+      <div class="winner-card">
+
+        <span class="crown">👑</span>
+
+        <p>THE MAIN CHARACTER</p>
+
+        <h3 id="winnerName">
+          Taimaa
+        </h3>
+
+        <span id="winnerVotes">
+          0 votes
+        </span>
+
+      </div>
+
+
+      <div class="results-list">
+
+        <p class="section-label">
+          THE CREW
+        </p>
+
+        <div id="finalResults"></div>
+
+      </div>
+
+
+      <div class="result-actions">
+
+        <button id="copyResultsBtn" class="main-btn">
+          Copy results 📲
+        </button>
+
+        <button id="playAgainBtn" class="secondary-btn">
+          Play again
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <footer>
+      <span>30 DAYS • 30 PROJECTS</span>
+      <span>TAIMAA SIAM</span>
+    </footer>
+
+  </main>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
