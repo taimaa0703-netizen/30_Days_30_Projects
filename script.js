@@ -17,16 +17,6 @@ const projects = [
   unlocked: true
 },
 
-
-   {
-  day: 4,
-  name: "PARKED.",
-  description: "You parked. We remembered. 🚗📍",
-  tags: ["HTML", "CSS", "JavaScript"],
-  link: "projects/04_Parked/",
-  unlocked: true
-},
-
   {
     day: 3,
   name: "Who's Most Likely To?",
@@ -34,8 +24,16 @@ const projects = [
   tags: ["HTML", "CSS", "JavaScript"],
   link: "projects/03_WhosMostLikelyTo/",
   unlocked: true
-  }
+  },
   
+   {
+  day: 4,
+  name: "PARKED.",
+  description: "You parked. We remembered. 🚗📍",
+  tags: ["HTML", "CSS", "JavaScript"],
+  link: "projects/04_Parked/",
+  unlocked: true
+}
 ];
 
 
