@@ -18,17 +18,17 @@ const projects = [
 },
 
   {
-    day: 3,
+  day: 3,
   name: "Who's Most Likely To?",
   description: "We all know who. Let's make it official. 👀",
   tags: ["HTML", "CSS", "JavaScript"],
   link: "projects/03_WhosMostLikelyTo/",
   unlocked: true
-  },
-  
-   {
+},
+
+{
   day: 4,
-  name: "PARKED.",
+  name: "PARKD.",
   description: "You parked. We remembered. 🚗📍",
   tags: ["HTML", "CSS", "JavaScript"],
   link: "projects/04_Parked/",
