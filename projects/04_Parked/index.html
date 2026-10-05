@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Heebo:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <title>Parked. | Day 04</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<main class="app">
+
+  <!-- HEADER -->
+
+ <header>
+  <a href="../../" class="logo">PARKED.</a>
+
+  <div class="header-right">
+
+    <div class="language-switcher">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="he">עב</button>
+      <button class="lang-btn" data-lang="ar">عر</button>
+    </div>
+
+    <span class="day">DAY 04 / 30</span>
+
+  </div>
+</header>
+
+
+  <!-- =====================================
+       SAVE SCREEN
+  ====================================== -->
+
+  <section id="saveScreen" class="screen active">
+
+    <div class="hero">
+
+      <div class="hero-badge">
+        🚗
+        <span>YOUR PARKING MEMORY</span>
+      </div>
+
+      <h1>
+        Where's
+        <span>my car?</span>
+      </h1>
+
+      <p>
+        Save it now.
+        <br>
+        Thank yourself later.
+      </p>
+
+    </div>
+
+
+    <!-- GPS -->
+
+    <button
+      id="locationBtn"
+      class="location-card"
+      type="button"
+    >
+
+      <div class="location-icon">
+        ↗
+      </div>
+
+      <div class="location-copy">
+
+        <strong>
+          SAVE MY LOCATION
+        </strong>
+
+        <span id="locationStatus">
+          Use GPS to remember where you parked
+        </span>
+
+      </div>
+
+      <div class="location-arrow">
+        →
+      </div>
+
+    </button>
+
+
+    <!-- DIVIDER -->
+
+    <div class="divider">
+      <span>OPTIONAL PARKING DETAILS</span>
+    </div>
+
+
+    <!-- DETAILS -->
+
+    <div class="details-card">
+
+      <div class="details-heading">
+
+        <div>
+          <span class="section-label">
+            PARKING DETAILS
+          </span>
+
+          <h2>
+            Make it easier to find.
+          </h2>
+        </div>
+
+        <div class="parking-p">
+          P
+        </div>
+
+      </div>
+
+
+      <div class="fields-row">
+
+        <div class="field">
+
+          <label for="floorInput">
+            FLOOR
+          </label>
+
+          <input
+            id="floorInput"
+            type="text"
+            maxlength="10"
+            placeholder="P2"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="zoneInput">
+            ZONE
+          </label>
+
+          <input
+            id="zoneInput"
+            type="text"
+            maxlength="15"
+            placeholder="B"
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="spotInput">
+          SPOT NUMBER
+        </label>
+
+        <input
+          id="spotInput"
+          class="spot-input"
+          type="text"
+          maxlength="15"
+          placeholder="147"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="noteInput">
+          QUICK NOTE
+        </label>
+
+        <input
+          id="noteInput"
+          type="text"
+          maxlength="60"
+          placeholder="Near elevator B..."
+        >
+
+      </div>
+
+
+      <button
+        id="saveBtn"
+        class="primary-btn"
+        type="button"
+      >
+        SAVE MY PARKING
+        <span>→</span>
+      </button>
+
+      <p
+        id="formMessage"
+        class="message"
+      ></p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================
+       SAVED SCREEN
+  ====================================== -->
+
+  <section id="parkedScreen" class="screen">
+
+
+    <div class="saved-top">
+
+      <div class="success-pill">
+        <span>✓</span>
+        CAR SAVED
+      </div>
+
+      <p>
+        Future you says thanks.
+      </p>
+
+    </div>
+
+
+    <!-- MAIN PARKING CARD -->
+
+    <div class="car-card">
+
+      <div class="car-card-header">
+
+        <span>
+          YOUR CAR IS AT
+        </span>
+
+        <div class="parking-p lime">
+          P
+        </div>
+
+      </div>
+
+
+      <div
+        id="savedFloor"
+        class="big-floor"
+      >
+        P2
+      </div>
+
+
+      <div class="parking-info">
+
+        <div>
+          <span>ZONE</span>
+          <strong id="savedZone">B</strong>
+        </div>
+
+        <div>
+          <span>SPOT</span>
+          <strong id="savedSpot">147</strong>
+        </div>
+
+      </div>
+
+
+      <div
+        id="savedNoteContainer"
+        class="saved-note"
+      >
+        <span class="note-pin">●</span>
+
+        <span id="savedNote">
+          Near elevator B
+        </span>
+      </div>
+
+
+      <div class="parked-at">
+
+        <span>
+          PARKED AT
+        </span>
+
+        <strong id="parkedAtText">
+          --
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <button
+      id="navigateBtn"
+      class="navigate-btn"
+      type="button"
+    >
+
+      <div class="nav-icon">
+        ↗
+      </div>
+
+      <div class="nav-copy">
+
+        <strong>
+          TAKE ME TO MY CAR
+        </strong>
+
+        <span>
+          Open walking directions
+        </span>
+
+      </div>
+
+      <div class="nav-arrow">
+        →
+      </div>
+
+    </button>
+
+
+    <p
+      id="navigationMessage"
+      class="message"
+    ></p>
+
+
+    <!-- KEEP IT -->
+
+    <div class="keep-section">
+
+      <div class="keep-title">
+
+        <span>
+          KEEP IT WITH YOU
+        </span>
+
+        <p>
+          No need to keep this page open.
+        </p>
+
+      </div>
+
+
+      <div class="quick-actions">
+
+
+        <button
+          id="saveCardBtn"
+          class="action-card"
+          type="button"
+        >
+
+          <div class="action-icon">
+            ▣
+          </div>
+
+          <strong>
+            SAVE CARD
+          </strong>
+
+          <span>
+            Keep it in Photos
+          </span>
+
+        </button>
+
+
+        <button
+          id="shareBtn"
+          class="action-card"
+          type="button"
+        >
+
+          <div class="action-icon">
+            ↗
+          </div>
+
+          <strong>
+            SHARE
+          </strong>
+
+          <span>
+            Send it anywhere
+          </span>
+
+        </button>
+
+
+        <button
+          id="mapsBtn"
+          class="action-card"
+          type="button"
+        >
+
+          <div class="action-icon">
+            ◎
+          </div>
+
+          <strong>
+            MAPS
+          </strong>
+
+          <span>
+            Open saved spot
+          </span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- BOTTOM ACTIONS -->
+
+    <div class="bottom-actions">
+
+      <button
+        id="editBtn"
+        class="text-btn"
+        type="button"
+      >
+        Edit parking
+      </button>
+
+
+      <button
+        id="foundBtn"
+        class="found-btn"
+        type="button"
+      >
+        ✓ I FOUND MY CAR
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================
+       FOUND SCREEN
+  ====================================== -->
+
+  <section id="foundScreen" class="screen">
+
+    <div class="found-screen-content">
+
+      <div class="found-check">
+        ✓
+      </div>
+
+      <span class="section-label">
+        REUNITED
+      </span>
+
+      <h2>
+        Found it.
+        <span>Easy. 😌</span>
+      </h2>
+
+      <p>
+        Parking memory cleared.
+        <br>
+        Until next time. 🚗
+      </p>
+
+
+      <button
+        id="parkAgainBtn"
+        class="primary-btn"
+        type="button"
+      >
+        PARK AGAIN
+        <span>→</span>
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <footer>
+    <span>30 DAYS • 30 PROJECTS</span>
+    <span>TAIMAA SIAM</span>
+  </footer>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>
