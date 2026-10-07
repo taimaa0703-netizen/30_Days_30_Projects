@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPARE</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="theme.css" />
+</head>
+
+<body>
+
+  <main class="app">
+
+    <div class="topbar">
+      <span class="day-pill" lang="en" dir="ltr">DAY 06 / 30</span>
+    <div class="language-switcher" role="group" aria-label="Language">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="ar">عربي</button>
+      <button class="lang-btn" data-lang="he">עברית</button>
+    </div>
+    </div>
+
+    <header class="hero">
+
+      <div class="clock-art" aria-hidden="true"><i></i><b></b></div>
+
+      <div class="brand" lang="en" dir="ltr">
+        <h1>SPARE<span>.</span></h1>
+
+        <p class="brand-meaning">
+          <span class="brand-word"><b>S</b>ee</span>
+          <span class="brand-word"><b>P</b>lan</span>
+          <span class="brand-word"><b>A</b>rrange</span>
+          <span class="brand-word"><b>R</b>eclaim</span>
+          <span class="brand-word"><b>E</b>xecute</span>
+        </p>
+      </div>
+
+      <h2 class="hero-title" data-i18n="heroTitle">
+        Where's your time?
+      </h2>
+
+      <p class="hero-text" data-i18n="hero">
+        Maybe you don't need more time… maybe you just don't see it yet.
+      </p>
+
+    </header>
+    <aside class="usage-guide">
+      <h3 data-i18n="usageTitle">Your time, made clear</h3>
+      <p data-i18n="usageIntro">Add your tasks and their duration, then choose your free time or finish time. SPARE puts the work that fits into a realistic plan.</p>
+      <p data-i18n="usageExtra">Start the built-in timer for each step. Come back throughout the week to manage tasks and see your weekly and monthly progress.</p>
+    </aside>
+    <nav class="workspace-nav" role="tablist" data-i18n-aria-label="workspaceLabel">
+      <button id="viewTime" type="button" role="tab" aria-selected="true" aria-controls="timePanel" data-view="time"><span aria-hidden="true">01</span><span data-i18n="viewTime">My time</span></button>
+      <button id="viewTasks" type="button" role="tab" aria-selected="false" aria-controls="tasksPanel" data-view="tasks" tabindex="-1"><span aria-hidden="true">02</span><span data-i18n="viewTasks">My tasks</span></button>
+      <button id="viewPlan" type="button" role="tab" aria-selected="false" aria-controls="planPanel" data-view="plan" tabindex="-1"><span aria-hidden="true">03</span><span data-i18n="viewPlan">My plan</span></button>
+      <button id="viewProgress" type="button" role="tab" aria-selected="false" aria-controls="dashboard" data-view="progress" tabindex="-1"><span aria-hidden="true">04</span><span data-i18n="viewProgress">Progress</span></button>
+    </nav>
+
+
+    <div class="planner-grid">
+    <section id="timePanel" class="card time-card" role="tabpanel" aria-labelledby="viewTime">
+      <span class="step-number" aria-hidden="true">01</span>
+      <label for="availableTime" data-i18n="availableTime">
+        How much free time do you have?
+      </label>
+
+      <label class="mode-label" for="timeMode" data-i18n="timeMode">Plan by</label>
+      <select id="timeMode" hidden>
+        <option value="duration" data-i18n="durationMode">Free time</option>
+        <option value="deadline" data-i18n="deadlineMode">Finish by a time</option>
+      </select>
+
+      <div class="mode-switch" role="group" data-i18n-aria-label="timeMode">
+        <button type="button" data-choice-target="timeMode" data-value="duration" aria-pressed="true"><span data-i18n="durationMode">Free time</span></button>
+        <button type="button" data-choice-target="timeMode" data-value="deadline" aria-pressed="false"><span data-i18n="deadlineMode">Finish by a time</span></button>
+      </div>
+      <div id="durationFields" class="time-input">
+        <div class="time-field">
+          <label for="availableHours" data-i18n="hours">Hours</label>
+          <input type="number" id="availableHours" placeholder="0" min="0" step="1" />
+        </div>
+        <div class="time-field">
+          <label for="availableTime" data-i18n="minutesPlaceholder">Minutes</label>
+          <input type="number" id="availableTime" placeholder="0" min="0" step="1" />
+        </div>
+      </div>
+      <div id="deadlineFields" class="hidden">
+        <label for="finishAt" data-i18n="finishAt">Finish today by</label>
+        <input type="hidden" id="finishAt" />
+        <div class="deadline-clock" dir="ltr">
+          <input type="number" id="finishHour" min="1" max="12" step="1" placeholder="hh" aria-label="Hour (1–12)" />
+          <span aria-hidden="true">:</span>
+          <input type="number" id="finishMinute" min="0" max="59" step="1" placeholder="mm" aria-label="Minute (0–59)" />
+          <select id="finishPeriod" aria-label="AM / PM"><option value="AM">AM</option><option value="PM">PM</option></select>
+        </div>
+      </div>
+      <div id="timePresets" class="time-presets" role="group" data-i18n-aria-label="availableTime">
+        <button type="button" data-minutes="30">30 <span data-i18n="minutesShort">min</span></button>
+        <button type="button" data-minutes="60">60 <span data-i18n="minutesShort">min</span></button>
+        <button type="button" data-minutes="90">90 <span data-i18n="minutesShort">min</span></button>
+      </div>
+      <div class="planning-options">
+        <label for="energyLevel" data-i18n="energyLabel">How is your energy?</label>
+        <select id="energyLevel" hidden>
+          <option value="high" data-i18n="energyHigh">Full of energy</option>
+          <option value="balanced" selected data-i18n="energyBalanced">Doing okay</option>
+          <option value="low" data-i18n="energyLow">Low energy</option>
+        </select>
+        <div class="energy-cards" role="group" data-i18n-aria-label="energyLabel">
+          <button type="button" data-choice-target="energyLevel" data-value="high" aria-pressed="false"><span data-i18n="energyHigh">Full of energy</span></button>
+          <button type="button" data-choice-target="energyLevel" data-value="balanced" aria-pressed="true"><span data-i18n="energyBalanced">Doing okay</span></button>
+          <button type="button" data-choice-target="energyLevel" data-value="low" aria-pressed="false"><span data-i18n="energyLow">Low energy</span></button>
+        </div>
+        <p id="energyHint" class="field-hint"></p>
+        <details class="comfort-settings" open><summary data-i18n="comfortSettings">Breaks & breathing room</summary>
+        <label for="breakMinutes" data-i18n="breakLabel">Break every 45 minutes</label>
+        <select id="breakMinutes" hidden>
+          <option value="5" data-i18n="breakFive">5 minutes</option>
+          <option value="10" data-i18n="breakTen">10 minutes</option>
+          <option value="0" data-i18n="noBreaks">No breaks</option>
+        </select>
+        <div class="break-choices" role="group" data-i18n-aria-label="breakLabel">
+          <button type="button" data-choice-target="breakMinutes" data-value="5" aria-pressed="true" data-i18n="breakFive">5 minutes</button>
+          <button type="button" data-choice-target="breakMinutes" data-value="10" aria-pressed="false" data-i18n="breakTen">10 minutes</button>
+          <button type="button" data-choice-target="breakMinutes" data-value="0" aria-pressed="false" data-i18n="noBreaks">No breaks</button>
+        </div>
+        <label class="check-label"><input type="checkbox" id="useBuffer" checked /><span data-i18n="bufferLabel">Keep 10% free for surprises</span></label>
+        </details>
+      </div>
+      <p class="time-note" data-i18n="timeHint">Start with the time you really have.</p>
+      <button id="goToTasks" class="workspace-next" type="button" data-i18n="goToTasks">Next: my tasks</button>
+    </section>
+
+
+    <section id="tasksPanel" class="card tasks-card" role="tabpanel" aria-labelledby="viewTasks">
+      <span class="step-number" aria-hidden="true">02</span>
+
+      <div class="section-title">
+
+        <div>
+          <span class="small-label" data-i18n="yourTasks">
+            YOUR TASKS
+          </span>
+
+          <h2 data-i18n="tasksTitle">
+            What needs to get done?
+          </h2>
+        </div>
+
+        <span id="taskCount">0 tasks</span>
+
+      </div>
+
+
+      <div class="task-form task-composer">
+        <div class="composer-heading"><span class="composer-dot" aria-hidden="true"></span><span data-i18n="newTask">A new task, a little more clarity.</span></div>
+        <div class="composer-section name-section">
+          <label class="composer-label" for="taskName"><span class="field-number" aria-hidden="true">01</span><span data-i18n="taskNameLabel">What would you like to do?</span></label>
+          <input id="taskName" type="text" placeholder="Finish assignment" data-i18n-placeholder="taskPlaceholder" autocomplete="off" />
+          <div id="estimateSuggestion" class="estimate-suggestion hidden"><p id="estimateText"></p><button id="applyEstimate" type="button" data-i18n="applyEstimate">Use this estimate</button></div>
+        </div>
+        <div class="composer-section duration-section">
+          <div class="composer-label"><span class="field-number" aria-hidden="true">02</span><span data-i18n="taskDurationLabel">Give it some time</span></div>
+          <div class="duration-input composer-duration">
+            <div class="time-field"><label for="taskHours" data-i18n="hours">Hours</label><input id="taskHours" type="number" placeholder="0" min="0" step="1" /></div>
+            <span class="duration-divider" aria-hidden="true">:</span>
+            <div class="time-field"><label for="taskMinutes" data-i18n="minutesPlaceholder">Minutes</label><input id="taskMinutes" type="number" placeholder="0" min="0" step="1" /></div>
+          </div>
+          <p class="composer-hint" data-i18n="durationExample">Two and a half hours? Enter 2 hours and 30 minutes.</p>
+        </div>
+        <details class="composer-section task-preferences"><summary data-i18n="optionalPreferences">Task preferences (optional)</summary><div class="preferences-section">
+          <div class="composer-label"><span class="field-number" aria-hidden="true">03</span><span data-i18n="taskPreferences">Make it fit your day</span></div>
+          <div class="choice-field">
+            <span id="priorityCaption" class="choice-caption" data-i18n="priorityLabel">Task priority</span>
+            <select id="priority" hidden><option value="3">High</option><option value="2">Medium</option><option value="1">Low</option></select>
+            <div class="choice-group" role="group" aria-labelledby="priorityCaption">
+              <button type="button" data-choice-target="priority" data-value="3" aria-pressed="true"><span class="choice-mark priority-high" aria-hidden="true"></span><span data-i18n="priorityHighClean">High</span></button>
+              <button type="button" data-choice-target="priority" data-value="2" aria-pressed="false"><span class="choice-mark priority-medium" aria-hidden="true"></span><span data-i18n="medium">Medium</span></button>
+              <button type="button" data-choice-target="priority" data-value="1" aria-pressed="false"><span class="choice-mark priority-low" aria-hidden="true"></span><span data-i18n="low">Low</span></button>
+            </div>
+          </div>
+          <div class="choice-field">
+            <span id="effortCaption" class="choice-caption" data-i18n="effortLabel">How much focus does it need?</span>
+            <select id="taskEffort" hidden><option value="light">Light</option><option value="normal" selected>Normal</option><option value="deep">Deep</option></select>
+            <div class="choice-group effort-choices" role="group" aria-labelledby="effortCaption">
+              <button type="button" data-choice-target="taskEffort" data-value="light" aria-pressed="false"><span data-i18n="effortLight">Light / simple</span></button>
+              <button type="button" data-choice-target="taskEffort" data-value="normal" aria-pressed="true"><span data-i18n="effortNormal">Some focus</span></button>
+              <button type="button" data-choice-target="taskEffort" data-value="deep" aria-pressed="false"><span data-i18n="effortDeep">Deep focus</span></button>
+            </div>
+          </div>
+          <div class="task-toggles">
+            <label class="toggle-card"><input type="checkbox" id="mustToday" /><span><strong data-i18n="mustToday">Must do today</strong><small data-i18n="mustHint">Give this a place at the front.</small></span></label>
+            <label class="toggle-card"><input type="checkbox" id="canSplit" checked /><span><strong data-i18n="canSplit">Can start with part of this task</strong><small data-i18n="splitHint">A small start counts, too.</small></span></label>
+          </div>
+        </div>
+        </details>
+        <div class="composer-footer">
+          <p id="taskFeedback" class="composer-feedback" role="status" aria-live="polite" data-i18n="taskComposerHint">One task at a time. You can add more next.</p>
+          <button id="addTask" type="button" class="add-btn composer-add"><span class="add-symbol" aria-hidden="true">+</span><span data-i18n="addTaskClean">Add to my tasks</span></button>
+        </div>
+      </div>
+
+      <div id="taskList" class="task-list"></div>
+      <p id="emptyTasks" class="empty-tasks" data-i18n="emptyTasks">A little space for everything on your mind.</p>
+
+    </section>
+
+
+    <div class="plan-actions">
+<button id="buildPlan" class="main-btn" data-i18n="buildPlan">
+      FIND MY TIME ✨
+    </button>
+    </div>
+    <p class="find-time-explanation" data-i18n="findTimeMeaning">“Find my time” builds a plan inside your available time, with your priorities, energy, breaks and breathing room in mind.</p>
+    </div>
+
+
+    <div id="planPanel" role="tabpanel" aria-labelledby="viewPlan">
+    <div id="emptyPlan" class="empty-plan"><h2 data-i18n="emptyPlanTitle">Your next step starts here.</h2><p data-i18n="emptyPlanHint">Choose your time and add a task. Then build your plan.</p><button id="emptyPlanTasks" type="button" class="main-btn" data-i18n="viewTasks">My tasks</button></div>
+    <section id="results" class="results hidden">
+
+      <div class="result-header">
+        <span class="small-label" data-i18n="yourPlan">
+          YOUR PLAN
+        </span>
+
+        <h2 data-i18n="whatFits">
+          Here's what actually fits 👀
+        </h2>
+      </div>
+
+      <div id="sessionCard" class="session-card hidden">
+        <span class="small-label" data-i18n="focusNow">ONE STEP AT A TIME</span>
+        <h3 id="sessionName"></h3>
+        <div id="timerDisplay" class="timer-display" role="timer" dir="ltr">00:00</div>
+        <p id="sessionStatus" role="status" aria-live="polite"></p>
+        <div class="session-actions">
+          <button id="startSession" class="main-btn" data-i18n="startSession">Start</button>
+          <button id="pauseSession" class="reset-btn" data-i18n="pauseSession">Pause</button>
+          <button id="finishSession" class="reset-btn" data-i18n="finishSession">Done / next</button>
+        </div>
+        <button id="replanSession" class="replan-btn" data-i18n="replanSession">Running late? Update my plan</button>
+      </div>
+      <p id="planSummary" class="plan-summary" role="status"></p>
+      <button id="dayChanged" class="day-changed-btn" type="button" aria-expanded="false" aria-controls="urgentPanel" data-i18n="dayChanged">My day changed</button>
+      <div id="urgentPanel" class="card urgent-panel hidden">
+        <label for="urgentName" data-i18n="urgentLabel">What urgent task came up?</label>
+        <input id="urgentName" type="text" data-i18n-placeholder="taskPlaceholder" />
+        <div class="duration-input">
+          <div class="time-field"><label for="urgentHours" data-i18n="hours">Hours</label><input id="urgentHours" type="number" min="0" step="1" placeholder="0" /></div>
+          <div class="time-field"><label for="urgentMinutes" data-i18n="minutesPlaceholder">Minutes</label><input id="urgentMinutes" type="number" min="0" step="1" placeholder="0" /></div>
+        </div>
+        <button id="addUrgent" type="button" class="add-btn" data-i18n="addUrgent">Add and update my plan</button>
+      </div>
+      <p id="planNotice" class="plan-notice hidden" role="status" aria-live="polite"></p>
+
+      <div class="card">
+
+        <div id="plannedTasks"></div>
+
+        <div class="progress-area">
+
+          <div class="progress-info">
+            <span data-i18n="timeUsed">
+              Time used
+            </span>
+
+            <strong id="timeUsed"></strong>
+          </div>
+
+          <div class="progress-track">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div id="laterCard" class="card hidden">
+
+        <span class="small-label" data-i18n="saveForLater">
+          SAVE FOR LATER
+        </span>
+
+        <div id="laterTasks"></div>
+
+      </div>
+
+
+      <div id="realityMessage" class="reality-card"></div>
+
+
+      <button id="reset" class="reset-btn" data-i18n="startAgain">
+        Start again
+      </button>
+
+    </section>
+
+    </div>
+    <section id="dashboard" class="dashboard" role="tabpanel" aria-labelledby="viewProgress">
+      <div class="dashboard-heading"><div><span class="small-label" data-i18n="progressLabel">YOUR PROGRESS</span><h2 id="dashboardTitle" data-i18n="dashboardTitle">A little progress, every day.</h2></div>
+        <div class="dashboard-tabs" role="group" data-i18n-aria-label="periodLabel"><button id="weekView" type="button" aria-pressed="true" data-i18n="weekView">Week</button><button id="monthView" type="button" aria-pressed="false" data-i18n="monthView">Month</button></div>
+      </div>
+      <div class="period-nav"><button id="previousPeriod" type="button" data-i18n-aria-label="previousPeriod">←</button><strong id="periodTitle" aria-live="polite"></strong><button id="nextPeriod" type="button" data-i18n-aria-label="nextPeriod">→</button><button id="currentPeriod" class="current-period" type="button" data-i18n="currentPeriod">Today</button></div>
+      <div class="dashboard-stats">
+        <div><span data-i18n="completedLabel">Completed</span><strong id="completedStat">0</strong><small id="plannedStat"></small></div>
+        <div><span data-i18n="focusLabel">Measured focus</span><strong id="focusStat">0</strong></div>
+        <div><span data-i18n="activeLabel">Active days</span><strong id="activeStat">0</strong></div>
+      </div>
+      <div class="dashboard-chart-card"><h3 data-i18n="dailyFocus">Your focus, day by day</h3><div id="focusChart" class="focus-chart"></div><p class="dashboard-note" data-i18n="measuredNote">Focus time comes from the timer. Checking a task does not add time.</p></div>
+      <div id="monthCalendar" class="month-calendar hidden"></div>
+      <div class="dashboard-insight"><span aria-hidden="true">✦</span><p id="dashboardInsight"></p></div>
+      <details class="completed-journal"><summary data-i18n="completedLabel">Completed tasks</summary><div id="completedJournalList"></div></details>
+      <div class="weekly-backlog"><div class="backlog-heading"><h3 data-i18n="unfinishedLabel">Still on your mind</h3><span id="backlogCount"></span></div><p class="dashboard-note" data-i18n="carryHint">Move unfinished tasks to next week, and bring them into your planner when you are ready.</p><div id="backlogList"></div></div>
+    </section>
+  </main>
+  <p class="storage-note" data-i18n="savedHint">Your tasks and settings are saved on this device.</p>
+
+  <script src="script.js"></script>
+  <script src="dashboard.js"></script>
+  <script src="planner.js"></script>
+  <script src="workspace.js"></script>
+  <script src="number-controls.js"></script>
+
+</body>
+</html>

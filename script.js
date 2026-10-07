@@ -41,6 +41,14 @@ const projects = [
   tags: ["HTML", "CSS", "JavaScript", "Supabase"],
   link: "projects/05_KEEP/index.html",
   unlocked: true
+},
+{
+  day: 6,
+  name: "SPARE.",
+  description: "Make time for what matters. Plan your tasks, stay focused with a timer, and track your weekly and monthly progress.",
+  tags: ["HTML", "CSS", "JavaScript"],
+  link: "projects/06_DoIHaveTime/index.html",
+  unlocked: true
 }
 ];
 
