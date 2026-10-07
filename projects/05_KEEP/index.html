@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KEEP. — Your money, remembered.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Heebo:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="top-actions">
+    <div class="language-switcher">
+      <button class="lang-btn active" data-lang="en">EN</button><button class="lang-btn" data-lang="he">עב</button><button class="lang-btn" data-lang="ar">عر</button>
+    </div>
+    
+    <button id="logoutBtn" class="ghost-btn hidden">  <a >LOG OUT </a> </button>
+  </div>
+     <div class="app-actions">
+
+  <a
+    href="../../index.html"
+    class="back-home-btn"
+  >
+  <span aria-hidden="true">←</span> <span data-action-label="home">Back to 30 Projects</span> 
+  </a>
+
+</div>
+</header>
+
+<main id="authScreen" class="screen auth-screen">
+
+  <section class="auth-brand">
+    <div class="day-pill">DAY 05 / 30</div>
+
+    <h1>
+      KEEP<span>.</span>
+    </h1>
+
+    <p data-i18n="authHook">
+      Your money has a memory now. 👀
+    </p>
+  </section>
+
+  <section class="auth-card">
+
+    <!-- GOOGLE LOGIN -->
+    <button
+      id="googleLoginBtn"
+      class="google-btn"
+      type="button"
+    >
+      <span class="google-g">G</span>
+
+      <span data-i18n="googleLogin">
+        Continue with Google
+      </span>
+    </button>
+
+    <div class="auth-divider">
+      <span data-i18n="or">OR</span>
+    </div>
+
+    <!-- CONTINUE WITHOUT ACCOUNT -->
+    <button
+      id="guestLoginBtn"
+      class="primary-btn"
+      type="button"
+    >
+      <span data-i18n="guestLogin">
+        Continue without account
+      </span>
+
+      <span>→</span>
+    </button>
+
+    <p
+      class="guest-note"
+      data-i18n="guestNote"
+    >
+      Want to keep your data?
+      Sign in with Google and it stays with you ✨
+    </p>
+
+    <p
+      id="authMessage"
+      class="message"
+    ></p>
+
+  </section>
+
+</main>
+
+<main id="appScreen" class="screen hidden">
+  <section class="hero compact">
+    <div class="day-pill">DAY 05 / 30</div><h1>KEEP<span>.</span></h1>
+    <p class="hero-text" data-i18n="hero">Does your salary have a plan… or does it spend itself? 👀</p>
+    <p class="hero-subtext" data-i18n="heroSub">KEEP. does the math with you. 💸</p>
+  </section>
+
+  <nav class="month-nav">
+    <button id="prevMonth">→</button><button id="monthTitle" class="month-title"></button><button id="nextMonth">←</button>
+  </nav>
+  <div class="view-tabs"><button id="monthViewBtn" class="view-tab active" data-i18n="month">Month</button><button id="yearViewBtn" class="view-tab" data-i18n="year">Your year</button></div>
+
+  <section id="monthView">
+    <section id="setupCard" class="setup-card">
+      <div class="section-heading"><span class="step">01</span><div><p class="eyebrow" data-i18n="incomeLabel">FIRST THINGS FIRST</p><h2 data-i18n="incomeTitle">How much came in? 💸</h2></div></div>
+      <label class="input-label" data-i18n="salaryLabel">My salary</label><div class="money-input"><span>₪</span><input id="salaryInput" type="number" min="0" inputmode="decimal" placeholder="10,000"></div>
+      <div class="divider"></div>
+      <div class="section-heading"><span class="step">02</span><div><p class="eyebrow" data-i18n="fixedLabel">THE UNAVOIDABLE STUFF 🥲</p><h2 data-i18n="fixedTitle">What takes its share every month?</h2></div></div>
+      <div id="fixedList" class="fixed-list"></div>
+      <div class="add-fixed-row"><input id="fixedName" type="text" data-placeholder="fixedPlaceholder" placeholder="Car, rent, phone..."><div class="small-money"><span>₪</span><input id="fixedAmount" type="number" min="0" inputmode="decimal" placeholder="0"></div><button id="addFixedBtn" class="plus-btn">+</button></div>
+      <div class="divider"></div>
+      <div class="section-heading"><span class="step">03</span><div><p class="eyebrow" data-i18n="saveLabel">A LITTLE FOR FUTURE YOU ✨</p><h2 data-i18n="saveTitle">How much are we putting aside?</h2></div></div>
+      <div class="money-input"><span>₪</span><input id="savingsInput" type="number" min="0" inputmode="decimal" placeholder="1,500"></div>
+      <button id="saveMonthBtn" class="primary-btn"><span data-i18n="saveMonth">SAVE MY MONTH</span><span>→</span></button><p id="setupMessage" class="message"></p>
+    </section>
+
+    <section id="dashboard" class="hidden">
+      <section class="dashboard-hero"><div class="dashboard-top"><div><p class="eyebrow" data-i18n="yoursToKeep">THIS IS YOURS 🤭</p><h1 id="leftAmount">₪0</h1></div><button id="editMonthBtn" class="edit-month-btn" type="button"><span aria-hidden="true">✎</span> <span data-action-label="editMonth">Edit month</span></button></div><p id="moneyMood" class="money-mood"></p><div class="daily-card"><div><p data-i18n="safeToday">YOU CAN SPEND / DAY</p><strong id="dailyAmount">₪0</strong></div><div class="days-box"><strong id="daysLeft">0</strong><span data-i18n="daysLeft">days left</span></div></div></section>
+      <section class="overview-grid"><article class="mini-card"><span data-i18n="salary">Came in</span><strong id="salaryValue">₪0</strong></article><article class="mini-card"><span data-i18n="fixed">Had to go</span><strong id="fixedValue">−₪0</strong></article><article class="mini-card"><span data-i18n="spent">You spent</span><strong id="spentValue">−₪0</strong></article><article class="mini-card savings-card"><span data-i18n="saving">Keeping safe</span><strong id="savingValue">₪0</strong></article></section>
+      <section class="month-card"><div class="card-title-row"><div><p class="eyebrow" data-i18n="monthCheck">OKAY BUT...</p><h2 data-i18n="whereMoney">Where did the salary go? 👀</h2></div><span id="monthPercent">0%</span></div><div class="progress-track"><div id="progressBar" class="progress-bar"></div></div><div class="progress-labels"><span data-i18n="used">Gone so far</span><span id="usedAmount">₪0</span></div></section>
+      <input id="receiptInput" class="hidden" type="file" accept="image/*" capture="environment">
+      <section class="insight-card"><div class="insight-icon">↗</div><div><p class="eyebrow" data-i18n="forecast">IF YOU KEEP GOING LIKE THIS...</p><h2 id="forecastAmount">₪0</h2><p id="forecastText"></p></div></section>
+      <section class="tips-section"><div class="section-title"><div><p class="eyebrow" data-i18n="smartSaving">CAN WE KEEP A LITTLE MORE? 👀</p><h2 data-i18n="keepMore">Tiny changes. More money left.</h2></div><span>💡</span></div><div id="tipsContainer"></div></section>
+      <section class="expenses-section"><div class="section-title"><div><p class="eyebrow" data-i18n="recent">THE RECEIPTS 👀</p><h2 data-i18n="expenses">What you’ve been spending on</h2></div></div><div id="expensesList"></div></section>
+      
+    </section>
+  </section>
+
+  <section id="yearView" class="hidden"><section class="year-card"><p class="eyebrow" data-i18n="yourYear">YOUR YEAR 👀</p><h2 id="yearHeading"></h2><div class="year-summary"><div><span data-i18n="earned">Earned</span><strong id="yearEarned">₪0</strong></div><div><span data-i18n="spentYear">Spent</span><strong id="yearSpent">₪0</strong></div><div><span data-i18n="savedYear">Planned savings</span><strong id="yearSaved">₪0</strong></div></div><div id="yearMonths" class="year-months"></div></section></section>
+</main>
+
+<div id="expenseModal" class="modal hidden"><div class="modal-backdrop"></div><div class="modal-sheet"><div class="modal-handle"></div><div class="modal-heading"><div><p class="eyebrow" data-i18n="newExpense">OKAY, WHAT HAPPENED? 😭</p><h2 data-i18n="whatBought">What did we buy?</h2></div><button id="closeModalBtn" class="close-btn">×</button></div><div class="money-input giant"><span>₪</span><input id="expenseAmount" type="number" min="0" inputmode="decimal" placeholder="0"></div><p class="input-label" data-i18n="category">Pick a category</p><div class="categories"><button class="category active" data-category="food"><span>🍔</span><small data-i18n="food">Food</small></button><button class="category" data-category="coffee"><span>☕</span><small data-i18n="coffee">Coffee</small></button><button class="category" data-category="shopping"><span>🛍️</span><small data-i18n="shopping">Shopping</small></button><button class="category" data-category="transport"><span>⛽</span><small data-i18n="transport">Transport</small></button><button class="category" data-category="fun"><span>🎉</span><small data-i18n="fun">Fun</small></button><button class="category" data-category="study"><span>📚</span><small data-i18n="study">Study</small></button><button class="category" data-category="other"><span>✨</span><small data-i18n="other">Other</small></button></div><input id="expenseNote" class="note-input" type="text" data-placeholder="notePlaceholder" placeholder="What was it? (optional)"><section class="receipt-attachment" aria-labelledby="receiptAttachmentTitle"><h3 id="receiptAttachmentTitle">Receipt (optional)</h3><div class="receipt-camera-row"><button id="scanReceiptBtn" class="receipt-camera-btn" type="button"><span aria-hidden="true">📸</span><span data-i18n="scanReceipt">PHOTO RECEIPT</span></button><button id="uploadReceiptBtn" class="receipt-camera-btn" type="button"><span aria-hidden="true">+</span><span id="uploadReceiptLabel">Choose image</span></button></div><section id="receiptPreviewSection" class="receipt-preview-section hidden"><img id="receiptPreview" class="receipt-preview" alt="Receipt preview"><p id="receiptHint" class="receipt-hint"></p></section><input id="receiptUploadInput" class="hidden" type="file" accept="image/*"></section><button id="saveExpenseBtn" class="primary-btn"><span data-i18n="saveExpense">YEP, ADD IT</span><span>✓</span></button><p id="expenseMessage" class="message"></p></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="script.js"></script>
+</body>
+
+
+
+</html>

@@ -33,6 +33,14 @@ const projects = [
   tags: ["HTML", "CSS", "JavaScript"],
   link: "projects/04_Parked/",
   unlocked: true
+},
+{
+  day: 5,
+  name: "KEEP.",
+  description: "Your money, remembered. Plan your month and track your spending.",
+  tags: ["HTML", "CSS", "JavaScript", "Supabase"],
+  link: "projects/05_KEEP/index.html",
+  unlocked: true
 }
 ];
 
