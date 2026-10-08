@@ -462,3 +462,6 @@
 @media(max-width: 640px) {
   .app .workspace-nav #viewProgress[aria-selected='true'] { color: #6f6179; background: #eee5f5; border-color: #b99dcc; }
 }
+
+/* Keep navigation and the selected panel together when switching screens. */
+.app .workspace-nav { scroll-margin-top: 12px; }

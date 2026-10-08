@@ -15,7 +15,8 @@ const workspaceViews = ['time', 'tasks', 'plan', 'progress', 'diary'];
 const workspaceButtons = ['viewTime', 'viewTasks', 'viewPlan', 'viewProgress', 'viewDiary'].map(byId);
 function showWorkspace(view, focus = false) {
   if (!workspaceViews.includes(view)) return;
-  const changed = document.querySelector('.app').getAttribute('data-workspace-view') !== view;
+  const previousView = document.querySelector('.app').getAttribute('data-workspace-view');
+  const changed = previousView !== view;
   document.querySelector('.app').setAttribute('data-workspace-view', view);
   workspaceButtons.forEach((button, index) => {
     const selected = workspaceViews[index] === view;
@@ -26,13 +27,13 @@ function showWorkspace(view, focus = false) {
   byId('emptyPlan').classList.toggle('hidden', !!plan);
   if (view === 'diary') renderDiary();
   if (view === 'plan' && typeof refreshTaskNote === 'function') refreshTaskNote();
-  if (changed) {
-    const navigation = document.querySelector('.workspace-nav');
-    const mobile = window.matchMedia?.('(max-width: 640px)').matches;
-    const top = mobile && navigation
-      ? Math.max(0, navigation.getBoundingClientRect().top + window.scrollY - 12)
-      : 0;
-    window.scrollTo?.({ top, left: 0, behavior: 'instant' });
+  if (changed && previousView !== null) {
+    const alignNavigation = () => {
+      document.querySelector('.workspace-nav')?.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'instant' });
+    };
+    // Align after the selected panel has been laid out, including on iOS.
+    if (window.requestAnimationFrame) window.requestAnimationFrame(alignNavigation);
+    else alignNavigation();
   }
 }
 workspaceButtons.forEach((button, index) => {
