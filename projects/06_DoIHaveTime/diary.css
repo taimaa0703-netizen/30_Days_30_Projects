@@ -457,3 +457,8 @@
   .app .workspace-nav button[aria-selected='true'] .nav-step { background: #ffffff1f; color: #f2e5fc; }
   .app .workspace-nav button:focus-visible { outline: 2px solid #a68cba; outline-offset: 3px; }
 }
+
+/* Keep the progress label dark when selected on mobile. */
+@media(max-width: 640px) {
+  .app .workspace-nav #viewProgress[aria-selected='true'] { color: #6f6179; background: #eee5f5; border-color: #b99dcc; }
+}
