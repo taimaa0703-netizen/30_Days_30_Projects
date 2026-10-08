@@ -8,13 +8,15 @@ Object.keys(workspaceCopy).forEach(lang => Object.assign(translations[lang], wor
 Object.assign(translations.en, {viewTime: 'Day settings', viewPlan: 'Day schedule'});
 Object.assign(translations.he, {viewTime: 'הגדרות היום', viewPlan: 'סדר היום'});
 Object.assign(translations.ar, {viewTime: 'إعدادات اليوم', viewPlan: 'جدول يومي'});
+Object.assign(translations.en,{mobileViewTime:'Day',mobileViewTasks:'Tasks',mobileViewPlan:'Schedule',mobileViewProgress:'Progress',mobileViewDiary:'Diary'});
+Object.assign(translations.he,{mobileViewTime:'היום',mobileViewTasks:'משימות',mobileViewPlan:'סדר יום',mobileViewProgress:'התקדמות',mobileViewDiary:'מחברת'});
+Object.assign(translations.ar,{mobileViewTime:'يومي',mobileViewTasks:'مهامي',mobileViewPlan:'جدولي',mobileViewProgress:'تقدّمي',mobileViewDiary:'دفتري'});
 const workspaceViews = ['time', 'tasks', 'plan', 'progress', 'diary'];
 const workspaceButtons = ['viewTime', 'viewTasks', 'viewPlan', 'viewProgress', 'viewDiary'].map(byId);
 function showWorkspace(view, focus = false) {
   if (!workspaceViews.includes(view)) return;
   const changed = document.querySelector('.app').getAttribute('data-workspace-view') !== view;
   document.querySelector('.app').setAttribute('data-workspace-view', view);
-  byId('mobileWorkspaceView').value = view;
   workspaceButtons.forEach((button, index) => {
     const selected = workspaceViews[index] === view;
     button.setAttribute('aria-selected', String(selected));
@@ -40,7 +42,6 @@ workspaceButtons.forEach((button, index) => {
   });
 });
 byId('goToTasks').addEventListener('click', () => { showWorkspace('tasks'); taskName.focus({ preventScroll: true }); });
-byId('mobileWorkspaceView').addEventListener('change',event=>showWorkspace(event.target.value));
 byId('emptyPlanTasks').addEventListener('click', () => { showWorkspace('tasks'); taskName.focus({ preventScroll: true }); });
 showWorkspace('diary');
 changeLanguage(currentLanguage);
