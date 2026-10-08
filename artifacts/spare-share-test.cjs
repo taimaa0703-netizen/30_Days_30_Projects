@@ -10,7 +10,7 @@ vm.runInNewContext(code, { document, navigator: {language:'ar'}, location: {hash
 assert.equal(document.documentElement.dir, 'rtl');
 assert.equal(nodes.sharedSteps.children.length, 1);
 assert.equal(nodes.sharedSteps.children[0].children[1].textContent, day.steps[0].name);
-assert.equal(nodes.sharedSteps.children[0].children[0].textContent, `${new Date(day.start).toLocaleTimeString('ar',{hour:'2-digit',minute:'2-digit',hour12:true,timeZone:'UTC'})} → ${new Date(day.end).toLocaleTimeString('ar',{hour:'2-digit',minute:'2-digit',hour12:true,timeZone:'UTC'})}`, 'Shared times use supplied time zone');
+assert.equal(nodes.sharedSteps.children[0].children[0].textContent, `${new Date(day.start).toLocaleTimeString('ar',{hour:'2-digit',minute:'2-digit',hour12:true,timeZone:'UTC'})} – ${new Date(day.end).toLocaleTimeString('ar',{hour:'2-digit',minute:'2-digit',hour12:true,timeZone:'UTC'})}`, 'Shared times use supplied time zone');
 nodes.sharedSteps.children = [];
 vm.runInNewContext(code, { document, navigator: {language:'ar'}, location: {hash:'#broken'} });
 assert.equal(nodes.sharedSteps.children.length, 0);

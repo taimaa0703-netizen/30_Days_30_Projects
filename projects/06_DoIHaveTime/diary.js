@@ -137,7 +137,7 @@ function renderDiary() {
   byId('diaryWeek').appendChild(body);
   const selected=diaryDays[diarySelected];
   byId('diarySelectedTitle').textContent=new Date(diarySelected+'T12:00:00').toLocaleDateString(locale,{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  byId('diarySelectedSteps').innerHTML=selected?selected.steps.map(step=>`<div class="plan-item ${step.kind}-step"><div class="plan-time">${clockTime(step.start)} → ${clockTime(step.end)}</div><div class="plan-name">${escapeHTML(step.name)}<small>${formatDuration(Math.round((step.end-step.start)/60000))}</small></div></div>`).join(''):`<div class="diary-empty">${t.diaryEmpty}</div>`;
+  byId('diarySelectedSteps').innerHTML=selected?selected.steps.map(step=>`<div class="plan-item ${step.kind}-step"><div class="plan-time">${clockTime(step.start)} – ${clockTime(step.end)}</div><div class="plan-name">${escapeHTML(step.name)}<small>${formatDuration(Math.round((step.end-step.start)/60000))}</small></div></div>`).join(''):`<div class="diary-empty">${t.diaryEmpty}</div>`;
   ['shareDiaryDay','exportDiaryDay','deleteDiaryDay'].forEach(id=>byId(id).disabled=!selected);
   if (diaryScrolledDay !== diarySelected && document.querySelector('.app').getAttribute('data-workspace-view') === 'diary') {
     const firstHour=selected?new Date(selected.start).getHours():8;

@@ -421,15 +421,15 @@ function renderPlan() {
     const isPartial = plan.later.some(task => task.id === step.taskId && task.partial);
     const label = step.kind === 'break' ? t.breakName : step.kind === 'free' ? t.freeSlot : step.kind === 'reserve' ? t.reserveSlot : step.name;
     return `<div class="plan-item ${step.kind}-step ${index < session.index ? 'completed-task' : ''}">
-      <div class="plan-time">${clockTime(start)} → ${clockTime(start + step.minutes * 60000)}</div>
+      <div class="plan-time">${clockTime(start)} – ${clockTime(start + step.minutes * 60000)}</div>
       <div class="plan-name">${escapeHTML(label)}<small>${formatDuration(step.minutes)}${step.kind === 'appointment' ? ` · ${t.appointmentLabel}` : ''}${task?.must ? ` · ${t.mustToday}` : ''}${isPartial ? ` · ${plan.energy === 'low' ? t.gentlePart : t.partial}` : ''}</small></div></div>`;
   }).join('') || `<p>${t.nothingFits}</p>`;
   byId('laterTasks').innerHTML = plan.later.map(task => `<div class="plan-item later-item"><div class="plan-name">${escapeHTML(task.name)}<small>${formatDuration(task.remaining)} · ${t.remaining}${task.must ? ` · ${t.mustToday}` : ''}</small></div></div>`).join('');
   byId('laterCard').classList.toggle('hidden', !plan.later.length);
   byId('timeUsed').textContent = `${formatDuration(plan.used)} / ${formatDuration(plan.available)}`;
   byId('progressBar').style.width = `${plan.used / plan.available * 100}%`;
-  if (!plan.steps.some(step => step.kind === 'free') && plan.available > plan.used + plan.buffer) byId('plannedTasks').innerHTML += `<div class="plan-item free-step"><div class="plan-time">${clockTime(plan.start + plan.used * 60000)} → ${clockTime(plan.end - plan.buffer * 60000)}</div><div class="plan-name">${t.freeSlot}<small>${formatDuration(plan.available - plan.used - plan.buffer)}</small></div></div>`;
-  if (!plan.steps.some(step => step.kind === 'reserve') && plan.buffer > 0) byId('plannedTasks').innerHTML += `<div class="plan-item reserve-step"><div class="plan-time">${clockTime(plan.end - plan.buffer * 60000)} → ${clockTime(plan.end)}</div><div class="plan-name">${t.reserveSlot}<small>${formatDuration(plan.buffer)}</small></div></div>`;
+  if (!plan.steps.some(step => step.kind === 'free') && plan.available > plan.used + plan.buffer) byId('plannedTasks').innerHTML += `<div class="plan-item free-step"><div class="plan-time">${clockTime(plan.start + plan.used * 60000)} – ${clockTime(plan.end - plan.buffer * 60000)}</div><div class="plan-name">${t.freeSlot}<small>${formatDuration(plan.available - plan.used - plan.buffer)}</small></div></div>`;
+  if (!plan.steps.some(step => step.kind === 'reserve') && plan.buffer > 0) byId('plannedTasks').innerHTML += `<div class="plan-item reserve-step"><div class="plan-time">${clockTime(plan.end - plan.buffer * 60000)} – ${clockTime(plan.end)}</div><div class="plan-name">${t.reserveSlot}<small>${formatDuration(plan.buffer)}</small></div></div>`;
   byId('planSummary').textContent = t.summary.replace('{work}', plan.work).replace('{breaks}', plan.used - plan.work - (plan.appointmentMinutes || 0)).replace('{buffer}', plan.buffer) + (plan.appointmentMinutes ? ` · ${t.appointmentLabel}: ${formatDuration(plan.appointmentMinutes)}` : '');
   byId('realityMessage').textContent = plan.later.some(task => task.must) ? t.mustWarning : plan.later.length ? t.laterMessage : t.fitMessage;
   byId('results').classList.remove('hidden'); renderSession(); renderUrgentNotice();

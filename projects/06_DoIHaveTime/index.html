@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SPARE</title>
-  <link rel="stylesheet" href="style.css?v=20261008-3" />
-  <link rel="stylesheet" href="theme.css?v=20261008-3" />
-  <link rel="stylesheet" href="diary.css?v=20261008-3" />
+  <link rel="stylesheet" href="style.css?v=20261008-4" />
+  <link rel="stylesheet" href="theme.css?v=20261008-4" />
+  <link rel="stylesheet" href="diary.css?v=20261008-4" />
 </head>
 
 <body>
@@ -59,7 +59,7 @@
       <button id="viewProgress" type="button" role="tab" aria-selected="false" aria-controls="dashboard" data-view="progress" tabindex="-1"><span aria-hidden="true">04</span><span data-i18n="viewProgress">Progress</span></button>
       <button id="viewDiary" type="button" role="tab" aria-selected="false" aria-controls="diaryPanel" data-view="diary" tabindex="-1"><span aria-hidden="true">05</span><span data-i18n="viewDiary">My diary</span></button>
     </nav>
-    <button id="mobileOpenTaskNote" class="mobile-note-shortcut" type="button" data-i18n="noteShortcut">My picture note</button>
+    <div class="workspace-shortcuts"><button id="notebookShortcut" type="button" data-i18n="viewDiary">My diary</button><button id="mobileOpenTaskNote" type="button" data-i18n="noteShortcut">My picture note</button><button id="quickDownloadNote" type="button" data-i18n="downloadTaskNote">Download PNG</button></div>
 
 
     <div class="planner-grid">
@@ -336,7 +336,7 @@
       <section id="finishNoteCard" class="finish-note-card">
         <div><span class="small-label">SPARE / LITTLE NOTE</span><h3 data-i18n="noteTitle">A little note for your next steps</h3><p data-i18n="noteHint">Your unfinished tasks, including those saved for later, as a picture with a kind reminder.</p></div>
         <button id="makeTaskNote" class="main-btn" type="button" data-i18n="makeTaskNote">Create my picture note</button>
-        <div id="taskNotePreview" class="hidden"><img id="taskNoteImage" data-i18n-alt="noteAlt" alt="Picture note with unfinished tasks" /><div class="diary-actions"><button id="notePrevious" type="button" data-i18n-aria-label="notePreviousLabel"></button><span id="notePage" aria-live="polite"></span><button id="noteNext" type="button" data-i18n-aria-label="noteNextLabel"></button><button id="downloadTaskNote" type="button" data-i18n="downloadTaskNote">Download PNG</button></div><p id="taskNoteStatus" role="status"></p></div>
+        <div id="taskNotePreview" class="hidden"><img id="taskNoteImage" data-i18n-alt="noteAlt" alt="Picture note with unfinished tasks" /><div class="diary-actions"><button id="notePrevious" type="button" data-i18n-aria-label="notePreviousLabel"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" focusable="false"><path d="M8 4 L16 12 L8 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><span id="notePage" aria-live="polite"></span><button id="noteNext" type="button" data-i18n-aria-label="noteNextLabel"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" focusable="false"><path d="M16 4 L8 12 L16 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><button id="downloadTaskNote" type="button" data-i18n="downloadTaskNote">Download PNG</button></div><button id="phoneSaveNote" class="phone-save-note" type="button" data-i18n="notePhoneSave">Save / share on phone</button><p id="taskNoteStatus" role="status"></p></div>
       </section>
 
 
@@ -346,7 +346,7 @@
       <div class="mobile-diary-actions"><button id="diaryMobileWeek" type="button" aria-pressed="false" data-i18n="diaryWeeklyGrid">Weekly grid</button><button id="diaryAddSelected" type="button"><span aria-hidden="true">+</span><span data-i18n="diaryAddEvent">Add an event</span></button></div>
       <div class="diary-actions"><button id="openTaskNote" type="button" data-i18n="noteTitle">A little note for your next steps</button></div>
       <div class="diary-heading"><div><span class="small-label">SPARE / JOURNAL</span><h2 data-i18n="diaryTitle">A place for every part of your day</h2><p data-i18n="diaryIntro">Your saved schedules, together in one weekly diary.</p></div><button id="diaryPlanDay" type="button" class="main-btn" data-i18n="planSelectedDay">Plan this day</button></div>
-      <div class="diary-toolbar"><button id="diaryPrevious" type="button" data-i18n-aria-label="previousPeriod">←</button><strong id="diaryPeriod"></strong><button id="diaryNext" type="button" data-i18n-aria-label="nextPeriod">→</button><button id="diaryToday" type="button" data-i18n="currentPeriod">Today</button></div>
+      <div class="diary-toolbar"><button id="diaryPrevious" type="button" data-i18n-aria-label="previousPeriod"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" focusable="false"><path d="M8 4 L16 12 L8 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><strong id="diaryPeriod"></strong><button id="diaryNext" type="button" data-i18n-aria-label="nextPeriod"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" focusable="false"><path d="M16 4 L8 12 L16 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><button id="diaryToday" type="button" data-i18n="currentPeriod">Today</button></div>
       <dialog id="diaryEventDialog" aria-labelledby="diaryEventTitle">
         <form id="diaryEventForm">
           <div class="event-dialog-heading"><h3 id="diaryEventTitle" data-i18n="diaryAddEvent">Add an event</h3><button id="closeDiaryEvent" type="button" data-i18n-aria-label="diaryCancel">×</button></div>
@@ -367,7 +367,7 @@
       <div class="dashboard-heading"><div><span class="small-label" data-i18n="progressLabel">YOUR PROGRESS</span><h2 id="dashboardTitle" data-i18n="dashboardTitle">A little progress, every day.</h2></div>
         <div class="dashboard-tabs" role="group" data-i18n-aria-label="periodLabel"><button id="weekView" type="button" aria-pressed="true" data-i18n="weekView">Week</button><button id="monthView" type="button" aria-pressed="false" data-i18n="monthView">Month</button></div>
       </div>
-      <div class="period-nav"><button id="previousPeriod" type="button" data-i18n-aria-label="previousPeriod">←</button><strong id="periodTitle" aria-live="polite"></strong><button id="nextPeriod" type="button" data-i18n-aria-label="nextPeriod">→</button><button id="currentPeriod" class="current-period" type="button" data-i18n="currentPeriod">Today</button></div>
+      <div class="period-nav"><button id="previousPeriod" type="button" data-i18n-aria-label="previousPeriod"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" focusable="false"><path d="M8 4 L16 12 L8 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><strong id="periodTitle" aria-live="polite"></strong><button id="nextPeriod" type="button" data-i18n-aria-label="nextPeriod"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" focusable="false"><path d="M16 4 L8 12 L16 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><button id="currentPeriod" class="current-period" type="button" data-i18n="currentPeriod">Today</button></div>
       <div class="dashboard-stats">
         <div><span data-i18n="completedLabel">Completed</span><strong id="completedStat">0</strong><small id="plannedStat"></small></div>
         <div><span data-i18n="focusLabel">Measured focus</span><strong id="focusStat">0</strong></div>
@@ -383,13 +383,13 @@
   </main>
   <p class="storage-note" data-i18n="savedHint">Your tasks and settings are saved on this device.</p>
 
-  <script src="script.js?v=20261008-3"></script>
-  <script src="dashboard.js?v=20261008-3"></script>
-  <script src="day-planner.js?v=20261008-3"></script>
-  <script src="diary.js?v=20261008-3"></script>
-  <script src="planner.js?v=20261008-3"></script>
-  <script src="workspace.js?v=20261008-3"></script>
-  <script src="task-note.js?v=20261008-3"></script>
+  <script src="script.js?v=20261008-4"></script>
+  <script src="dashboard.js?v=20261008-4"></script>
+  <script src="day-planner.js?v=20261008-4"></script>
+  <script src="diary.js?v=20261008-4"></script>
+  <script src="planner.js?v=20261008-4"></script>
+  <script src="workspace.js?v=20261008-4"></script>
+  <script src="task-note.js?v=20261008-4"></script>
 
 </body>
 </html>

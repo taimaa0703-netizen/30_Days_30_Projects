@@ -13,6 +13,9 @@ Object.assign(translations.ar,{noteHeading:'خطواتك الجايّة.',noteQu
 Object.assign(translations.en,{noteShortcut:'My picture note'});
 Object.assign(translations.he,{noteShortcut:'הפתק שלי · תמונה להורדה'});
 Object.assign(translations.ar,{noteShortcut:'ورقتي · صورة للتنزيل'});
+Object.assign(translations.en,{notePhoneSave:'Save / share on phone',noteSaveError:'Saving did not work here. Open this page in Safari or Chrome and try Download PNG.'});
+Object.assign(translations.he,{notePhoneSave:'שמירה או שיתוף בטלפון',noteSaveError:'השמירה לא הצליחה כאן. פתח את הדף ב־Safari או Chrome ונסה להוריד PNG.'});
+Object.assign(translations.ar,{notePhoneSave:'احفظ أو شارك من التلفون',noteSaveError:'ما زبط الحفظ هون. افتح الصفحة بمتصفح Safari أو Chrome وجرّب تنزيل PNG.'});
 let noteCanvas=null, noteItems=[], noteIndex=0;
 function noteLines(ctx,text,maxWidth) {
   const words=String(text).trim().split(/\s+/),lines=[];let line='';
@@ -87,10 +90,21 @@ async function openTaskNote() {
 }
 byId('openTaskNote').addEventListener('click',openTaskNote);
 byId('mobileOpenTaskNote').addEventListener('click',openTaskNote);
+byId('notebookShortcut').addEventListener('click',()=>showWorkspace('diary'));
 byId('notePrevious').addEventListener('click',()=>{if(noteIndex>0){noteIndex--;renderTaskNote();}});
 byId('noteNext').addEventListener('click',()=>{if((noteIndex+1)*8<noteItems.length){noteIndex++;renderTaskNote();}});
-byId('downloadTaskNote').addEventListener('click',()=>{
+function downloadTaskNote() {
   if(!noteCanvas)return;
-  noteCanvas.toBlob(blob=>{if(!blob)return;const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`SPARE-note-${localDateKey(new Date(plan?.start||Date.now()))}-${noteIndex+1}.png`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);},'image/png');
+  noteCanvas.toBlob(blob=>{if(!blob)return;const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`SPARE-note-${localDateKey(new Date(plan?.start||Date.now()))}-${noteIndex+1}.png`;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);},'image/png');
+}
+byId('downloadTaskNote').addEventListener('click',downloadTaskNote);
+byId('quickDownloadNote').addEventListener('click',async()=>{await openTaskNote();downloadTaskNote();});
+byId('phoneSaveNote').addEventListener('click',async()=>{
+  if(!noteCanvas)return;
+  try {
+    const blob=await new Promise(resolve=>noteCanvas.toBlob(resolve,'image/png'));if(!blob)throw new Error('No image');
+    const file=new File([blob],`SPARE-note-${noteIndex+1}.png`,{type:'image/png'});
+    if(navigator.canShare?.({files:[file]}))await navigator.share({files:[file],title:'SPARE'});else downloadTaskNote();
+  }catch(error){if(error.name!=='AbortError')byId('taskNoteStatus').textContent=translations[currentLanguage].noteSaveError;}
 });
 changeLanguage(currentLanguage);

@@ -380,3 +380,30 @@
   .app #taskNotePreview .diary-actions { grid-template-columns: 44px auto 44px; }
   .app #notePrevious, .app #noteNext { width: 44px; height: 44px; min-height: 44px; }
 }
+
+/* Always-visible notebook and image actions on every screen size. */
+.workspace-shortcuts { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 24px; }
+.workspace-shortcuts button, .phone-save-note { min-height: 44px; padding: 10px 16px; border: 1px solid #d8c9e2; border-radius: 10px; background: #fffcf8; color: #695474; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.workspace-shortcuts #notebookShortcut { background: #eee6f4; }
+.workspace-shortcuts #quickDownloadNote { background: #493853; color: #fffaf5; border-color: #493853; }
+.phone-save-note { display: block; margin: 14px auto 0; }
+.app #previousPeriod::after, .app #nextPeriod::after,
+.app #diaryPrevious::after, .app #diaryNext::after,
+.app #notePrevious::after, .app #noteNext::after { content: none; }
+.app #previousPeriod, .app #nextPeriod, .app #diaryPrevious, .app #diaryNext, .app #notePrevious, .app #noteNext { display: flex; align-items: center; justify-content: center; padding: 0; }
+.app #previousPeriod svg, .app #nextPeriod svg, .app #diaryPrevious svg, .app #diaryNext svg, .app #notePrevious svg, .app #noteNext svg { display: block; width: 20px; height: 20px; flex-shrink: 0; }
+.app .period-nav { grid-template-columns: auto 40px minmax(0, 1fr) 40px; }
+.app #currentPeriod { grid-column: 1; grid-row: 1; }
+.app #nextPeriod { grid-column: 2; grid-row: 1; }
+.app #periodTitle { grid-column: 3; grid-row: 1; }
+.app #previousPeriod { grid-column: 4; grid-row: 1; }
+.app #noteNext { grid-column: 1; grid-row: 1; }
+.app #notePage { grid-column: 2; grid-row: 1; }
+.app #notePrevious { grid-column: 3; grid-row: 1; }
+@media(max-width: 640px) {
+  .workspace-shortcuts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .workspace-shortcuts #quickDownloadNote { grid-column: 1 / -1; }
+  .workspace-shortcuts button { width: 100%; font-size: 13px; }
+  .app .period-nav { grid-template-columns: auto 36px minmax(0, 1fr) 36px; gap: 6px; }
+  .app #previousPeriod, .app #nextPeriod { width: 36px; height: 36px; }
+}

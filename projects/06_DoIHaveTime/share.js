@@ -23,7 +23,7 @@ try {
   const container=document.getElementById('sharedSteps');
   day.steps.forEach(step=>{
     const row=document.createElement('article');row.className=`shared-event diary-${step.kind}`;
-    const clock=document.createElement('span');clock.className='shared-clock';clock.textContent=`${time(step.start)} → ${time(step.end)}`;
+    const clock=document.createElement('span');clock.className='shared-clock';clock.textContent=`${time(step.start)} – ${time(step.end)}`;
     const name=document.createElement('h2');name.textContent=step.name;
     row.append(clock,name);container.appendChild(row);
   });
