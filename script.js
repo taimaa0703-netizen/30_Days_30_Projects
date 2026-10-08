@@ -47,7 +47,7 @@ const projects = [
   name: "SPARE.",
   description: "Make time for what matters. Plan your tasks, stay focused with a timer, and track your weekly and monthly progress.",
   tags: ["HTML", "CSS", "JavaScript"],
-  link: "projects/06_DoIHaveTime/index.html?v=20261008-8",
+  link: "projects/06_DoIHaveTime/index.html?v=20261008-9",
   unlocked: true
 }
 ];

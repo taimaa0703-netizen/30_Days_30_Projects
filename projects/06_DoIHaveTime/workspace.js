@@ -26,7 +26,14 @@ function showWorkspace(view, focus = false) {
   byId('emptyPlan').classList.toggle('hidden', !!plan);
   if (view === 'diary') renderDiary();
   if (view === 'plan' && typeof refreshTaskNote === 'function') refreshTaskNote();
-  if (changed) window.scrollTo?.({ top: 0, left: 0, behavior: 'instant' });
+  if (changed) {
+    const navigation = document.querySelector('.workspace-nav');
+    const mobile = window.matchMedia?.('(max-width: 640px)').matches;
+    const top = mobile && navigation
+      ? Math.max(0, navigation.getBoundingClientRect().top + window.scrollY - 12)
+      : 0;
+    window.scrollTo?.({ top, left: 0, behavior: 'instant' });
+  }
 }
 workspaceButtons.forEach((button, index) => {
   button.addEventListener('click', () => showWorkspace(workspaceViews[index]));
