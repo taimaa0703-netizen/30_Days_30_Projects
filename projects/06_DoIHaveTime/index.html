@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SPARE</title>
-  <link rel="stylesheet" href="style.css?v=20261008-4" />
-  <link rel="stylesheet" href="theme.css?v=20261008-4" />
-  <link rel="stylesheet" href="diary.css?v=20261008-4" />
+  <link rel="stylesheet" href="style.css?v=20261008-5" />
+  <link rel="stylesheet" href="theme.css?v=20261008-5" />
+  <link rel="stylesheet" href="diary.css?v=20261008-5" />
 </head>
 
 <body>
@@ -59,7 +59,7 @@
       <button id="viewProgress" type="button" role="tab" aria-selected="false" aria-controls="dashboard" data-view="progress" tabindex="-1"><span aria-hidden="true">04</span><span data-i18n="viewProgress">Progress</span></button>
       <button id="viewDiary" type="button" role="tab" aria-selected="false" aria-controls="diaryPanel" data-view="diary" tabindex="-1"><span aria-hidden="true">05</span><span data-i18n="viewDiary">My diary</span></button>
     </nav>
-    <div class="workspace-shortcuts"><button id="notebookShortcut" type="button" data-i18n="viewDiary">My diary</button><button id="mobileOpenTaskNote" type="button" data-i18n="noteShortcut">My picture note</button><button id="quickDownloadNote" type="button" data-i18n="downloadTaskNote">Download PNG</button></div>
+    <div class="mobile-workspace-picker"><label for="mobileWorkspaceView" data-i18n="workspaceLabel">Your workspace</label><select id="mobileWorkspaceView"><option value="time" data-i18n="viewTime">Day settings</option><option value="tasks" data-i18n="viewTasks">My tasks</option><option value="plan" data-i18n="viewPlan">Day schedule</option><option value="progress" data-i18n="viewProgress">Progress</option><option value="diary" data-i18n="viewDiary">My diary</option></select></div>
 
 
     <div class="planner-grid">
@@ -344,7 +344,6 @@
     </div>
     <section id="diaryPanel" class="diary-panel" role="tabpanel" aria-labelledby="viewDiary">
       <div class="mobile-diary-actions"><button id="diaryMobileWeek" type="button" aria-pressed="false" data-i18n="diaryWeeklyGrid">Weekly grid</button><button id="diaryAddSelected" type="button"><span aria-hidden="true">+</span><span data-i18n="diaryAddEvent">Add an event</span></button></div>
-      <div class="diary-actions"><button id="openTaskNote" type="button" data-i18n="noteTitle">A little note for your next steps</button></div>
       <div class="diary-heading"><div><span class="small-label">SPARE / JOURNAL</span><h2 data-i18n="diaryTitle">A place for every part of your day</h2><p data-i18n="diaryIntro">Your saved schedules, together in one weekly diary.</p></div><button id="diaryPlanDay" type="button" class="main-btn" data-i18n="planSelectedDay">Plan this day</button></div>
       <div class="diary-toolbar"><button id="diaryPrevious" type="button" data-i18n-aria-label="previousPeriod"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" focusable="false"><path d="M8 4 L16 12 L8 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><strong id="diaryPeriod"></strong><button id="diaryNext" type="button" data-i18n-aria-label="nextPeriod"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" focusable="false"><path d="M16 4 L8 12 L16 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><button id="diaryToday" type="button" data-i18n="currentPeriod">Today</button></div>
       <dialog id="diaryEventDialog" aria-labelledby="diaryEventTitle">
@@ -383,13 +382,13 @@
   </main>
   <p class="storage-note" data-i18n="savedHint">Your tasks and settings are saved on this device.</p>
 
-  <script src="script.js?v=20261008-4"></script>
-  <script src="dashboard.js?v=20261008-4"></script>
-  <script src="day-planner.js?v=20261008-4"></script>
-  <script src="diary.js?v=20261008-4"></script>
-  <script src="planner.js?v=20261008-4"></script>
-  <script src="workspace.js?v=20261008-4"></script>
-  <script src="task-note.js?v=20261008-4"></script>
+  <script src="script.js?v=20261008-5"></script>
+  <script src="dashboard.js?v=20261008-5"></script>
+  <script src="day-planner.js?v=20261008-5"></script>
+  <script src="diary.js?v=20261008-5"></script>
+  <script src="planner.js?v=20261008-5"></script>
+  <script src="workspace.js?v=20261008-5"></script>
+  <script src="task-note.js?v=20261008-5"></script>
 
 </body>
 </html>

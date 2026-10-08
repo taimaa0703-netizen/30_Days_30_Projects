@@ -88,9 +88,6 @@ async function openTaskNote() {
   await refreshTaskNote();
   byId('finishNoteCard').scrollIntoView({behavior:'smooth',block:'start'});
 }
-byId('openTaskNote').addEventListener('click',openTaskNote);
-byId('mobileOpenTaskNote').addEventListener('click',openTaskNote);
-byId('notebookShortcut').addEventListener('click',()=>showWorkspace('diary'));
 byId('notePrevious').addEventListener('click',()=>{if(noteIndex>0){noteIndex--;renderTaskNote();}});
 byId('noteNext').addEventListener('click',()=>{if((noteIndex+1)*8<noteItems.length){noteIndex++;renderTaskNote();}});
 function downloadTaskNote() {
@@ -98,7 +95,6 @@ function downloadTaskNote() {
   noteCanvas.toBlob(blob=>{if(!blob)return;const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`SPARE-note-${localDateKey(new Date(plan?.start||Date.now()))}-${noteIndex+1}.png`;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);},'image/png');
 }
 byId('downloadTaskNote').addEventListener('click',downloadTaskNote);
-byId('quickDownloadNote').addEventListener('click',async()=>{await openTaskNote();downloadTaskNote();});
 byId('phoneSaveNote').addEventListener('click',async()=>{
   if(!noteCanvas)return;
   try {

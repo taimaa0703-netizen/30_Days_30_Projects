@@ -14,6 +14,7 @@ function showWorkspace(view, focus = false) {
   if (!workspaceViews.includes(view)) return;
   const changed = document.querySelector('.app').getAttribute('data-workspace-view') !== view;
   document.querySelector('.app').setAttribute('data-workspace-view', view);
+  byId('mobileWorkspaceView').value = view;
   workspaceButtons.forEach((button, index) => {
     const selected = workspaceViews[index] === view;
     button.setAttribute('aria-selected', String(selected));
@@ -39,6 +40,7 @@ workspaceButtons.forEach((button, index) => {
   });
 });
 byId('goToTasks').addEventListener('click', () => { showWorkspace('tasks'); taskName.focus({ preventScroll: true }); });
+byId('mobileWorkspaceView').addEventListener('change',event=>showWorkspace(event.target.value));
 byId('emptyPlanTasks').addEventListener('click', () => { showWorkspace('tasks'); taskName.focus({ preventScroll: true }); });
 showWorkspace('diary');
 changeLanguage(currentLanguage);

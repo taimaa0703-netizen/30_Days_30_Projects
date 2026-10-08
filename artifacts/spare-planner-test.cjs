@@ -53,6 +53,13 @@ vm.runInContext(fs.readFileSync(root + 'planner.js', 'utf8'), ctx);
 vm.runInContext(fs.readFileSync(root + 'workspace.js', 'utf8'), ctx);
 vm.runInContext(fs.readFileSync(root + 'task-note.js', 'utf8'), ctx);
 const run = source => vm.runInContext(source, ctx);
+elements.mobileWorkspaceView.listeners.change({target:{value:'time'}});
+assert.equal(appElement.getAttribute('data-workspace-view'),'time','Mobile screen selector opens day settings');
+run('showWorkspace("plan")');
+assert.equal(elements.mobileWorkspaceView.value,'plan','Desktop navigation keeps mobile selector in sync');
+assert.ok(!html.includes('id="quickDownloadNote"')&&!html.includes('id="openTaskNote"'),'Note shortcuts are removed from other screens');
+assert.ok(html.indexOf('id="finishNoteCard"')>html.indexOf('id="planPanel"')&&html.indexOf('id="finishNoteCard"')<html.indexOf('id="diaryPanel"'),'Picture note belongs to the day schedule');
+run('showWorkspace("diary")');
 for (const duration of [0.5, 1, 5, 10, 20, 60]) {
   const box=run(`diaryEventLayout(540,${duration})`);
   assert.ok(box.height>0 && box.height<=duration*3,'Short event fits its true time slot');

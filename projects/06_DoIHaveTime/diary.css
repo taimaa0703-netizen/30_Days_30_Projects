@@ -407,3 +407,26 @@
   .app .period-nav { grid-template-columns: auto 36px minmax(0, 1fr) 36px; gap: 6px; }
   .app #previousPeriod, .app #nextPeriod { width: 36px; height: 36px; }
 }
+
+/* Mobile has one screen selector; picture-note actions stay inside the day schedule. */
+.mobile-workspace-picker { display: none; }
+@media(max-width: 640px) {
+  .app .workspace-nav { display: none; }
+  .app .mobile-workspace-picker { display: flex; align-items: center; gap: 12px; margin: 0 0 20px; padding: 12px 14px; background: #f6f1f9; border: 1px solid #e0d5e8; border-radius: 12px; }
+  .mobile-workspace-picker label { flex: 0 0 auto; font-size: 12px; color: #8b7695; }
+  .app #mobileWorkspaceView { flex: 1; width: 100%; min-width: 0; min-height: 44px; padding: 10px 12px; border: 1px solid #d8c9e2; border-radius: 8px; background: #fffcf8; color: #493853; font-size: 16px; }
+  .app .time-card .day-start, .app .time-card .day-end, .app .time-card .setup-row, .app .time-card .setup-control { min-width: 0; max-width: 100%; box-sizing: border-box; }
+  .app .time-card .setup-row { padding: 14px; gap: 8px; }
+  .app #diaryDate { display: block; box-sizing: border-box; width: 100%; min-width: 0; max-width: 100%; height: 46px; min-height: 46px; padding: 10px 12px; background: #faf8fc; font-size: 16px; line-height: normal; -webkit-appearance: none; appearance: none; }
+  .app #diaryDate::-webkit-date-and-time-value { min-height: 24px; line-height: 24px; text-align: start; }
+  .app .time-card .setup-control > select { box-sizing: border-box; max-width: 100%; font-size: 16px; }
+  .app .day-setup-heading h2 { font-size: 25px; }
+  .app .day-setup-heading p { font-size: 14px; line-height: 1.7; }
+  .app .usage-guide { padding: 18px; margin-bottom: 18px; }
+  .app .usage-guide h3 { font-size: 18px; margin-bottom: 10px; }
+  .app .usage-guide p { font-size: 14px; line-height: 1.7; }
+  .app .mobile-diary-actions { margin: 0 0 12px; gap: 8px; }
+  .app .diary-heading { padding: 12px 0 20px; }
+  .app .diary-heading h2 { font-size: 27px; }
+  .app .diary-heading p { font-size: 14px; }
+}
