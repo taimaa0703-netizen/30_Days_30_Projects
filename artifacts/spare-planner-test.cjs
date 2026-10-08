@@ -34,7 +34,7 @@ elements.timeMode.value = 'duration'; elements.breakMinutes.value = '5'; element
 elements.energyLevel.value = 'high'; elements.taskEffort.value = 'normal';
 const storage = new Map(), alerts = [];
 const ctx = {
-  Date: FakeDate, Math, Number, JSON, Object, String, Event: class { constructor(type) { this.type = type; } },
+  Date: FakeDate, Math, Number, JSON, Object, String, TextEncoder, Event: class { constructor(type) { this.type = type; } },
   document: {
     getElementById(id) { assert.ok(elements[id], `Existing element ${id}`); return elements[id]; },
     createElement: element, documentElement: {},
@@ -47,9 +47,32 @@ const ctx = {
 vm.createContext(ctx);
 vm.runInContext(fs.readFileSync(root + 'script.js', 'utf8'), ctx);
 vm.runInContext(fs.readFileSync(root + 'dashboard.js', 'utf8'), ctx);
+vm.runInContext(fs.readFileSync(root + 'day-planner.js', 'utf8'), ctx);
+vm.runInContext(fs.readFileSync(root + 'diary.js', 'utf8'), ctx);
 vm.runInContext(fs.readFileSync(root + 'planner.js', 'utf8'), ctx);
 vm.runInContext(fs.readFileSync(root + 'workspace.js', 'utf8'), ctx);
+vm.runInContext(fs.readFileSync(root + 'task-note.js', 'utf8'), ctx);
 const run = source => vm.runInContext(source, ctx);
+for (const duration of [0.5, 1, 5, 10, 20, 60]) {
+  const box=run(`diaryEventLayout(540,${duration})`);
+  assert.ok(box.height>0 && box.height<=duration*3,'Short event fits its true time slot');
+  assert.ok(box.top+box.height<=run(`diaryEventLayout(${540+duration},5).top`),'Adjacent calendar events never overlap');
+}
+assert.equal(run('diaryEventLayout(540,5).compact'),true);
+assert.equal(run('diaryEventLayout(540,1).marker'),true);
+run('limitProbe={value:"99"};limitTimeInput(limitProbe,0,24)');
+assert.equal(run('limitProbe.value'),'24','Hours are capped while typing or pasting');
+run('limitProbe.value="999";limitTimeInput(limitProbe,0,60)');
+assert.equal(run('limitProbe.value'),'60','Minutes are capped at 60');
+run('limitProbe.value="-3";limitTimeInput(limitProbe,0,24)');
+assert.equal(run('limitProbe.value'),'0','Negative durations are removed');
+run('limitProbe.value="";limitTimeInput(limitProbe,0,60)');
+assert.equal(run('limitProbe.value'),'','An empty field stays editable');
+assert.equal(run('toMinutes({value:"60"},{value:"24"})'),1500,'Maximum field values are accepted');
+assert.equal(run('Number.isNaN(toMinutes({value:"61"},{value:"0"}))'),true,'Out-of-range values also fail calculation validation');
+assert.equal(run('Number.isNaN(toMinutes({value:"0"},{value:"25"}))'),true);
+assert.equal(elements.timeMode.value,'deadline','New diary starts with an explicit finish time');
+run('byId("timeMode").value="duration";updateMode()');
 
 for (const lang of ['en', 'ar', 'he']) {
   run(`changeLanguage('${lang}')`);
@@ -214,7 +237,7 @@ assert.equal(run('journal.focus.find(e=>e.date==="2026-10-31").seconds'),60);
 assert.equal(run('journal.focus.find(e=>e.date==="2026-11-01").seconds'),60);
 run('dashboardMode="month";dashboardAnchor=new Date();renderDashboard()');
 assert.ok(elements.monthCalendar.innerHTML.includes('calendar-day'));
-choices.find(button=>button.dataset.choiceTarget==='timeMode' && button.dataset.value==='deadline').listeners.click();
+elements.timeMode.value='deadline';elements.timeMode.listeners.change();
 assert.equal(elements.timeMode.value,'deadline');
 assert.equal(elements.deadlineFields.classList.contains('hidden'),false);
 assert.equal(elements.durationFields.classList.contains('hidden'),true);
@@ -223,12 +246,60 @@ assert.equal(elements.energyLevel.value,'low');
 choices.find(button=>button.dataset.choiceTarget==='breakMinutes' && button.dataset.value==='10').listeners.click();
 assert.equal(elements.breakMinutes.value,'10');
 presets[0].listeners.click();assert.equal(elements.timeMode.value,'duration');
-assert.equal(choices.find(button=>button.dataset.choiceTarget==='timeMode' && button.dataset.value==='duration')['aria-pressed'],'true');
+assert.equal(elements.deadlineFields.classList.contains('hidden'),true,'Duration preset switches the visible fields');
 run(`resetApp();taskName.value='Workspace task';taskMinutes.value='10';addTask();setAvailableMinutes(60);buildPlan()`);
 assert.equal(appElement.getAttribute('data-workspace-view'),'plan');
 run('startSession();showWorkspace("progress")');assert.equal(run('session.running'),true,'Navigation preserves active timer');
 assert.equal(elements.viewProgress['aria-selected'],'true');
 elements.goToTasks.listeners.click();assert.equal(appElement.getAttribute('data-workspace-view'),'tasks');
 run('resetApp();showWorkspace("plan")');assert.equal(elements.emptyPlan.classList.contains('hidden'),false);
-for(const match of html.matchAll(/(?:src|href)="([^"#]+)"/g))if(!match[1].includes('://'))assert.ok(fs.existsSync(root+match[1]));
-console.log('PASS: full planner/journal regression suite; visual choices for mode, energy and breaks; preset synchronization; linked assets.');
+for(const match of html.matchAll(/(?:src|href)="([^"#]+)"/g))if(!match[1].includes('://'))assert.ok(fs.existsSync(root+match[1].split('?')[0]));
+run(`dayStart = new Date(2026,9,7,9).getTime();
+dayResult = createDayPlan([{id:1,name:'Study',remaining:90,minutes:90,priority:3,canSplit:false},{id:2,name:'Email',remaining:20,minutes:20,priority:1,canSplit:false}],180,5,true,'high',dayStart,[{name:'Meeting',start:dayStart+60*60000,end:dayStart+90*60000}]);`);
+assert.equal(run('dayResult.steps.find(s=>s.kind==="appointment").start'),run('dayStart+60*60000'),'Fixed meeting starts at its actual time');
+assert.equal(run('dayResult.work'),20,'Unsplittable task cannot bridge a meeting');
+assert.ok(run('dayResult.steps.some(s=>s.kind==="free")'),'Free gaps are visible');
+assert.equal(run('dayResult.steps.reduce((n,s)=>n+s.minutes,0)'),180,'Day window is fully accounted for');
+assert.equal(run('dayResult.buffer'),18,'Reserve survives fixed appointments');
+run(`fullMeeting = createDayPlan([],60,5,true,'high',dayStart,[{name:'Meeting',start:dayStart,end:dayStart+60*60000}]);`);
+assert.equal(run('fullMeeting.buffer'),0,'Reserve cannot overlap a full-window meeting');
+assert.equal(run('fullMeeting.used'),60);
+run(`dayResult = createDayPlan([{id:1,name:'Study',remaining:90,minutes:90,priority:3,canSplit:true}],180,5,true,'low',dayStart,[{name:'Meeting',start:dayStart+60*60000,end:dayStart+90*60000}]);`);
+assert.equal(run('dayResult.work'),20,'Low energy allocation stays capped across gaps');
+run(`resetApp(); taskName.value='Later';taskMinutes.value='30';addTask();byId('startMode').value='later';const nextStart=new Date(Date.now()+3600000);byId('startHour').value=nextStart.getHours()%12||12;byId('startMinute').value=nextStart.getMinutes();byId('startPeriod').value=nextStart.getHours()>=12?'PM':'AM';setAvailableMinutes(60);buildPlan();startSession();`);
+assert.equal(run('session.running'),false,'Future timer cannot start early');
+assert.ok(elements.sessionStatus.textContent.includes(run('clockTime(plan.start)')),'Future start is explained');
+run('resetApp()');
+run(`futureDate=addDays(new Date(),2);byId('diaryDate').value=localDateKey(futureDate);byId('startMode').value='later';byId('startHour').value='9';byId('startMinute').value='0';byId('startPeriod').value='AM';byId('timeMode').value='deadline';byId('finishAt').value='13:00';taskName.value='مهمة <script>';taskHours.value='1';taskMinutes.value='30';addTask();byId('fixedName').value='פגישה';byId('fixedHour').value='10';byId('fixedMinute').value='0';byId('fixedPeriod').value='AM';byId('fixedDuration').value='30';addAppointment();buildPlan();`);
+assert.equal(run('localDateKey(new Date(plan.start))'),run('localDateKey(futureDate)'),'Selected date drives plan start');
+assert.equal(run('plan.steps.find(s=>s.kind==="appointment").start'),run('new Date(futureDate.getFullYear(),futureDate.getMonth(),futureDate.getDate(),10).getTime()'),'Meeting follows selected date');
+assert.ok(run('validDiaryDay(diaryDays[localDateKey(futureDate)])'),'Future schedule is saved as a valid diary day');
+const diarySaved=JSON.parse(storage.get('spareDiary'));
+assert.ok(diarySaved[run('localDateKey(futureDate)')],'Saved diary persists in browser storage');
+run('calendarText=calendarFile(snapshotPlan())');
+assert.ok(run('calendarText.includes("BEGIN:VCALENDAR") && calendarText.includes("BEGIN:VEVENT") && calendarText.includes("SUMMARY:פגישה")'),'Calendar export includes the real appointment');
+assert.ok(run('calendarText.split("\\r\\n").every(line=>new TextEncoder().encode(line).length<=75)'),'Calendar folds lines by UTF-8 bytes');
+const shared=JSON.parse(run('JSON.stringify(sharePayload(snapshotPlan()))'));
+assert.equal(shared.version,1);assert.ok(shared.timeZone);assert.equal(shared.day.date,run('localDateKey(futureDate)'));
+assert.ok(shared.day.steps.some(step=>step.name.includes('<script>')),'Share payload retains names as text');
+assert.equal(run('validDiaryDay({...snapshotPlan(),steps:[{kind:"work",name:"Bad",start:0,end:1}]})'),false,'Malformed saved steps are rejected');
+run('showWorkspace("diary")');assert.equal(elements.viewDiary['aria-selected'],'true','Diary tab is selectable');
+run(`categorySource=[{id:1,name:'Work',category:'work',remaining:20,priority:3},{id:2,name:'Study',category:'study',remaining:20,priority:1},{id:3,name:'Urgent',category:'home',remaining:10,priority:1,urgent:true}];categoryPlan=createPlan(categorySource,60,0,false,'high','study');`);
+assert.equal(run('categoryPlan.steps[0].taskId'),3,'Urgent tasks stay first');
+assert.equal(run('categoryPlan.steps[1].taskId'),2,'Selected category follows urgent work');
+assert.equal(run('taskCategory({})'),'other','Older tasks remain visible in Other');
+run(`resetApp();byId('taskCategory').value='study';taskName.value='Category task';taskMinutes.value='20';addTask();`);
+assert.equal(run('tasks[0].category'),'study');
+assert.equal(run('journal.entries.find(e=>e.id===tasks[0].journalId).category'),'study','Journal preserves category');
+assert.equal(JSON.parse(storage.get('sparePlanner')).tasks[0].category,'study','Saved task preserves category');
+run(`eventBase=new Date(2026,9,10,9).getTime();eventDay={date:'2026-10-10',start:eventBase,end:eventBase+120*60000,steps:[{kind:'free',name:'Free',start:eventBase,end:eventBase+120*60000}]};newEvent={kind:'appointment',name:'Coffee',start:eventBase+30*60000,end:eventBase+60*60000};eventResult=insertDiaryEvent(eventDay,newEvent);`);
+assert.equal(run('eventResult.steps.length'),3,'Event splits free time without overlapping it');
+assert.ok(run('validDiaryDay(eventResult)'));
+assert.equal(run('insertDiaryEvent(eventResult,{...newEvent,name:"Conflict"})'),null,'Occupied slots reject overlaps');
+run(`eventDate=localDateKey(addDays(new Date(),4));byId('diaryEventDate').value=eventDate;byId('diaryEventName').value='New diary event';byId('diaryEventHour').value='11';byId('diaryEventMinute').value='0';byId('diaryEventPeriod').value='AM';byId('diaryEventDuration').value='30';eventSaved=saveDiaryEvent();`);
+assert.equal(run('eventSaved'),true,'Event can be added to a blank diary day');
+assert.ok(run('validDiaryDay(diaryDays[eventDate])'));
+assert.ok(JSON.parse(storage.get('spareDiary'))[run('eventDate')],'Added event persists');
+assert.ok(run('appointments.some(item=>item.name==="New diary event")'),'Planner sees diary events as fixed appointments');
+assert.equal(run('saveDiaryEvent()'),false,'Duplicate event is rejected');
+console.log('PASS: planner/journal regressions, diary event creation and conflicts, categories, sharing and persistence.');

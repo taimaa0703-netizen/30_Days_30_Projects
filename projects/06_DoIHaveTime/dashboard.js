@@ -37,7 +37,7 @@ function syncJournal() {
     let entry = journal.entries.find(entry => entry.id === task.journalId);
     if (!entry) {
       task.journalId = `${Date.now()}-${++journalSequence}-${task.id}`;
-      entry = { id: task.journalId, name: task.name, date: localDateKey(), plannedDates: [localDateKey()], plannedMinutes: task.minutes, remaining: task.remaining, completedAt: null, priority: task.priority, must: !!task.must, canSplit: !!task.canSplit, effort: task.effort || 'normal', actualSeconds: task.actualSeconds || 0 };
+      entry = { id: task.journalId, name: task.name, date: localDateKey(), plannedDates: [localDateKey()], plannedMinutes: task.minutes, remaining: task.remaining, completedAt: null, priority: task.priority, must: !!task.must, canSplit: !!task.canSplit, effort: task.effort || 'normal', category: taskCategory(task), actualSeconds: task.actualSeconds || 0 };
       journal.entries.push(entry);
     }
     const completedBefore = entry.remaining === 0;
@@ -61,7 +61,7 @@ function logSessionFocus() {
   if (!task.journalId) syncJournal();
   const total = elapsedSeconds(), delta = total - (session.loggedSeconds || 0);
   if (delta <= 0) return;
-  const end = Date.now();
+  const end = step.start != null ? Math.min(Date.now(), step.start + step.minutes * 60000) : Date.now();
   let cursor = end - delta * 1000;
   while (cursor < end) {
     const day = new Date(cursor), tomorrow = addDays(day, 1); tomorrow.setHours(0, 0, 0, 0);
@@ -101,7 +101,7 @@ function bringTaskToToday(id) {
   invalidatePlan();
   entry.plannedDates = [...new Set([...(entry.plannedDates || []), entry.date, localDateKey()])];
   entry.date = localDateKey();
-  if (!tasks.some(task => task.journalId === id)) tasks.push({ id: nextTaskId++, journalId: id, name: entry.name, minutes: entry.plannedMinutes, remaining: entry.remaining, priority: [1, 2, 3].includes(entry.priority) ? entry.priority : 2, must: !!entry.must, canSplit: !!entry.canSplit, effort: entry.effort || 'normal', actualSeconds: entry.actualSeconds || 0 });
+  if (!tasks.some(task => task.journalId === id)) tasks.push({ id: nextTaskId++, journalId: id, name: entry.name, minutes: entry.plannedMinutes, remaining: entry.remaining, priority: [1, 2, 3].includes(entry.priority) ? entry.priority : 2, must: !!entry.must, canSplit: !!entry.canSplit, effort: entry.effort || 'normal', category: taskCategory(entry), actualSeconds: entry.actualSeconds || 0 });
   renderTasks(); saveState();
   if (typeof showWorkspace === 'function') showWorkspace('tasks');
   taskList.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -118,6 +118,12 @@ function renderDashboard() {
   // Include completions of tasks originally planned outside this period in the adjacent note.
   byId('completedStat').setAttribute('aria-label', `${stats.completed.length} ${t.doneLabel}; ${stats.planned.length} ${t.plannedLabel}`);
   byId('focusStat').textContent = formatDuration(Math.round(stats.seconds / 60));
+  const focusByTask = new Map();
+  stats.focus.forEach(item => focusByTask.set(item.taskId, (focusByTask.get(item.taskId) || 0) + item.seconds));
+  byId('timeSpentTasks').innerHTML = [...focusByTask].sort((a, b) => b[1] - a[1]).map(([id, seconds]) => {
+    const entry = journal.entries.find(item => item.id === id);
+    return `<div class="time-spent-row"><div><strong>${escapeHTML(entry?.name || t.timeSpentUnknown)}</strong><span>${formatDuration(Math.round(seconds / 60))}</span></div><div class="time-spent-track"><span style="width:${seconds / Math.max(1, stats.seconds) * 100}%"></span></div></div>`;
+  }).join('') || `<p>${escapeHTML(t.timeSpentEmpty)}</p>`;
   byId('activeStat').textContent = String(stats.activeDays);
   const days = [];
   for (let day = new Date(range.start); day < range.end; day = addDays(day, 1)) days.push(new Date(day));

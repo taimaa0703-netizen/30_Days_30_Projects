@@ -380,3 +380,44 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: auto; opac
 .number-control-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .deadline-clock .number-control { flex: 1; }
 .deadline-clock .number-control input { font-size: 25px; }
+
+/* A calm, readable picture of the available time and measured focus. */
+.time-picture { margin: 24px 0; padding: clamp(20px, 3vw, 32px); border: 1px solid #e0d5e8; border-radius: 26px; background: #faf7fc; color: #493853; }
+.time-picture h3 { margin: 0 0 22px; font-size: clamp(21px, 2vw, 28px); }
+.time-picture > p { margin: 20px 0 0; font-size: 15px; line-height: 1.8; color: #75667d; }
+.time-picture-bar { display: flex; height: 28px; border-radius: 14px; overflow: hidden; background: #eee8f2; }
+.time-picture-bar span { min-width: 0; }
+.picture-work { background: #695078; }
+.picture-break { background: #e4b99e; }
+.picture-buffer { background: #bdabc9; }
+.picture-free { background: #e7dfed; }
+.time-picture-legend { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-top: 24px; }
+.time-picture-legend > div { display: grid; grid-template-columns: 12px 1fr; align-items: center; gap: 8px; }
+.time-picture-legend i { width: 10px; height: 10px; border-radius: 50%; }
+.time-picture-legend strong { grid-column: 2; font-size: 19px; }
+.time-spent-row { margin: 18px 0; }
+.time-spent-row > div:first-child { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 9px; }
+.time-spent-track { height: 9px; border-radius: 9px; background: #e7dfed; overflow: hidden; }
+.time-spent-track span { display: block; height: 100%; background: #8d70a0; border-radius: inherit; }
+@media (max-width: 640px) { .time-picture-legend { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Start, time window and appointments have a clear place in the time panel. */
+.time-card .day-start { grid-column: 1; grid-row: 3; margin-bottom: 20px; }
+.time-card .mode-switch { grid-row: 4; }
+.time-card #durationFields, .time-card #deadlineFields { grid-row: 5; }
+.time-card .time-presets { grid-row: 6; }
+.time-card .planning-options { grid-row: 3 / span 4; }
+.day-start > label, .fixed-editor label { display: block; margin: 12px 0 9px; color: #e9dcef; font-weight: 600; }
+.day-start > select { margin-bottom: 12px; }
+.fixed-editor { border: 1px solid #ffffff26; border-radius: 18px; padding: 18px; margin-bottom: 22px; background: #ffffff06; }
+.fixed-editor summary { cursor: pointer; font-weight: 700; color: #f3eaf8; }
+.fixed-editor .deadline-clock { gap: 6px; }
+.fixed-editor .deadline-clock select { min-width: 65px; }
+.fixed-item { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px; margin-bottom: 10px; background: #ffffff0a; border: 1px solid #ffffff22; border-radius: 14px; }
+.fixed-item small { display: block; direction: ltr; margin-top: 6px; color: #d7c6e1; }
+.fixed-item button { background: transparent; border: 1px solid #ffffff33; border-radius: 50%; width: 36px; height: 36px; color: #f3eaf8; font-size: 22px; cursor: pointer; }
+.appointment-step { border-inline-start: 4px solid #bd8971; background: #f6e9df; border-radius: 14px; padding: 18px; }
+.free-step, .reserve-step { background: #eee7f2; border-radius: 14px; padding: 18px; }
+.picture-appointment { background: #bd8971; }
+.time-picture-legend { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+@media(max-width: 640px) { .time-picture-legend { grid-template-columns: repeat(2, minmax(0, 1fr)); } .fixed-editor { padding: 14px; } }

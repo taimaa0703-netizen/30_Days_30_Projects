@@ -104,20 +104,39 @@ Object.keys(plannerCopy).forEach(lang => {
   translations[lang].breakLabel = translations[lang].breakAdaptive;
 });
 
+const timePictureCopy = {
+  en: { timePictureTitle: 'See your day before it ends', pictureWork: 'Tasks', pictureBreak: 'Breaks', pictureBuffer: 'For surprises', pictureFree: 'Open space', timePictureNote: 'Your available time window, based on the durations you entered. Open space is time outside the scheduled tasks, breaks and reserve.', timeSpentTitle: 'Where did your focus time go?', timeSpentNote: 'Measured by the timer for the selected period. Other activities are not tracked automatically.', timeSpentEmpty: 'Start the timer on a task to see where your focus time goes.', timeSpentUnknown: 'Previous task' },
+  he: { timePictureTitle: 'לראות את היום לפני שהוא נגמר', pictureWork: 'משימות', pictureBreak: 'הפסקות', pictureBuffer: 'למקרה הצורך', pictureFree: 'מרווח פנוי', timePictureNote: 'חלון הזמן הפנוי שלך, לפי משכי הזמן שהזנת. המרווח הפנוי נשאר מחוץ למשימות, להפסקות ולזמן השמור.', timeSpentTitle: 'לאן הלך זמן הריכוז שלך?', timeSpentNote: 'הזמן שנמדד בטיימר בתקופה שנבחרה. פעילויות אחרות אינן נמדדות אוטומטית.', timeSpentEmpty: 'הפעל טיימר למשימה כדי לראות לאן הולך זמן הריכוז שלך.', timeSpentUnknown: 'משימה קודמת' },
+  ar: { timePictureTitle: 'شوف يومك قبل ما يخلص', pictureWork: 'مهامك', pictureBreak: 'استراحات', pictureBuffer: 'لأي إشي مفاجئ', pictureFree: 'مساحة فاضية', timePictureNote: 'هاي صورة للوقت المتاح اللي حدّدته، حسب مدة مهامك. المساحة الفاضية هي الوقت اللي ضلّ بعد المهام والاستراحات والاحتياط.', timeSpentTitle: 'وين راح وقت تركيزك؟', timeSpentNote: 'وقت مقاس بالتايمر خلال الفترة اللي اخترتها. باقي نشاطاتك ما بتنقاس تلقائيًا.', timeSpentEmpty: 'شغّل التايمر على مهمة، وشوف وين بروح وقت تركيزك.', timeSpentUnknown: 'مهمة سابقة' }
+};
+Object.keys(timePictureCopy).forEach(lang => Object.assign(translations[lang], timePictureCopy[lang]));
+Object.assign(translations.en, { usageIntro: '1. Choose when you start and how much time you have. 2. Add your tasks and any fixed appointments. 3. Build a schedule with task times, breaks and free space.' });
+Object.assign(translations.he, { usageIntro: '1. בחר מתי מתחילים וכמה זמן פנוי יש לך. 2. הוסף משימות והתחייבויות קבועות. 3. קבל סדר יום עם שעות למשימות, הפסקות וזמן פנוי.' });
+Object.assign(translations.ar, { usageIntro: '١. حدّد من أي ساعة بدك تبدأ وقديش وقت عندك. ٢. أضف مهامك ومواعيدك الثابتة. ٣. اضغط «رتبلي المهام» وشوف يومك بالساعات، مع استراحات ومساحة فاضية.' });
+
 const byId = id => document.getElementById(id);
+const taskCategories = ['work', 'study', 'personal', 'home', 'other'];
+const categoryCopy = {
+  en: {categoryLabel:'Task category',categoryWork:'Work',categoryStudy:'Study',categoryPersonal:'Personal',categoryHome:'Home',categoryOther:'Other',categoryStart:'Start with',categoryAuto:'Urgency & priority',categoryOrderHint:'Urgent and must-do tasks still come first.',categoryTask:'Task',categoryDuration:'Time',categoryPriority:'Priority',categoryStatus:'Done'},
+  he: {categoryLabel:'קטגוריית המשימה',categoryWork:'עבודה',categoryStudy:'לימודים',categoryPersonal:'אישי',categoryHome:'בית',categoryOther:'אחר',categoryStart:'מתחילים עם',categoryAuto:'לפי דחיפות ועדיפות',categoryOrderHint:'משימות דחופות וחובה להיום עדיין קודמות.',categoryTask:'משימה',categoryDuration:'זמן',categoryPriority:'עדיפות',categoryStatus:'בוצע'},
+  ar: {categoryLabel:'فئة المهمة',categoryWork:'شغل',categoryStudy:'دراسة',categoryPersonal:'شخصي',categoryHome:'البيت',categoryOther:'غير هيك',categoryStart:'بأي فئة نبدأ',categoryAuto:'حسب الاستعجال والأولوية',categoryOrderHint:'المهام المستعجلة والضرورية لليوم بتضلّ بالأول.',categoryTask:'المهمة',categoryDuration:'الوقت',categoryPriority:'الأولوية',categoryStatus:'خلصت'}
+};
+Object.keys(categoryCopy).forEach(lang=>Object.assign(translations[lang],categoryCopy[lang]));
+function taskCategory(task) { return taskCategories.includes(task.category) ? task.category : 'other'; }
+function categoryLabel(category) { return translations[currentLanguage]['category'+category[0].toUpperCase()+category.slice(1)]; }
 let plan = null;
 let session = null;
 let tickHandle = null;
 let nextTaskId = 1;
 let timeHistory = [];
 let urgentNotice = null;
-const settingsIds = ['availableHours', 'availableTime', 'timeMode', 'finishAt', 'breakMinutes', 'useBuffer', 'energyLevel'];
+const settingsIds = ['availableHours', 'availableTime', 'timeMode', 'finishAt', 'breakMinutes', 'useBuffer', 'energyLevel', 'startMode', 'startHour', 'startMinute', 'startPeriod', 'diaryDate', 'preferredCategory'];
 
 function saveState() {
   syncJournal();
   try {
     const settings = Object.fromEntries(settingsIds.map(id => [id, byId(id).type === 'checkbox' ? byId(id).checked : byId(id).value]));
-    localStorage.setItem('sparePlanner', JSON.stringify({ tasks, settings, timeHistory }));
+    localStorage.setItem('sparePlanner', JSON.stringify({ tasks, settings, timeHistory, appointments }));
   } catch { /* Planning works even when browser storage is unavailable. */ }
 }
 
@@ -125,6 +144,8 @@ function restoreState() {
   try {
     const saved = JSON.parse(localStorage.getItem('sparePlanner') || 'null');
     if (!saved) return;
+    appointments = Array.isArray(saved.appointments) ? saved.appointments.filter(item => typeof item.id === 'string' && typeof item.name === 'string' && Number.isFinite(item.start) && Number.isFinite(item.end) && item.end > item.start).sort((a, b) => a.start - b.start) : [];
+    appointments = appointments.filter((item, index, all) => !index || item.start >= all[index - 1].end);
     tasks = Array.isArray(saved.tasks) ? saved.tasks.filter(task => Number.isSafeInteger(task.id) && typeof task.name === 'string' &&
       Number.isSafeInteger(task.minutes) && task.minutes > 0 && Number.isSafeInteger(task.remaining) && task.remaining >= 0 &&
       task.remaining <= task.minutes && [1, 2, 3].includes(task.priority)).map(task => ({ ...task, must: !!task.must, canSplit: !!task.canSplit,
@@ -144,7 +165,7 @@ function restoreState() {
 
 function toMinutes(minutesInput, hoursInput) {
   const minutes = Number(minutesInput.value), hours = Number(hoursInput.value);
-  if (!Number.isSafeInteger(minutes) || !Number.isSafeInteger(hours) || minutes < 0 || hours < 0) return NaN;
+  if (!Number.isSafeInteger(minutes) || !Number.isSafeInteger(hours) || minutes < 0 || minutes > 60 || hours < 0 || hours > 24) return NaN;
   const total = hours * 60 + minutes;
   return Number.isSafeInteger(total) ? total : NaN;
 }
@@ -154,9 +175,29 @@ function setAvailableMinutes(total) {
   availableTime.value = total % 60;
 }
 
+function limitTimeInput(input, min, max) {
+  if (input.value === '') return;
+  const value = Number(input.value);
+  input.value = Number.isFinite(value) ? String(Math.min(max, Math.max(min, Math.trunc(value)))) : '';
+}
+const timeInputLimits = {
+  availableHours: [0, 24], taskHours: [0, 24], urgentHours: [0, 24],
+  availableTime: [0, 60], taskMinutes: [0, 60], urgentMinutes: [0, 60],
+  startHour: [1, 12], finishHour: [1, 12], fixedHour: [1, 12],
+  startMinute: [0, 59], finishMinute: [0, 59], fixedMinute: [0, 59],
+  fixedDuration: [1, 1440], diaryEventHour: [1, 12], diaryEventMinute: [0, 59], diaryEventDuration: [1, 1440]
+};
+Object.entries(timeInputLimits).forEach(([id, limits]) => {
+  const input = byId(id);
+  input.addEventListener('input', () => limitTimeInput(input, ...limits), { capture: true });
+  input.addEventListener('change', () => limitTimeInput(input, ...limits), { capture: true });
+});
+
 function stopTicker() { clearInterval(tickHandle); tickHandle = null; }
 function elapsedSeconds(now = Date.now()) {
-  return session ? session.elapsed + (session.running ? Math.max(0, (now - session.startedAt) / 1000) : 0) : 0;
+  const step = plan?.steps[session?.index];
+  const effectiveNow = step?.start != null ? Math.min(now, step.start + step.minutes * 60000) : now;
+  return session ? session.elapsed + (session.running ? Math.max(0, (effectiveNow - session.startedAt) / 1000) : 0) : 0;
 }
 
 function creditCurrentStep() {
@@ -183,6 +224,7 @@ function invalidatePlan() {
 }
 
 function updateMode() {
+  byId('startFields').classList.toggle('hidden', byId('startMode').value !== 'later');
   syncDeadlineClock();
   const deadline = byId('timeMode').value === 'deadline';
   byId('durationFields').classList.toggle('hidden', deadline);
@@ -214,13 +256,13 @@ function getAvailable(now = Date.now()) {
   if (byId('timeMode').value !== 'deadline') return toMinutes(availableTime, availableHours);
   const match = /^(\d{2}):(\d{2})$/.exec(byId('finishAt').value);
   if (!match) return NaN;
-  const end = new Date(now);
+  const end = selectedPlanningDay(now);
   end.setHours(Number(match[1]), Number(match[2]), 0, 0);
-  return Math.floor((end.getTime() - now) / 60000);
+  return Math.floor((end.getTime() - planningStart(now)) / 60000);
 }
 
 // Pure scheduler: reserve buffer, prioritize must-do work, and split only with consent.
-function createPlan(source, available, breakMinutes = 5, useBuffer = true, energy = 'high') {
+function createPlan(source, available, breakMinutes = 5, useBuffer = true, energy = 'high', preferred = 'auto') {
   const focusLimit = energy === 'low' ? 20 : energy === 'balanced' ? 30 : 45;
   const effortRank = { light: 0, normal: 1, deep: 2 };
   const buffer = useBuffer ? Math.ceil(available * .1) : 0;
@@ -229,6 +271,7 @@ function createPlan(source, available, breakMinutes = 5, useBuffer = true, energ
   let used = 0, workSinceBreak = 0;
   const sorted = source.filter(task => task.remaining > 0).slice().sort((a, b) =>
     Number(b.urgent || false) - Number(a.urgent || false) || Number(b.must) - Number(a.must) ||
+    Number(taskCategory(b) === preferred) - Number(taskCategory(a) === preferred) ||
     (energy === 'low' ? (effortRank[a.effort || 'normal'] - effortRank[b.effort || 'normal']) : 0) ||
     b.priority - a.priority || a.remaining - b.remaining);
   function schedule(task, target, commit) {
@@ -260,19 +303,26 @@ function buildPlan(options = {}) {
   const t = translations[currentLanguage];
   const now = Date.now();
   const end = options.end || (plan?.end ?? null);
-  const available = end ? Math.floor((end - now) / 60000) : getAvailable(now);
+  const start = end ? Math.max(now, plan?.start || planningStart(now)) : planningStart(now);
+  if (!Number.isFinite(start) || start < now) { alert(t.startInvalid); return; }
+  const available = end ? Math.floor((end - start) / 60000) : getAvailable(now);
   if (!Number.isFinite(available) || available <= 0) {
     alert(end ? t.noTime : byId('timeMode').value === 'deadline' ? t.deadlineAlert : t.timeAlert);
     return;
   }
+  const finish = end || start + available * 60000;
+  const dateAppointments = appointments.filter(item => localDateKey(new Date(item.start)) === localDateKey(new Date(start)));
+  const fixed = end ? dateAppointments.filter(item => item.end > start && item.start < finish).map(item => ({ ...item, start: Math.max(start, item.start), end: Math.min(finish, item.end) })) : dateAppointments;
+  if (fixed.some(item => item.start < start || item.end > finish)) { alert(t.fixedOutside); return; }
   creditCurrentStep(); stopTicker(); session = null;
-  if (!tasks.some(task => task.remaining > 0)) { plan = null; byId('results').classList.add('hidden'); renderTasks(); saveState(); alert(t.noTasksAlert); return; }
+  if (!tasks.some(task => task.remaining > 0) && !fixed.length) { plan = null; byId('results').classList.add('hidden'); renderTasks(); saveState(); alert(t.noTasksAlert); return; }
   urgentNotice = null;
-  plan = createPlan(tasks, available, Number(byId('breakMinutes').value), byId('useBuffer').checked, byId('energyLevel').value);
-  plan.start = now;
-  plan.end = end || now + available * 60000;
+  byId('shareStatus').textContent = '';
+  plan = fixed.length || start > now ? createDayPlan(tasks, available, Number(byId('breakMinutes').value), byId('useBuffer').checked, byId('energyLevel').value, start, fixed, byId('preferredCategory').value) : createPlan(tasks, available, Number(byId('breakMinutes').value), byId('useBuffer').checked, byId('energyLevel').value, byId('preferredCategory').value);
+  plan.start = start;
+  plan.end = finish;
   session = { index: 0, elapsed: 0, startedAt: null, running: false };
-  renderTasks(); renderPlan(); saveState();
+  renderTasks(); renderPlan(); saveState(); saveDiaryPlan();
   if (options.scroll !== false) {
     if (typeof showWorkspace === 'function') showWorkspace('plan');
     else byId('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -284,7 +334,7 @@ function addTask() {
   if (!name || !Number.isFinite(minutes) || minutes <= 0) { alert(translations[currentLanguage].addTaskAlert); return; }
   invalidatePlan();
   tasks.push({ id: nextTaskId++, name, minutes, remaining: minutes, priority: Number(priority.value),
-    must: byId('mustToday').checked, canSplit: byId('canSplit').checked, effort: byId('taskEffort').value, actualSeconds: 0 });
+    must: byId('mustToday').checked, canSplit: byId('canSplit').checked, effort: byId('taskEffort').value, category: byId('taskCategory').value, actualSeconds: 0 });
   taskName.value = taskMinutes.value = taskHours.value = '';
   priority.value = '3'; byId('mustToday').checked = false;
   byId('taskEffort').value = 'normal'; renderEstimate();
@@ -318,22 +368,36 @@ function formatDuration(minutes) {
 }
 function escapeHTML(value) { const div = document.createElement('div'); div.textContent = String(value); return div.innerHTML; }
 function renderTasks() {
+  byId('taskNotePreview').classList.add('hidden');
   const t = translations[currentLanguage];
   taskCount.textContent = `${tasks.filter(task => task.remaining > 0).length} ${t.tasks}`;
   byId('emptyTasks').classList.toggle('hidden', tasks.length > 0);
   taskList.innerHTML = '';
-  tasks.forEach(task => {
-    const item = document.createElement('div'); item.className = `task-item${task.remaining === 0 ? ' completed-task' : ''}`;
+  taskCategories.forEach(category => {
+    const grouped=tasks.filter(task=>taskCategory(task)===category);if(!grouped.length)return;
+    const section=document.createElement('section');section.className=`category-board category-${category}`;
+    const heading=document.createElement('h4');heading.textContent=`${categoryLabel(category)} · ${grouped.filter(task=>task.remaining>0).length}`;section.appendChild(heading);
+    const scroll=document.createElement('div');scroll.className='category-table-scroll';
+    const table=document.createElement('table');table.className='category-table';
+    const caption=document.createElement('caption');caption.className='number-control-label';caption.textContent=categoryLabel(category);table.appendChild(caption);
+    const head=document.createElement('thead');head.innerHTML=`<tr><th scope="col">${t.categoryStatus}</th><th scope="col">${t.categoryTask}</th><th scope="col">${t.categoryDuration}</th><th scope="col">${t.categoryPriority}</th><th scope="col"><span class="number-control-label">${t.removeTask}</span></th></tr>`;table.appendChild(head);
+    const body=document.createElement('tbody');
+    grouped.forEach(task => {
+    const item = document.createElement('tr'); item.className = task.remaining === 0 ? 'completed-task' : '';
     const check = document.createElement('button');
     check.type = 'button'; check.className = 'task-check'; check.textContent = '✓';
     check.setAttribute('role', 'checkbox'); check.setAttribute('aria-checked', String(task.remaining === 0));
     check.setAttribute('aria-label', `${task.remaining === 0 ? t.reopenTask : t.completeTask}: ${task.name}`);
     check.addEventListener('click', () => toggleTaskDone(task.id));
-    item.innerHTML = `<div class="task-info"><strong>${escapeHTML(task.name)}</strong><span class="task-meta"><span class="task-duration-badge">${task.remaining === 0 ? t.done : formatDuration(task.remaining)}</span><span class="task-priority-badge">${task.must ? t.mustToday : getPriorityText(task.priority)}</span></span></div>`;
-    item.prepend(check);
+    const status=document.createElement('td');status.appendChild(check);item.appendChild(status);
+    const name=document.createElement('td');name.className='category-task-name';name.textContent=task.name;item.appendChild(name);
+    const duration=document.createElement('td');duration.textContent=task.remaining === 0 ? t.done : formatDuration(task.remaining);item.appendChild(duration);
+    const rank=document.createElement('td');rank.innerHTML=`<span class="category-rank rank-${task.priority}">${task.must ? t.mustToday : getPriorityText(task.priority)}</span>`;item.appendChild(rank);
     const remove = document.createElement('button'); remove.className = 'remove-btn'; remove.textContent = '×';
     remove.setAttribute('aria-label', `${t.removeTask}: ${task.name}`); remove.addEventListener('click', () => removeTask(task.id));
-    item.appendChild(remove); taskList.appendChild(item);
+    const removeCell=document.createElement('td');removeCell.appendChild(remove);item.appendChild(removeCell);body.appendChild(item);
+    });
+    table.appendChild(body);scroll.appendChild(table);section.appendChild(scroll);taskList.appendChild(section);
   });
 }
 
@@ -341,22 +405,35 @@ function clockTime(timestamp) { return new Date(timestamp).toLocaleTimeString(cu
 function renderPlan() {
   if (!plan) return;
   const t = translations[currentLanguage];
+  const portions = [
+    { key: 'work', label: t.pictureWork, minutes: plan.work },
+    { key: 'break', label: t.pictureBreak, minutes: plan.used - plan.work - (plan.appointmentMinutes || 0) },
+    { key: 'appointment', label: t.appointmentLabel, minutes: plan.appointmentMinutes || 0 },
+    { key: 'buffer', label: t.pictureBuffer, minutes: plan.buffer },
+    { key: 'free', label: t.pictureFree, minutes: Math.max(0, plan.available - plan.used - plan.buffer) }
+  ];
+  byId('timePictureBar').innerHTML = portions.filter(part => part.minutes > 0).map(part => `<span class="picture-${part.key}" style="width:${part.minutes / plan.available * 100}%" title="${escapeHTML(part.label)}: ${escapeHTML(formatDuration(part.minutes))}"></span>`).join('');
+  byId('timePictureLegend').innerHTML = portions.map(part => `<div><i class="picture-${part.key}" aria-hidden="true"></i><span>${escapeHTML(part.label)}</span><strong>${formatDuration(part.minutes)}</strong></div>`).join('');
   let minute = 0;
   byId('plannedTasks').innerHTML = plan.steps.map((step, index) => {
-    const start = plan.start + minute * 60000; minute += step.minutes;
+    const start = step.start ?? plan.start + minute * 60000; minute += step.minutes;
     const task = tasks.find(task => task.id === step.taskId);
     const isPartial = plan.later.some(task => task.id === step.taskId && task.partial);
-    return `<div class="plan-item ${step.kind === 'break' ? 'break-step' : ''} ${index < session.index ? 'completed-task' : ''}">
-      <div class="plan-time">${clockTime(start)} → ${clockTime(plan.start + minute * 60000)}</div>
-      <div class="plan-name">${escapeHTML(step.kind === 'break' ? t.breakName : step.name)}<small>${formatDuration(step.minutes)}${task?.must ? ` · ${t.mustToday}` : ''}${isPartial ? ` · ${plan.energy === 'low' ? t.gentlePart : t.partial}` : ''}</small></div></div>`;
+    const label = step.kind === 'break' ? t.breakName : step.kind === 'free' ? t.freeSlot : step.kind === 'reserve' ? t.reserveSlot : step.name;
+    return `<div class="plan-item ${step.kind}-step ${index < session.index ? 'completed-task' : ''}">
+      <div class="plan-time">${clockTime(start)} → ${clockTime(start + step.minutes * 60000)}</div>
+      <div class="plan-name">${escapeHTML(label)}<small>${formatDuration(step.minutes)}${step.kind === 'appointment' ? ` · ${t.appointmentLabel}` : ''}${task?.must ? ` · ${t.mustToday}` : ''}${isPartial ? ` · ${plan.energy === 'low' ? t.gentlePart : t.partial}` : ''}</small></div></div>`;
   }).join('') || `<p>${t.nothingFits}</p>`;
   byId('laterTasks').innerHTML = plan.later.map(task => `<div class="plan-item later-item"><div class="plan-name">${escapeHTML(task.name)}<small>${formatDuration(task.remaining)} · ${t.remaining}${task.must ? ` · ${t.mustToday}` : ''}</small></div></div>`).join('');
   byId('laterCard').classList.toggle('hidden', !plan.later.length);
   byId('timeUsed').textContent = `${formatDuration(plan.used)} / ${formatDuration(plan.available)}`;
   byId('progressBar').style.width = `${plan.used / plan.available * 100}%`;
-  byId('planSummary').textContent = t.summary.replace('{work}', plan.work).replace('{breaks}', plan.used - plan.work).replace('{buffer}', plan.buffer);
+  if (!plan.steps.some(step => step.kind === 'free') && plan.available > plan.used + plan.buffer) byId('plannedTasks').innerHTML += `<div class="plan-item free-step"><div class="plan-time">${clockTime(plan.start + plan.used * 60000)} → ${clockTime(plan.end - plan.buffer * 60000)}</div><div class="plan-name">${t.freeSlot}<small>${formatDuration(plan.available - plan.used - plan.buffer)}</small></div></div>`;
+  if (!plan.steps.some(step => step.kind === 'reserve') && plan.buffer > 0) byId('plannedTasks').innerHTML += `<div class="plan-item reserve-step"><div class="plan-time">${clockTime(plan.end - plan.buffer * 60000)} → ${clockTime(plan.end)}</div><div class="plan-name">${t.reserveSlot}<small>${formatDuration(plan.buffer)}</small></div></div>`;
+  byId('planSummary').textContent = t.summary.replace('{work}', plan.work).replace('{breaks}', plan.used - plan.work - (plan.appointmentMinutes || 0)).replace('{buffer}', plan.buffer) + (plan.appointmentMinutes ? ` · ${t.appointmentLabel}: ${formatDuration(plan.appointmentMinutes)}` : '');
   byId('realityMessage').textContent = plan.later.some(task => task.must) ? t.mustWarning : plan.later.length ? t.laterMessage : t.fitMessage;
   byId('results').classList.remove('hidden'); renderSession(); renderUrgentNotice();
+  if (typeof refreshTaskNote === 'function') refreshTaskNote();
 }
 
 function renderSession() {
@@ -371,17 +448,26 @@ function renderSession() {
   const remaining = Math.ceil(step.minutes * 60 - elapsedSeconds());
   const seconds = Math.abs(remaining), hours = Math.floor(seconds / 3600);
   byId('timerDisplay').textContent = `${remaining < 0 ? '+' : ''}${hours ? `${String(hours).padStart(2, '0')}:` : ''}${String(Math.floor(seconds / 60) % 60).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
-  byId('sessionName').textContent = step.kind === 'break' ? t.breakName : step.name;
+  byId('sessionName').textContent = step.kind === 'break' ? t.breakName : step.kind === 'free' ? t.freeSlot : step.kind === 'reserve' ? t.reserveSlot : step.name;
+  const waiting = Date.now() < (step.start ?? plan.start);
   const status = Date.now() >= plan.end ? 'noTime' : remaining <= 0 ? 'overtime' : session.running ? 'running' : session.elapsed ? 'paused' : 'ready';
   if (byId('sessionStatus').textContent !== t[status]) byId('sessionStatus').textContent = t[status];
-  byId('startSession').disabled = session.running; byId('pauseSession').disabled = !session.running; byId('finishSession').disabled = false;
+  if (waiting) byId('sessionStatus').textContent = t.scheduledWait.replace('{time}', clockTime(step.start ?? plan.start));
+  byId('startSession').disabled = session.running; byId('pauseSession').disabled = !session.running; byId('finishSession').disabled = waiting;
 }
 
 function startSession() {
   if (!session || !plan?.steps[session.index] || session.running) return;
+  const step = plan.steps[session.index];
+  if (Date.now() < (step.start ?? plan.start)) { alert(translations[currentLanguage].scheduledWait.replace('{time}', clockTime(step.start ?? plan.start))); return; }
+  if (step.start != null && Date.now() >= step.start + step.minutes * 60000) { replanSession(); return; }
   if (Date.now() >= plan.end) { alert(translations[currentLanguage].noTime); return; }
   session.startedAt = Date.now(); session.running = true;
   stopTicker(); tickHandle = setInterval(() => {
+    if (step.start != null && Date.now() >= step.start + step.minutes * 60000) {
+      if (Date.now() < plan.end) replanSession(); else pauseSession();
+      return;
+    }
     renderSession();
     if (elapsedSeconds() - (session?.loggedSeconds || 0) >= 15) logSessionFocus();
   }, 1000); renderSession();
@@ -393,6 +479,7 @@ function pauseSession() {
 }
 function finishSession() {
   const step = plan?.steps[session?.index]; if (!step) return;
+  if (Date.now() < (step.start ?? plan.start)) return;
   logSessionFocus();
   if (step.kind === 'work') {
     const task = tasks.find(task => task.id === step.taskId);
@@ -418,11 +505,18 @@ function changeLanguage(lang) {
   renderTasks(); if (plan) renderPlan();
   renderEnergyHint(); renderEstimate(); renderUrgentNotice();
   syncTaskChoices();
+  renderAppointments();
+  renderDiary();
   renderDashboard();
 }
 function resetApp() {
   creditCurrentStep(); syncJournal();
   stopTicker(); tasks = []; session = null; plan = null; urgentNotice = null;
+  appointments = []; byId('startMode').value = 'now';
+  byId('taskCategory').value='other';byId('preferredCategory').value='auto';
+  byId('diaryDate').value = '';
+  ['startHour', 'startMinute', 'fixedName', 'fixedHour', 'fixedMinute', 'fixedDuration'].forEach(id => byId(id).value = '');
+  renderAppointments();
   ['availableTime', 'availableHours', 'taskName', 'taskHours', 'taskMinutes', 'finishAt'].forEach(id => { byId(id).value = ''; });
   byId('timeMode').value = 'duration'; byId('breakMinutes').value = '5'; byId('useBuffer').checked = true;
   byId('mustToday').checked = false; byId('canSplit').checked = true; priority.value = '3';
@@ -525,15 +619,18 @@ byId('finishSession').addEventListener('click', finishSession);
 byId('replanSession').addEventListener('click', replanSession);
 [taskName, taskMinutes, taskHours].forEach(el => el.addEventListener('keydown', event => { if (event.key === 'Enter') addTask(); }));
 settingsIds.forEach(id => byId(id).addEventListener('change', () => {
+  if (id === 'diaryDate' && byId(id).value && byId(id).value !== localDateKey()) byId('startMode').value = 'later';
   if (id === 'energyLevel' && plan) replanSession();
   else invalidatePlan();
-  updateMode(); renderEnergyHint(); saveState();
+  updateMode(); renderEnergyHint(); renderAppointments(); saveState();
 }));
 [availableTime, availableHours, byId('finishAt')].forEach(el => el.addEventListener('input', invalidatePlan));
 document.querySelectorAll('[data-minutes]').forEach(el => el.addEventListener('click', () => { invalidatePlan(); byId('timeMode').value = 'duration'; setAvailableMinutes(Number(el.dataset.minutes)); updateMode(); saveState(); }));
 document.querySelectorAll('.lang-btn').forEach(el => el.addEventListener('click', () => changeLanguage(el.dataset.lang)));
-restoreState(); updateMode();
+byId('addFixed').addEventListener('click', addAppointment);
+restoreState(); updateMode(); renderAppointments();
 let savedLanguage = 'en'; try { savedLanguage = localStorage.getItem('spareLanguage') || 'en'; } catch {}
 changeLanguage(savedLanguage);
 initDashboard();
+initDiary(); changeLanguage(currentLanguage);
 window.addEventListener?.('pagehide', () => { creditCurrentStep(); stopTicker(); session = null; plan = null; saveState(); });

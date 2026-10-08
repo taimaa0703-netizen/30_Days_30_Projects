@@ -5,32 +5,40 @@ const workspaceCopy = {
   ar: { workspaceLabel: 'مساحة التخطيط', viewTime: 'وقتي', viewTasks: 'مهامي', viewPlan: 'خطتي', viewProgress: 'تقدّمي', goToTasks: 'كمّل للمهام', emptyPlanTitle: 'خطوتك الجاية بتبدأ هون.', emptyPlanHint: 'حدّد وقتك وأضف مهمة، وبعدين ابنِ خطتك.' }
 };
 Object.keys(workspaceCopy).forEach(lang => Object.assign(translations[lang], workspaceCopy[lang]));
-const workspaceViews = ['time', 'tasks', 'plan', 'progress'];
-const workspaceButtons = ['viewTime', 'viewTasks', 'viewPlan', 'viewProgress'].map(byId);
+Object.assign(translations.en, {viewTime: 'Day settings', viewPlan: 'Day schedule'});
+Object.assign(translations.he, {viewTime: 'הגדרות היום', viewPlan: 'סדר היום'});
+Object.assign(translations.ar, {viewTime: 'إعدادات اليوم', viewPlan: 'جدول يومي'});
+const workspaceViews = ['time', 'tasks', 'plan', 'progress', 'diary'];
+const workspaceButtons = ['viewTime', 'viewTasks', 'viewPlan', 'viewProgress', 'viewDiary'].map(byId);
 function showWorkspace(view, focus = false) {
   if (!workspaceViews.includes(view)) return;
+  const changed = document.querySelector('.app').getAttribute('data-workspace-view') !== view;
   document.querySelector('.app').setAttribute('data-workspace-view', view);
   workspaceButtons.forEach((button, index) => {
     const selected = workspaceViews[index] === view;
     button.setAttribute('aria-selected', String(selected));
     button.setAttribute('tabindex', selected ? '0' : '-1');
-    if (selected && focus) button.focus();
+    if (selected && focus) button.focus({ preventScroll: true });
   });
   byId('emptyPlan').classList.toggle('hidden', !!plan);
+  if (view === 'diary') renderDiary();
+  if (view === 'plan' && typeof refreshTaskNote === 'function') refreshTaskNote();
+  if (changed) window.scrollTo?.({ top: 0, left: 0, behavior: 'instant' });
 }
 workspaceButtons.forEach((button, index) => {
   button.addEventListener('click', () => showWorkspace(workspaceViews[index]));
   button.addEventListener('keydown', event => {
     const rtl = document.documentElement.dir === 'rtl';
     let next;
-    if (event.key === 'ArrowRight') next = (index + (rtl ? 3 : 1)) % 4;
-    if (event.key === 'ArrowLeft') next = (index + (rtl ? 1 : 3)) % 4;
+    const count = workspaceViews.length;
+    if (event.key === 'ArrowRight') next = (index + (rtl ? count - 1 : 1)) % count;
+    if (event.key === 'ArrowLeft') next = (index + (rtl ? 1 : count - 1)) % count;
     if (event.key === 'Home') next = 0;
-    if (event.key === 'End') next = 3;
+    if (event.key === 'End') next = count - 1;
     if (next !== undefined) { event.preventDefault(); showWorkspace(workspaceViews[next], true); }
   });
 });
-byId('goToTasks').addEventListener('click', () => { showWorkspace('tasks'); taskName.focus(); });
-byId('emptyPlanTasks').addEventListener('click', () => { showWorkspace('tasks'); taskName.focus(); });
-showWorkspace('time');
+byId('goToTasks').addEventListener('click', () => { showWorkspace('tasks'); taskName.focus({ preventScroll: true }); });
+byId('emptyPlanTasks').addEventListener('click', () => { showWorkspace('tasks'); taskName.focus({ preventScroll: true }); });
+showWorkspace('diary');
 changeLanguage(currentLanguage);

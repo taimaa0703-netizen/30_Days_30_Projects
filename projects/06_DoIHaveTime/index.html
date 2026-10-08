@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SPARE</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="theme.css" />
+  <link rel="stylesheet" href="style.css?v=20261008-3" />
+  <link rel="stylesheet" href="theme.css?v=20261008-3" />
+  <link rel="stylesheet" href="diary.css?v=20261008-3" />
 </head>
 
 <body>
@@ -56,34 +57,49 @@
       <button id="viewTasks" type="button" role="tab" aria-selected="false" aria-controls="tasksPanel" data-view="tasks" tabindex="-1"><span aria-hidden="true">02</span><span data-i18n="viewTasks">My tasks</span></button>
       <button id="viewPlan" type="button" role="tab" aria-selected="false" aria-controls="planPanel" data-view="plan" tabindex="-1"><span aria-hidden="true">03</span><span data-i18n="viewPlan">My plan</span></button>
       <button id="viewProgress" type="button" role="tab" aria-selected="false" aria-controls="dashboard" data-view="progress" tabindex="-1"><span aria-hidden="true">04</span><span data-i18n="viewProgress">Progress</span></button>
+      <button id="viewDiary" type="button" role="tab" aria-selected="false" aria-controls="diaryPanel" data-view="diary" tabindex="-1"><span aria-hidden="true">05</span><span data-i18n="viewDiary">My diary</span></button>
     </nav>
+    <button id="mobileOpenTaskNote" class="mobile-note-shortcut" type="button" data-i18n="noteShortcut">My picture note</button>
 
 
     <div class="planner-grid">
     <section id="timePanel" class="card time-card" role="tabpanel" aria-labelledby="viewTime">
       <span class="step-number" aria-hidden="true">01</span>
-      <label for="availableTime" data-i18n="availableTime">
-        How much free time do you have?
-      </label>
+      <div class="day-setup-heading"><h2 data-i18n="daySetupTitle">A clear start to your day</h2><p data-i18n="daySetupHint">Choose your day and hours. Add extras only if you need them.</p></div>
 
       <label class="mode-label" for="timeMode" data-i18n="timeMode">Plan by</label>
-      <select id="timeMode" hidden>
+      <div class="day-start">
+        <h3 class="setup-group-title" data-i18n="setupStartTitle">Day & start</h3>
+        <div class="setup-row"><label for="diaryDate" data-i18n="diaryDate">Which day are we planning?</label><div class="setup-control"><input id="diaryDate" type="date" /><p id="diaryDateHint" class="field-hint"></p></div></div>
+        <div class="setup-row">
+        <label for="startMode" data-i18n="startLabel">When does your day start?</label>
+        <div class="setup-control">
+        <select id="startMode"><option value="now" data-i18n="startNow">Now</option><option value="later" data-i18n="startLater">Choose a time today</option></select>
+        <div id="startFields" class="deadline-clock hidden" dir="ltr">
+          <input id="startHour" type="number" min="1" max="12" placeholder="hh" aria-label="Hour (1–12)" />
+          <span aria-hidden="true">:</span><input id="startMinute" type="number" min="0" max="59" placeholder="mm" aria-label="Minute (0–59)" />
+          <select id="startPeriod" aria-label="AM / PM"><option>AM</option><option>PM</option></select>
+        </div>
+        </div></div>
+        <p class="field-hint" data-i18n="startHint">Choose your start, then your available duration or finish time.</p>
+      </div>
+      <div class="day-end">
+      <h3 class="setup-group-title" data-i18n="setupEndTitle">End of the day</h3>
+      <div class="setup-row"><label for="timeMode" data-i18n="timeMode">Plan by</label><div class="setup-control">
+      <select id="timeMode" class="time-mode-selector" data-i18n-aria-label="timeMode">
         <option value="duration" data-i18n="durationMode">Free time</option>
         <option value="deadline" data-i18n="deadlineMode">Finish by a time</option>
       </select>
+      </div></div>
 
-      <div class="mode-switch" role="group" data-i18n-aria-label="timeMode">
-        <button type="button" data-choice-target="timeMode" data-value="duration" aria-pressed="true"><span data-i18n="durationMode">Free time</span></button>
-        <button type="button" data-choice-target="timeMode" data-value="deadline" aria-pressed="false"><span data-i18n="deadlineMode">Finish by a time</span></button>
-      </div>
       <div id="durationFields" class="time-input">
         <div class="time-field">
           <label for="availableHours" data-i18n="hours">Hours</label>
-          <input type="number" id="availableHours" placeholder="0" min="0" step="1" />
+          <input type="number" id="availableHours" placeholder="0" min="0" max="24" step="1" />
         </div>
         <div class="time-field">
           <label for="availableTime" data-i18n="minutesPlaceholder">Minutes</label>
-          <input type="number" id="availableTime" placeholder="0" min="0" step="1" />
+          <input type="number" id="availableTime" placeholder="0" min="0" max="60" step="1" />
         </div>
       </div>
       <div id="deadlineFields" class="hidden">
@@ -101,7 +117,18 @@
         <button type="button" data-minutes="60">60 <span data-i18n="minutesShort">min</span></button>
         <button type="button" data-minutes="90">90 <span data-i18n="minutesShort">min</span></button>
       </div>
+      </div>
       <div class="planning-options">
+        <details class="fixed-editor"><summary data-i18n="fixedTitle">Have a meeting at a fixed time?</summary>
+          <p class="field-hint" data-i18n="fixedHint">Add today's appointments. Tasks will fit around them. Appointments must be inside your time window.</p>
+          <label for="fixedName" data-i18n="fixedName">Appointment name</label><input id="fixedName" type="text" maxlength="120" />
+          <label for="fixedHour" data-i18n="fixedStart">Starts at</label>
+          <div class="deadline-clock" dir="ltr"><input id="fixedHour" type="number" min="1" max="12" placeholder="hh" aria-label="Hour (1–12)" /><span aria-hidden="true">:</span><input id="fixedMinute" type="number" min="0" max="59" placeholder="mm" aria-label="Minute (0–59)" /><select id="fixedPeriod" aria-label="AM / PM"><option>AM</option><option>PM</option></select></div>
+          <label for="fixedDuration" data-i18n="fixedDuration">Duration in minutes</label><input id="fixedDuration" type="number" min="1" max="1440" step="1" placeholder="30" />
+          <button id="addFixed" type="button" class="workspace-next" data-i18n="addFixed">Add appointment</button>
+        </details>
+        <div id="fixedList" class="fixed-list"></div>
+        <details class="day-preferences"><summary data-i18n="dayPreferences">Energy & breaks · optional</summary><p class="field-hint" data-i18n="dayDefaults">A balanced pace, short breaks and a little breathing room are already set.</p>
         <label for="energyLevel" data-i18n="energyLabel">How is your energy?</label>
         <select id="energyLevel" hidden>
           <option value="high" data-i18n="energyHigh">Full of energy</option>
@@ -114,7 +141,7 @@
           <button type="button" data-choice-target="energyLevel" data-value="low" aria-pressed="false"><span data-i18n="energyLow">Low energy</span></button>
         </div>
         <p id="energyHint" class="field-hint"></p>
-        <details class="comfort-settings" open><summary data-i18n="comfortSettings">Breaks & breathing room</summary>
+        <details class="comfort-settings"><summary data-i18n="comfortSettings">Breaks & breathing room</summary>
         <label for="breakMinutes" data-i18n="breakLabel">Break every 45 minutes</label>
         <select id="breakMinutes" hidden>
           <option value="5" data-i18n="breakFive">5 minutes</option>
@@ -127,6 +154,7 @@
           <button type="button" data-choice-target="breakMinutes" data-value="0" aria-pressed="false" data-i18n="noBreaks">No breaks</button>
         </div>
         <label class="check-label"><input type="checkbox" id="useBuffer" checked /><span data-i18n="bufferLabel">Keep 10% free for surprises</span></label>
+        </details>
         </details>
       </div>
       <p class="time-note" data-i18n="timeHint">Start with the time you really have.</p>
@@ -162,14 +190,15 @@
           <div id="estimateSuggestion" class="estimate-suggestion hidden"><p id="estimateText"></p><button id="applyEstimate" type="button" data-i18n="applyEstimate">Use this estimate</button></div>
         </div>
         <div class="composer-section duration-section">
-          <div class="composer-label"><span class="field-number" aria-hidden="true">02</span><span data-i18n="taskDurationLabel">Give it some time</span></div>
-          <div class="duration-input composer-duration">
-            <div class="time-field"><label for="taskHours" data-i18n="hours">Hours</label><input id="taskHours" type="number" placeholder="0" min="0" step="1" /></div>
+          <div id="taskDurationCaption" class="composer-label"><span class="field-number" aria-hidden="true">02</span><span data-i18n="taskDurationLabel">Give it some time</span></div>
+          <div class="duration-input composer-duration" role="group" aria-labelledby="taskDurationCaption">
+            <div class="time-field"><label for="taskHours" data-i18n="hours">Hours</label><input id="taskHours" type="number" placeholder="0" min="0" max="24" step="1" /></div>
             <span class="duration-divider" aria-hidden="true">:</span>
-            <div class="time-field"><label for="taskMinutes" data-i18n="minutesPlaceholder">Minutes</label><input id="taskMinutes" type="number" placeholder="0" min="0" step="1" /></div>
+            <div class="time-field"><label for="taskMinutes" data-i18n="minutesPlaceholder">Minutes</label><input id="taskMinutes" type="number" placeholder="0" min="0" max="60" step="1" /></div>
           </div>
           <p class="composer-hint" data-i18n="durationExample">Two and a half hours? Enter 2 hours and 30 minutes.</p>
         </div>
+      <div class="task-category-picker"><label for="taskCategory" data-i18n="categoryLabel">Task category</label><select id="taskCategory"><option value="work" data-i18n="categoryWork">Work</option><option value="study" data-i18n="categoryStudy">Study</option><option value="personal" data-i18n="categoryPersonal">Personal</option><option value="home" data-i18n="categoryHome">Home</option><option value="other" selected data-i18n="categoryOther">Other</option></select></div>
         <details class="composer-section task-preferences"><summary data-i18n="optionalPreferences">Task preferences (optional)</summary><div class="preferences-section">
           <div class="composer-label"><span class="field-number" aria-hidden="true">03</span><span data-i18n="taskPreferences">Make it fit your day</span></div>
           <div class="choice-field">
@@ -202,6 +231,9 @@
         </div>
       </div>
 
+
+      <div class="category-order"><label for="preferredCategory" data-i18n="categoryStart">Which category comes first?</label><select id="preferredCategory"><option value="auto" data-i18n="categoryAuto">By urgency and priority</option><option value="work" data-i18n="categoryWork">Work</option><option value="study" data-i18n="categoryStudy">Study</option><option value="personal" data-i18n="categoryPersonal">Personal</option><option value="home" data-i18n="categoryHome">Home</option><option value="other" data-i18n="categoryOther">Other</option></select><p data-i18n="categoryOrderHint">Urgent and must-do tasks still come first.</p></div>
+      <h3 class="task-board-heading" data-i18n="taskBoardHeading">Your added tasks</h3>
       <div id="taskList" class="task-list"></div>
       <p id="emptyTasks" class="empty-tasks" data-i18n="emptyTasks">A little space for everything on your mind.</p>
 
@@ -226,10 +258,12 @@
           YOUR PLAN
         </span>
 
-        <h2 data-i18n="whatFits">
+        <h2 data-i18n="viewDayTitle">
           Here's what actually fits 👀
         </h2>
       </div>
+      <div class="diary-actions"><button id="sharePlan" type="button" data-i18n="shareDay">Share this day</button><button id="exportPlan" type="button" data-i18n="exportCalendar">Add to my calendar</button><button id="openDiary" type="button" data-i18n="viewDiary">My diary</button></div>
+      <p id="shareStatus" class="dashboard-note" role="status" aria-live="polite"></p>
 
       <div id="sessionCard" class="session-card hidden">
         <span class="small-label" data-i18n="focusNow">ONE STEP AT A TIME</span>
@@ -244,13 +278,19 @@
         <button id="replanSession" class="replan-btn" data-i18n="replanSession">Running late? Update my plan</button>
       </div>
       <p id="planSummary" class="plan-summary" role="status"></p>
+      <section class="time-picture" aria-labelledby="timePictureTitle">
+        <h3 id="timePictureTitle" data-i18n="timePictureTitle">See your day before it ends</h3>
+        <div id="timePictureBar" class="time-picture-bar"></div>
+        <div id="timePictureLegend" class="time-picture-legend"></div>
+        <p data-i18n="timePictureNote">This is your available time window, based on the durations you entered.</p>
+      </section>
       <button id="dayChanged" class="day-changed-btn" type="button" aria-expanded="false" aria-controls="urgentPanel" data-i18n="dayChanged">My day changed</button>
       <div id="urgentPanel" class="card urgent-panel hidden">
         <label for="urgentName" data-i18n="urgentLabel">What urgent task came up?</label>
         <input id="urgentName" type="text" data-i18n-placeholder="taskPlaceholder" />
         <div class="duration-input">
-          <div class="time-field"><label for="urgentHours" data-i18n="hours">Hours</label><input id="urgentHours" type="number" min="0" step="1" placeholder="0" /></div>
-          <div class="time-field"><label for="urgentMinutes" data-i18n="minutesPlaceholder">Minutes</label><input id="urgentMinutes" type="number" min="0" step="1" placeholder="0" /></div>
+          <div class="time-field"><label for="urgentHours" data-i18n="hours">Hours</label><input id="urgentHours" type="number" min="0" max="24" step="1" placeholder="0" /></div>
+          <div class="time-field"><label for="urgentMinutes" data-i18n="minutesPlaceholder">Minutes</label><input id="urgentMinutes" type="number" min="0" max="60" step="1" placeholder="0" /></div>
         </div>
         <button id="addUrgent" type="button" class="add-btn" data-i18n="addUrgent">Add and update my plan</button>
       </div>
@@ -291,15 +331,38 @@
 
 
       <div id="realityMessage" class="reality-card"></div>
-
-
-      <button id="reset" class="reset-btn" data-i18n="startAgain">
-        Start again
-      </button>
-
+      <button id="reset" class="reset-btn" data-i18n="startAgain">Start again</button>
     </section>
+      <section id="finishNoteCard" class="finish-note-card">
+        <div><span class="small-label">SPARE / LITTLE NOTE</span><h3 data-i18n="noteTitle">A little note for your next steps</h3><p data-i18n="noteHint">Your unfinished tasks, including those saved for later, as a picture with a kind reminder.</p></div>
+        <button id="makeTaskNote" class="main-btn" type="button" data-i18n="makeTaskNote">Create my picture note</button>
+        <div id="taskNotePreview" class="hidden"><img id="taskNoteImage" data-i18n-alt="noteAlt" alt="Picture note with unfinished tasks" /><div class="diary-actions"><button id="notePrevious" type="button" data-i18n-aria-label="notePreviousLabel"></button><span id="notePage" aria-live="polite"></span><button id="noteNext" type="button" data-i18n-aria-label="noteNextLabel"></button><button id="downloadTaskNote" type="button" data-i18n="downloadTaskNote">Download PNG</button></div><p id="taskNoteStatus" role="status"></p></div>
+      </section>
+
+
 
     </div>
+    <section id="diaryPanel" class="diary-panel" role="tabpanel" aria-labelledby="viewDiary">
+      <div class="mobile-diary-actions"><button id="diaryMobileWeek" type="button" aria-pressed="false" data-i18n="diaryWeeklyGrid">Weekly grid</button><button id="diaryAddSelected" type="button"><span aria-hidden="true">+</span><span data-i18n="diaryAddEvent">Add an event</span></button></div>
+      <div class="diary-actions"><button id="openTaskNote" type="button" data-i18n="noteTitle">A little note for your next steps</button></div>
+      <div class="diary-heading"><div><span class="small-label">SPARE / JOURNAL</span><h2 data-i18n="diaryTitle">A place for every part of your day</h2><p data-i18n="diaryIntro">Your saved schedules, together in one weekly diary.</p></div><button id="diaryPlanDay" type="button" class="main-btn" data-i18n="planSelectedDay">Plan this day</button></div>
+      <div class="diary-toolbar"><button id="diaryPrevious" type="button" data-i18n-aria-label="previousPeriod">←</button><strong id="diaryPeriod"></strong><button id="diaryNext" type="button" data-i18n-aria-label="nextPeriod">→</button><button id="diaryToday" type="button" data-i18n="currentPeriod">Today</button></div>
+      <dialog id="diaryEventDialog" aria-labelledby="diaryEventTitle">
+        <form id="diaryEventForm">
+          <div class="event-dialog-heading"><h3 id="diaryEventTitle" data-i18n="diaryAddEvent">Add an event</h3><button id="closeDiaryEvent" type="button" data-i18n-aria-label="diaryCancel">×</button></div>
+          <label for="diaryEventDate" data-i18n="diaryDate">Which day?</label><input id="diaryEventDate" type="date" required />
+          <label for="diaryEventName" data-i18n="fixedName">Event name</label><input id="diaryEventName" type="text" maxlength="120" required />
+          <label for="diaryEventHour" data-i18n="fixedStart">Starts at</label>
+          <div class="deadline-clock" dir="ltr"><input id="diaryEventHour" type="number" min="1" max="12" step="1" placeholder="hh" required aria-label="Hour (1–12)" /><span aria-hidden="true">:</span><input id="diaryEventMinute" type="number" min="0" max="59" step="1" placeholder="mm" aria-label="Minute (0–59)" /><select id="diaryEventPeriod" aria-label="AM / PM"><option>AM</option><option>PM</option></select></div>
+          <label for="diaryEventDuration" data-i18n="fixedDuration">Duration in minutes</label><input id="diaryEventDuration" type="number" min="1" max="1440" step="1" value="30" required />
+          <p id="diaryEventError" class="event-dialog-error" role="alert"></p>
+          <div class="diary-actions"><button id="cancelDiaryEvent" type="button" data-i18n="diaryCancel">Cancel</button><button type="submit" class="main-btn" data-i18n="diarySaveEvent">Save event</button></div>
+        </form>
+      </dialog>
+      <div id="diaryScroll" class="diary-scroll"><div id="diaryWeek" class="diary-week"></div></div>
+      <div class="diary-detail"><div class="diary-detail-heading"><h3 id="diarySelectedTitle"></h3><div class="diary-actions"><button id="shareDiaryDay" type="button" data-i18n="shareDay">Share this day</button><button id="exportDiaryDay" type="button" data-i18n="exportCalendar">Add to my calendar</button><button id="deleteDiaryDay" type="button" data-i18n="deleteDiaryDay">Delete saved day</button></div></div><div id="diarySelectedSteps"></div><p id="diaryShareStatus" role="status" aria-live="polite"></p></div>
+      <p class="dashboard-note" data-i18n="diaryStorage">Your diary stays in this browser. Shared links show a snapshot, not a live editable calendar.</p>
+    </section>
     <section id="dashboard" class="dashboard" role="tabpanel" aria-labelledby="viewProgress">
       <div class="dashboard-heading"><div><span class="small-label" data-i18n="progressLabel">YOUR PROGRESS</span><h2 id="dashboardTitle" data-i18n="dashboardTitle">A little progress, every day.</h2></div>
         <div class="dashboard-tabs" role="group" data-i18n-aria-label="periodLabel"><button id="weekView" type="button" aria-pressed="true" data-i18n="weekView">Week</button><button id="monthView" type="button" aria-pressed="false" data-i18n="monthView">Month</button></div>
@@ -312,6 +375,7 @@
       </div>
       <div class="dashboard-chart-card"><h3 data-i18n="dailyFocus">Your focus, day by day</h3><div id="focusChart" class="focus-chart"></div><p class="dashboard-note" data-i18n="measuredNote">Focus time comes from the timer. Checking a task does not add time.</p></div>
       <div id="monthCalendar" class="month-calendar hidden"></div>
+      <section class="time-picture" aria-labelledby="timeSpentTitle"><h3 id="timeSpentTitle" data-i18n="timeSpentTitle">Where did your focus time go?</h3><div id="timeSpentTasks"></div><p data-i18n="timeSpentNote">Measured by the timer for the selected period; other activities are not tracked automatically.</p></section>
       <div class="dashboard-insight"><span aria-hidden="true">✦</span><p id="dashboardInsight"></p></div>
       <details class="completed-journal"><summary data-i18n="completedLabel">Completed tasks</summary><div id="completedJournalList"></div></details>
       <div class="weekly-backlog"><div class="backlog-heading"><h3 data-i18n="unfinishedLabel">Still on your mind</h3><span id="backlogCount"></span></div><p class="dashboard-note" data-i18n="carryHint">Move unfinished tasks to next week, and bring them into your planner when you are ready.</p><div id="backlogList"></div></div>
@@ -319,11 +383,13 @@
   </main>
   <p class="storage-note" data-i18n="savedHint">Your tasks and settings are saved on this device.</p>
 
-  <script src="script.js"></script>
-  <script src="dashboard.js"></script>
-  <script src="planner.js"></script>
-  <script src="workspace.js"></script>
-  <script src="number-controls.js"></script>
+  <script src="script.js?v=20261008-3"></script>
+  <script src="dashboard.js?v=20261008-3"></script>
+  <script src="day-planner.js?v=20261008-3"></script>
+  <script src="diary.js?v=20261008-3"></script>
+  <script src="planner.js?v=20261008-3"></script>
+  <script src="workspace.js?v=20261008-3"></script>
+  <script src="task-note.js?v=20261008-3"></script>
 
 </body>
 </html>
