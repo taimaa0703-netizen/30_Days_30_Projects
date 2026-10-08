@@ -49,6 +49,14 @@ const projects = [
   tags: ["HTML", "CSS", "JavaScript"],
   link: "projects/06_DoIHaveTime/index.html?v=20261008-10",
   unlocked: true
+},
+{
+  day: 7,
+  name: "ADPULSE.",
+  description: "Campaign intelligence for ad performance. Spot anomalies, compare channels and get a written PPC report.",
+  tags: ["HTML", "CSS", "JavaScript", "Node.js"],
+  link: "projects/07_ADPULSE/index.html",
+  unlocked: true
 }
 ];
 
