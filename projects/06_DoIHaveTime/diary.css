@@ -442,3 +442,18 @@
   .app .workspace-nav button[aria-selected='true'], .app .workspace-nav #viewDiary[aria-selected='true'] { background: #eee5f5; color: #60466f; box-shadow: inset 0 -2px #b99dcc; }
   .app .workspace-nav button:focus-visible { outline: 2px solid #a68cba; outline-offset: -2px; }
 }
+
+/* Phone workspace: three planning steps, then two saved-day tools. */
+@media(max-width: 640px) {
+  .app .workspace-nav { position: static; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; padding: 0; margin: 0 0 24px; border: 0; border-radius: 0; background: transparent; box-shadow: none; backdrop-filter: none; }
+  .app .workspace-nav button, .app .workspace-nav #viewDiary { grid-column: span 2; flex-direction: column; min-height: 82px; padding: 12px 6px; gap: 8px; border: 1px solid #e2dbe7; border-radius: 14px; background: #fffcf8; color: #6f6179; font-size: 13px; line-height: 1.45; }
+  .app .workspace-nav .nav-step { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 8px; background: #f2edf5; color: #8a7499; font-size: 11px; font-weight: 600; line-height: 1; }
+  .app .workspace-nav .nav-icon, .app .workspace-nav .nav-mobile-label { display: none; }
+  .app .workspace-nav .nav-desktop-label { display: block; max-width: 100%; white-space: normal; overflow-wrap: anywhere; font-weight: 600; }
+  .app .workspace-nav #viewProgress, .app .workspace-nav #viewDiary { grid-column: span 3; flex-direction: row; min-height: 46px; padding: 10px; gap: 8px; background: #f5f1f8; }
+  .app .workspace-nav #viewProgress .nav-step, .app .workspace-nav #viewDiary .nav-step { display: none; }
+  .app .workspace-nav #viewProgress .nav-icon, .app .workspace-nav #viewDiary .nav-icon { display: block; width: 18px; height: 18px; }
+  .app .workspace-nav button[aria-selected='true'], .app .workspace-nav #viewDiary[aria-selected='true'] { background: #493853; color: #fffaf5; border-color: #493853; box-shadow: 0 4px 12px #49385314; }
+  .app .workspace-nav button[aria-selected='true'] .nav-step { background: #ffffff1f; color: #f2e5fc; }
+  .app .workspace-nav button:focus-visible { outline: 2px solid #a68cba; outline-offset: 3px; }
+}
