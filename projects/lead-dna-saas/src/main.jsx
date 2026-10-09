@@ -1,5 +1,6 @@
 import React, {useEffect,useMemo,useState} from 'react';
 import {createRoot} from 'react-dom/client';
+import {ClerkLoading,ClerkProvider,Show,SignIn,UserButton} from '@clerk/react';
 import {BarChart,Bar,CartesianGrid,XAxis,YAxis,Tooltip,ResponsiveContainer,Legend} from 'recharts';
 import {ArrowRight,BarChart3,Check,CircleAlert,CloudUpload,Dna,Fingerprint,LayoutDashboard,LogOut,ShieldCheck,Sparkles,TrendingUp,Users,Wallet,Database,LockKeyhole,RefreshCw,GitCompareArrows,CalendarDays} from 'lucide-react';
 import {supabase,configured} from './supabase';
@@ -7,6 +8,10 @@ import {demoCampaigns,demoLeads,money,integer,percent,summarize,summarizeSources
 import {inspectImportFiles,validateImport} from './import';
 import {fillTemplate,localizeInsight,translate} from './i18n';
 import './styles.css';
+import './clerk.css';
+
+const clerkPublishableKey=import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+const postAuthUrl=`${window.location.origin}${window.location.pathname}`;
 
 function App(){
  const [session,setSession]=useState(null),[loading,setLoading]=useState(configured),[mode,setMode]=useState('demo');
@@ -32,8 +37,6 @@ function App(){
  async function getWorkspace(userId){const {data,error}=await supabase.from('workspaces').select('*').eq('owner_id',userId).limit(1);if(error){setMessage(error.message);return}if(data?.length){setWorkspace(data[0]);await loadWorkspace(data[0].id)}}
  async function loadWorkspace(workspaceId){const [{data:cs,error:ce},{data:ls,error:le}]=await Promise.all([supabase.from('campaigns').select('*').eq('workspace_id',workspaceId),supabase.from('leads').select('*').eq('workspace_id',workspaceId)]);if(ce||le){setMessage(ce?.message||le?.message);return}setCampaigns((cs||[]).map(c=>({...c,id:c.external_id})));setLeads((ls||[]).map(l=>({...l,id:l.external_id,campaign_id:l.campaign_external_id})));}
  async function createWorkspace(){if(!workspaceName.trim())return;setBusy(true);setMessage('');const {data,error}=await supabase.from('workspaces').insert({owner_id:session.user.id,name:workspaceName.trim()}).select().single();setBusy(false);if(error){setMessage(error.message);return}setWorkspace(data);setCampaigns([]);setLeads([])}
- async function googleLogin(){if(!supabase){setMessage(t('Configure Supabase keys first.'));return}const {error}=await supabase.auth.signInWithOAuth({provider:'google',options:{redirectTo:window.location.origin+window.location.pathname}});if(error)setMessage(error.message)}
- async function emailLogin(e){e.preventDefault();const form=new FormData(e.currentTarget);const email=String(form.get('email')||'').trim();if(!email)return;setBusy(true);const {error}=await supabase.auth.signInWithOtp({email,options:{emailRedirectTo:window.location.origin+window.location.pathname}});setBusy(false);setMessage(error?error.message:t('Check your email for a sign-in link.'))}
  async function preparePreview(){setBusy(true);setMessage('');try{const bundle=await inspectImportFiles(campaignFile,leadFile);setImportBundle(bundle);setMappings(bundle.mappings);setValidatedImport(null);setMessage(t('CSV files analyzed. Review the suggested field mappings.'))}catch(err){setMessage(err.message||t('Import failed'))}finally{setBusy(false)}}
  function validatePreview(){try{setValidatedImport(validateImport(importBundle,mappings))}catch(err){setValidatedImport({valid:false,errors:[err.message||t('Import failed')],warnings:[],campaigns:[],leads:[]})}}
  function changeMapping(kind,field,value){setMappings(current=>({...current,[kind]:{...current[kind],[field]:value}}));setValidatedImport(null)}
@@ -55,7 +58,7 @@ function App(){
  const displayed=metrics.rows.filter(c=>filter==='all'||c.platform.toLowerCase()===filter.toLowerCase());
  const campaignDisplayed=displayed.filter(c=>campaignFocus==='all'||c.id===campaignFocus);
  const platforms=[...new Set([...metrics.rows.map(r=>r.platform).filter(p=>!['tiktok','linkedin'].includes(p.toLowerCase())),'TikTok','LinkedIn'])];
- const sectionTitles={overview:t('Overview'),campaigns:t('Campaign DNA'),sources:t('Lead Sources'),insights:t('Lead Investigator'),import:t('Data Sources'),account:t('Account')};
+ const sectionTitles={overview:t('Overview'),campaigns:t('Campaign DNA'),sources:t('Lead Sources'),insights:t('Lead Investigator'),import:t('Data Sources')};
  function setDatePreset(days){
    if(days===null){setDateStart('');setDateEnd('');return}
    const today=new Date();
@@ -84,11 +87,10 @@ function App(){
  <div className="sidebar-bottom"><div className="security-note"><ShieldCheck size={17}/><span>{mode==='demo'?t('Safe demo mode'):workspace?workspace.name:t('Workspace setup')}</span></div>{session?.user&&<div className="account"><span className="tiny">{session.user.email}</span><button onClick={()=>supabase.auth.signOut()} title={t('Sign out')}><LogOut size={17}/></button></div>}</div></aside>
  <main className="main"><header className="topbar"><div className="breadcrumb">LEAD DNA <span>/</span> {sectionTitles[section]}</div><div className="top-actions">
  <select className="language-select" aria-label={t('Language')} value={language} onChange={e=>setLanguage(e.target.value)}><option value="en">English</option><option value="he">עברית</option><option value="ar">العربية</option></select>
- <span className={'status '+(mode==='demo'?'demo':'live')}>{mode==='demo'?'● '+t(samplePreviewLoaded?'SAMPLE DATA':hasDataset?'UNSAVED DATA':'NO DATA'):'● '+t('LIVE WORKSPACE')}</span><button className="avatar" onClick={()=>setSection('account')}>{session?.user?.email?.[0]?.toUpperCase()||'L'}</button></div></header>
+ <span className={'status '+(mode==='demo'?'demo':'live')}>{mode==='demo'?'● '+t(samplePreviewLoaded?'SAMPLE DATA':hasDataset?'UNSAVED DATA':'NO DATA'):'● '+t('LIVE WORKSPACE')}</span><UserButton appearance={{elements:{avatarBox:{width:'36px',height:'36px'}}}}/></div></header>
  <div className="content">{message&&<div className="message"><span>{message}</span><button onClick={()=>setMessage('')}>×</button></div>}
  {['overview','campaigns','sources','insights'].includes(section)&&<DateRangeControls start={dateStart} end={dateEnd} onStart={setDateStart} onEnd={setDateEnd} onPreset={setDatePreset} t={t}/>}
- {mode==='live'&&!workspace&&section!=='account'?<section className="empty-content"><Fingerprint size={35}/><h2>{t('Create your workspace')}</h2><p>{t('Each account gets its own secure workspace, protected by database Row Level Security.')}</p><input placeholder={t('Company or agency name')} value={workspaceName} onChange={e=>setWorkspaceName(e.target.value)}/><button className="action" disabled={busy} onClick={createWorkspace}>{t('Create workspace')} <ArrowRight size={16}/></button></section>:
- section==='account'?<><div className="heading"><span className="eyebrow">{t('SECURE ACCESS')}</span><h1>{t('Account & Workspace')}</h1><p>{t('Demo mode works instantly. Connect Supabase to securely save your data.')}</p></div><div className="account-card">{session?<><div className="success"><Check size={18}/> {t('Signed in as')} {session.user.email}</div><p>{t('Workspace:')} {workspace?.name||t('Not created yet')}</p>{!workspace&&<div className="form-row"><input placeholder={t('Workspace name')} value={workspaceName} onChange={e=>setWorkspaceName(e.target.value)}/><button className="action" disabled={busy} onClick={createWorkspace}>{t('Create')}</button></div>}<button className="outline" onClick={()=>supabase.auth.signOut()}>{t('Sign out')}</button></>:configured?<><button className="action" onClick={googleLogin}>{t('Continue with Google')} <ArrowRight size={16}/></button><div className="or">{t('OR EMAIL MAGIC LINK')}</div><form className="form-row" onSubmit={emailLogin}><input type="email" name="email" placeholder={t('you@company.com')} required/><button className="outline" disabled={busy}>{t('Send sign-in link')}</button></form><p className="helper">{t('Enable Google and email providers in your Supabase project first.')}</p></>:<><div className="warning"><CircleAlert size={20}/> {t("Supabase isn't configured. Copy .env.example to .env and add your project credentials to activate authentication.")}</div><p>{t('You can explore all analytics with sample data right now.')}</p></>}<button className="text-link" onClick={()=>setSection('overview')}>← {t('Back to dashboard')}</button></div></>:
+ {mode==='live'&&!workspace?<section className="empty-content"><Fingerprint size={35}/><h2>{t('Create your workspace')}</h2><p>{t('Each account gets its own secure workspace, protected by database Row Level Security.')}</p><input placeholder={t('Company or agency name')} value={workspaceName} onChange={e=>setWorkspaceName(e.target.value)}/><button className="action" disabled={busy} onClick={createWorkspace}>{t('Create workspace')} <ArrowRight size={16}/></button></section>:
  section==='overview'?campaigns.length===0&&leads.length===0?<EmptyDashboard t={t} onOpenSources={()=>setSection('import')} onLoadDemo={resetDemo}/>:<><div className="heading heading-row"><div><span className="eyebrow">PERFORMANCE INTELLIGENCE / OVERVIEW</span><h1>Revenue starts with better leads<span className="mint">.</span></h1><p>Discover which campaigns drive qualified customers—not just cheap forms.</p></div><button className="action" onClick={()=>setSection('import')}><CloudUpload size={17}/> {t('Import data')}</button></div>
  <div className="kpi-grid"><Kpi icon={<Wallet/>} label={t('Ad spend')} value={metrics.total.spend===null?'—':money(metrics.total.spend,metrics.currency)} detail={metrics.coverage.spendComplete?t('Across campaigns'):t('Spend attribution unavailable for selected period')}/><Kpi icon={<Users/>} label={t('Total leads')} value={integer(metrics.total.count)} detail={t('Captured in CRM')}/><Kpi icon={<Fingerprint/>} label={t('Qualified leads')} value={integer(metrics.total.qualified)} detail={percent(metrics.total.count?metrics.total.qualified/metrics.total.count:0)+' '+t('qualification rate')}/><Kpi icon={<TrendingUp/>} label={t('Closed revenue')} value={metrics.total.revenue===null?'—':money(metrics.total.revenue,metrics.currency)} detail={metrics.total.spend>0&&metrics.total.revenue!==null?(metrics.total.revenue/metrics.total.spend).toFixed(2)+'x '+t('observed ROAS'):'—'}/></div>
  <DataCoverage coverage={metrics.coverage} t={t}/>
@@ -128,4 +130,48 @@ function CoverageItem({label,value,detail}){return <div className="coverage-item
 function SourceComparison({rows,t,currency}){return <div className="card table-card"><div className="table-scroll"><table><thead><tr><th>{t('Lead source')}</th><th>{t('LEADS')}</th><th>{t('QUALIFIED')}</th><th>{t('Qualification rate')}</th><th>{t('CPL')}</th><th>{t('CPQL')}</th><th>{t('WON')}</th><th>{t('CAC')}</th><th>{t('REVENUE')}</th><th>{t('ROAS')}</th><th>{t('Avg response')}</th></tr></thead><tbody>{rows.map(r=><tr key={r.id}><td><b>{t(r.label)}</b></td><td>{integer(r.count)}</td><td>{integer(r.qualified)}</td><td>{percent(r.qualificationRate)}</td><td>—</td><td>—</td><td>{integer(r.won)}</td><td>—</td><td>{r.revenue===null?'—':money(r.revenue,currency)}</td><td>—</td><td>{r.avgResponse===null?'—':`${integer(r.avgResponse)} ${t('min')}`}</td></tr>)}{!rows.length&&<tr><td colSpan="11" className="no-data">{t('No leads match these filters.')}</td></tr>}</tbody></table></div></div>}
 function Insight({insight:i,language,dateRange,onOpenCampaign}){const localized=localizeInsight(language,i);return <div className="insight"><div className={'dot '+localized.severity}/><div><div className="insight-title">{localized.title}</div><div className="insight-campaign">{localized.campaign}</div><small className="insight-severity">{translate(language,'Severity')}: {translate(language,localized.severity)}</small><p><strong>{translate(language,'Observation')}:</strong> {localized.description}</p>{localized.evidence&&<p><strong>{translate(language,'Evidence')}:</strong> {localized.evidence}</p>}{localized.hypotheses&&<p><strong>{translate(language,'Possible explanations')}:</strong> {localized.hypotheses}</p>}<small className="insight-period">{translate(language,'Date range')}: {dateRange}</small>{i.campaignId&&onOpenCampaign&&<button className="text-link insight-link" onClick={()=>onOpenCampaign(i.campaignId)}>{translate(language,'View campaign data')} <ArrowRight size={13}/></button>}</div></div>}
 function CampaignTable({rows,t}){return <div className="table-scroll"><table><thead><tr><th>{t('CAMPAIGN')}</th><th>{t('SPEND')}</th><th>{t('LEADS')}</th><th>{t('CPL')}</th><th>{t('QUALIFIED')}</th><th>{t('CPQL')}</th><th>{t('WON')}</th><th>{t('REVENUE')}</th><th>{t('ROAS')}</th></tr></thead><tbody>{rows.map(c=><tr key={c.id}><td><b>{c.campaign_name}</b><small>{c.platform}</small></td><td>{c.spend===null?'—':money(c.spend,c.currency)}</td><td>{integer(c.count)}</td><td>{c.cpl===null?'—':money(c.cpl,c.currency)}</td><td><span className="qualified">{integer(c.qualified)}</span><small>{percent(c.qualityRate)}</small></td><td>{c.cpql===null?'—':money(c.cpql,c.currency)}</td><td>{integer(c.won)}</td><td>{c.revenue===null?'—':money(c.revenue,c.currency)}</td><td><b className={c.roas>=3?'mint':''}>{c.roas===null?'—':c.roas.toFixed(2)+'x'}</b></td></tr>)}{!rows.length&&<tr><td colSpan="9" className="no-data">{t('No campaigns yet. Import your CSVs.')}</td></tr>}</tbody></table></div>}
-createRoot(document.getElementById('root')).render(<App/>);
+function SignInExperience(){return <main className="clerk-page">
+ <section className="clerk-intro">
+  <div className="clerk-brand"><div className="brand-icon"><Dna size={23}/></div><div>LEAD<span>DNA</span><small>QUALITY OVER QUANTITY.</small></div></div>
+  <div className="clerk-copy"><span className="eyebrow">REVENUE INTELLIGENCE</span><h1>Know which leads are worth pursuing<span className="mint">.</span></h1><p>Bring campaign performance, lead quality and revenue attribution into one clear view.</p><div className="clerk-signal-card"><div className="clerk-signal-icon"><Dna size={19}/></div><div><strong>From first click to closed deal</strong><span>Campaigns <i/> Lead quality <i/> Revenue</span></div><ArrowRight size={17}/></div><div className="clerk-assurance"><LockKeyhole size={16}/> Secure sign-in powered by Clerk</div></div>
+  <small className="clerk-footnote">Your campaign intelligence, in one place.</small>
+ </section>
+ <section className="clerk-form-panel">
+  <div className="clerk-form-shell"><div className="clerk-form-heading"><span className="eyebrow">WELCOME BACK</span><h2>Sign in to your workspace</h2><p>Use your account to continue to LEAD DNA.</p></div>
+  <SignIn
+   routing="hash"
+   forceRedirectUrl={postAuthUrl}
+   fallbackRedirectUrl={postAuthUrl}
+   withSignUp
+   oauthFlow="redirect"
+   appearance={{
+    variables:{colorPrimary:'#75e0bb',colorBackground:'#172438',colorText:'#eaf0fa',colorTextSecondary:'#aab9cb',colorInputBackground:'#101b2b',colorInputText:'#f5f8fc',borderRadius:'12px'},
+    elements:{
+     rootBox:{width:'100%',minWidth:'0'},
+     cardBox:{width:'100%',maxWidth:'100%',minWidth:'0'},
+     card:{backgroundColor:'transparent',boxShadow:'none',border:'none',width:'100%',maxWidth:'100%',padding:'0'},
+     header:{display:'none'},
+     headerTitle:{color:'#eaf0fa'},
+     headerSubtitle:{color:'#aab9cb'},
+     socialButtonsBlockButton:{backgroundColor:'#202f43',border:'1px solid #40546c',color:'#f5f8fc',boxShadow:'none'},
+     socialButtonsBlockButtonText:{color:'#f5f8fc',fontWeight:700},
+     formFieldLabel:{color:'#d5deea'},
+     formFieldInput:{backgroundColor:'#101b2b',border:'1px solid #3b5069',color:'#f5f8fc'},
+     formButtonPrimary:{backgroundColor:'#79e2bd',color:'#09252c',boxShadow:'none'},
+     footer:{backgroundColor:'transparent'},
+     footerAction:{display:'flex',flexDirection:'column',alignItems:'center',gap:'5px',backgroundColor:'transparent'},
+     footerActionText:{color:'#b1bfd0',textAlign:'center'},
+     footerActionLink:{color:'#83e8c5',fontWeight:700},
+     footerPages:{backgroundColor:'transparent'},
+     footerPagesText:{color:'#b1bfd0'},
+     footerPagesLink:{color:'#83e8c5'},
+     dividerLine:{backgroundColor:'#3a4d63'},
+     dividerText:{color:'#9babc0'}
+    }
+   }}
+  /></div>
+ </section>
+</main>}
+function ClerkSetupRequired(){return <main className="clerk-config"><div className="brand-icon"><Dna size={23}/></div><h1>LEAD DNA sign-in is not configured</h1><p>Add the Clerk publishable key to <code>VITE_CLERK_PUBLISHABLE_KEY</code> in your local environment, then restart Vite.</p></main>}
+const root=createRoot(document.getElementById('root'));
+root.render(clerkPublishableKey?<ClerkProvider publishableKey={clerkPublishableKey} signInFallbackRedirectUrl={postAuthUrl} signUpFallbackRedirectUrl={postAuthUrl}><ClerkLoading><div className="center-screen"><Dna size={34}/> Loading LEAD DNA…</div></ClerkLoading><Show when="signed-in"><App/></Show><Show when="signed-out"><SignInExperience/></Show></ClerkProvider>:<ClerkSetupRequired/>);

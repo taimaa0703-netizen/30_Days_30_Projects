@@ -13,15 +13,22 @@ This is a functional first MVP, not a production-complete subscription business.
 - Guided campaigns + CRM CSV flow with suggested/manual field mapping, safe preview, validation, duplicate detection, date normalization, currency checks and import confirmation.
 - Ad-platform connection center for Meta Ads, TikTok Ads and Google Ads, with provider-specific setup requirements and a secure-sync boundary.
 - Campaign-linked Investigator actions that open the matching Campaign DNA view.
-- Demo mode: sample data without an account; imports reset on page reload.
-- Optional Supabase Auth (Google OAuth / email magic link), personal workspaces and RLS.
+- Clerk authentication gates the dashboard; enable Google as a social connection in the Clerk Dashboard to offer Google sign-in.
+- Supabase Auth/data integration, personal workspaces and RLS remain in place independently of Clerk.
+- Demo mode: sample data and imports reset on page reload after signing in.
 - Atomic live imports via a database function. Imports **replace** current workspace data.
 
 ## Quick start
 1. Install Node 20.19+ (or supported Node 22+).
 2. Run `npm install` and `npm run dev` in this folder.
-3. Visit the local URL printed by Vite. Demo is available without configuration.
-4. Test CSV imports with the files in `public/`.
+3. Add `VITE_CLERK_PUBLISHABLE_KEY` to `.env.local` (copy the publishable key from Clerk; never put a secret key in a `VITE_*` variable), then restart Vite.
+4. Visit the local URL printed by Vite and sign in.
+5. Test CSV imports with the files in `public/`.
+
+## Clerk sign-in
+Create a Clerk application, enable Google as a social connection in its Dashboard, and set `VITE_CLERK_PUBLISHABLE_KEY` in `.env.local`. The key is a browser-safe publishable key; never expose Clerk secret keys. Sign-in and sign-up both use the current app URL as their explicit post-auth return URL. In the Clerk Dashboard, allow the exact local/deployed app origins used to start sign-in. The React UI displays the existing dashboard only for a signed-in Clerk user.
+
+**Important security boundary:** This Clerk integration only gates the React UI. It does not authenticate Supabase requests, map Clerk users to Supabase users, or secure database access. Existing Supabase integration is unchanged, and no backend authorization has been implemented or tested as part of this change. Do not treat Clerk sign-in as database protection.
 
 ## Enable persistent accounts
 1. Create a Supabase project.
@@ -29,7 +36,7 @@ This is a functional first MVP, not a production-complete subscription business.
 3. Copy `.env.example` to `.env` and fill the project URL and **publishable/anon** key (never service_role).
 4. In Supabase → Authentication → Providers, enable email magic link and optionally Google OAuth.
 5. In Authentication → URL Configuration, set Site URL and redirect allow-list for local and deployed addresses.
-6. Restart Vite; sign in and create a workspace.
+6. Restart Vite; use the existing Supabase-backed workspace behavior where configured. Clerk sign-in does not create a Supabase session.
 
 If you already have an MVP database, run the updated `supabase/schema.sql` again to add campaign reporting dates/currencies, lead source metadata, and expanded CRM status support. The script is safe to re-run and replaces the import RPC and owner policies.
 
@@ -41,7 +48,7 @@ The Data Sources page now documents the Meta Ads, TikTok Ads and Google Ads conn
 The intended first sync is daily, campaign-level reporting (spend, impressions, clicks and platform-reported results) into the selected workspace. CRM qualification, closed deals and revenue remain separate data until a verified stable-ID mapping exists. Fetching named/email/phone lead records from lead forms is a distinct, higher-risk integration that requires additional provider permissions and privacy controls; it is not part of aggregate campaign reporting.
 
 ## Hosting
-Run `npm run build`; the static app is generated in `site/` with relative asset paths and is linked from the 30 Days 30 Projects home page. For GitHub Pages, commit the generated `site/` output along with the source. Configure Supabase redirect URL for the deployed app URL.
+Set the production Clerk publishable key in the build environment before running `npm run build`; Vite embeds `VITE_*` values into the public frontend bundle, so use only a publishable key there. The static app is generated in `site/` with relative asset paths and is linked from the 30 Days 30 Projects home page. For GitHub Pages, commit the generated `site/` output along with the source. Configure Supabase redirect URL for the deployed app URL.
 
 ## Data contract
 `campaigns.csv`: `Campaign ID,Campaign Name,Platform,Amount Spent,Impressions,Clicks,Currency,Reporting Date`

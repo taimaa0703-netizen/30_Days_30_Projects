@@ -1,0 +1,33 @@
+body:has(.clerk-page){min-width:0}
+.clerk-page{min-height:100vh;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(440px,.95fr);background:#0b1120;color:#eaf0fa;overflow:hidden}
+.clerk-intro{position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:space-between;min-height:100vh;padding:clamp(34px,5vw,72px) clamp(30px,7vw,112px);overflow:hidden;background:radial-gradient(ellipse at 20% 78%,#173442 0,transparent 48%),linear-gradient(145deg,#0e192b,#0b1323 65%);border-right:1px solid #223047}
+.clerk-intro:after{content:"";position:absolute;z-index:-1;width:540px;height:540px;right:-320px;top:22%;border:1px solid #365d6440;border-radius:50%;box-shadow:0 0 0 48px #365d6417,0 0 0 96px #365d6410}
+.clerk-brand{display:flex;gap:12px;align-items:center;font-size:19px;font-weight:800;letter-spacing:-.7px}
+.clerk-brand>div:last-child span{color:#65dbb6}
+.clerk-brand small{display:block;font-size:8px;color:#879bb3;letter-spacing:2.4px;margin-top:5px}
+.clerk-copy{width:min(100%,600px);margin:70px 0}
+.clerk-copy h1{max-width:570px;font-size:clamp(38px,5vw,67px);line-height:1.06;letter-spacing:-2.8px;margin:19px 0}
+.clerk-copy p{max-width:455px;color:#a1b1c5;font-size:15px;line-height:1.8}
+.clerk-signal-card{display:flex;align-items:center;gap:13px;width:min(100%,390px);margin-top:30px;padding:16px;border:1px solid #31485c;border-radius:14px;background:#132337d9;box-shadow:0 18px 55px #050b1550}
+.clerk-signal-icon{width:38px;height:38px;display:grid;place-items:center;flex:none;border-radius:11px;color:#85e8c5;background:#1e4142}
+.clerk-signal-card>div:nth-child(2){display:grid;gap:6px;min-width:0}
+.clerk-signal-card strong{font-size:11px}
+.clerk-signal-card span{display:flex;align-items:center;gap:6px;flex-wrap:wrap;color:#9aadc2;font-size:9px}
+.clerk-signal-card i{width:3px;height:3px;border-radius:50%;background:#78ddba}
+.clerk-signal-card>svg{margin-left:auto;flex:none;color:#83e6c4}
+.clerk-assurance{display:flex;align-items:center;gap:9px;margin-top:24px;color:#b1c3d2;font-size:11px}
+.clerk-assurance svg{color:#75e0bb}
+.clerk-footnote{color:#8092a9;font-size:10px}
+.clerk-form-panel{display:flex;align-items:center;justify-content:center;min-width:0;padding:clamp(24px,5vw,70px)}
+.clerk-form-shell{width:min(100%,465px);padding:clamp(25px,4vw,43px);border:1px solid #2a3d55;border-radius:22px;background:linear-gradient(155deg,#172438,#111c2d 82%);box-shadow:0 28px 90px #03081180}
+.clerk-form-heading{margin-bottom:27px}
+.clerk-form-heading h2{margin:10px 0 8px;font-size:clamp(23px,2.5vw,29px);letter-spacing:-.8px}
+.clerk-form-heading p{margin:0;color:#a4b4c7;font-size:12px;line-height:1.6}
+.clerk-config{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;background:#0b1120;color:#eaf0fa;text-align:center}
+.clerk-config .brand-icon{margin-bottom:20px}
+.clerk-config h1{font-size:24px}
+.clerk-config p{max-width:520px;color:#9aacc1;line-height:1.7}
+.clerk-config code{color:#8be6c4}
+@media(max-width:900px){.clerk-page{grid-template-columns:minmax(0,1fr) minmax(360px,.9fr)}.clerk-intro{padding:36px clamp(25px,5vw,54px)}.clerk-form-panel{padding:30px}.clerk-copy h1{font-size:clamp(36px,5vw,52px)}}
+@media(max-width:720px){.clerk-page{grid-template-columns:minmax(0,1fr);overflow:visible}.clerk-intro{min-height:auto;padding:25px clamp(20px,6vw,38px) 27px;border-right:0;border-bottom:1px solid #223047}.clerk-intro:after{width:360px;height:360px;right:-240px;top:12%}.clerk-copy{margin:43px 0 30px}.clerk-copy h1{font-size:clamp(34px,8vw,50px);letter-spacing:-1.8px}.clerk-copy p{font-size:13px}.clerk-signal-card{margin-top:23px}.clerk-assurance{margin-top:19px}.clerk-footnote{display:none}.clerk-form-panel{padding:28px 20px 40px}.clerk-form-shell{max-width:500px;padding:27px 23px;border-radius:17px}}
+@media(max-width:360px){.clerk-intro{padding-inline:17px}.clerk-copy h1{font-size:34px}.clerk-form-panel{padding-inline:13px}.clerk-form-shell{padding:24px 17px}.clerk-signal-card{gap:9px;padding:13px}.clerk-signal-card strong{font-size:10px}}
