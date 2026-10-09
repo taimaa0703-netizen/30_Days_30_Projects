@@ -57,6 +57,14 @@ const projects = [
   tags: ["HTML", "CSS", "JavaScript", "Node.js"],
   link: "projects/07_ADPULSE/index.html",
   unlocked: true
+},
+{
+  day: 8,
+  name: "LEAD DNA.",
+  description: "Quality over quantity. Uncover which campaigns bring qualified leads and real revenue.",
+  tags: ["React", "Vite", "Supabase", "Marketing Analytics"],
+  link: "projects/lead-dna-saas/site/",
+  unlocked: true
 }
 ];
 
@@ -165,4 +173,3 @@ document.getElementById("progressPercentage").textContent =
 
 document.getElementById("progressFill").style.width =
   percentage + "%";
-

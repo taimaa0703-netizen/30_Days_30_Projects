@@ -1,0 +1,7 @@
+id,campaign_id,status,revenue,response_minutes,created_at
+l1,c1,new,0,180,2026-10-05T08:00:00Z
+l2,c1,qualified,0,45,2026-10-05T09:00:00Z
+l3,c1,lost,0,210,2026-10-05T10:00:00Z
+l4,c2,won,12500,12,2026-10-06T08:00:00Z
+l5,c2,qualified,0,18,2026-10-06T09:00:00Z
+l6,c2,won,8700,9,2026-10-06T10:00:00Z
