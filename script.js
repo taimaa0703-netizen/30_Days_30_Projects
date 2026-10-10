@@ -65,6 +65,14 @@ const projects = [
   tags: ["React", "Vite", "Supabase", "Marketing Analytics"],
   link: "projects/lead-dna-saas/site/",
   unlocked: true
+},
+
+{
+  day: 9,
+  name: "DROP ALERT",
+  description: "A smart water leak detector powered by Arduino. Detects water, plays the Star Wars melody, and displays live sensor readings on a dashboard.",
+  tags: ["Arduino", "IoT", "JavaScript", "Hardware"],
+  link: "projects/DROP_ALERT_Dashboard_9/"
 }
 ];
 

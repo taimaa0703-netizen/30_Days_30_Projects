@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>DROP ALERT | Water Monitoring</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand"><div class="brand-icon">💧</div><div><h1>DROP<span>ALERT</span><small>DAY 09 / 30</small></h1><p>SMART WATER MONITORING</p></div></div>
+      <div class="actions"><span id="connectionBadge" class="connection" data-i18n="disconnected">● Disconnected</span><button id="connectBtn" class="primary" data-i18n="connectArduino">Connect Arduino</button><button id="disconnectBtn" class="secondary" disabled data-i18n="disconnect">Disconnect</button><div class="language-switcher" role="group" aria-label="Language"><button class="language-btn active" data-language="en">EN</button><button class="language-btn" data-language="ar">العربية</button><button class="language-btn" data-language="he">עברית</button></div></div>
+    </header>
+
+    <section class="intro"><div><div class="eyebrow" data-i18n="liveMonitoringCenter">LIVE MONITORING CENTER</div><h2><span data-i18n="everyDropMatters">Every drop matters</span><span>.</span></h2><p data-i18n="introDescription">Detect the danger. Sound the alarm. Stop the damage.</p></div><div class="clock" id="clock">--:--:--</div></section>
+
+    <section class="metrics">
+      <article class="panel"><div class="metric-label"><span data-i18n="waterSensorReading">WATER SENSOR READING</span><span>💧</span></div><div class="reading"><strong id="waterValue">—</strong><span>/ 1023</span></div><div class="progress"><div id="waterBar"></div></div><p class="muted" id="readingHint" data-i18n="connectArduinoStart">Connect your Arduino to start</p></article>
+      <article class="panel"><div class="metric-label"><span data-i18n="systemStatus">SYSTEM STATUS</span><span>🛡️</span></div><div id="status" class="status idle" data-i18n="awaitingData">AWAITING DATA</div><p class="muted" id="statusDetail" data-i18n="noSensorReadings">No sensor readings yet</p></article>
+      <article class="panel"><div class="metric-label"><span data-i18n="alertSystem">ALERT SYSTEM</span><span>🔔</span></div><div class="alert-state" id="alertState" data-i18n="standby">STANDBY</div><p class="muted" id="alertDetail" data-i18n="buzzerMelody">Arduino buzzer controls the melody</p></article>
+    </section>
+
+    <section class="main-grid">
+      <article class="panel chart-panel"><div class="panel-header"><div><h3 data-i18n="sensorActivity">Sensor activity</h3><p data-i18n="last60Samples">Live readings · last 60 samples</p></div><span class="live-tag" id="liveTag" data-i18n="waiting">WAITING</span></div><div class="chart-wrap"><canvas id="chart" aria-label="Live water sensor chart" data-i18n-aria="chartAriaLabel"></canvas></div><div class="chart-foot"><span data-i18n="dry">0 — dry</span><span data-i18n="maximumReading">1023 — maximum reading</span></div></article>
+      <article class="panel side-panel"><h3 data-i18n="detectionSettings">Detection settings</h3><p class="muted" data-i18n="thresholdDescription">Match this threshold to the value in your Arduino sketch.</p><label for="threshold"><span data-i18n="leakThreshold">Leak threshold</span> <strong id="thresholdLabel">40</strong></label><input id="threshold" type="range" min="1" max="1023" value="40" /><div class="range-labels"><span>1</span><span>1023</span></div><div class="notice" data-i18n="sliderNotice">⚠️ This slider changes <b>dashboard alerts only</b>. To change when the physical buzzer plays, update <code>WET_THRESHOLD</code> in Arduino IDE and upload again.</div><h3 data-i18n="latestEvent">Latest event</h3><div id="lastEvent" class="event" data-i18n="noEvents">No events yet</div><button id="clearBtn" class="secondary full" data-i18n="clearChart">Clear chart</button></article>
+    </section>
+    <footer><span>DROP ALERT · 30 DAYS, 30 PROJECTS</span><span id="footerStatus" data-i18n="waitingConnection">Waiting for connection</span></footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
