@@ -72,7 +72,8 @@ const projects = [
   name: "DROP ALERT",
   description: "A smart water leak detector powered by Arduino. Detects water, plays the Star Wars melody, and displays live sensor readings on a dashboard.",
   tags: ["Arduino", "IoT", "JavaScript", "Hardware"],
-  link: "projects/DROP_ALERT_Dashboard_9/"
+  link: "projects/DROP_ALERT_Dashboard_9/",
+  unlocked: true
 }
 ];
 
