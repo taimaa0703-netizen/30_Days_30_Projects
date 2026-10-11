@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#173d69" />
+  <meta name="description" content="Subscription Detective — track recurring payments, renewal dates, and potential savings." />
+  <title>Subscription Detective | Day 10</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="language.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#dashboard"><span class="brand-icon">✦</span><span>SUBSCRIPTION<br><strong>DETECTIVE.</strong></span></a>
+      <div class="edition">DAY 10 <span>/</span> 30 PROJECTS</div>
+      <nav aria-label="Main navigation">
+        <a href="#dashboard" class="nav-link active" data-nav="dashboard">◈ <span>Overview</span></a>
+        <a href="#subscriptions" class="nav-link" data-nav="subscriptions">▤ <span>Subscriptions</span></a>
+        <a href="#calendar" class="nav-link" data-nav="calendar">▦ <span>Renewal calendar</span></a>
+        <a href="#savings" class="nav-link" data-nav="savings">✧ <span>Savings lab</span></a>
+      </nav>
+      <div class="side-note"><span>✳ THE DETECTIVE'S NOTE</span><p>Small monthly charges have a way of becoming big annual numbers.</p></div>
+      <a class="back-link" href="../../index.html">← All 30 projects</a>
+    </aside>
+    <main class="main" id="dashboard">
+      <header class="topbar"><div class="eyebrow">YOUR MONEY, UNDER THE MAGNIFYING GLASS</div><div class="top-actions"><label class="sr-only" for="languageSelect">Language</label><select id="languageSelect" aria-label="Language"><option value="en">English</option><option value="he">עברית</option><option value="ar">العربية</option></select><span class="local-pill">● Saved on this device</span><button id="addTop" class="button primary">+ Add subscription</button></div></header>
+      <section class="hero"><div><span class="hero-kicker">THE CASE OF THE RECURRING CHARGES</span><h1>Where does your<br><em>money go?</em></h1><p>Find the subscriptions hiding in plain sight. Track, investigate, and take back control.</p><button id="addHero" class="button light">+ Track a subscription ↗</button></div><div class="hero-art" aria-hidden="true"><div class="lens"><span>₪</span></div><div class="hero-spark">✦</div></div></section>
+      <section class="section-head"><div><span class="eyebrow">01 / THE BIG PICTURE</span><h2>Your financial snapshot</h2></div><span class="date-label" id="todayLabel"></span></section>
+      <section class="stats" aria-label="Subscription totals">
+        <article class="stat-card"><div class="stat-top">MONTHLY SPEND <span>↗</span></div><div class="stat-value" id="monthlyTotal">₪0</div><p>Normalized monthly cost</p></article>
+        <article class="stat-card"><div class="stat-top">YEARLY SPEND <span>↗</span></div><div class="stat-value" id="yearlyTotal">₪0</div><p>What those charges add up to</p></article>
+        <article class="stat-card"><div class="stat-top">ACTIVE SUBSCRIPTIONS <span>◈</span></div><div class="stat-value" id="activeCount">0</div><p>Recurring commitments</p></article>
+        <article class="stat-card accent"><div class="stat-top">NEXT RENEWAL <span>◷</span></div><div class="stat-value small" id="nextRenewal">—</div><p id="nextRenewalName">No upcoming renewals</p></article>
+      </section>
+      <section class="dashboard-grid">
+        <article class="panel"><div class="panel-title"><div><span class="eyebrow">YOUR SPENDING MIX</span><h3>Where it all goes</h3></div><span class="muted">Monthly equivalent</span></div><div id="categoryBreakdown" class="breakdown"></div></article>
+        <article class="panel insight"><span class="eyebrow">DETECTIVE'S INSIGHT ✦</span><h3 id="insightTitle">Every subscription tells a story.</h3><p id="insightText">Add your first subscription to uncover where your money goes.</p><button class="text-button" id="insightAction">Investigate subscriptions →</button></article>
+      </section>
+      <section class="section-head" id="subscriptions"><div><span class="eyebrow">02 / THE SUSPECT LIST</span><h2>Your subscriptions</h2></div><div class="row-actions"><button id="exportData" class="button outline">Export backup</button><button id="importData" class="button outline">Import backup</button><input id="importFile" type="file" accept="application/json,.json" hidden/><button id="loadDemo" class="button outline">Load demo data</button><button id="addList" class="button primary">+ Add new</button></div></section>
+      <div class="toolbar"><label for="searchInput" class="sr-only">Search subscriptions</label><input id="searchInput" type="search" placeholder="⌕  Search subscriptions..." /><label for="categoryFilter" class="sr-only">Filter by category</label><select id="categoryFilter"><option value="all">All categories</option><option value="Entertainment">Entertainment</option><option value="Productivity">Productivity</option><option value="Software">Software</option><option value="Fitness">Fitness</option><option value="Shopping">Shopping</option><option value="Other">Other</option></select></div>
+      <div class="panel table-panel"><div class="table-scroll"><table><thead><tr><th>SUBSCRIPTION</th><th>PRICE</th><th>BILLING</th><th>NEXT RENEWAL</th><th>ACTIONS</th></tr></thead><tbody id="subscriptionsBody"></tbody></table></div><div id="emptyState" class="empty" hidden><div>✦</div><h3>No subscriptions found</h3><p>Add one to start your investigation, or try the demo.</p><button id="emptyAdd" class="button primary">+ Add subscription</button></div></div>
+      <section class="section-head" id="calendar"><div><span class="eyebrow">03 / MARK YOUR CALENDAR</span><h2>Upcoming renewals</h2></div><div class="calendar-controls"><button id="prevMonth" aria-label="Previous month">←</button><strong id="calendarTitle"></strong><button id="nextMonth" aria-label="Next month">→</button><button id="thisMonth" class="today-button">Today</button></div></section>
+      <div class="calendar-layout"><div class="panel calendar-panel"><div class="calendar-grid" id="calendarGrid"></div></div><div class="panel renewals-panel"><span class="eyebrow">COMING UP NEXT</span><div id="renewalList"></div><p class="small-note">Reminders work while this site is open. Browser notifications require permission.</p><button id="enableNotifications" class="button outline">Enable browser notifications</button><span id="notificationStatus" class="small-note" role="status"></span></div></div>
+      <section class="section-head" id="savings"><div><span class="eyebrow">04 / THE SAVINGS LAB</span><h2>What if you canceled?</h2></div></section>
+      <div class="savings-grid"><div class="panel"><p class="muted">Select subscriptions to simulate canceling them. Nothing is actually canceled.</p><div id="savingsOptions" class="savings-options"></div></div><div class="savings-result"><span class="eyebrow">POTENTIAL YEARLY SAVINGS</span><div class="savings-amount" id="savingsYear">₪0</div><p>That's <strong id="savingsMonth">₪0</strong> every month you could keep.</p><div class="savings-divider"></div><div class="savings-bottom"><span>New monthly spend</span><strong id="newMonthly">₪0</strong></div><div class="savings-bottom"><span>Subscriptions selected</span><strong id="selectedCount">0</strong></div></div></div>
+      <footer><span>✦ SUBSCRIPTION DETECTIVE · DAY 10 / 30</span><button class="reset-link" id="clearAll">Clear my saved data</button><p>Private by design: data stays in this browser. Not connected to any bank or subscription provider.</p></footer>
+    </main>
+  </div>
+  <dialog id="subscriptionDialog"><form id="subscriptionForm" class="modal"><div class="modal-header"><div><span class="eyebrow">THE CASE FILE</span><h2 id="dialogTitle">Add a subscription</h2></div><button type="button" class="close" id="closeDialog" aria-label="Close">×</button></div><input type="hidden" id="editId"/><label>Subscription name <input id="subName" required maxlength="50" placeholder="e.g. Spotify Premium"/></label><div class="form-row"><label>Amount (₪) <input id="subAmount" type="number" min="0.01" step="0.01" max="1000000" required placeholder="29.90"/></label><label>Billing cycle <select id="subCycle"><option value="monthly">Monthly</option><option value="yearly">Yearly</option></select></label></div><div class="form-row"><label>Category <select id="subCategory"><option value="Entertainment">Entertainment</option><option value="Productivity">Productivity</option><option value="Software">Software</option><option value="Fitness">Fitness</option><option value="Shopping">Shopping</option><option value="Other">Other</option></select></label><label>Next renewal <input id="subDate" type="date" required/></label></div><div class="form-row"><label>Last used (optional) <input id="subLastUsed" type="date"/></label><label>Color <select id="subColor"><option value="#8c4765">Burgundy</option><option value="#d3a16d">Gold</option><option value="#6b857b">Sage</option><option value="#8a7ea8">Lavender</option><option value="#52788a">Blue</option></select></label></div><label>Remind me before renewal <select id="subReminder"><option value="off">No reminder</option><option value="0">On renewal day</option><option value="1">1 day before</option><option value="3" selected>3 days before</option><option value="7">7 days before</option></select></label><p class="form-hint">Renewals are estimated using the billing cycle you enter. No payment or account information is needed.</p><div class="modal-actions"><button type="button" id="cancelDialog" class="button outline">Cancel</button><button type="submit" class="button primary">Save subscription</button></div></form></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

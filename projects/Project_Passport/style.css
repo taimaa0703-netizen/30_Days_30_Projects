@@ -1,0 +1,558 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');:root{--wine:#682a43;--wine2:#4e1c32;--cream:#f7f1e9;--gold:#d8b77c;--ink:#30252b;--muted:#77666d;--line:#e5d9d5}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',Arial,sans-serif}button,input{font:inherit}button{cursor:pointer}.shell{max-width:1240px;margin:auto;padding:0 28px}.top{height:86px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line)}.brand{font-weight:800;font-size:13px;letter-spacing:2px;color:var(--wine);text-decoration:none}.lang{display:flex;background:#eee4df;padding:4px;border-radius:99px}.lang button{border:0;background:none;border-radius:99px;padding:8px 13px;color:var(--wine);font-size:12px}.lang button.active{background:var(--wine);color:white}.hero{display:grid;grid-template-columns:1fr 360px;gap:7%;align-items:center;padding:84px 4% 100px}.eyebrow,.section-heading{font-size:11px;letter-spacing:2px;font-weight:800;color:var(--wine)}h1,h2,h3,p{margin-top:0}.hero h1{font-family:'Playfair Display',serif;font-size:clamp(56px,7vw,100px);line-height:1.03;letter-spacing:-3px;color:var(--wine);margin:23px 0}.hero h1 em{color:#b78692;font-weight:600}.hero-copy>p{font-size:19px;color:var(--muted);max-width:420px}.hero-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:30px}.primary{background:var(--wine);border:1px solid var(--wine);color:white;border-radius:7px;padding:15px 21px;font-weight:700;transition:.2s}.primary:hover:not(:disabled){background:var(--wine2);transform:translateY(-2px)}.primary:disabled{opacity:.4;cursor:not-allowed}.mini{font-size:11px;color:var(--muted)}.passport-cover{min-height:445px;background:var(--wine);border-radius:15px;box-shadow:20px 20px 0 #e8d8d1,0 30px 50px #6d405233;color:var(--gold);padding:35px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;border:5px double #9e7180;transform:rotate(3deg)}.cover-top,.cover-bottom{font-size:11px;letter-spacing:3px}.globe{font-size:100px;line-height:1}.cover-title{font-family:'Playfair Display',serif;font-size:40px;line-height:1.15;letter-spacing:2px}.cover-bottom span{margin:0 20px}.steps{padding:25px 0 75px}.section-heading{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:18px}.step-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:23px}.step-grid article{padding:28px;background:white;border:1px solid var(--line);border-radius:12px;min-height:225px}.step-grid article>span{font-size:12px;color:#b58d9a}.step-grid h3{font-family:'Playfair Display',serif;color:var(--wine);font-size:29px;margin:17px 0 9px}.step-grid p{color:var(--muted);line-height:1.6;font-size:14px}.ghost{border:1px solid #b995a2;color:var(--wine);background:transparent;border-radius:7px;padding:11px 15px;font-weight:700;font-size:12px}.ghost:hover{background:#f1e4e7}.dashboard{background:white;border:1px solid var(--line);border-radius:18px;padding:42px;margin-bottom:60px}.dash-head,.mission-title{display:flex;justify-content:space-between;gap:16px;align-items:center}.dash-head h2,.mission-title h2,.reward h2,.prize h2{font-family:'Playfair Display',serif;color:var(--wine);font-size:clamp(29px,3.5vw,45px);margin:10px 0}.dot{color:#b58d9a}.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:30px;background:#f9f4f0;border-radius:12px}.stat{padding:22px 25px;border-right:1px solid var(--line)}.stat:last-child{border:0}.stat strong{display:block;font-family:'Playfair Display',serif;font-size:42px;color:var(--wine)}.stat strong span{font-size:18px;color:#b59ba4}.stat small{font-size:10px;letter-spacing:1px;color:var(--muted);font-weight:700}.progress-track{height:9px;border-radius:99px;background:#eadde1;margin:20px 0 60px;overflow:hidden}.progress-track>div{height:100%;width:0;background:var(--wine);transition:width .5s}.mission-title{margin-bottom:20px}.mission-title p{font-size:13px;color:var(--muted);max-width:230px}.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.mission-card{border:1px solid var(--line);border-radius:11px;padding:20px;display:flex;align-items:center;gap:17px;background:#fff;min-height:118px}.mission-card.done{background:#fbf6f1;border-color:#b995a2}.stamp{width:66px;height:66px;border:2px dashed #d6bfc6;border-radius:50%;display:grid;place-items:center;color:#bfa5ae;font-size:25px;flex-shrink:0;transform:rotate(-12deg)}.done .stamp{border:3px double var(--wine);color:var(--wine);animation:pop .35s ease}.mission-info{flex:1;min-width:0}.mission-info small{font-size:10px;letter-spacing:1px;color:var(--muted)}.mission-info h3{font-size:16px;color:var(--wine);margin:6px 0}.mission-info p{font-size:12px;color:var(--muted);margin:0}.mission-card button{background:var(--wine);color:white;border:0;border-radius:7px;padding:10px 13px;font-size:12px}.done button{background:#e7d5dc;color:var(--wine)}.reward{display:flex;align-items:center;gap:25px;background:#f8f0e8;border:1px solid #e9d7d2;border-radius:13px;margin-top:35px;padding:27px}.reward-icon{font-size:60px;color:var(--wine)}.reward>div:nth-child(2){flex:1}.reward h2{font-size:29px}.reward p{color:var(--muted);font-size:13px;margin-bottom:0}.disclaimer{font-size:11px;color:var(--muted);line-height:1.6;margin-top:18px}.prize{background:var(--wine);border-radius:16px;color:#f8e9ec;padding:60px;display:flex;align-items:center;justify-content:space-between;gap:30px;margin-bottom:75px}.prize .eyebrow{color:var(--gold)}.prize h2{color:white;font-size:50px}.prize p{max-width:650px;line-height:1.7;font-size:14px}.prize-star{font-size:130px;color:var(--gold)}footer{display:flex;justify-content:space-between;padding:25px 0 40px;font-size:11px;color:var(--muted);letter-spacing:1px}footer a{color:var(--wine)}dialog{border:0;border-radius:16px;padding:0;max-width:440px;width:calc(100% - 32px);box-shadow:0 20px 90px #0004}dialog::backdrop{background:#2e1421a8}dialog form,.modal-content{padding:35px;position:relative;display:flex;flex-direction:column;gap:18px}dialog h2{font-family:'Playfair Display',serif;color:var(--wine);font-size:32px;margin:0}dialog p{color:var(--muted);line-height:1.6}dialog input{border:1px solid var(--line);padding:15px;border-radius:8px;outline-color:var(--wine)}.close{position:absolute;top:14px;right:14px;border:0;background:none;font-size:25px;color:var(--wine)}.secondary{padding:14px;background:#f5e9ed;color:var(--wine);border:1px solid #dfc6d0;border-radius:7px;font-weight:700}.link-button{text-decoration:none;text-align:center}.modal-content .disclaimer{margin:0}#toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%) translateY(90px);background:var(--wine);color:white;padding:14px 22px;border-radius:9px;opacity:0;transition:.25s;z-index:5;font-size:13px}#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}[dir=rtl] .hero h1,[dir=rtl] .cover-title{direction:ltr}[dir=rtl] .close{right:auto;left:14px}[dir=rtl] .stat{border-right:0;border-left:1px solid var(--line)}[dir=rtl] .stat:last-child{border:0}@keyframes pop{from{transform:scale(1.5) rotate(-20deg);opacity:.2}to{transform:scale(1) rotate(-12deg);opacity:1}}@media(max-width:850px){.hero{grid-template-columns:1fr;gap:60px;padding:55px 0 75px}.passport-cover{width:min(330px,85%);margin:auto;min-height:400px}.step-grid{grid-template-columns:1fr}.step-grid article{min-height:0}.cards{grid-template-columns:1fr}.dashboard{padding:22px}.prize{padding:35px}.prize-star{display:none}}@media(max-width:480px){.shell{padding:0 16px}.top{height:72px}.brand{font-size:10px;letter-spacing:1px}.lang button{padding:7px;font-size:11px}.hero h1{font-size:56px}.dash-head,.mission-title{align-items:flex-start;flex-direction:column}.stat{padding:16px 9px}.stat strong{font-size:32px}.stat small{font-size:8px}.mission-card{gap:10px;padding:12px}.stamp{width:48px;height:48px;font-size:19px}.mission-info h3{font-size:14px}.mission-card button{padding:8px}.reward{flex-wrap:wrap}.reward-icon{font-size:38px}.prize h2{font-size:36px}}
+
+/* Digital passport — inked code stamps on an open book */
+.globe{font-family:monospace;font-size:76px;font-weight:800;letter-spacing:-8px}
+.spread-preview{margin-top:44px}.spread-label{font-size:11px;font-weight:800;letter-spacing:2px;color:var(--wine);margin-bottom:18px}
+.book-spread{display:grid;grid-template-columns:1fr 1fr;background:#eadfce;border:10px solid #653047;border-radius:16px;box-shadow:0 14px 0 #c7a7ad,0 23px 35px #41202b25;overflow:hidden;direction:ltr}
+.book-page{background:linear-gradient(105deg,#e8dfd1,#fff9eb 18%,#fff9eb 83%,#e8dfd1);padding:25px 22px 30px;min-width:0;position:relative}
+.book-page:first-child{border-right:4px solid #bfa9a0;box-shadow:inset -12px 0 20px #57363c18}
+.book-page:last-child{box-shadow:inset 12px 0 20px #57363c18}
+.page-heading{display:flex;justify-content:space-between;border-bottom:1px solid #c8b6aa;padding-bottom:11px;font-size:12px;letter-spacing:2px;color:#7d5a65;font-weight:800}
+.page-stamps{display:grid;gap:12px;margin-top:17px}
+.ink-stamp{border:2px dashed #c7b9b0;border-radius:8px;min-height:83px;padding:11px 13px;display:flex;align-items:center;gap:12px;color:#b9aca7;position:relative;transform:rotate(-1deg);background:#ffffff36}
+.ink-stamp:nth-child(even){transform:rotate(1.5deg)}
+.ink-stamp.inked{border:3px double #773b56;color:#773b56;background:#7b3d5410;box-shadow:inset 0 0 0 3px #fff9eb,0 0 0 1px #773b5620}
+.ink-icon{font-family:monospace;font-size:24px;font-weight:900;flex-shrink:0;border:2px solid currentColor;border-radius:50%;width:52px;height:52px;display:grid;place-items:center;transform:rotate(-13deg)}
+.ink-meta{min-width:0;display:grid;gap:4px}.ink-meta b{font-size:12px;line-height:1.25;overflow-wrap:anywhere}.ink-meta small{font-family:monospace;font-size:10px;letter-spacing:1px}.ink-stamp.inked:after{content:'VERIFIED';font:800 8px monospace;letter-spacing:1px;position:absolute;right:8px;top:5px;transform:rotate(7deg);opacity:.65}
+.mission-card .stamp{font:900 16px monospace;letter-spacing:-2px}.mission-card.done .stamp{border-style:double;border-width:4px}.publication{font:700 12px monospace;color:#78435a!important;margin:0}
+@media(max-width:650px){.book-spread{border-width:5px}.book-page{padding:12px 8px}.page-stamps{gap:7px}.ink-stamp{padding:6px 5px;gap:5px;min-height:78px}.ink-icon{width:29px;height:29px;font-size:11px;border-width:1px}.ink-meta b{font-size:9px}.ink-meta small{font-size:8px}.ink-stamp.inked:after{font-size:6px;top:2px;right:2px}}
+
+/* V3: passport ink + terminal code. Matched in the exported PNG. */
+.ink-stamp{border:2px dashed #d5c8be;border-radius:4px;gap:12px;min-height:105px;transform:rotate(-1.5deg);transition:transform .3s ease,background .3s ease}
+.ink-stamp:nth-child(even){transform:rotate(1.3deg)}
+.ink-stamp.inked{border:3px double #783b55;background:repeating-linear-gradient(17deg,#783b5507 0px,#783b5507 1px,transparent 1px,transparent 6px);box-shadow:inset 0 0 0 3px #fff9eb,0 2px 5px #783b5514}
+.passport-seal{flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:74px;height:74px;border:3px double currentColor;border-radius:50%;transform:rotate(-12deg);font-family:monospace;line-height:1;color:inherit}
+.seal-top,.seal-bottom{font-size:8px;font-weight:900;letter-spacing:.5px}
+.seal-symbol{font-size:23px;letter-spacing:-2px}
+.ink-meta{gap:5px}.ink-meta b{font-size:13px}.ink-meta small{font-size:9px;letter-spacing:0}
+.terminal-command{font:700 11px/1.3 monospace;color:inherit;overflow-wrap:anywhere;direction:ltr;text-align:left}
+.ink-stamp.inked:after{content:'ACCESS ✓';font-size:7px;top:4px;right:5px}
+@media(max-width:650px){.ink-stamp{min-height:94px;padding:5px;gap:5px}.passport-seal{width:43px;height:43px;border-width:2px}.seal-top,.seal-bottom{font-size:5px}.seal-symbol{font-size:13px}.ink-meta b{font-size:9px}.terminal-command{font-size:7px}.ink-meta small{font-size:7px}.ink-stamp.inked:after{display:none}}
+@media(prefers-reduced-motion:no-preference){.ink-stamp.inked{animation:passport-imprint .38s cubic-bezier(.2,.9,.2,1) both}@keyframes passport-imprint{0%{opacity:.15;filter:blur(2px);scale:1.12}75%{opacity:1;filter:blur(0);scale:.98}100%{scale:1}}}
+/* V4 — high-impact ink: deep contrast, thick borders and prominent code */
+.ink-stamp{min-height:116px;border:2px solid #d4b9bd;background:#fffaf1;gap:14px;padding:12px;isolation:isolate}
+.ink-stamp.inked{border:4px solid #651a3a;color:#651a3a;background:linear-gradient(135deg,#7e28470d,#fffaf1 62%);box-shadow:inset 0 0 0 2px #fff9ed,inset 0 0 0 4px #9d526b,0 4px 13px #57223c25}
+.passport-seal{width:88px;height:88px;border:5px double currentColor;box-shadow:inset 0 0 0 3px #fff9ed,0 0 0 1px currentColor;font-weight:900}
+.seal-top,.seal-bottom{font-size:9px;letter-spacing:.7px}.seal-symbol{font-size:29px}
+.ink-meta{gap:6px}.ink-meta b{font-size:16px;font-weight:900;letter-spacing:.1px}.terminal-command{font-size:13px;font-weight:900;background:#682a43;color:#fff9ed;border-radius:3px;padding:4px 7px;display:inline-block;width:fit-content;max-width:100%}.ink-meta small{font-size:11px;font-weight:900;letter-spacing:.2px}
+.ink-stamp.inked:after{content:'✓ VERIFIED';font-size:9px;font-weight:900;top:5px;right:7px;opacity:1;color:#651a3a;background:#fff9ed;padding:2px 3px}
+@media(max-width:650px){.ink-stamp{min-height:105px;padding:7px;gap:7px}.ink-stamp.inked{border-width:3px}.passport-seal{width:49px;height:49px;border-width:3px}.seal-top,.seal-bottom{font-size:5px}.seal-symbol{font-size:15px}.ink-meta b{font-size:11px}.terminal-command{font-size:8px;padding:3px}.ink-meta small{font-size:8px}}
+
+/* PROJECT PASSPORT — playful rectangular terminal ink stamps */
+.ink-stamp,.ink-stamp.inked{border-radius:3px;min-height:112px;transform:rotate(-2deg);background:#fff9ef;border:3px solid #79304e;box-shadow:3px 4px 0 #79304e20,inset 0 0 0 2px #fff9ef,inset 0 0 0 3px #a96880;gap:13px}
+.ink-stamp:nth-child(even){transform:rotate(2deg)}
+.ink-stamp.inked{background:repeating-linear-gradient(125deg,#77324a08 0px,#77324a08 2px,#fff9ef 2px,#fff9ef 10px);color:#651a3a}
+.passport-seal{border:0;border-radius:2px;background:#651a3a;color:#fff9ef;width:78px;height:79px;box-shadow:none;transform:rotate(-3deg);gap:5px}
+.seal-top,.seal-bottom{font:800 9px monospace;letter-spacing:.3px}
+.seal-symbol{font:900 27px monospace;letter-spacing:-2px}
+.ink-stamp.inked:after{content:'✓';background:#651a3a;color:#fff9ef;border-radius:2px;padding:2px 5px;top:-9px;right:-7px;font:900 13px monospace}
+.terminal-command{border-radius:2px}
+.mission-card .stamp,.mission-card.done .stamp{border-radius:4px;border:3px solid #7a3551;transform:rotate(-7deg);font:900 18px monospace;background:#fff9ef;color:#7a3551}
+@media(max-width:650px){.ink-stamp,.ink-stamp.inked{min-height:98px;gap:6px;padding:6px;border-width:2px}.passport-seal{width:46px;height:57px;gap:2px}.seal-top,.seal-bottom{font-size:5px}.seal-symbol{font-size:18px}.ink-stamp.inked:after{font-size:10px}}
+
+/* Organic travel-passport layout: intentionally staggered, never a tidy grid. */
+.page-stamps{display:block!important;position:relative;height:680px;margin-top:12px;direction:ltr}
+.page-stamps .ink-stamp{position:absolute!important;width:78%;min-height:94px!important;padding:8px!important;box-shadow:none!important;border-radius:9px 2px 11px 4px!important;opacity:.9;filter:contrast(1.08);transform-origin:50% 50%;}
+.page-stamps .ink-stamp:nth-child(1){top:2%;left:3%;transform:rotate(-11deg)!important;width:83%}
+.page-stamps .ink-stamp:nth-child(2){top:21%;left:20%;transform:rotate(8deg)!important;width:76%}
+.page-stamps .ink-stamp:nth-child(3){top:41%;left:1%;transform:rotate(-4deg)!important;width:85%}
+.page-stamps .ink-stamp:nth-child(4){top:61%;left:18%;transform:rotate(12deg)!important;width:79%}
+.page-stamps .ink-stamp:nth-child(5){top:80%;left:5%;transform:rotate(-8deg)!important;width:84%}
+.page-stamps .ink-stamp.inked{border:3px double #753149!important;background:repeating-linear-gradient(110deg,#74314a0a 0px,#74314a0a 2px,transparent 3px,transparent 7px)!important;box-shadow:inset 0 0 0 1px #a56a7d!important}
+.page-stamps .passport-seal{background:transparent!important;color:#753149!important;border:2px solid #753149!important;transform:rotate(-5deg)}
+.page-stamps .terminal-command{background:transparent!important;color:#753149!important;padding:0!important}
+.page-stamps .ink-stamp.inked:after{content:'✦'!important;background:transparent!important;color:#753149!important;top:-12px!important;right:2px!important;font-size:18px!important}
+@media(max-width:800px){.page-stamps{height:610px}.page-stamps .ink-stamp{width:91%!important;min-height:82px!important}.page-stamps .ink-stamp:nth-child(even){left:7%!important}.page-stamps .ink-stamp:nth-child(odd){left:0!important}.page-stamps .ink-meta b{font-size:9px!important}.page-stamps .ink-meta small,.page-stamps .terminal-command{font-size:7px!important}.page-stamps .passport-seal{width:39px!important;min-width:39px!important;height:50px!important}}
+@media(max-width:480px){.book-page{padding:12px 5px!important}.page-stamps{height:565px}.page-stamps .ink-stamp{padding:3px!important;gap:3px!important;min-height:72px!important}.page-stamps .passport-seal{width:28px!important;min-width:28px!important;height:43px!important}.page-stamps .seal-symbol{font-size:13px!important}.page-stamps .ink-meta b{font-size:8px!important}.page-stamps .ink-meta small,.page-stamps .terminal-command{font-size:6px!important;letter-spacing:0!important}}
+
+/* Interactive physical passport cover */
+.passport-flipbook{position:relative;perspective:1800px;isolation:isolate;padding-bottom:56px;direction:ltr}
+.passport-flipbook .book-spread{transition:filter .7s,transform .8s;transform-origin:left center}
+.flip-cover{position:absolute;z-index:3;inset:0 0 56px 0;width:100%;border:9px double #a77486;border-radius:16px;background:linear-gradient(125deg,#421528,#722e4c 45%,#4e1c32 100%);color:#e6c894;box-shadow:18px 17px 0 #c4a7ac,0 24px 34px #32121d55;display:flex;flex-direction:column;align-items:center;justify-content:space-around;text-align:center;padding:22px;transform-origin:left center;backface-visibility:hidden;transition:transform 1.05s cubic-bezier(.25,.7,.15,1),opacity .65s;cursor:pointer}
+.flip-cover:before{content:'';position:absolute;left:14px;top:0;bottom:0;border-left:3px solid #a9798b77;box-shadow:6px 0 10px #1d091533}
+.flip-cover-top,.flip-cover-bottom{font-size:clamp(8px,1.2vw,13px);letter-spacing:3px;font-weight:700}
+.flip-cover-icon{font-size:clamp(50px,10vw,120px);line-height:1}
+.flip-cover-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,5vw,64px);font-weight:700;line-height:1.12;letter-spacing:2px}
+.flip-cover-owner{font-size:clamp(12px,1.8vw,20px);font-weight:700;letter-spacing:2px;text-transform:uppercase;overflow-wrap:anywhere;max-width:90%}
+.flip-cover-hint{font-size:12px;letter-spacing:2px;color:#fff3d7}
+.passport-flipbook:not(.is-open) .book-spread{filter:brightness(.6);pointer-events:none}
+.passport-flipbook.is-open .flip-cover{transform:rotateY(-165deg);opacity:0;pointer-events:none}
+.flip-toggle{display:block;margin:16px auto 0;background:#682a43;color:white;border:0;border-radius:8px;padding:13px 24px;font-weight:700;cursor:pointer;min-width:190px}
+.flip-toggle:hover{background:#4e1c32}
+@media(max-width:600px){.flip-cover{border-width:5px;padding:12px;box-shadow:7px 8px 0 #c4a7ac}.flip-cover-top,.flip-cover-bottom{letter-spacing:1px}.flip-cover-hint{font-size:9px}.passport-flipbook{padding-bottom:48px}.flip-cover{bottom:48px}}
+@media(prefers-reduced-motion:reduce){.flip-cover,.passport-flipbook .book-spread{transition:none}}
+
+
+/* Journey Edition — illustrated physical passport cover */
+.journey-hero-cover{background:#552238 url('journey-cover.png') center/contain no-repeat!important;aspect-ratio:2/3;min-height:0!important;width:min(100%,330px);height:auto!important;border:0!important;border-radius:16px!important;box-shadow:13px 16px 24px #32121d33!important;justify-self:center;position:relative}
+.flip-cover{inset:0 auto 56px 23%!important;width:54%!important;transform-origin:left center!important;background:#552238 url('journey-cover.png') center/100% 100% no-repeat!important;border:0!important;padding:0!important;border-radius:12px!important;box-shadow:8px 10px 0 #c4a7ac,0 20px 34px #32121d55!important;overflow:visible;display:block!important}
+.flip-cover:before{display:none!important}
+.journey-cover-overlay{position:absolute;bottom:3.4%;left:10%;right:10%;display:flex;flex-direction:column;align-items:center;gap:5px;padding:7px 8px;background:#3f1629e8;border:1px solid #d7b87c;border-radius:7px;color:#f7e4b9}
+.journey-cover-overlay .flip-cover-owner{font-size:clamp(9px,1vw,12px);letter-spacing:1px;color:#f7e4b9;line-height:1.2}
+.journey-cover-overlay .flip-cover-hint{font-size:clamp(8px,.85vw,10px);letter-spacing:1px;color:#fff1d7}
+.passport-flipbook:not(.is-open) .book-spread{filter:brightness(.82) blur(1px);opacity:.12}
+.passport-flipbook.is-open .book-spread{opacity:1;filter:none}
+.passport-flipbook.is-open .flip-cover{transform:rotateY(-168deg) translateX(-2px);opacity:0}
+@media(max-width:600px){.flip-cover{inset:0 auto 48px 18%!important;width:64%!important}.journey-hero-cover{width:min(75vw,300px)}.journey-cover-overlay{bottom:2%;padding:4px}.journey-cover-overlay .flip-cover-hint{font-size:7px}}
+
+/* Clean passport: no faded stamp pages behind the closed cover */
+.passport-flipbook:not(.is-open) .book-spread{opacity:0!important;visibility:hidden!important;filter:none!important;pointer-events:none!important}
+.passport-flipbook.is-open .book-spread{opacity:1!important;visibility:visible!important;filter:none!important}
+.flip-cover{background:transparent url('journey-cover.png') center/contain no-repeat!important;box-shadow:none!important;border:0!important}
+.journey-hero-cover{background:transparent url('journey-cover.png') center/contain no-repeat!important;border:0!important;box-shadow:none!important}
+
+.share-export{margin:24px 0;padding:26px;border:1px solid #d5b9c1;border-radius:18px;background:#fff8f0;color:#682a43}.share-export h3{margin:0 0 10px;font-size:1.4rem}.share-export p{margin:8px 0 16px}.export-actions{display:flex;flex-wrap:wrap;gap:12px}.share-export button:disabled{opacity:.45;cursor:not-allowed}.share-export small{display:block;margin-top:12px;line-height:1.5}#exportStatus{min-height:1.5em;font-weight:600}
+
+/* Personal journey letter — a keepsake before opening the passport */
+.creator-letter{max-width:780px;margin:12px auto 34px;padding:clamp(25px,5vw,48px);text-align:center;background:linear-gradient(145deg,#fffaf0,#f4e8df);border:1px solid #d7b6ae;border-radius:18px;box-shadow:0 13px 34px #682a4312;position:relative;color:#682a43}.creator-letter:before,.creator-letter:after{content:'✧';position:absolute;color:#bb8b77;font-size:24px}.creator-letter:before{top:15px;left:18px}.creator-letter:after{bottom:12px;right:18px}.creator-letter .letter-label{font-size:11px;font-weight:800;letter-spacing:2px;color:#9b6673}.creator-letter h3{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,3vw,34px);margin:12px 0 17px;line-height:1.2}.creator-letter p{max-width:570px;margin:0 auto 15px;line-height:1.85;font-size:clamp(15px,2vw,18px)}.creator-letter .letter-thanks{font-weight:700}.creator-letter .letter-signature{display:block;margin-top:20px;font-family:'Playfair Display',Georgia,serif;font-style:italic;color:#a05c75;font-size:17px}html[lang="ar"] .creator-letter p,html[lang="he"] .creator-letter p{line-height:2}
+
+/* Community Journey edition — creator letter leads the experience */
+.creator-letter{max-width:1060px;margin:38px auto 30px;padding:clamp(26px,5vw,58px);background:linear-gradient(135deg,#fffaf2,#f4e7df);}
+.creator-letter .letter-thanks{margin-bottom:0}
+.letter-invite{margin:27px auto 0;padding:25px 20px 4px;border-top:1px solid #ddc5bd;max-width:720px}
+.letter-invite-eyebrow{display:block;color:#a35c76;font-size:11px;letter-spacing:1.5px;font-weight:800;margin-bottom:10px}
+.letter-invite h4{font-family:'Playfair Display',Georgia,serif;color:#682a43;font-size:clamp(23px,3.3vw,35px);margin:0 0 14px}
+.letter-invite p{font-size:clamp(14px,1.65vw,17px);line-height:1.8;margin-bottom:22px}
+.letter-cta{padding:16px 28px;border-radius:10px;font-size:14px}
+.hero{padding-top:42px}
+/* Cover itself is the sole open/close control; no second button below */
+.flip-toggle{display:none!important}
+.flip-cover{bottom:0!important}
+.passport-flipbook.is-open .flip-cover{opacity:0.09!important;pointer-events:auto!important;transform:rotateY(-166deg)!important}
+@media(max-width:600px){.creator-letter{margin:20px auto 22px}.letter-invite{padding:20px 0 0}.hero{padding-top:32px}.flip-cover{bottom:0!important}}
+
+/* Brighter, friendlier visual identity for the explorer experience. */
+:root{
+ --wine:#44317f;
+ --wine2:#30215f;
+ --cream:#f6f7fc;
+ --gold:#f2bc52;
+ --ink:#25223a;
+ --muted:#69667d;
+ --line:#e4e5f0;
+ --accent-coral:#ed765f;
+ --accent-teal:#24a995;
+ --accent-blue:#7187ed;
+}
+body{
+ background:
+  radial-gradient(ellipse at 8% 12%,#e4e7ff 0,transparent 31rem),
+  radial-gradient(ellipse at 95% 36%,#dcf4ef 0,transparent 28rem),
+  #f6f7fc;
+}
+.shell{max-width:1180px}
+.top{
+ position:relative;
+ z-index:5;
+ min-height:82px;
+ background:#f6f7fce8;
+ backdrop-filter:blur(14px);
+}
+.brand{color:var(--wine);letter-spacing:1.5px}
+.lang{background:#ececf7;border:1px solid #e3e3f1}
+.lang button{color:#625b80}
+.lang button.active{background:var(--wine);box-shadow:0 5px 14px #44317f38}
+.hero{
+ position:relative;
+ overflow:hidden;
+ grid-template-columns:minmax(0,1fr) minmax(270px,360px);
+ gap:clamp(30px,6vw,90px);
+ margin-top:28px;
+ padding:clamp(38px,7vw,84px) clamp(25px,6vw,72px);
+ border:1px solid #e5e3f5;
+ border-radius:30px;
+ background:
+  radial-gradient(ellipse at 3% 100%,#e3f6f1 0,transparent 42%),
+  radial-gradient(ellipse at 80% 0,#eee8ff 0,transparent 52%),
+  linear-gradient(135deg,#fff,#faf8ff);
+ box-shadow:0 22px 60px #41357612;
+}
+.hero:after{
+ content:"";
+ position:absolute;
+ z-index:0;
+ width:250px;
+ height:250px;
+ right:28%;
+ bottom:-185px;
+ border:1px solid #7187ed20;
+ border-radius:50%;
+ box-shadow:0 0 0 24px #7187ed08,0 0 0 52px #7187ed06;
+ pointer-events:none;
+}
+.hero-copy{position:relative;z-index:1}
+.eyebrow,.section-heading{color:var(--accent-teal)}
+.hero .eyebrow{display:inline-flex;align-items:center;padding:9px 13px;border:1px solid #d7ece8;border-radius:99px;background:#eff9f7;letter-spacing:1.3px}
+.hero h1{
+ margin:24px 0 18px;
+ color:var(--wine);
+ font-size:clamp(58px,8vw,102px);
+ line-height:.99;
+ letter-spacing:-4px;
+}
+.hero h1 em{
+ color:transparent;
+ background:linear-gradient(100deg,var(--accent-coral),#a554bc 54%,var(--accent-blue));
+ background-clip:text;
+ -webkit-background-clip:text;
+}
+.hero-copy>p{max-width:480px;color:var(--muted);font-size:clamp(17px,2vw,21px);line-height:1.65}
+.primary{
+ border-color:transparent;
+ border-radius:12px;
+ background:linear-gradient(120deg,var(--wine),#7156c9);
+ box-shadow:0 9px 20px #44317f25;
+}
+.primary:hover:not(:disabled){background:linear-gradient(120deg,var(--wine2),#5c43b1);box-shadow:0 13px 26px #44317f30}
+.ghost,.flip-toggle{border-color:#d6d1ed;color:var(--wine)}
+.ghost:hover{background:#f2efff}
+.mini{color:#7a7789}
+.passport-cover,.journey-hero-cover{
+ border-radius:22px!important;
+ box-shadow:0 22px 42px #31205a30!important;
+}
+.steps{padding-top:46px}
+.section-heading{color:var(--wine);border-bottom-color:#dedfee}
+.step-grid{gap:16px}
+.step-grid article{
+ position:relative;
+ overflow:hidden;
+ min-height:214px;
+ border:1px solid #e6e6f1;
+ border-top:3px solid var(--step-color,var(--accent-blue));
+ border-radius:17px;
+ box-shadow:0 12px 30px #37305d0b;
+ transition:transform .2s ease,box-shadow .2s ease;
+}
+.step-grid article:nth-child(1){--step-color:var(--accent-coral)}
+.step-grid article:nth-child(2){--step-color:var(--accent-teal)}
+.step-grid article:nth-child(3){--step-color:var(--accent-blue)}
+.step-grid article:hover{transform:translateY(-4px);box-shadow:0 18px 36px #37305d15}
+.step-grid article>span{color:var(--step-color);font-weight:700}
+.step-grid h3{color:var(--wine)}
+.dashboard{
+ border:1px solid #e4e5f0;
+ border-radius:24px;
+ box-shadow:0 20px 48px #37305d0d;
+}
+.dash-head h2,.mission-title h2,.reward h2,.prize h2{color:var(--wine)}
+.dot{color:var(--accent-coral)}
+.stats{
+ gap:10px;
+ background:transparent;
+}
+.stat{
+ border:1px solid #e7e6f1;
+ border-bottom:3px solid var(--stat-color,var(--accent-blue));
+ border-radius:16px;
+ background:linear-gradient(150deg,#fff,#faf9ff);
+}
+.stat:nth-child(1){--stat-color:var(--accent-coral)}
+.stat:nth-child(2){--stat-color:var(--accent-teal)}
+.stat:nth-child(3){--stat-color:var(--accent-blue)}
+.stat strong{color:var(--wine)}
+.stat:nth-child(2) strong{color:var(--accent-teal)}
+.stat:nth-child(3) strong{color:#6879dc}
+.progress-track{background:#e9e8f5}
+.progress-track>div{border-radius:99px;background:linear-gradient(90deg,var(--accent-coral),#9b62d1,var(--accent-teal))}
+.mission-title{margin-bottom:24px}
+.mission-card{
+ border-color:#e7e7f1;
+ border-radius:16px;
+ box-shadow:0 8px 22px #30205d08;
+ transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.mission-card:hover{transform:translateY(-2px);border-color:#c9c5eb;box-shadow:0 13px 28px #30205d12}
+.mission-card.done{background:linear-gradient(135deg,#effaf6,#f8f8ff);border-color:#a7ded1}
+.mission-card .stamp,.mission-card.done .stamp{
+ border-color:var(--accent-blue);
+ color:var(--accent-blue);
+ background:#f4f3ff;
+}
+.mission-card.done .stamp{border-color:var(--accent-teal);color:var(--accent-teal);background:#edf9f5}
+.mission-card button{
+ border-radius:9px;
+ background:linear-gradient(120deg,var(--wine),#7156c9);
+}
+.done button{background:#e3f5f0;color:#167c6d}
+.reward{
+ border-color:#d8d5f0;
+ border-radius:18px;
+ background:linear-gradient(115deg,#f2efff,#eaf8f5);
+}
+.reward-icon{color:var(--accent-coral)}
+.secondary{border-color:#d6d2ed;background:#f1efff;color:var(--wine)}
+.share-export{
+ border-color:#e1ddf3;
+ border-radius:20px;
+ background:linear-gradient(135deg,#f5f2ff,#effaf7);
+ color:var(--wine);
+}
+.share-export h3{color:var(--wine)}
+.share-export small,.share-export p{color:var(--muted)}
+.prize{
+ overflow:hidden;
+ position:relative;
+ border-radius:24px;
+ background:
+  radial-gradient(ellipse at 94% 0,#ffffff20,transparent 19rem),
+  linear-gradient(120deg,#352365,#6148ac 68%,#287f82);
+ box-shadow:0 22px 50px #35236526;
+}
+.prize .eyebrow{color:#9eebd8}
+.prize h2{color:#fff}
+.prize-star{color:#f6cc72}
+.creator-letter{
+ overflow:hidden;
+ max-width:1020px;
+ margin:clamp(26px,5vw,54px) auto 38px;
+ padding:clamp(30px,6vw,68px);
+ border:1px solid #e3e1f1;
+ border-radius:28px;
+ background:
+  radial-gradient(ellipse at 100% 0,#ede8ff 0,transparent 38%),
+  radial-gradient(ellipse at 0 100%,#e4f7f2 0,transparent 39%),
+  linear-gradient(145deg,#fff,#fbfaff 70%);
+ box-shadow:0 24px 65px #3b316c17;
+ color:var(--ink);
+}
+.creator-letter:before,.creator-letter:after{content:"";width:150px;height:150px;border-radius:50%;background:linear-gradient(145deg,#ed765f22,#7187ed20);filter:blur(1px)}
+.creator-letter:before{top:-95px;left:-80px}
+.creator-letter:after{bottom:-100px;right:-90px}
+.creator-letter .letter-label{color:var(--accent-teal);letter-spacing:1.7px}
+.creator-letter h3{color:var(--wine);font-size:clamp(28px,4.2vw,43px);line-height:1.15}
+.creator-letter p{color:#5d5a70;font-size:clamp(16px,1.7vw,19px);line-height:1.8}
+.creator-letter .letter-thanks{color:var(--wine);font-weight:700}
+.letter-invite{
+ position:relative;
+ max-width:790px;
+ margin-top:34px;
+ padding:30px clamp(18px,4vw,42px) 8px;
+ border:1px solid #e3ddf6;
+ border-top:3px solid var(--accent-coral);
+ border-radius:20px;
+ background:linear-gradient(135deg,#fff9f5,#f6f3ff);
+ box-shadow:0 12px 30px #5141870c;
+}
+.letter-invite-eyebrow{color:#bd5e53}
+.letter-invite h4{color:var(--wine);font-size:clamp(25px,3.5vw,39px);line-height:1.2}
+.letter-invite p{color:#5f5a70}
+.letter-cta{margin-bottom:12px;background:linear-gradient(115deg,#e66857,#d85876);box-shadow:0 9px 21px #e6685733}
+.letter-cta:hover:not(:disabled){background:linear-gradient(115deg,#cf5549,#ba496c)}
+.creator-letter .letter-signature{color:#7055ad;font-size:18px}
+.close{border-radius:9px;color:var(--wine);background:#f2efff}
+#toast{background:linear-gradient(110deg,var(--wine),#6951b2);box-shadow:0 12px 28px #30205d33}
+footer{color:#737087}
+footer a{color:var(--wine)}
+:focus-visible{outline:3px solid #24a99599;outline-offset:3px}
+.creator-letter:before,.creator-letter:after{pointer-events:none}
+@media(max-width:850px){
+ .hero{grid-template-columns:1fr;margin-top:22px}
+ .step-grid article{min-height:185px}
+ .creator-letter{padding:clamp(28px,6vw,48px)}
+}
+@media(max-width:600px){
+ .hero{gap:36px;padding:34px 22px 45px;border-radius:22px}
+ .hero h1{font-size:clamp(54px,14vw,72px);letter-spacing:-2px}
+ .journey-hero-cover{width:min(76vw,300px)}
+ .creator-letter{border-radius:22px}
+ .letter-invite{padding:22px 18px 8px}
+ .dashboard{padding:20px}
+ .stats{gap:6px}
+ .stat{padding:16px 9px}
+ .stat small{font-size:8px}
+ .mission-card{padding:14px}
+ .mission-card button{font-size:11px}
+ .share-export{padding:21px}
+ .prize{padding:30px 23px}
+ footer{gap:12px;flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
+.passport-close{
+ position:absolute;
+ z-index:4;
+ bottom:0;
+ left:50%;
+ min-height:44px;
+ padding:10px 22px;
+ transform:translateX(-50%);
+ border:1px solid #d8d3ee;
+ border-radius:999px;
+ background:linear-gradient(120deg,#44317f,#7156c9);
+ box-shadow:0 8px 20px #30205d2b;
+ color:#fff;
+ font-weight:700;
+ cursor:pointer;
+}
+.passport-close:hover{background:linear-gradient(120deg,#30215f,#5c43b1)}
+.passport-close:focus-visible{outline:3px solid #24a99599;outline-offset:3px}
+.passport-close[hidden]{display:none}
+html[lang="ar"] .letter-invite-eyebrow{
+ display:inline-block;
+ padding:11px 18px;
+ border:1px solid #ed765f30;
+ border-radius:14px;
+ background:linear-gradient(110deg,#fff0e9,#f1ecff);
+ color:#a44665;
+ font-size:clamp(21px,3.2vw,30px);
+ line-height:1.5;
+ letter-spacing:0;
+}
+
+/* Passport-matched finish: wine, soft rose and restrained gold. */
+:root{
+ --wine:#682a43;
+ --wine2:#4e1c32;
+ --cream:#f7f1e9;
+ --gold:#c49a55;
+ --ink:#30252b;
+ --muted:#77666d;
+ --line:#e5d9d5;
+ --accent-teal:#a97952;
+ --accent-coral:#a84f6b;
+ --accent-blue:#d0a96d;
+}
+body{
+ background:
+  radial-gradient(ellipse at 50% -18%,#ead9d8 0,transparent 37rem),
+  var(--cream);
+}
+.top{border-bottom-color:#decac7}
+.brand,.eyebrow,.section-heading{color:var(--wine)}
+.lang{background:#eadbd9}
+.lang button{color:var(--wine)}
+.lang button.active{background:var(--wine);color:#fff}
+.hero{gap:clamp(32px,6vw,86px)}
+.hero .eyebrow{
+ border-color:#dec3c3;
+ background:#fff9f4;
+ color:var(--wine);
+}
+.hero h1 em{
+ background:linear-gradient(105deg,#a84f6b,#c49a55);
+ background-clip:text;
+ -webkit-background-clip:text;
+}
+.journey-hero-cover,.passport-cover{
+ box-shadow:14px 16px 0 #e9d7d1,0 28px 54px #4e1c3226!important;
+}
+.primary,.mission-card button,.passport-close{
+ border:1px solid var(--wine);
+ border-radius:10px;
+ background:var(--wine);
+ box-shadow:0 7px 18px #4e1c3218;
+ color:#fff;
+ transition:background .18s ease,transform .18s ease,box-shadow .18s ease;
+}
+.primary:hover:not(:disabled),.mission-card button:hover,.passport-close:hover{
+ background:var(--wine2);
+ box-shadow:0 10px 22px #4e1c3228;
+}
+.ghost,.secondary{
+ border:1px solid #c9a99f;
+ border-radius:10px;
+ background:#fffaf6;
+ color:var(--wine);
+}
+.ghost:hover,.secondary:hover{background:#f1e2dd}
+.step-grid article{
+ border-color:#e8dcd7;
+ border-top:3px solid var(--gold);
+ background:linear-gradient(155deg,#fff 35%,#fcf7f1);
+ box-shadow:0 12px 30px #4e1c320b;
+}
+.step-grid article:nth-child(2){--step-color:#a84f6b}
+.step-grid article:nth-child(3){--step-color:#c49a55}
+.dashboard{
+ border-color:#e5d9d5;
+ background:#fffdfa;
+ box-shadow:0 20px 48px #4e1c3210;
+}
+.stat{border-bottom-color:var(--gold);background:linear-gradient(150deg,#fff,#fcf7f2)}
+.stat:nth-child(2){--stat-color:#a84f6b}
+.stat:nth-child(3){--stat-color:#c49a55}
+.stat:nth-child(2) strong,.stat:nth-child(3) strong{color:var(--wine)}
+.progress-track{background:#eadbd9}
+.progress-track>div{background:linear-gradient(90deg,#a84f6b,#c49a55)}
+.mission-card{
+ border-color:#e8dcd7;
+ background:#fffdfa;
+ box-shadow:0 8px 22px #4e1c3208;
+}
+.mission-card:hover{border-color:#c9a99f;box-shadow:0 13px 28px #4e1c3212}
+.mission-card.done{background:#faf1e9;border-color:#c49a55}
+.mission-card .stamp,.mission-card.done .stamp{border-color:#c49a55;color:#a97952;background:#fffaf2}
+.mission-card.done .stamp{border-color:#a84f6b;color:#a84f6b;background:#fff5f4}
+.done button{border-color:#e3d2c7;background:#f2e5dc;color:var(--wine)}
+.reward,.share-export{
+ border-color:#e5d4ca;
+ background:linear-gradient(120deg,#faf0e8,#fffaf4);
+}
+.reward-icon{color:#a84f6b}
+.share-export{color:var(--wine)}
+.share-export h3,.share-export small,.share-export p{color:var(--wine)}
+.prize{
+ background:
+  radial-gradient(ellipse at 100% 0,#ffffff16,transparent 20rem),
+  linear-gradient(120deg,#4e1c32,#682a43 68%,#874b5b);
+ box-shadow:0 22px 50px #4e1c3226;
+}
+.prize .eyebrow{color:#e7c98f}
+.prize-star{color:#d8b77c}
+.creator-letter{
+ border-color:#e1ccc2;
+ background:
+  radial-gradient(ellipse at 100% 0,#f3e3dc 0,transparent 40%),
+  radial-gradient(ellipse at 0 100%,#f6e9db 0,transparent 42%),
+  linear-gradient(145deg,#fffdfa,#fbf4ed 70%);
+ box-shadow:0 24px 65px #4e1c3210;
+}
+.creator-letter:before,.creator-letter:after{
+ background:linear-gradient(145deg,#d8b77c22,#a84f6b20);
+}
+.creator-letter .letter-label,.creator-letter .letter-signature{color:#9b6673}
+.creator-letter h3,.creator-letter .letter-thanks{color:var(--wine)}
+.creator-letter p{color:#62545a}
+.letter-invite{
+ border-color:#e5d4ca;
+ border-top-color:#c49a55;
+ background:linear-gradient(135deg,#fffaf5,#f8eee8);
+}
+.letter-invite-eyebrow{color:#9b6673}
+.letter-invite h4{color:var(--wine)}
+.letter-invite p{color:#62545a}
+.letter-cta{background:var(--wine)}
+.letter-cta:hover:not(:disabled){background:var(--wine2)}
+.passport-flipbook{padding-bottom:62px}
+.passport-close{
+ bottom:0;
+ min-height:46px;
+ padding:11px 24px;
+ transform:translateX(-50%);
+}
+.flip-cover:focus-visible,.passport-close:focus-visible,button:focus-visible,a:focus-visible{
+ outline:3px solid #c49a55;
+ outline-offset:4px;
+}
+.close{background:#f5e9e4}
+#toast{background:var(--wine);box-shadow:0 12px 28px #4e1c3233}
+dialog{border:1px solid #e5d4ca}
+dialog::backdrop{background:#301620a8}
+dialog input{outline-color:var(--wine)}
+footer a{color:var(--wine)}
+@media(max-width:600px){
+ .hero{gap:40px}
+ .hero h1{letter-spacing:-2px}
+ .step-grid article{min-height:0}
+ .mission-card{align-items:flex-start;flex-wrap:wrap}
+ .mission-card .mission-info{flex-basis:calc(100% - 64px)}
+ .mission-card button{width:100%;min-height:42px;white-space:normal;line-height:1.35}
+ .hero-actions>*{max-width:100%}
+ .letter-cta,.reward>.primary,.export-actions button{width:100%;white-space:normal;line-height:1.35}
+ .passport-flipbook{padding-bottom:60px}
+ .passport-close{min-height:44px}
+ .prize h2{font-size:clamp(34px,10vw,45px)}
+}

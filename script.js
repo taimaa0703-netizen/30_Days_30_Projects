@@ -74,7 +74,24 @@ const projects = [
   tags: ["Arduino", "IoT", "JavaScript", "Hardware"],
   link: "projects/DROP_ALERT_Dashboard_9/",
   unlocked: true
+},
+{
+  day: 10,
+  name: "Subscription Detective",
+  description: "Take control of recurring costs. Track subscriptions, get renewal reminders, and discover your savings.",
+  tags: ["HTML", "CSS", "JavaScript", "Personal Finance"],
+  link: "projects/Subscription_Detective_Day10/index.html",
+  unlocked: true
+},
+
+{
+  day: 10,
+  name: "Project Passport 🛂",
+  description: "10 projects. 10 stamps. One journey. Explore my projects, collect your stamps, and maybe the next project will have your name on it! 💌",
+  tags: ["HTML", "CSS", "JavaScript", "Interactive", "Challenge"],
+  link: "projects/Project_Passport/"
 }
+
 ];
 
 
