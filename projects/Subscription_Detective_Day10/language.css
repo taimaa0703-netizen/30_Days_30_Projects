@@ -421,13 +421,13 @@ html[lang="ar"] button,
 html[lang="ar"] input,
 html[lang="ar"] select,
 html[lang="ar"] dialog {
-  font-family: "Cairo", "Noto Sans Arabic", Tahoma, sans-serif;
+  font-family: "Inter", "Cairo", "Noto Sans Arabic", Tahoma, sans-serif;
 }
 
 html[lang="ar"] h1,
 html[lang="ar"] h2,
 html[lang="ar"] h3 {
-  font-family: "Cairo", "Noto Sans Arabic", Tahoma, sans-serif;
+  font-family: "Inter", "Cairo", "Noto Sans Arabic", Tahoma, sans-serif;
   letter-spacing: 0;
   line-height: 1.65;
 }

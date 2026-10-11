@@ -22,18 +22,18 @@ Object.assign(WORDS.en,{creatorLabel:'A NOTE FROM THE CREATOR',creatorHeading:'T
 Object.assign(WORDS.ar,{creatorLabel:'رسالة صغيرة منّي إلكم',creatorHeading:'هاد مش بس جواز سفر.',creatorMessage:'كل مشروع هون هو خطوة صغيرة برحلتي بالتعلّم والتجربة. مش كل إشي بزبط من أول مرة، بس مع كل محاولة بتعلّم إشي جديد.',creatorThanks:'وشكرًا إلكم إنكم جزء من هالرحلة، وعم تشاركوني إياها خطوة بخطوة.'});
 Object.assign(WORDS.he,{creatorLabel:'כמה מילים ממני אליכם',creatorHeading:'זה לא סתם דרכון.',creatorMessage:'כל פרויקט כאן הוא צעד קטן במסע שלי — ללמוד, להתנסות, לטעות ולבנות משהו חדש בכל יום.',creatorThanks:'תודה שאתם חלק מהמסע הזה, ושאתם מלווים אותי צעד אחר צעד.'});
 
-Object.assign(WORDS.en,{inviteEyebrow:'THE NEXT STAMP COULD BE YOURS',inviteHeading:'What if stamp 11 had your name on it?',inviteMessage:'This journey became more special because you joined it. Explore the first 10 projects, collect your stamps, and share your completed passport on Instagram while tagging me. The first eligible Explorer can choose a small idea for project 11 — and have their name featured on its stamp!',inviteCTA:'JOIN THE CHALLENGE ↗'});
-Object.assign(WORDS.ar,{inviteEyebrow:'يمكن الختم الجاي يكون باسمك!',inviteHeading:'تخيّلوا أن يحمل الختم رقم 11 اسمكم',inviteMessage:'وجودكم معي في هذه الرحلة يجعلها أجمل. جرّبوا المشاريع العشرة الأولى، واجمعوا الأختام، وشاركوا جوازكم المكتمل في القصة مع الإشارة إلى حسابي. أول مشارك يستوفي الشروط يستطيع اختيار فكرة مشروع صغير لليوم 11، وسيظهر اسمه على ختم المشروع.',inviteCTA:'انضمّوا إلى التحدّي ↗'});
-Object.assign(WORDS.he,{inviteEyebrow:'אולי החותמת הבאה תהיה שלכם',inviteHeading:'מה אם החותמת ה־11 תהיה על שמכם?',inviteMessage:'המסע הזה מיוחד יותר בזכותכם! נסו את עשרת הפרויקטים הראשונים, אספו חותמות, שתפו את הדרכון המלא בסטורי ותייגו אותי. המשתתף הראשון שעומד בתנאים יוכל לבחור רעיון לפרויקט קטן ליום 11, ושמו יופיע על החותמת שלו.',inviteCTA:'הצטרפו לאתגר ↗'});
+Object.assign(WORDS.en,{inviteEyebrow:'THE NEXT STAMP COULD BE YOURS',inviteHeading:'Could the next stamp have your name on it?',inviteMessage:'Complete the first 10 stamps, share your passport, and become part of the next project.',inviteCTA:'JOIN THE JOURNEY ↗'});
+Object.assign(WORDS.ar,{inviteEyebrow:'يمكن الختم الجاي يكون باسمك!',inviteHeading:'تخيّل الختم الجاي يكون باسمك؟ 👀',inviteMessage:'كمّل أول 10 أختام، شارك جوازك، وخليك جزء من المشروع الجاي.',inviteCTA:'يلا نبدأ ↗'});
+Object.assign(WORDS.he,{inviteEyebrow:'אולי החותמת הבאה תהיה שלכם',inviteHeading:'אולי החותמת הבאה תהיה על שמכם?',inviteMessage:'השלימו את עשר החותמות הראשונות, שתפו את הדרכון שלכם והיו חלק מהפרויקט הבא.',inviteCTA:'מצטרפים למסע ↗'});
 Object.assign(WORDS.he,{
  creatorLabel:'כמה מילים ממני',
  creatorHeading:'זה לא רק דרכון.',
  creatorMessage:'זהו חלק קטן מהמסע שלי: ללמוד, להתנסות, לטעות ולבנות משהו חדש בכל יום.',
  creatorThanks:'תודה שאתם חלק מהמסע הזה ומלווים אותי בכל צעד.',
  inviteEyebrow:'אולי החותמת הבאה תהיה שלכם',
- inviteHeading:'רוצים שהחותמת ה־11 תהיה על שמכם?',
- inviteMessage:'כדי להודות לכם שהצטרפתם למסע שלי, אני מזמינה אתכם להתנסות בעשרת הפרויקטים הראשונים. המשתתף הראשון שישלים את כל המשימות, ישתף את הדרכון ואת הפרופיל שלי בסטורי ויתייג אותי, יוכל לבחור רעיון לפרויקט ה־11 ושמו יופיע על החותמת שלו.',
- inviteCTA:'הצטרפו לאתגר ↗',
+ inviteHeading:'אולי החותמת הבאה תהיה על שמכם?',
+ inviteMessage:'השלימו את עשר החותמות הראשונות, שתפו את הדרכון שלכם והיו חלק מהפרויקט הבא.',
+ inviteCTA:'מצטרפים למסע ↗',
  share:'שיתוף',
  explore:'התנסות',
  win:'הפרס',
@@ -52,7 +52,70 @@ Object.assign(WORDS.he,{
  published:'תאריך פרסום',
  closePassport:'סגירת הדרכון'
 });
-Object.assign(WORDS.ar,{inviteHeading:'تخيّلوا أن يحمل الختم رقم 11 اسمكم',inviteMessage:'شكرًا لانضمامكم إلى رحلتي. جرّبوا المشاريع العشرة الأولى واجمعوا أختامكم، ثم شاركوا جوازكم المكتمل على إنستغرام مع الإشارة إلى حسابي. سيختار أول مشارك يستوفي الشروط فكرة المشروع الحادي عشر، وسيظهر اسمه على ختمه.',inviteCTA:'انضمّوا إلى التحدّي ↗',share:'مشاركة',explore:'استكشفوا',win:'الجائزة',toast:'تم جمع ختم جديد'});
+Object.assign(WORDS.ar,{inviteHeading:'تخيّل الختم الجاي يكون باسمك؟ 👀',inviteMessage:'كمّل أول 10 أختام، شارك جوازك، وخليك جزء من المشروع الجاي.',inviteCTA:'يلا نبدأ ↗',share:'مشاركة',explore:'استكشفوا',win:'الجائزة',toast:'تم جمع ختم جديد'});
+Object.assign(WORDS.en,{
+ how:'YOUR BOARDING PASS',
+ joinTitle:'Your next adventure starts here',
+ joinDescription:'Explore the projects, collect your stamps, and share the journey.',
+ ticketLabel:'30 DAYS / 30 PROJECTS',
+ ticketPassenger:'PASSENGER',
+ ticketPassengerName:'PROJECT EXPLORER',
+ ticketDestination:'DESTINATION',
+ ticketDestinationName:'THE NEXT PROJECT',
+ ticketFlight:'FLIGHT',
+ ticketGate:'GATE',
+ ticketStepsLabel:'YOUR JOURNEY',
+ ticketStep1Title:'Explore the projects',
+ ticketStep1Description:'Open each project and take a look.',
+ ticketStep2Title:'Confirm your visit',
+ ticketStep2Description:'After viewing, confirm to collect its stamp.',
+ ticketStep3Title:'Download & share your passport',
+ ticketStep3Description:'After all 10 stamps, download your passport, share it to your story, and tag me.',
+ ticketCta:'Explore the projects',
+ ticketFoot:'YOUR JOURNEY. YOUR STAMPS. YOUR PASSPORT.'
+});
+Object.assign(WORDS.ar,{
+ how:'بطاقة صعودك إلى الرحلة',
+ joinTitle:'مغامرتك القادمة تبدأ من هنا',
+ joinDescription:'استكشفوا المشاريع، واجمعوا الأختام، وشاركوا رحلتكم.',
+ ticketLabel:'30 يومًا / 30 مشروعًا',
+ ticketPassenger:'المسافر',
+ ticketPassengerName:'مستكشف المشاريع',
+ ticketDestination:'الوجهة',
+ ticketDestinationName:'المشروع القادم',
+ ticketFlight:'رقم الرحلة',
+ ticketGate:'البوابة',
+ ticketStepsLabel:'محطات الرحلة',
+ ticketStep1Title:'استكشفوا المشاريع',
+ ticketStep1Description:'افتحوا كل مشروع وتعرّفوا عليه.',
+ ticketStep2Title:'أكّدوا زيارتكم',
+ ticketStep2Description:'بعد الاطلاع على المشروع، أكّدوا زيارتكم لتحصلوا على ختمه.',
+ ticketStep3Title:'نزّلوا جوازكم وشاركوه',
+ ticketStep3Description:'بعد جمع الأختام العشرة، نزّلوا جوازكم وانشروه في القصة وأشيروا إلى حسابي.',
+ ticketCta:'استكشفوا المشاريع',
+ ticketFoot:'رحلتكم. أختامكم. جوازكم.'
+});
+Object.assign(WORDS.he,{
+ how:'כרטיס העלייה למסע',
+ joinTitle:'ההרפתקה הבאה שלכם מתחילה כאן',
+ joinDescription:'גלו את הפרויקטים, אספו חותמות ושתפו את המסע.',
+ ticketLabel:'30 ימים / 30 פרויקטים',
+ ticketPassenger:'נוסעים',
+ ticketPassengerName:'חוקרי פרויקטים',
+ ticketDestination:'יעד',
+ ticketDestinationName:'הפרויקט הבא',
+ ticketFlight:'טיסה',
+ ticketGate:'שער',
+ ticketStepsLabel:'מסלול המסע',
+ ticketStep1Title:'צפו בפרויקטים',
+ ticketStep1Description:'פתחו כל פרויקט והתרשמו ממנו.',
+ ticketStep2Title:'אשרו שצפיתם',
+ ticketStep2Description:'לאחר הצפייה, אשרו אותה כדי לאסוף חותמת.',
+ ticketStep3Title:'הורידו ושתפו את הדרכון',
+ ticketStep3Description:'לאחר איסוף כל 10 החותמות, הורידו את הדרכון, שתפו אותו בסטורי ותייגו אותי.',
+ ticketCta:'לצפייה בפרויקטים',
+ ticketFoot:'המסע שלכם. החותמות שלכם. הדרכון שלכם.'
+});
 const KEY='project-passport-v2';let state;try{state=JSON.parse(localStorage.getItem(KEY))||JSON.parse(localStorage.getItem('project-passport-v1'))||{}}catch{state={}};
 state={name:typeof state.name==='string'?state.name:'',done:Array.isArray(state.done)?[...new Set(state.done.filter(n=>Number.isInteger(n)&&n>=0&&n<10))]:[],lang:WORDS[state.lang]?state.lang:'en'};
 const $=id=>document.getElementById(id),t=k=>WORDS[state.lang][k]||k;let current=0;
@@ -61,6 +124,7 @@ const cleanDecorativeGlyphs=value=>String(value).replace(/[♥✧☆]/gu,'');
 function removeDecorativeGlyphs(){const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let node;while((node=walker.nextNode())){if(!['SCRIPT','STYLE'].includes(node.parentElement?.tagName))node.nodeValue=cleanDecorativeGlyphs(node.nodeValue)}}
 function toast(msg){const el=$('toast');el.textContent=cleanDecorativeGlyphs(msg);el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2600)}
 const TERMINAL_CODES=['focus.start()','bill.split()','crew.vote()','parking.save()','budget.plan()','day.organize()','ads.analyze()','leads.decode()','water.detect()','subs.audit()'];
+function round(c,x,y,w,h,r){c.beginPath();c.roundRect(x,y,w,h,r)}
 function makeStamp(p,inked){
  const div=document.createElement('div');div.className='ink-stamp'+(inked?' inked':'');
  const seal=document.createElement('span');seal.className='passport-seal';
@@ -78,7 +142,7 @@ function render(){document.documentElement.lang=state.lang;document.documentElem
  $('cards').replaceChildren(...PROJECTS.map((p,i)=>{const done=state.done.includes(i);const el=document.createElement('article');el.className='mission-card'+(done?' done':'');const stamp=document.createElement('div');stamp.className='stamp';stamp.textContent=done?'</>':'{ }';const info=document.createElement('div');info.className='mission-info';const small=document.createElement('small');small.textContent=`DAY ${String(p.day).padStart(2,'0')} • ${p.published}`;const h=document.createElement('h3');h.textContent=p.name;const desc=document.createElement('p');desc.textContent=p.mission[state.lang==='ar'?1:state.lang==='he'?2:0];info.append(small,h,desc);const b=document.createElement('button');b.textContent=t(done?'collected':'view');b.addEventListener('click',()=>openMission(i));el.append(stamp,info,b);return el}));
  $('leftPage').replaceChildren(...PROJECTS.slice(0,5).map((p,i)=>makeStamp(p,state.done.includes(i))));$('rightPage').replaceChildren(...PROJECTS.slice(5).map((p,i)=>makeStamp(p,state.done.includes(i+5))));removeDecorativeGlyphs();}
 function openMission(i){if(!state.name){$('nameDialog').showModal();return}current=i;const p=PROJECTS[i];$('modalDay').textContent=`DAY ${String(p.day).padStart(2,'0')}`;$('modalTitle').textContent=p.name;$('modalMission').textContent=p.mission[state.lang==='ar'?1:state.lang==='he'?2:0]+(p.video?' '+t('videoNotice'):'');$('modalPublished').textContent=`${t('published')}: ${p.published}`;const link=$('openProject');link.href=p.path?new URL('../../'+p.path,location.href).href:CONFIG.mainSite;link.textContent=t(p.path?'openProject':'unavailable');$('completeMission').textContent=t(state.done.includes(i)?'undo':p.video?'watchDone':'markComplete');$('missionDialog').showModal()}
-document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>{state.lang=b.dataset.lang;persist();render()}));$('start').addEventListener('click',()=>{if(!state.name)$('nameDialog').showModal();else $('passport').scrollIntoView({behavior:'smooth'})});$('editName').addEventListener('click',()=>{$('nameInput').value=state.name;$('nameDialog').showModal()});$('nameForm').addEventListener('submit',e=>{if(e.submitter?.value!=='save')return;const name=$('nameInput').value.trim();if(!name){e.preventDefault();return}state.name=name;persist();render();setTimeout(()=>$('passport').scrollIntoView({behavior:'smooth'}),100)});$('closeMission').addEventListener('click',()=>$('missionDialog').close());$('completeMission').addEventListener('click',()=>{if(state.done.includes(current))state.done=state.done.filter(i=>i!==current);else{state.done.push(current);toast(t('toast'))}persist();$('missionDialog').close();render()});$('shareProfile').addEventListener('click',async()=>{const url=CONFIG.instagram;if(navigator.share){try{await navigator.share({title:'Project Passport',text:'PROJECT PASSPORT',url})}catch{}}else{try{await navigator.clipboard.writeText(url);toast('Link copied ✓')}catch{window.open(url,'_blank','noopener')}}});
+document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>{state.lang=b.dataset.lang;persist();render()}));$('start').addEventListener('click',()=>{if(!state.name)$('nameDialog').showModal();else $('passport').scrollIntoView({behavior:'smooth'})});$('editName').addEventListener('click',()=>{$('nameInput').value=state.name;$('nameDialog').showModal()});$('nameForm').addEventListener('submit',e=>{if(e.submitter?.value!=='save')return;const name=$('nameInput').value.trim();if(!name){e.preventDefault();return}state.name=name;persist();render();setTimeout(()=>$('passport').scrollIntoView({behavior:'smooth'}),100)});$('closeMission').addEventListener('click',()=>$('missionDialog').close());$('completeMission').addEventListener('click',()=>{if(state.done.includes(current))state.done=state.done.filter(i=>i!==current);else{state.done.push(current);toast(t('toast'))}persist();$('missionDialog').close();render()});
 function createPassportCanvas(){
  if(state.done.length!==10)return null;
  const canvas=document.createElement('canvas');canvas.width=1800;canvas.height=1200;
@@ -114,17 +178,16 @@ $('download').addEventListener('click',downloadPassport);render();
 
 // Flipbook interaction: preserve all existing stamp, progress and PNG functionality.
 (()=>{
- const book=document.getElementById('flipbook'),cover=document.getElementById('flipCover');
- const labels={en:['OPEN PASSPORT ↗','CLOSE PASSPORT ↶','TAP TO OPEN ↗','Close passport'],ar:['افتح جواز السفر ↗','سكّر جواز السفر ↶','اضغط لتفتح ↗','إغلاق جواز السفر'],he:['פתיחת הדרכון ↗','סגירת הדרכון ↶','לחצו לפתיחה ↗','סגירת הדרכון']};
- const closeButton=document.createElement('button');
- closeButton.className='passport-close';
- closeButton.type='button';
- closeButton.hidden=true;
- book.append(closeButton);
+ const book=document.getElementById('flipbook');
+ const cover=document.getElementById('flipCover');
+ const labels={en:['Open passport ↗','Close passport ↶'],ar:['افتح جواز السفر ↗','إغلاق جواز السفر ↶'],he:['פתיחת הדרכון ↗','סגירת הדרכון ↶']};
+ const toggleButton=document.createElement('button');
+ toggleButton.className='passport-close';
+ toggleButton.type='button';
+ book.append(toggleButton);
  let open=false;
- function sync(){const lang=document.documentElement.lang||'en',v=labels[lang]||labels.en;book.classList.toggle('is-open',open);cover.setAttribute('aria-expanded',String(open));cover.setAttribute('aria-label',open?v[1]:v[0]);document.getElementById('coverHint').textContent=open?v[1]:v[2];document.getElementById('coverOwner').textContent=document.getElementById('explorerName').textContent||'EXPLORER';closeButton.textContent=v[3];closeButton.setAttribute('aria-label',v[3]);closeButton.hidden=!open;}
- cover.addEventListener('click',()=>{open=!open;sync()});
- closeButton.addEventListener('click',()=>{open=false;sync();cover.focus()});
+ function sync(){const lang=document.documentElement.lang||'en',v=labels[lang]||labels.en;book.classList.toggle('is-open',open);cover.disabled=true;cover.tabIndex=-1;cover.setAttribute('aria-hidden','true');document.getElementById('coverHint').textContent='';document.getElementById('coverOwner').textContent='';toggleButton.textContent=v[open?1:0];toggleButton.setAttribute('aria-label',v[open?1:0]);toggleButton.setAttribute('aria-expanded',String(open));}
+ toggleButton.addEventListener('click',()=>{open=!open;sync()});
  document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>setTimeout(sync,0)));
  new MutationObserver(sync).observe(document.getElementById('explorerName'),{childList:true,characterData:true,subtree:true});
  sync();
@@ -143,7 +206,7 @@ $('download').addEventListener('click',downloadPassport);render();
  const label=(c,t,x,y,size=28,color='#f1d6a6')=>{c.fillStyle=color;c.font=`600 ${size}px Arial`;c.textAlign='center';c.fillText(t,x,y)};
  function poster(){const open=createPassportCanvas();if(!open)return null;const a=document.createElement('canvas');a.width=1080;a.height=1920;const c=a.getContext('2d');const bg=c.createLinearGradient(0,0,1080,1920);bg.addColorStop(0,'#f8f0e8');bg.addColorStop(1,'#ead5d9');c.fillStyle=bg;c.fillRect(0,0,1080,1920);c.fillStyle='#682a43';rounded(c,36,35,1008,1850,40);c.fill();label(c,'30 DAYS  /  30 PROJECTS',540,125,28);label(c,'MY PROJECT PASSPORT',540,197,53,'#fff7e9');drawCover(c,260,245,560,785);label(c,'THE JOURNEY',540,1110,31);c.save();c.shadowColor='#2e1323';c.shadowBlur=30;c.drawImage(open,65,1170,950,633);c.restore();label(c,(state.name||'EXPLORER').slice(0,28).toUpperCase()+'  •  10 / 10 STAMPS',540,1845,25);return a}
  async function exportPoster(){try{await ready();saveCanvas(poster(),'project-passport-keepsake.png')}catch(e){status.textContent=e.message}}
- function drawFrame(c,open,progress){c.fillStyle='#f6ece5';c.fillRect(0,0,720,1280);c.fillStyle='#682a43';rounded(c,20,20,680,1240,28);c.fill();label(c,'30 DAYS / 30 PROJECTS',360,93,20);label(c,'PROJECT PASSPORT',360,160,35,'#fff7e9');const eased=progress<.2?0:progress>.62?1:(progress-.2)/.42;const ease=eased*eased*(3-2*eased);const coverX=145-85*ease,coverY=220-65*ease,coverW=430-230*ease,coverH=640-345*ease; c.save();c.globalAlpha=1-ease*.1;drawCover(c,coverX,coverY,coverW,coverH);c.restore();if(ease>0){c.save();c.globalAlpha=ease;c.shadowColor='#170812';c.shadowBlur=16;c.drawImage(open,35,615-105*ease,650,433);c.restore()}if(progress>.75){label(c,'10 PROJECTS. 10 STAMPS.',360,1095,27);label(c,(state.name||'EXPLORER').slice(0,24).toUpperCase(),360,1152,25,'#fff7e9')}else{label(c,'A JOURNEY OF LEARNING & BUILDING',360,1140,20)}}
+ function drawFrame(c,open,progress){c.fillStyle='#f6ece5';c.fillRect(0,0,720,1280);c.fillStyle='#682a43';rounded(c,20,20,680,1240,28);c.fill();label(c,'30 DAYS / 30 PROJECTS',360,93,20);label(c,'PROJECT PASSPORT',360,160,35,'#fff7e9');const eased=progress<.2?0:progress>.62?1:(progress-.2)/.42;const ease=eased*eased*(3-2*eased);const coverX=145-85*ease,coverY=220-65*ease,coverW=430-230*ease,coverH=640-345*ease; c.save();c.globalAlpha=1-ease*.1;drawCover(c,coverX,coverY,coverW,coverH);c.restore();if(ease>0){c.save();c.globalAlpha=ease;c.shadowColor='#170812';c.shadowBlur=16;c.drawImage(open,35,615-105*ease,650,433);c.restore()}if(progress>.75){const thanks={he:['תודה על שיתוף הפעולה','נמשיך להתפתח יחד!'],ar:['شكرًا لمشاركتكم هذه الرحلة معي','لنواصل التطور معًا!'],en:['Thank you for joining me on this journey','Let’s keep growing together!']}[state.lang]||['Thank you for joining me on this journey','Let’s keep growing together!'];label(c,thanks[0],360,1070,21,'#f1d6a6');label(c,thanks[1],360,1110,21,'#fff7e9');label(c,(state.name||'EXPLORER').slice(0,24).toUpperCase()+'  •  10 / 10 STAMPS',360,1170,17,'#fff7e9')}else{label(c,'A JOURNEY OF LEARNING & BUILDING',360,1140,20)}}
  async function exportVideo(){
   if(!window.MediaRecorder||!HTMLCanvasElement.prototype.captureStream){status.textContent='Video export is not supported in this browser. Try Chrome or Edge, or save the image.';return}
   try{await ready();const open=createPassportCanvas();if(!open)return;const mime=['video/mp4;codecs=avc1.42E01E','video/webm;codecs=vp9','video/webm'].find(t=>MediaRecorder.isTypeSupported(t));if(!mime){status.textContent='Video export is not supported here. Use the PNG option.';return}
