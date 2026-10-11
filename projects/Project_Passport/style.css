@@ -452,12 +452,13 @@ body{
  box-shadow:0 10px 22px #4e1c3228;
 }
 .ghost,.secondary{
- border:1px solid #c9a99f;
+ border:1px solid var(--wine);
  border-radius:10px;
- background:#fffaf6;
- color:var(--wine);
+ background:var(--wine);
+ box-shadow:0 7px 18px #4e1c3218;
+ color:#fff;
 }
-.ghost:hover,.secondary:hover{background:#f1e2dd}
+.ghost:hover,.secondary:hover{background:var(--wine2);color:#fff}
 .step-grid article{
  border-color:#e8dcd7;
  border-top:3px solid var(--gold);

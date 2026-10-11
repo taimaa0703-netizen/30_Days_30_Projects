@@ -84,13 +84,15 @@ const projects = [
   unlocked: true
 },
 
+
 {
   day: 10,
-  name: "Project Passport 🛂",
-  description: "10 projects. 10 stamps. One journey. Explore my projects, collect your stamps, and maybe the next project will have your name on it! 💌",
-  tags: ["HTML", "CSS", "JavaScript", "Interactive", "Challenge"],
-  link: "projects/Project_Passport/"
+  name: "Subscription Detective",
+  description: "Where is your money disappearing? 🕵🏻‍♀️ Track subscriptions, discover hidden expenses, and see how much you could save.",
+  tags: ["HTML", "CSS", "JavaScript", "Finance", "Dashboard"],
+  link: "projects/Subscription_Detective_Day10/"
 }
+
 
 ];
 
