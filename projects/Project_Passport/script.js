@@ -204,14 +204,181 @@ $('download').addEventListener('click',downloadPassport);render();
  const drawCover=(c,x,y,w,h)=>{const ratio=Math.min(w/cover.naturalWidth,h/cover.naturalHeight),iw=cover.naturalWidth*ratio,ih=cover.naturalHeight*ratio;c.drawImage(cover,x+(w-iw)/2,y+(h-ih)/2,iw,ih)};
  const rounded=(c,x,y,w,h,r)=>{c.beginPath();c.roundRect(x,y,w,h,r)};
  const label=(c,t,x,y,size=28,color='#f1d6a6')=>{c.fillStyle=color;c.font=`600 ${size}px Arial`;c.textAlign='center';c.fillText(t,x,y)};
- function poster(){const open=createPassportCanvas();if(!open)return null;const a=document.createElement('canvas');a.width=1080;a.height=1920;const c=a.getContext('2d');const bg=c.createLinearGradient(0,0,1080,1920);bg.addColorStop(0,'#f8f0e8');bg.addColorStop(1,'#ead5d9');c.fillStyle=bg;c.fillRect(0,0,1080,1920);c.fillStyle='#682a43';rounded(c,36,35,1008,1850,40);c.fill();label(c,'30 DAYS  /  30 PROJECTS',540,125,28);label(c,'MY PROJECT PASSPORT',540,197,53,'#fff7e9');drawCover(c,260,245,560,785);label(c,'THE JOURNEY',540,1110,31);c.save();c.shadowColor='#2e1323';c.shadowBlur=30;c.drawImage(open,65,1170,950,633);c.restore();label(c,(state.name||'EXPLORER').slice(0,28).toUpperCase()+'  •  10 / 10 STAMPS',540,1845,25);return a}
+ function poster(){
+  if(state.done.length!==10)return null;
+  const width=1080,height=1920,a=document.createElement('canvas');a.width=width;a.height=height;
+  const c=a.getContext('2d'),wine='#682a43',gold='#f1d6a6',cream='#fff9ed',ink='#4e1c32';
+  const bg=c.createLinearGradient(0,0,width,height);bg.addColorStop(0,'#f8f0e8');bg.addColorStop(1,'#ead5d9');c.fillStyle=bg;c.fillRect(0,0,width,height);
+  c.fillStyle=wine;rounded(c,28,28,1024,1864,38);c.fill();
+  c.strokeStyle='#d8b77c';c.lineWidth=2;rounded(c,45,45,990,1830,28);c.stroke();
+  c.textAlign='center';c.textBaseline='alphabetic';c.fillStyle=gold;c.font='700 23px Arial';c.fillText('30 DAYS  /  30 PROJECTS',540,105);
+  c.fillStyle=cream;c.font='700 45px Arial';c.fillText('MY PROJECT PASSPORT',540,166);
+  c.save();c.shadowColor='#2e1323';c.shadowBlur=24;drawCover(c,92,202,230,330);c.restore();
+  c.textAlign='left';c.fillStyle=gold;c.font='700 20px Arial';c.fillText('THE JOURNEY',370,270);
+  c.fillStyle=cream;c.font='700 42px Arial';c.fillText((state.name||'EXPLORER').slice(0,20).toUpperCase(),370,328,590);
+  c.fillStyle=gold;c.font='700 51px Arial';c.fillText('10 / 10',370,406);
+  c.fillStyle=cream;c.font='600 19px Arial';c.fillText('STAMPS COLLECTED',575,405);
+  c.fillStyle='#d8b77c';rounded(c,370,438,620,4,2);c.fill();
+  c.fillStyle=cream;c.font='600 18px Arial';c.fillText('A JOURNEY OF LEARNING, BUILDING AND GROWING',370,482,610);
+  c.textAlign='left';c.fillStyle=gold;c.font='700 23px Arial';c.fillText('YOUR 10 STAMPS',68,607);
+  c.textAlign='right';c.fillStyle='#f5e7d7';c.font='600 16px Arial';c.fillText('ALL PROJECTS COMPLETE',1012,606);
+  const columns=[68,546],cardWidth=466,cardHeight=184,rowGap=18,gridTop=640;
+  PROJECTS.forEach((project,index)=>{
+   const x=columns[index<5?0:1],y=gridTop+(index%5)*(cardHeight+rowGap);
+   c.save();c.shadowColor='#30131f28';c.shadowBlur=12;c.shadowOffsetY=4;
+   c.fillStyle=cream;rounded(c,x,y,cardWidth,cardHeight,18);c.fill();c.restore();
+   c.strokeStyle='#d8b77c';c.lineWidth=2;rounded(c,x+4,y+4,cardWidth-8,cardHeight-8,14);c.stroke();
+   c.fillStyle=wine;rounded(c,x+18,y+16,82,30,15);c.fill();
+   c.textAlign='center';c.textBaseline='middle';c.fillStyle=gold;c.font='700 14px Arial';c.fillText('DAY '+String(project.day).padStart(2,'0'),x+59,y+31);
+   c.fillStyle=wine;rounded(c,x+113,y+16,112,30,15);c.fill();
+   c.fillStyle=cream;c.font='700 12px Arial';c.fillText('STAMPED',x+169,y+31);
+   c.textAlign='left';c.textBaseline='alphabetic';c.fillStyle=ink;let fontSize=24;c.font=`700 ${fontSize}px Arial`;
+   while(c.measureText(project.name).width>285&&fontSize>17){fontSize--;c.font=`700 ${fontSize}px Arial`}
+   c.fillText(project.name,x+20,y+82,292);
+   c.fillStyle=wine;rounded(c,x+18,y+98,302,34,7);c.fill();
+   c.textAlign='left';c.textBaseline='middle';c.fillStyle=cream;c.font='700 14px monospace';c.fillText('> '+TERMINAL_CODES[index],x+28,y+115,282);
+   c.textBaseline='alphabetic';c.fillStyle='#755a61';c.font='600 13px Arial';c.fillText(project.published+'  •  COLLECTED',x+20,y+158,298);
+   const stampX=x+385,stampY=y+91;
+   c.save();c.translate(stampX,stampY);c.rotate(-.12);c.strokeStyle='#8b3a55';c.lineWidth=3;c.beginPath();c.arc(0,0,40,0,Math.PI*2);c.stroke();c.beginPath();c.arc(0,0,34,0,Math.PI*2);c.stroke();c.textAlign='center';c.textBaseline='middle';c.fillStyle='#8b3a55';c.font='700 11px Arial';c.fillText('PASSPORT',0,-9);c.font='700 13px Arial';c.fillText('✓  OK',0,9);c.restore();
+  });
+  c.textAlign='center';c.textBaseline='alphabetic';c.fillStyle=gold;c.font='700 22px Arial';c.fillText('SHARE YOUR JOURNEY TO YOUR STORY',540,1690);
+  c.fillStyle=cream;c.font='600 17px Arial';c.fillText('TAG ME — AND THANK YOU FOR BEING PART OF THE JOURNEY',540,1726);
+  c.strokeStyle='#d8b77c';c.lineWidth=1; c.beginPath();c.moveTo(215,1760);c.lineTo(865,1760);c.stroke();
+  c.fillStyle='#f5e7d7';c.font='600 15px Arial';c.fillText('30 DAYS  /  30 PROJECTS     •     EXPLORER EDITION',540,1800);
+  return a
+ }
  async function exportPoster(){try{await ready();saveCanvas(poster(),'project-passport-keepsake.png')}catch(e){status.textContent=e.message}}
- function drawFrame(c,open,progress){c.fillStyle='#f6ece5';c.fillRect(0,0,720,1280);c.fillStyle='#682a43';rounded(c,20,20,680,1240,28);c.fill();label(c,'30 DAYS / 30 PROJECTS',360,93,20);label(c,'PROJECT PASSPORT',360,160,35,'#fff7e9');const eased=progress<.2?0:progress>.62?1:(progress-.2)/.42;const ease=eased*eased*(3-2*eased);const coverX=145-85*ease,coverY=220-65*ease,coverW=430-230*ease,coverH=640-345*ease; c.save();c.globalAlpha=1-ease*.1;drawCover(c,coverX,coverY,coverW,coverH);c.restore();if(ease>0){c.save();c.globalAlpha=ease;c.shadowColor='#170812';c.shadowBlur=16;c.drawImage(open,35,615-105*ease,650,433);c.restore()}if(progress>.75){const thanks={he:['תודה על שיתוף הפעולה','נמשיך להתפתח יחד!'],ar:['شكرًا لمشاركتكم هذه الرحلة معي','لنواصل التطور معًا!'],en:['Thank you for joining me on this journey','Let’s keep growing together!']}[state.lang]||['Thank you for joining me on this journey','Let’s keep growing together!'];label(c,thanks[0],360,1070,21,'#f1d6a6');label(c,thanks[1],360,1110,21,'#fff7e9');label(c,(state.name||'EXPLORER').slice(0,24).toUpperCase()+'  •  10 / 10 STAMPS',360,1170,17,'#fff7e9')}else{label(c,'A JOURNEY OF LEARNING & BUILDING',360,1140,20)}}
+ const VIDEO_WIDTH=720,VIDEO_HEIGHT=1280,VIDEO_DURATION=15000,VIDEO_FPS=30;
+ const videoText={
+  en:{
+   reveal:'جرّبوا المشاريع واجمعوا 10 أختام 🛂',
+   requirements:'HOW TO JOIN THE CHALLENGE',
+   steps:['Share my Instagram profile to your Story and tag me.','Complete all 10 stamps.','Share your completed passport to your Story and tag me again.'],
+   prizeTitle:'A PROJECT 11 MADE WITH YOU',
+   prize:'The first eligible participant can choose a small idea for Project 11 — and have their name featured on stamp 11.',
+   thanksAr:'شكرًا إنكم جزء من رحلتي ♡',
+   thanksEn:'Thank you for being part of my journey.'
+  },
+  ar:{
+   reveal:'جرّبوا المشاريع واجمعوا 10 أختام 🛂',
+   requirements:'كيف تشاركون في التحدّي',
+   steps:['شاركوا حسابي على إنستغرام في قصتكم وأشيروا إلى حسابي.','اجمعوا الأختام العشرة كلها.','شاركوا جوازكم المكتمل في قصتكم وأشيروا إلى حسابي مرة أخرى.'],
+   prizeTitle:'المشروع الحادي عشر بمشاركتكم',
+   prize:'أول مشارك يستوفي الشروط يستطيع اختيار فكرة صغيرة للمشروع 11، وسيظهر اسمه على الختم رقم 11.',
+   thanksAr:'شكرًا إنكم جزء من رحلتي ♡',
+   thanksEn:'Thank you for being part of my journey.'
+  },
+  he:{
+   reveal:'جرّبوا المشاريع واجمعوا 10 أختام 🛂',
+   requirements:'איך משתתפים באתגר',
+   steps:['שתפו את פרופיל האינסטגרם שלי בסטורי ותייגו אותי.','אספו את כל 10 החותמות.','שתפו את הדרכון המלא בסטורי ותייגו אותי שוב.'],
+   prizeTitle:'פרויקט 11 נוצר יחד איתכם',
+   prize:'המשתתף הראשון שיעמוד בתנאים יוכל לבחור רעיון קטן לפרויקט 11, ושמו יופיע על חותמת 11.',
+   thanksAr:'شكرًا إنكم جزء من رحلتي ♡',
+   thanksEn:'Thank you for being part of my journey.'
+  }
+ };
+ const easeInOut=value=>{const x=Math.max(0,Math.min(1,value));return x*x*(3-2*x)};
+ function drawVideoText(c,text,x,y,maxWidth,lineHeight,font,color,direction='ltr'){
+  c.save();c.font=font;c.fillStyle=color;c.textAlign='center';c.textBaseline='alphabetic';c.direction=direction;
+  const lines=[];let line='';
+  for(const word of text.split(/\s+/)){
+   const candidate=line?`${line} ${word}`:word;
+   if(line&&c.measureText(candidate).width>maxWidth){lines.push(line);line=word}else line=candidate;
+  }
+  if(line)lines.push(line);
+  lines.forEach((entry,index)=>c.fillText(entry,x,y+index*lineHeight,maxWidth));
+  c.restore();
+  return lines.length;
+ }
+ function videoPanel(c,x,y,w,h,options={}){
+  c.save();c.globalAlpha=options.alpha??1;c.fillStyle=options.fill||'#fffaf2';c.strokeStyle=options.stroke||'#d8b77c';c.lineWidth=options.lineWidth||2;rounded(c,x,y,w,h,options.radius||24);c.fill();c.stroke();c.restore();
+ }
+ function drawVideoBackdrop(c,accent='#d8b77c'){
+  const gradient=c.createLinearGradient(0,0,VIDEO_WIDTH,VIDEO_HEIGHT);
+  gradient.addColorStop(0,'#f8f0e8');gradient.addColorStop(.55,'#fffaf2');gradient.addColorStop(1,'#ead5d9');
+  c.fillStyle=gradient;c.fillRect(0,0,VIDEO_WIDTH,VIDEO_HEIGHT);
+  c.save();c.strokeStyle=accent;c.globalAlpha=.22;c.lineWidth=2;
+  c.beginPath();c.arc(360,640,510,0,Math.PI*2);c.stroke();
+  c.globalAlpha=.1;c.beginPath();c.arc(360,640,550,0,Math.PI*2);c.stroke();c.restore();
+ }
+ function drawVideoScene(c,open,index,localTime){
+  const copy=videoText[state.lang]||videoText.en;
+  const rtl=state.lang==='ar';
+  const fade=easeInOut(Math.min(1,localTime/.45));
+  c.save();c.globalAlpha=fade;
+  drawVideoBackdrop(c);
+  if(index===0){
+   label(c,'30 DAYS / 30 PROJECTS',360,100,19,'#8a6a3b');
+   const zoom=1+.025*Math.sin(Math.min(1,localTime/3)*Math.PI);
+   c.save();c.translate(360,580);c.scale(zoom,zoom);drawCover(c,-238,-350,476,700);c.restore();
+   videoPanel(c,42,975,636,126,{fill:'#682a43',stroke:'#d8b77c'});
+   drawVideoText(c,'10 PROJECTS. 10 STAMPS. ONE JOURNEY.',360,1052,580,42,'700 27px Arial','#fff7e9');
+   c.restore();return;
+  }
+  if(index===1){
+   label(c,'PROJECT PASSPORT  /  10 STAMPS',360,145,18,'#8a6a3b');
+   const reveal=easeInOut(Math.min(1,localTime/1.1));
+   c.save();c.globalAlpha=reveal;c.translate(360,500);c.scale(.88+.12*reveal,.88+.12*reveal);c.shadowColor='#30131f38';c.shadowBlur=22;c.drawImage(open,-330,-220,660,440);c.restore();
+   const flap=1-reveal;
+   if(flap>.01){c.save();c.translate(360,500);c.scale(Math.max(.025,flap),1);drawCover(c,-245,-365,490,730);c.restore()}
+   videoPanel(c,42,810,636,188,{fill:'#682a43',stroke:'#d8b77c'});
+   drawVideoText(c,copy.reveal,360,885,570,42,'700 27px Arial','#fff7e9','rtl');
+   drawVideoText(c,'10 / 10 STAMPS',360,955,570,32,'700 19px Arial','#f1d6a6');
+   c.restore();return;
+  }
+  if(index===2){
+   drawVideoText(c,copy.requirements,360,150,620,42,'700 30px Arial','#682a43',rtl?'rtl':'ltr');
+   const directions=rtl?'rtl':'ltr';
+   const stepY=[250,535,820];
+   copy.steps.forEach((text,step)=>{
+    const appear=easeInOut(Math.min(1,(localTime-step*.55)/.45));
+    const y=stepY[step]+(1-appear)*24;
+    videoPanel(c,40,y,640,225,{alpha:appear,fill:'#fffdfa',stroke:'#d8b77c'});
+    c.save();c.globalAlpha=appear;c.fillStyle='#682a43';c.beginPath();c.arc(rtl?620:100,y+54,28,0,Math.PI*2);c.fill();
+    c.fillStyle='#f1d6a6';c.font='700 17px Arial';c.textAlign='center';c.textBaseline='middle';c.fillText(String(step+1).padStart(2,'0'),rtl?620:100,y+54);c.restore();
+    drawVideoText(c,text,rtl?340:380,y+88,rtl?500:500,34,'600 22px Arial','#4e1c32',directions);
+   });
+   c.restore();return;
+  }
+  if(index===3){
+   label(c,'THE FIRST ELIGIBLE PARTICIPANT',360,235,16,'#9b7540');
+   videoPanel(c,48,340,624,570,{fill:'#682a43',stroke:'#d8b77c',radius:30});
+   label(c,'PROJECT 11',360,485,25,'#f1d6a6');
+   drawVideoText(c,copy.prizeTitle,360,555,520,44,'700 32px Arial','#fff7e9',rtl?'rtl':'ltr');
+   c.save();c.fillStyle='#d8b77c';c.beginPath();c.arc(360,665,36,0,Math.PI*2);c.fill();c.fillStyle='#682a43';c.font='700 24px Arial';c.textAlign='center';c.textBaseline='middle';c.fillText('11',360,665);c.restore();
+   drawVideoText(c,copy.prize,360,765,520,39,'600 22px Arial','#fff7e9',rtl?'rtl':'ltr');
+   label(c,'YOUR NAME ON STAMP 11',360,1005,18,'#8a6a3b');
+   c.restore();return;
+  }
+  const bloom=c.createRadialGradient(360,475,30,360,640,580);
+  bloom.addColorStop(0,'#fffaf2');bloom.addColorStop(1,'#e8d7d1');c.fillStyle=bloom;c.fillRect(0,0,VIDEO_WIDTH,VIDEO_HEIGHT);
+  label(c,'30 DAYS / 30 PROJECTS',360,215,18,'#8a6a3b');
+  drawCover(c,275,300,170,255);
+  videoPanel(c,38,710,644,255,{fill:'#682a43',stroke:'#d8b77c',radius:28});
+  drawVideoText(c,copy.thanksAr,360,805,580,46,'700 29px Arial','#f1d6a6','rtl');
+  drawVideoText(c,copy.thanksEn,360,885,580,42,'600 24px Arial','#fff7e9','ltr');
+  c.restore();
+ }
+ const VIDEO_SCENES=[{start:0,end:3},{start:3,end:7},{start:7,end:11},{start:11,end:13},{start:13,end:15}];
+ function drawFrame(c,open,elapsedMs){
+  const seconds=Math.max(0,Math.min(15,elapsedMs/1000));
+  let sceneIndex=VIDEO_SCENES.findIndex(scene=>seconds<scene.end);
+  if(sceneIndex<0)sceneIndex=VIDEO_SCENES.length-1;
+  const scene=VIDEO_SCENES[sceneIndex],local=seconds-scene.start;
+  if(sceneIndex>0&&local<.32){
+   const previous=VIDEO_SCENES[sceneIndex-1],blend=easeInOut(local/.32);
+   drawVideoScene(c,open,sceneIndex-1,previous.end-previous.start);
+   c.save();c.globalAlpha=blend;drawVideoScene(c,open,sceneIndex,local);c.restore();
+  }else drawVideoScene(c,open,sceneIndex,local);
+  if(sceneIndex===VIDEO_SCENES.length-1&&seconds>14.68){c.save();c.globalAlpha=1-easeInOut((seconds-14.68)/.32);c.fillStyle='#f8f0e8';c.fillRect(0,0,VIDEO_WIDTH,VIDEO_HEIGHT);c.restore()}
+ }
  async function exportVideo(){
   if(!window.MediaRecorder||!HTMLCanvasElement.prototype.captureStream){status.textContent='Video export is not supported in this browser. Try Chrome or Edge, or save the image.';return}
-  try{await ready();const open=createPassportCanvas();if(!open)return;const mime=['video/mp4;codecs=avc1.42E01E','video/webm;codecs=vp9','video/webm'].find(t=>MediaRecorder.isTypeSupported(t));if(!mime){status.textContent='Video export is not supported here. Use the PNG option.';return}
-   videoBtn.disabled=true;status.textContent='Recording your passport animation…';const canvas=document.createElement('canvas');canvas.width=720;canvas.height=1280;const c=canvas.getContext('2d');const stream=canvas.captureStream(30);const chunks=[];const rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:3500000});rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};const done=new Promise((resolve,reject)=>{rec.onstop=resolve;rec.onerror=reject});rec.start();const duration=4800,start=performance.now();await new Promise(resolve=>{function frame(now){const p=Math.min(1,(now-start)/duration);drawFrame(c,open,p);if(p<1)requestAnimationFrame(frame);else resolve()}requestAnimationFrame(frame)});await new Promise(r=>setTimeout(r,200));rec.stop();await done;stream.getTracks().forEach(t=>t.stop());const blob=new Blob(chunks,{type:mime});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='project-passport-animation.'+(mime.includes('mp4')?'mp4':'webm');a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);status.textContent='Video saved! If Instagram does not accept WebM, convert it to MP4 before uploading.';
-  }catch(e){status.textContent='Could not export video: '+e.message}finally{videoBtn.disabled=false}
+  let stream;
+  try{await ready();const open=createPassportCanvas();if(!open)return;const mime=['video/mp4;codecs=avc1.42E01E','video/webm;codecs=vp9','video/webm'].find(type=>MediaRecorder.isTypeSupported(type));if(!mime){status.textContent='Video export is not supported here. Use the PNG option.';return}
+   videoBtn.disabled=true;status.textContent='Recording your 15-second passport story…';const canvas=document.createElement('canvas');canvas.width=VIDEO_WIDTH;canvas.height=VIDEO_HEIGHT;const c=canvas.getContext('2d');stream=canvas.captureStream(VIDEO_FPS);const track=stream.getVideoTracks()[0],chunks=[];const rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:3500000});rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};const done=new Promise((resolve,reject)=>{rec.onstop=resolve;rec.onerror=event=>reject(event.error||Error('Video recording failed'))});drawFrame(c,open,0);rec.start();if(track.requestFrame)track.requestFrame();const started=performance.now();let frameId=0;const drawCurrentFrame=()=>{const elapsed=Math.min(VIDEO_DURATION,performance.now()-started);drawFrame(c,open,elapsed);if(track.requestFrame)track.requestFrame()};const render=()=>{drawCurrentFrame();if(performance.now()-started<VIDEO_DURATION)frameId=requestAnimationFrame(render)};frameId=requestAnimationFrame(render);const fallback=setInterval(()=>{if(document.visibilityState==='hidden')drawCurrentFrame()},1000/VIDEO_FPS);await new Promise(resolve=>setTimeout(resolve,VIDEO_DURATION));cancelAnimationFrame(frameId);clearInterval(fallback);drawFrame(c,open,VIDEO_DURATION);if(track.requestFrame)track.requestFrame();rec.stop();await done;const blob=new Blob(chunks,{type:mime});if(!blob.size)throw Error('The video export was empty');const metadataUrl=URL.createObjectURL(blob);let duration;try{const video=document.createElement('video');video.preload='metadata';video.src=metadataUrl;await new Promise((resolve,reject)=>{video.onloadedmetadata=resolve;video.onerror=()=>reject(Error('The exported video could not be verified'))});duration=video.duration;video.removeAttribute('src');video.load()}finally{URL.revokeObjectURL(metadataUrl)}if(!Number.isFinite(duration)||Math.abs(duration-VIDEO_DURATION/1000)>1/VIDEO_FPS)throw Error('The browser interrupted the recording before all 15 seconds were captured. Keep this tab open and try again.');const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='project-passport-animation.'+(mime.includes('mp4')?'mp4':'webm');a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);status.textContent='Your 15-second video is ready to share.';
+  }catch(e){status.textContent='Could not export video: '+e.message}finally{if(stream)stream.getTracks().forEach(track=>track.stop());videoBtn.disabled=false}
  }
  posterBtn.addEventListener('click',exportPoster);videoBtn.addEventListener('click',exportVideo);
  const obs=new MutationObserver(()=>{const ok=state.done.length===10;posterBtn.disabled=!ok;videoBtn.disabled=!ok});obs.observe(document.getElementById('count'),{childList:true,subtree:true});posterBtn.disabled=videoBtn.disabled=state.done.length!==10;
