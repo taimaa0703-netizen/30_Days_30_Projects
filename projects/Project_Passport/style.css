@@ -594,6 +594,16 @@ html[lang="ar"] .letter-invite-eyebrow{
 .letter-invite p{color:#62545a}
 .letter-cta{background:var(--wine)}
 .letter-cta:hover:not(:disabled){background:var(--wine2)}
+.letter-steps{margin:0 auto 20px;max-width:560px}
+.letter-steps h5,.letter-prize h5{margin:0 0 12px;text-align:center;font-family:'Playfair Display',Georgia,serif;font-size:clamp(20px,2.6vw,26px);color:var(--wine)}
+.letter-steps ol{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.letter-steps li{display:flex;align-items:center;gap:14px;padding:12px 16px;border:1px solid #e5d4ca;border-radius:16px;background:#fffdf9;text-align:start}
+.letter-steps li b{flex:0 0 32px;height:32px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#682a43,#4e1c32);color:#f2d9aa;font-size:15px}
+.letter-steps li span{flex:1;font-size:clamp(14px,1.65vw,17px);line-height:1.7;color:#4b3a41;text-align:start}
+.letter-prize{margin:0 auto 22px;max-width:560px;padding:20px clamp(16px,3vw,28px);border:1.5px solid #c49a55;border-radius:20px;text-align:center;background:linear-gradient(135deg,#fff3dc,#f9e3e6);box-shadow:0 10px 26px #c49a5533}
+.letter-prize p{margin:0 0 8px;color:#62545a}
+.letter-prize p.prize-main{font-weight:700;color:var(--wine);font-size:clamp(16px,2vw,20px)}
+.letter-prize p:last-child{margin-bottom:0}
 .passport-flipbook{padding-bottom:62px}
 .passport-close{
  bottom:0;
@@ -1031,3 +1041,9 @@ footer a{color:var(--wine)}
 [dir=rtl] .personalizer-copy{text-align:start}
 @media(max-width:850px){.personalizer-layout{grid-template-columns:1fr}.personalizer-description{max-width:none}.personalizer-preview canvas{width:min(100%,360px)}}
 @media(max-width:480px){.personalizer-layout{padding:20px}.personalizer-actions{flex-direction:column}.personalizer-actions button,.personalizer-video button{width:100%}}
+
+.hero-copy{min-width:0}
+.hero h1{font-size:clamp(46px,6.2vw,100px);max-width:100%}
+.hero h1 em{display:inline-block;padding-inline-end:.12em}
+
+.prize .prize-main{font-weight:700;font-size:clamp(17px,2vw,21px)}
