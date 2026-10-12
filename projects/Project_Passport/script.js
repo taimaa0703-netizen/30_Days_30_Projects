@@ -25,16 +25,16 @@ Object.assign(WORDS.en,{creatorLabel:'A NOTE FROM THE CREATOR',creatorHeading:'T
 Object.assign(WORDS.ar,{creatorLabel:'رسالة صغيرة منّي إلكم',creatorHeading:'هاد مش بس جواز سفر.',creatorMessage:'كل مشروع هون هو خطوة صغيرة برحلتي بالتعلّم والتجربة. مش كل إشي بزبط من أول مرة، بس مع كل محاولة بتعلّم إشي جديد.',creatorThanks:'وشكرًا إلكم إنكم جزء من هالرحلة، وعم تشاركوني إياها خطوة بخطوة.'});
 Object.assign(WORDS.he,{creatorLabel:'כמה מילים ממני אליכם',creatorHeading:'זה לא סתם דרכון.',creatorMessage:'כל פרויקט כאן הוא צעד קטן במסע שלי — ללמוד, להתנסות, לטעות ולבנות משהו חדש בכל יום.',creatorThanks:'תודה שאתם חלק מהמסע הזה, ושאתם מלווים אותי צעד אחר צעד.'});
 
-Object.assign(WORDS.en,{inviteEyebrow:'THE NEXT STAMP COULD BE YOURS',inviteHeading:'Could the next stamp have your name on it?',inviteMessage:'Complete the first 10 stamps, share your passport, and become part of the next project.',inviteCTA:'JOIN THE JOURNEY ↗'});
-Object.assign(WORDS.ar,{inviteEyebrow:'يمكن الختم الجاي يكون باسمك!',inviteHeading:'تخيّل الختم الجاي يكون باسمك؟ 👀',inviteMessage:'كمّل أول 10 أختام، شارك جوازك، وخليك جزء من المشروع الجاي.',inviteCTA:'يلا نبدأ ↗'});
-Object.assign(WORDS.he,{inviteEyebrow:'אולי החותמת הבאה תהיה שלכם',inviteHeading:'אולי החותמת הבאה תהיה על שמכם?',inviteMessage:'השלימו את עשר החותמות הראשונות, שתפו את הדרכון שלכם והיו חלק מהפרויקט הבא.',inviteCTA:'מצטרפים למסע ↗'});
+Object.assign(WORDS.en,{inviteEyebrow:'THE NEXT STAMP COULD BE YOURS',inviteHeading:'To say thank you, I want to do something special tied to the journey we’ve shared, so here are the participation details, because you’re part of these projects too.',inviteMessage:'Complete the first 10 stamps, share your passport, and become part of the next project.',inviteCTA:'JOIN THE JOURNEY ↗'});
+Object.assign(WORDS.ar,{inviteEyebrow:'يمكن الختم الجاي يكون باسمك!',inviteHeading:'مع الشكر، حابّة أعمل نشاط حلو مرتبط بالرحلة اللي مشيناها سوا، وهون بعرضلكم شروط المشاركة، لأنكم كمان جزء من الرحلة.',inviteMessage:'كمّل أول 10 أختام، شارك جوازك، وخليك جزء من المشروع الجاي.',inviteCTA:'يلا نبدأ ↗'});
+Object.assign(WORDS.he,{inviteEyebrow:'אולי החותמת הבאה תהיה שלכם',inviteHeading:'לכבוד התודה, אני רוצה לעשות פעילות יפה שקשורה למסע שעברנו יחד, ובזה אני מציגה לכם את תנאי ההשתתפות, כי אתם גם חלק מהפרויקטים.',inviteMessage:'השלימו את עשר החותמות הראשונות, שתפו את הדרכון שלכם והיו חלק מהפרויקט הבא.',inviteCTA:'מצטרפים למסע ↗'});
 Object.assign(WORDS.he,{
  creatorLabel:'כמה מילים ממני',
  creatorHeading:'זה לא רק דרכון.',
  creatorMessage:'זהו חלק קטן מהמסע שלי: ללמוד, להתנסות, לטעות ולבנות משהו חדש בכל יום.',
  creatorThanks:'תודה שאתם חלק מהמסע הזה ומלווים אותי בכל צעד.',
  inviteEyebrow:'אולי החותמת הבאה תהיה שלכם',
- inviteHeading:'אולי החותמת הבאה תהיה על שמכם?',
+ inviteHeading:'לכבוד התודה, אני רוצה לעשות פעילות יפה שקשורה למסע שעברנו יחד, ובזה אני מציגה לכם את תנאי ההשתתפות, כי אתם גם חלק מהפרויקטים.',
  inviteMessage:'השלימו את עשר החותמות הראשונות, שתפו את הדרכון שלכם והיו חלק מהפרויקט הבא.',
  inviteCTA:'מצטרפים למסע ↗',
  share:'שיתוף',
@@ -58,7 +58,7 @@ Object.assign(WORDS.he,{
 Object.assign(WORDS.ar,{stepsTitle:'كيف تشاركوا؟',step1:'تابعوا صفحتي على الإنستغرام 💗',step2:'شفتوا المشاريع الـ10 الأولى؟ اجمعوا أختامها بجواز سفركم! ✈️',step3:'نزّلوا جواز سفركم وشاركوه بالستوري، مع منشن لحسابي. ♡',prizeTitle:'🎁 شو الجائزة؟',prizeMain:'فكرتك ممكن تكون واحد من المشاريع الجايّة! 💻💗',prizeSub:'إنت بتقترح الفكرة، وأنا بحوّلها لمشروع حقيقي ضمن تحدّي 30 يوم، 30 مشروع! ✨'});
 Object.assign(WORDS.he,{stepsTitle:'איך משתתפים?',step1:'עקבו אחרי הדף שלי באינסטגרם 💗',step2:'ראיתם את 10 הפרויקטים הראשונים? אספו את החותמות שלהם בדרכון שלכם! ✈️',step3:'הורידו את הדרכון ושתפו אותו בסטורי, עם תיוג של החשבון שלי. ♡',prizeTitle:'🎁 מה הפרס?',prizeMain:'הרעיון שלכם יכול להיות אחד מהפרויקטים הבאים שלי! 💻💗',prizeSub:'אתם מציעים את הרעיון, ואני הופכת אותו לפרויקט אמיתי במסגרת האתגר 30 ימים, 30 פרויקטים! ✨'});
 Object.assign(WORDS.en,{stepsTitle:'How to join',step1:'Follow my Instagram page 💗',step2:'Seen the first 10 projects? Collect their stamps in your passport! ✈️',step3:'Download your passport and share it on your story, tagging my account. ♡',prizeTitle:'🎁 What\'s the prize?',prizeMain:'Your idea could be one of my upcoming projects! 💻💗',prizeSub:'You suggest the idea, and I\'ll turn it into a real project in the 30 Days, 30 Projects challenge! ✨'});
-Object.assign(WORDS.ar,{inviteHeading:'تخيّل الختم الجاي يكون باسمك؟ 👀',inviteMessage:'كمّل أول 10 أختام، شارك جوازك، وخليك جزء من المشروع الجاي.',inviteCTA:'يلا نبدأ ↗',share:'مشاركة',explore:'استكشفوا',win:'الجائزة',toast:'تم جمع ختم جديد'});
+Object.assign(WORDS.ar,{inviteHeading:'مع الشكر، حابّة أعمل نشاط حلو مرتبط بالرحلة اللي مشيناها سوا، وهون بعرضلكم شروط المشاركة، لأنكم كمان جزء من الرحلة.',inviteMessage:'كمّل أول 10 أختام، شارك جوازك، وخليك جزء من المشروع الجاي.',inviteCTA:'يلا نبدأ ↗',share:'مشاركة',explore:'استكشفوا',win:'الجائزة',toast:'تم جمع ختم جديد'});
 Object.assign(WORDS.en,{
  how:'YOUR BOARDING PASS',
  joinTitle:'Your next adventure starts here',

@@ -1047,3 +1047,5 @@ footer a{color:var(--wine)}
 .hero h1 em{display:inline-block;padding-inline-end:.12em}
 
 .prize .prize-main{font-weight:700;font-size:clamp(17px,2vw,21px)}
+
+.letter-invite h4{font-family:inherit;font-size:clamp(16px,2vw,20px);line-height:1.8;font-weight:600}
