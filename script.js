@@ -82,7 +82,16 @@ const projects = [
   tags: ["HTML", "CSS", "JavaScript", "Personal Finance"],
   link: "projects/Subscription_Detective_Day10/index.html",
   unlocked: true
+}
+
+{
+  day: 11,
+  name: "TYPE IT.",
+  description: "Your words. Your aesthetic. Design beautiful posts and stories in seconds.",
+  tags: ["HTML", "CSS", "JavaScript", "Design"],
+  link: "projects/11_TypeIt/"
 },
+
 
 ];
 
@@ -100,47 +109,6 @@ for (let i = projects.length + 1; i <= 30; i++) {
 
 
 const grid = document.getElementById("projectsGrid");
-
-function createMilestone() {
-
-  const section = document.createElement("section");
-
-  section.className = "milestone";
-
-  section.setAttribute("aria-label", "Special milestone: Project Passport");
-
-  section.innerHTML = `
-    <div class="milestone-inner">
-
-      <a class="milestone-cover" href="projects/Project_Passport/" tabindex="-1" aria-hidden="true">
-        <img
-          src="projects/Project_Passport/journey-cover.png"
-          alt="Project Passport cover"
-          loading="lazy"
-          width="1086"
-          height="1448"
-        >
-      </a>
-
-      <div class="milestone-text">
-
-        <span class="milestone-badge">✦ 10/30 UNLOCKED — SPECIAL MILESTONE ✦</span>
-
-        <h2>10 PROJECTS.<br>10 STAMPS.<br>ONE JOURNEY.</h2>
-
-        <p class="milestone-quote">A little piece of my journey — and you're part of it. ♡</p>
-
-        <p class="milestone-invite">Collect your stamps. Join the challenge. Your name could be on stamp 11!</p>
-
-        <a class="milestone-btn" href="projects/Project_Passport/">OPEN YOUR PASSPORT ↗</a>
-
-      </div>
-
-    </div>
-  `;
-
-  return section;
-}
 
 let completed = 0;
 
@@ -217,11 +185,6 @@ projects.forEach(project => {
 
 
   grid.appendChild(card);
-
-  // Special milestone: rendered inside the same loop so it is never lost on re-render
-  if (project.day === 10) {
-    grid.appendChild(createMilestone());
-  }
 
 });
 
