@@ -96,6 +96,17 @@ const projects = [
 
 
 
+{
+  day: 12,
+  name: "CARECODE.",
+  description: "Decode clothing-care symbols and save easy instructions for your favorite pieces.",
+  tags: ["HTML", "CSS", "JavaScript", "Lifestyle"],
+  link: "projects/CARECODE_Day12/",
+  unlocked: true
+},
+
+
+
 ];
 
 
