@@ -84,13 +84,16 @@ const projects = [
   unlocked: true
 },
 
+
 {
   day: 11,
   name: "TYPE IT.",
-  description: "Your words. Your aesthetic. Design beautiful posts and stories in seconds.",
+  description: "Your words. Your aesthetic. Design beautiful posts and stories.",
   tags: ["HTML", "CSS", "JavaScript", "Design"],
-  link: "projects/11_TypeIt/"
-}
+  link: "projects/11_TypeIt/",
+  locked: false
+},
+
 
 
 ];
