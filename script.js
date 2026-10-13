@@ -82,7 +82,7 @@ const projects = [
   tags: ["HTML", "CSS", "JavaScript", "Personal Finance"],
   link: "projects/Subscription_Detective_Day10/index.html",
   unlocked: true
-}
+},
 
 {
   day: 11,
@@ -90,7 +90,7 @@ const projects = [
   description: "Your words. Your aesthetic. Design beautiful posts and stories in seconds.",
   tags: ["HTML", "CSS", "JavaScript", "Design"],
   link: "projects/11_TypeIt/"
-},
+}
 
 
 ];
