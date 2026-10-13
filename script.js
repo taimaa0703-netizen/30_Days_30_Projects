@@ -91,7 +91,7 @@ const projects = [
   description: "Your words. Your aesthetic. Design beautiful posts and stories.",
   tags: ["HTML", "CSS", "JavaScript", "Design"],
   link: "projects/11_TypeIt/",
-  locked: false
+  unlocked: true
 },
 
 
