@@ -105,7 +105,14 @@ const projects = [
   unlocked: true
 },
 
-
+{
+  day: 13,
+  name: "SCOPE.",
+  description: "Track project changes, estimate extra work, and keep every request organized.",
+  tags: ["HTML", "CSS", "JavaScript", "Project Management"],
+  link: "projects/day13-scope/",
+  unlocked: true
+},
 
 ];
 
