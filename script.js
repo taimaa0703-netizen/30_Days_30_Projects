@@ -114,6 +114,15 @@ const projects = [
   unlocked: true
 },
 
+{
+  day: 14,
+  name: "WHO SAID YES?",
+  description: "Keep project decisions, approvals, version changes, and activity history in one place.",
+  tags: ["HTML", "CSS", "JavaScript", "Project Management"],
+  link: "projects/who_said_yes_day14/index.html",
+  unlocked: true
+},
+
 ];
 
 
