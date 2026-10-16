@@ -100,6 +100,39 @@
       line-height: 1.6;
     }
 
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border: 1px solid rgba(255, 95, 162, .45);
+      border-radius: 999px;
+      color: #fff9fc;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .action-primary {
+      border-color: #ff5fa2;
+      background: #ff5fa2;
+      color: #09070a;
+    }
+
+    .action:hover { filter: brightness(1.12); }
+
+    .action[aria-disabled="true"] {
+      opacity: .55;
+      pointer-events: none;
+    }
+
     ul { padding-inline-start: 22px; }
 
     a { color: #ff8abb; }
@@ -137,10 +170,14 @@
       <li id="featureDevices">Designed for phones and classroom screens</li>
     </ul>
     <p class="notice">
-      <span id="noticeIntro">The live classroom needs its Node.js and Socket.IO server. GitHub Pages only serves static files, so start the server using the setup steps in the</span>
-      <a href="README.md" id="readmeLink">project README</a>
-      <span id="noticeTail">to play locally.</span>
+      <span id="noticeIntro">The live classroom runs on a separate Node.js service. Deploy it once with the button below; after it is ready, use the live classroom link.</span>
     </p>
+    <div class="actions">
+      <a class="action action-primary" id="playLink" href="https://classverse-day15.onrender.com/" aria-disabled="true" aria-live="polite">Checking live classroom…</a>
+      <a class="action" id="deployLink" href="https://render.com/deploy?repo=https%3A%2F%2Fgithub.com%2Ftaimaa0703-netizen%2F30_Days_30_Projects" target="_blank" rel="noopener">Deploy CLASSVERSE</a>
+    </div>
+    <p class="intro" id="deployHelp">One-time setup: connect GitHub to Render, create the free service, then return here to open the game.</p>
+    <p><a href="README.md" id="readmeLink">Project setup guide</a></p>
     <a class="back" href="../../" id="backLink">← Back to 30 Days, 30 Projects</a>
   </main>
   <script>
@@ -152,9 +189,13 @@
         featureLanguages: "English, Hebrew, and Arabic with right-to-left layouts",
         featureLive: "Live room codes, quizzes, student-created questions, and story votes",
         featureDevices: "Designed for phones and classroom screens",
-        noticeIntro: "The live classroom needs its Node.js and Socket.IO server. GitHub Pages only serves static files, so start the server using the setup steps in the",
+        noticeIntro: "The live classroom runs on a separate Node.js service. Deploy it once with the button below; when it is ready, open the classroom from here.",
         readmeLink: "project README",
         noticeTail: "to play locally.",
+        playLink: "Open live classroom",
+        playUnavailable: "Classroom not deployed yet",
+        deployLink: "Deploy CLASSVERSE",
+        deployHelp: "One-time setup: connect GitHub to Render, create the free service, then return here to open the game.",
         backLink: "← Back to 30 Days, 30 Projects"
       },
       he: {
@@ -164,9 +205,13 @@
         featureLanguages: "באנגלית, בעברית ובערבית, עם תמיכה בכתיבה מימין לשמאל",
         featureLive: "קודי הצטרפות, חידונים, שאלות מתלמידים והצבעות על הסיפור",
         featureDevices: "מותאם לטלפונים ולמסכים בכיתה",
-        noticeIntro: "הכיתה החיה זקוקה לשרת Node.js ו‑Socket.IO. GitHub Pages מציג קבצים סטטיים בלבד, ולכן כדי לשחק באופן מקומי צריך להפעיל את השרת לפי ההוראות שב",
-        readmeLink: "מדריך הפרויקט",
-        noticeTail: ".",
+        noticeIntro: "הכיתה החיה פועלת בשירות Node.js נפרד. לחצו על הכפתור כדי לפרוס אותו פעם אחת; כשהשירות יהיה מוכן, תוכלו להיכנס למשחק מכאן.",
+        readmeLink: "מדריך ההתקנה",
+        noticeTail: "",
+        playLink: "פתיחת הכיתה החיה",
+        playUnavailable: "הכיתה עדיין לא נפרסה",
+        deployLink: "פריסת CLASSVERSE",
+        deployHelp: "הגדרה חד־פעמית: מחברים את GitHub ל‑Render ויוצרים שירות חינמי; אחר כך חוזרים לכאן כדי להיכנס למשחק.",
         backLink: "חזרה ל‑30 ימים, 30 פרויקטים ←"
       },
       ar: {
@@ -176,16 +221,34 @@
         featureLanguages: "بالإنجليزية والعبرية والعربية، مع دعم الكتابة من اليمين إلى اليسار",
         featureLive: "رموز صفية مباشرة، اختبارات، أسئلة من الطلاب وتصويت على القصة",
         featureDevices: "مصمم للهواتف وشاشات الصف",
-        noticeIntro: "يحتاج الصف المباشر إلى خادم Node.js وSocket.IO. تعرض GitHub Pages ملفات ثابتة فقط، لذا شغّلوا الخادم محلياً باتباع خطوات الإعداد في",
-        readmeLink: "دليل المشروع",
-        noticeTail: ".",
+        noticeIntro: "يعمل الصف المباشر على خدمة Node.js منفصلة. انشروا الخدمة مرة واحدة باستخدام الزر أدناه؛ وبعد تشغيلها يمكنكم فتح الصف المباشر من هنا.",
+        readmeLink: "دليل الإعداد",
+        noticeTail: "",
+        playLink: "فتح الصف المباشر",
+        playUnavailable: "لم يتم نشر الصف بعد",
+        deployLink: "نشر CLASSVERSE",
+        deployHelp: "إعداد لمرة واحدة: اربطوا GitHub بـ Render وأنشئوا الخدمة المجانية، ثم عودوا إلى هنا لفتح اللعبة.",
         backLink: "العودة إلى 30 يوماً، 30 مشروعاً ←"
       }
     };
 
     const languageSelect = document.getElementById("languageSelect");
-    const fields = ["eyebrow", "intro", "featureLanguages", "featureLive", "featureDevices", "noticeIntro", "readmeLink", "noticeTail", "backLink"];
+    const fields = ["eyebrow", "intro", "featureLanguages", "featureLive", "featureDevices", "noticeIntro", "readmeLink", "playLink", "deployLink", "deployHelp", "backLink"];
     let language = localStorage.getItem("gallery-language") || "he";
+
+    async function checkLiveClassroom() {
+      const link = document.getElementById("playLink");
+      try {
+        const response = await fetch("https://classverse-day15.onrender.com/health", { signal: AbortSignal.timeout(15000) });
+        if (!response.ok) throw new Error(`Health check failed: ${response.status}`);
+        link.href = "https://classverse-day15.onrender.com/";
+        link.setAttribute("aria-disabled", "false");
+        link.dataset.live = "true";
+      } catch (error) {
+        link.setAttribute("aria-disabled", "true");
+        link.dataset.live = "false";
+      }
+    }
 
     function applyLanguage(nextLanguage) {
       language = translations[nextLanguage] ? nextLanguage : "en";
@@ -197,10 +260,15 @@
       fields.forEach(id => {
         document.getElementById(id).textContent = translations[language][id];
       });
+      const playLink = document.getElementById("playLink");
+      playLink.textContent = playLink.dataset.live === "true"
+        ? translations[language].playLink
+        : translations[language].playUnavailable;
     }
 
     languageSelect.addEventListener("change", event => applyLanguage(event.target.value));
     applyLanguage(language);
+    checkLiveClassroom().then(() => applyLanguage(language));
   </script>
 </body>
 </html>

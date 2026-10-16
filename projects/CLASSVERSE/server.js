@@ -7,6 +7,9 @@ const crypto = require('crypto');
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
+app.get('/health', (_req, res) => {
+  res.set('Access-Control-Allow-Origin', '*').json({ status: 'ok' });
+});
 app.use(express.static(path.join(__dirname, 'public')));
 const rooms = new Map();
 const MAX_STUDENTS = 60;

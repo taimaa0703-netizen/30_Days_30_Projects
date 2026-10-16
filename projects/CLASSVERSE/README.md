@@ -24,7 +24,15 @@ Open **http://localhost:3000** in your browser. For local two-device testing, bo
 
 This is a **Node.js + Socket.IO server**, not a static website. **Do not** publish the `public/` folder alone to Netlify or GitHub Pages: the live classroom will not work.
 
-Recommended: deploy the whole folder to a Node hosting service such as Render (Web Service), with build command `npm install` and start command `npm start`. The service provides the `PORT` environment variable automatically. Share the deployed URL with students.
+### Deploy to Render
+
+The repository includes a Render Blueprint at its root. Use the button below to connect this GitHub repository and create the free `classverse-day15` web service:
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https%3A%2F%2Fgithub.com%2Ftaimaa0703-netizen%2F30_Days_30_Projects)
+
+Render builds from `projects/CLASSVERSE`, runs `npm ci --omit=dev` and `npm start`, and checks `/health`. Once the first deployment succeeds, open the service's `onrender.com` URL and share that URL with teachers and students. Both roles need to connect to the same service.
+
+The free Render instance may sleep when idle, so the first connection after inactivity can take a little time. Classroom rooms are held in memory and are cleared if the service restarts; this prototype is not intended for sensitive student information.
 
 ## Notes for a real school launch
 

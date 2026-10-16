@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: classverse-day15
+    runtime: node
+    plan: free
+    rootDir: projects/CLASSVERSE
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
