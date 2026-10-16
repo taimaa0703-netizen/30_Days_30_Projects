@@ -59,9 +59,17 @@
     <div class="logo">TS.</div>
 
     <div class="nav-right">
-      <span>OCTOBER 2026</span>
+      <label class="language-picker">
+        <span class="visually-hidden">Language</span>
+        <select id="languageSelect" aria-label="Language">
+          <option value="en">English</option>
+          <option value="he">עברית</option>
+          <option value="ar">العربية</option>
+        </select>
+      </label>
+      <span id="challengeDate">OCTOBER 2026</span>
       <span class="status-dot"></span>
-      <span>CHALLENGE IN PROGRESS</span>
+      <span id="challengeStatus">CHALLENGE IN PROGRESS</span>
     </div>
   </nav>
 
@@ -70,20 +78,20 @@
     <!-- HERO -->
     <section class="hero">
 
-      <p class="eyebrow">MY CODING CHALLENGE</p>
+      <p class="eyebrow" id="heroEyebrow">MY CODING CHALLENGE</p>
 
      <h1 class="hero-title">
-  30 DAYS
+  <span id="heroDays">30 DAYS</span>
   <span class="sparkle">✦</span>
-  <span>30 PROJECTS</span>
+  <span id="heroProjects">30 PROJECTS</span>
 </h1>
 
-      <p class="hero-text">
+      <p class="hero-text" id="heroText">
         One project every day.
         Learning, building and getting better one line of code at a time.
       </p>
 
-      <div class="scroll-text">
+      <div class="scroll-text" id="scrollText">
         ↓ SCROLL TO UNLOCK
       </div>
 
@@ -96,10 +104,10 @@
       <div class="progress-info">
 
         <div>
-          <p>CHALLENGE PROGRESS</p>
+          <p id="progressLabel">CHALLENGE PROGRESS</p>
           <h2>
             <span id="completedCount">0</span>
-            <small>/ 30 PROJECTS</small>
+            <small id="progressTotal">/ 30 PROJECTS</small>
           </h2>
         </div>
 
@@ -118,8 +126,8 @@
     <section class="projects-section">
 
       <div class="section-title">
-        <p>THE COLLECTION</p>
-        <h2>30 things I'm building.</h2>
+        <p id="collectionEyebrow">THE COLLECTION</p>
+        <h2 id="collectionTitle">30 things I'm building.</h2>
       </div>
 
       <div id="projectsGrid" class="projects-grid"></div>
@@ -130,12 +138,12 @@
 
 
   <footer>
-    <p>30 DAYS • 30 PROJECTS</p>
-    <p>BUILT BY TAIMAA ✦ 2026</p>
+    <p id="footerChallenge">30 DAYS • 30 PROJECTS</p>
+    <p id="footerCredit">BUILT BY TAIMAA ✦ 2026</p>
   </footer>
 
 
-<script src="script.js?v=16"></script>
+<script src="script.js?v=17"></script>
 </body>
 </html>
 

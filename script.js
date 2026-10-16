@@ -123,6 +123,15 @@ const projects = [
   unlocked: true
 },
 
+{
+  day: 15,
+  name: "CLASSVERSE",
+  description: "Turn every lesson into a multilingual, real-time classroom adventure.",
+  tags: ["Node.js", "Socket.IO", "Education", "Multilingual"],
+  link: "projects/CLASSVERSE/",
+  unlocked: true
+},
+
 ];
 
 
@@ -140,23 +149,18 @@ for (let i = projects.length + 1; i <= 30; i++) {
 
 const grid = document.getElementById("projectsGrid");
 
-let completed = 0;
+function renderGalleryCards() {
+  let completed = 0;
 
+  projects.forEach(project => {
+    const card = document.createElement("div");
 
-projects.forEach(project => {
+    card.classList.add("project-card");
 
-  const card = document.createElement("div");
-
-  card.classList.add("project-card");
-
-
-  if (project.unlocked) {
-
-    completed++;
-
-    card.classList.add("unlocked");
-
-    card.innerHTML = `
+    if (project.unlocked) {
+      completed++;
+      card.classList.add("unlocked");
+      card.innerHTML = `
 
       <div class="project-number">
         PROJECT ${String(project.day).padStart(2, "0")}
@@ -166,8 +170,8 @@ projects.forEach(project => {
 
         <h3>${project.name}</h3>
 
-        <p>
-          ${project.description}
+        <p class="project-description" data-project-day="${project.day}">
+            ${projectDescriptions[language]?.[project.day] || project.description}
         </p>
 
         <div class="tags">
@@ -182,16 +186,14 @@ projects.forEach(project => {
           href="${project.link}"
           class="project-link"  
         >
-          VIEW PROJECT →
+          ${translations[language].viewProject}
         </a>
 
       </div>
 
     `;
-
-  } else {
-
-    card.innerHTML = `
+    } else {
+      card.innerHTML = `
 
       <div class="project-number">
         PROJECT ${String(project.day).padStart(2, "0")}
@@ -202,7 +204,7 @@ projects.forEach(project => {
         <span class="lock">🔒</span>
 
         <span class="locked-text">
-          LOCKED
+          ${translations[language].locked}
         </span>
 
       </div>
@@ -210,23 +212,161 @@ projects.forEach(project => {
       <div></div>
 
     `;
+    }
+    grid.appendChild(card);
+  });
 
+  const percentage = (completed / 30) * 100;
+  document.getElementById("completedCount").textContent = completed;
+  document.getElementById("progressPercentage").textContent =
+    Math.round(percentage) + "%";
+  document.getElementById("progressFill").style.width = percentage + "%";
+}
+
+const translations = {
+  en: {
+    date: "OCTOBER 2026",
+    status: "CHALLENGE IN PROGRESS",
+    eyebrow: "MY CODING CHALLENGE",
+    days: "30 DAYS",
+    projects: "30 PROJECTS",
+    intro: "One project every day. Learning, building and getting better one line of code at a time.",
+    scroll: "↓ SCROLL TO UNLOCK",
+    progress: "CHALLENGE PROGRESS",
+    total: "/ 30 PROJECTS",
+    collection: "THE COLLECTION",
+    collectionTitle: "30 things I'm building.",
+    footer: "30 DAYS • 30 PROJECTS",
+    credit: "BUILT BY TAIMAA ✦ 2026",
+    project: "PROJECT",
+    viewProject: "VIEW PROJECT →",
+    locked: "LOCKED"
+  },
+  he: {
+    date: "אוקטובר 2026",
+    status: "האתגר בעיצומו",
+    eyebrow: "אתגר התכנות שלי",
+    days: "30 ימים",
+    projects: "30 פרויקטים",
+    intro: "פרויקט חדש בכל יום. לומדת, בונה ומשתפרת, שורת קוד אחת בכל פעם.",
+    scroll: "↓ גללו כדי לגלות",
+    progress: "ההתקדמות באתגר",
+    total: "/ 30 פרויקטים",
+    collection: "האוסף",
+    collectionTitle: "30 דברים שאני בונה.",
+    footer: "30 ימים • 30 פרויקטים",
+    credit: "נבנה על ידי תימא ✦ 2026",
+    project: "פרויקט",
+    viewProject: "לצפייה בפרויקט ←",
+    locked: "נעול"
+  },
+  ar: {
+    date: "أكتوبر 2026",
+    status: "التحدي مستمر",
+    eyebrow: "تحدي البرمجة الخاص بي",
+    days: "30 يوماً",
+    projects: "30 مشروعاً",
+    intro: "مشروع جديد كل يوم. أتعلم وأبني وأتطور، سطراً برمجياً في كل مرة.",
+    scroll: "↓ مرّروا للاكتشاف",
+    progress: "التقدم في التحدي",
+    total: "/ 30 مشروعاً",
+    collection: "المجموعة",
+    collectionTitle: "30 فكرة أعمل على بنائها.",
+    footer: "30 يوماً • 30 مشروعاً",
+    credit: "بناء طعيمة ✦ 2026",
+    project: "المشروع",
+    viewProject: "عرض المشروع ←",
+    locked: "مغلق"
   }
+};
 
+const projectDescriptions = {
+  he: {
+    1: "שומרים על ריכוז. FocusFlow כבר תדע אם דעתכם הוסחה. 👀",
+    2: "בלי דרמות. רק החשבון. 💸",
+    3: "כולנו יודעים מי. בואו נקבע את זה רשמית. 👀",
+    4: "חניתם? אנחנו זוכרים. 🚗📍",
+    5: "הכסף שלכם, בשליטה. תכננו את החודש ועקבו אחר ההוצאות.",
+    6: "מפנים זמן למה שחשוב. מתכננים משימות, מתמקדים ועוקבים אחר ההתקדמות.",
+    7: "תובנות לקמפיינים: מזהים חריגות, משווים ערוצים ומפיקים דוח פרסום.",
+    8: "איכות לפני כמות. מגלים אילו קמפיינים מביאים לידים איכותיים והכנסות.",
+    9: "גלאי נזילות מים חכם עם Arduino, התראות ונתוני חיישנים בזמן אמת.",
+    10: "לוקחים שליטה על ההוצאות הקבועות, עוקבים אחר חידושים ומגלים כמה אפשר לחסוך.",
+    11: "המילים שלכם, הסגנון שלכם. מעצבים פוסטים וסטוריז יפהפיים.",
+    12: "מפענחים סמלי כביסה ושומרים הוראות טיפול לבגדים האהובים עליכם.",
+    13: "עוקבים אחר שינויים בפרויקט, מעריכים עבודה נוספת ומארגנים כל בקשה.",
+    14: "שומרים החלטות, אישורים, שינויים בגרסאות והיסטוריית פעילות במקום אחד.",
+    15: "הופכים כל שיעור להרפתקה כיתתית רב־לשונית ובזמן אמת."
+  },
+  ar: {
+    1: "حافظوا على التركيز. سيعرف FocusFlow إن شرد انتباهكم. 👀",
+    2: "بلا تعقيد. الفاتورة فقط. 💸",
+    3: "كلنا نعرف من هو. لنجعل الأمر رسمياً. 👀",
+    4: "ركنتم السيارة؟ نحن نتذكر. 🚗📍",
+    5: "أموالكم تحت السيطرة. خططوا للشهر وتابعوا نفقاتكم.",
+    6: "خصصوا وقتاً لما يهم. خططوا للمهام وركزوا وتابعوا تقدمكم.",
+    7: "تحليلات الحملات: اكتشفوا الحالات الشاذة وقارنوا القنوات وأنشئوا التقارير.",
+    8: "الجودة أهم من الكمية. اكتشفوا الحملات التي تجلب عملاء محتملين وإيرادات حقيقية.",
+    9: "كاشف ذكي لتسرّب المياه باستخدام Arduino وتنبيهات وقراءات مباشرة.",
+    10: "تحكموا بالمصاريف المتكررة وتابعوا التجديدات واكتشفوا فرص التوفير.",
+    11: "كلماتكم، أسلوبكم. صمموا منشورات وقصصاً جميلة.",
+    12: "تعرفوا على رموز العناية بالملابس واحفظوا تعليمات القطع المفضلة.",
+    13: "تابعوا تغييرات المشروع وقدّروا العمل الإضافي ونظموا كل طلب.",
+    14: "اجمعوا قرارات المشروع وموافقاته وتغييرات الإصدارات وسجل النشاط في مكان واحد.",
+    15: "حوّلوا كل درس إلى مغامرة صفية مباشرة ومتعددة اللغات."
+  }
+};
 
-  grid.appendChild(card);
+const languageSelect = document.getElementById("languageSelect");
+let language = localStorage.getItem("gallery-language") || "he";
+if (!translations[language]) language = "en";
+languageSelect.value = language;
 
+function applyLanguage(nextLanguage) {
+  language = translations[nextLanguage] ? nextLanguage : "en";
+  localStorage.setItem("gallery-language", language);
+  document.documentElement.lang = language;
+  document.documentElement.dir = language === "en" ? "ltr" : "rtl";
+  languageSelect.value = language;
+
+  const textById = {
+    challengeDate: translations[language].date,
+    challengeStatus: translations[language].status,
+    heroEyebrow: translations[language].eyebrow,
+    heroDays: translations[language].days,
+    heroProjects: translations[language].projects,
+    heroText: translations[language].intro,
+    scrollText: translations[language].scroll,
+    progressLabel: translations[language].progress,
+    progressTotal: translations[language].total,
+    collectionEyebrow: translations[language].collection,
+    collectionTitle: translations[language].collectionTitle,
+    footerChallenge: translations[language].footer,
+    footerCredit: translations[language].credit
+  };
+  Object.entries(textById).forEach(([id, text]) => {
+    document.getElementById(id).textContent = text;
+  });
+
+  grid.querySelectorAll(".project-number").forEach((label, index) => {
+    label.textContent = `${translations[language].project} ${String(index + 1).padStart(2, "0")}`;
+  });
+  grid.querySelectorAll(".project-link").forEach(link => {
+    link.textContent = translations[language].viewProject;
+  });
+  grid.querySelectorAll(".project-description").forEach(description => {
+    const project = projects[Number(description.dataset.projectDay) - 1];
+    description.textContent =
+      projectDescriptions[language]?.[project.day] || project.description;
+  });
+  grid.querySelectorAll(".locked-text").forEach(label => {
+    label.textContent = translations[language].locked;
+  });
+}
+
+languageSelect.addEventListener("change", event => {
+  applyLanguage(event.target.value);
 });
 
-
-// PROGRESS
-
-const percentage = (completed / 30) * 100;
-
-document.getElementById("completedCount").textContent = completed;
-
-document.getElementById("progressPercentage").textContent =
-  Math.round(percentage) + "%";
-
-document.getElementById("progressFill").style.width =
-  percentage + "%";
+renderGalleryCards();
+applyLanguage(language);
