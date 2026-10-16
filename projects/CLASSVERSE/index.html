@@ -128,11 +128,6 @@
 
     .action:hover { filter: brightness(1.12); }
 
-    .action[aria-disabled="true"] {
-      opacity: .55;
-      pointer-events: none;
-    }
-
     ul { padding-inline-start: 22px; }
 
     a { color: #ff8abb; }
@@ -170,14 +165,13 @@
       <li id="featureDevices">Designed for phones and classroom screens</li>
     </ul>
     <p class="notice">
-      <span id="noticeIntro">The live classroom runs on a separate Node.js service. Deploy it once with the button below; after it is ready, use the live classroom link.</span>
+      <span id="noticeIntro">The live classroom runs on its own server. Open it using the button below; if the free server has been idle, it may take a moment to wake.</span>
     </p>
     <div class="actions">
-      <a class="action action-primary" id="playLink" href="https://classverse-day15.onrender.com/" aria-disabled="true" aria-live="polite">Checking live classroom…</a>
-      <a class="action" id="deployLink" href="https://render.com/deploy?repo=https%3A%2F%2Fgithub.com%2Ftaimaa0703-netizen%2F30_Days_30_Projects" target="_blank" rel="noopener">Deploy CLASSVERSE</a>
+      <a class="action action-primary" id="playLink" href="https://classverse-day15.onrender.com/">Open live classroom</a>
+      <a class="action" id="readmeLink" href="README.md">Deployment details</a>
     </div>
-    <p class="intro" id="deployHelp">One-time setup: connect GitHub to Render, create the free service, then return here to open the game.</p>
-    <p><a href="README.md" id="readmeLink">Project setup guide</a></p>
+    <p class="intro" id="deployHelp">Teachers and students must open the same live classroom link. On the free hosting plan, the first visit after inactivity can take around a minute.</p>
     <a class="back" href="../../" id="backLink">← Back to 30 Days, 30 Projects</a>
   </main>
   <script>
@@ -189,13 +183,11 @@
         featureLanguages: "English, Hebrew, and Arabic with right-to-left layouts",
         featureLive: "Live room codes, quizzes, student-created questions, and story votes",
         featureDevices: "Designed for phones and classroom screens",
-        noticeIntro: "The live classroom runs on a separate Node.js service. Deploy it once with the button below; when it is ready, open the classroom from here.",
-        readmeLink: "project README",
-        noticeTail: "to play locally.",
+        noticeIntro: "The live classroom runs on its own server. Open it using the button below; if the free server has been idle, it may take a moment to wake.",
+        readmeLink: "Deployment details",
+        noticeTail: "",
         playLink: "Open live classroom",
-        playUnavailable: "Classroom not deployed yet",
-        deployLink: "Deploy CLASSVERSE",
-        deployHelp: "One-time setup: connect GitHub to Render, create the free service, then return here to open the game.",
+        deployHelp: "Teachers and students must open the same live classroom link. On the free hosting plan, the first visit after inactivity can take around a minute.",
         backLink: "← Back to 30 Days, 30 Projects"
       },
       he: {
@@ -205,13 +197,11 @@
         featureLanguages: "באנגלית, בעברית ובערבית, עם תמיכה בכתיבה מימין לשמאל",
         featureLive: "קודי הצטרפות, חידונים, שאלות מתלמידים והצבעות על הסיפור",
         featureDevices: "מותאם לטלפונים ולמסכים בכיתה",
-        noticeIntro: "הכיתה החיה פועלת בשירות Node.js נפרד. לחצו על הכפתור כדי לפרוס אותו פעם אחת; כשהשירות יהיה מוכן, תוכלו להיכנס למשחק מכאן.",
-        readmeLink: "מדריך ההתקנה",
+        noticeIntro: "הכיתה החיה פועלת בשרת נפרד. היכנסו אליה בכפתור למטה; אם השרת החינמי לא היה פעיל, ייתכן שייקח לו רגע להתעורר.",
+        readmeLink: "פרטי הפריסה",
         noticeTail: "",
         playLink: "פתיחת הכיתה החיה",
-        playUnavailable: "הכיתה עדיין לא נפרסה",
-        deployLink: "פריסת CLASSVERSE",
-        deployHelp: "הגדרה חד־פעמית: מחברים את GitHub ל‑Render ויוצרים שירות חינמי; אחר כך חוזרים לכאן כדי להיכנס למשחק.",
+        deployHelp: "המורים והתלמידים צריכים להיכנס לאותו קישור לכיתה. באחסון החינמי, הכניסה הראשונה אחרי חוסר פעילות עשויה לארוך כדקה.",
         backLink: "חזרה ל‑30 ימים, 30 פרויקטים ←"
       },
       ar: {
@@ -221,34 +211,18 @@
         featureLanguages: "بالإنجليزية والعبرية والعربية، مع دعم الكتابة من اليمين إلى اليسار",
         featureLive: "رموز صفية مباشرة، اختبارات، أسئلة من الطلاب وتصويت على القصة",
         featureDevices: "مصمم للهواتف وشاشات الصف",
-        noticeIntro: "يعمل الصف المباشر على خدمة Node.js منفصلة. انشروا الخدمة مرة واحدة باستخدام الزر أدناه؛ وبعد تشغيلها يمكنكم فتح الصف المباشر من هنا.",
-        readmeLink: "دليل الإعداد",
+        noticeIntro: "يعمل الصف المباشر على خادم مستقل. افتحوه باستخدام الزر أدناه؛ وإذا كان الخادم المجاني غير نشط فقد يحتاج لحظة ليستيقظ.",
+        readmeLink: "تفاصيل النشر",
         noticeTail: "",
         playLink: "فتح الصف المباشر",
-        playUnavailable: "لم يتم نشر الصف بعد",
-        deployLink: "نشر CLASSVERSE",
-        deployHelp: "إعداد لمرة واحدة: اربطوا GitHub بـ Render وأنشئوا الخدمة المجانية، ثم عودوا إلى هنا لفتح اللعبة.",
+        deployHelp: "يجب على المعلمين والطلاب استخدام رابط الصف المباشر نفسه. قد يستغرق أول دخول بعد الخمول نحو دقيقة على الاستضافة المجانية.",
         backLink: "العودة إلى 30 يوماً، 30 مشروعاً ←"
       }
     };
 
     const languageSelect = document.getElementById("languageSelect");
-    const fields = ["eyebrow", "intro", "featureLanguages", "featureLive", "featureDevices", "noticeIntro", "readmeLink", "playLink", "deployLink", "deployHelp", "backLink"];
+    const fields = ["eyebrow", "intro", "featureLanguages", "featureLive", "featureDevices", "noticeIntro", "readmeLink", "playLink", "deployHelp", "backLink"];
     let language = localStorage.getItem("gallery-language") || "he";
-
-    async function checkLiveClassroom() {
-      const link = document.getElementById("playLink");
-      try {
-        const response = await fetch("https://classverse-day15.onrender.com/health", { signal: AbortSignal.timeout(15000) });
-        if (!response.ok) throw new Error(`Health check failed: ${response.status}`);
-        link.href = "https://classverse-day15.onrender.com/";
-        link.setAttribute("aria-disabled", "false");
-        link.dataset.live = "true";
-      } catch (error) {
-        link.setAttribute("aria-disabled", "true");
-        link.dataset.live = "false";
-      }
-    }
 
     function applyLanguage(nextLanguage) {
       language = translations[nextLanguage] ? nextLanguage : "en";
@@ -260,15 +234,10 @@
       fields.forEach(id => {
         document.getElementById(id).textContent = translations[language][id];
       });
-      const playLink = document.getElementById("playLink");
-      playLink.textContent = playLink.dataset.live === "true"
-        ? translations[language].playLink
-        : translations[language].playUnavailable;
     }
 
     languageSelect.addEventListener("change", event => applyLanguage(event.target.value));
     applyLanguage(language);
-    checkLiveClassroom().then(() => applyLanguage(language));
   </script>
 </body>
 </html>
