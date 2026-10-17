@@ -1,0 +1,231 @@
+.role.teacher-portal {
+  border-color: #b6a0ff70;
+  background: linear-gradient(145deg, #9f7bff16, #ffffff0c);
+}
+
+.role.student-portal {
+  border-color: #82e8ef70;
+  background: linear-gradient(145deg, #82e8ef14, #ffffff0c);
+}
+
+.portal-label {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 6px 10px;
+  border: 1px solid #ffffff30;
+  border-radius: 20px;
+  color: #d9ceff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.student-portal .portal-label {
+  color: #a9f4f5;
+}
+
+.game-status {
+  margin: -8px 0 20px;
+  line-height: 1.6;
+}
+
+.game-status-lobby {
+  border-color: #b7a1ff80;
+}
+
+.game-status-finished {
+  border-color: #82e8ef80;
+}
+
+.teacher-game,
+.student-game {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(240px, 1fr);
+  align-items: start;
+  gap: 20px;
+}
+
+.teacher-main,
+.teacher-side,
+.student-tools {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+.teacher-game .card,
+.student-game .card {
+  margin: 0;
+}
+
+.room-code {
+  display: block;
+  width: 100%;
+  margin: 12px 0 0;
+  padding: 12px;
+  border: 2px dashed #b7a1ffb0;
+  border-radius: 18px;
+  background: #a88cff20;
+  color: #fff;
+  font: 700 clamp(42px, 8vw, 76px)/1 Fredoka, sans-serif;
+  letter-spacing: .16em;
+  text-align: center;
+}
+
+.copy-hint,
+.join-link {
+  display: block;
+  margin: 10px 0 22px;
+  color: #c8c3e0;
+  text-align: center;
+}
+
+.join-link {
+  color: #b9f4f4;
+}
+
+.question-plan {
+  display: grid;
+  gap: 10px;
+}
+
+.question-progress,
+.portal-tag {
+  color: #d9ceff;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .06em;
+}
+
+.primary-action {
+  display: block;
+  width: 100%;
+  margin-top: 18px;
+  padding: 17px 20px;
+  font-size: 18px;
+}
+
+.live-question .btn.danger,
+.revealed-question .btn.danger {
+  display: block;
+  margin: 12px auto 0;
+}
+
+.answer-results {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.answer-results .listitem {
+  margin: 0;
+}
+
+.live-count,
+.correct-label {
+  margin: 16px 0;
+}
+
+.correct-option {
+  border-color: #56e0a3 !important;
+  background: #2d876366 !important;
+}
+
+.student-game {
+  grid-template-columns: minmax(0, 1fr) minmax(220px, .55fr);
+}
+
+.student-question {
+  padding: clamp(22px, 5vw, 44px);
+}
+
+.student-question .bigq {
+  margin: 20px 0;
+  font-size: clamp(30px, 5vw, 54px);
+}
+
+.student-answers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.student-answers .answer {
+  min-height: 96px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+}
+
+.student-answers .answer span {
+  display: grid;
+  flex: 0 0 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 50%;
+  background: #ffffff30;
+  font-weight: 800;
+}
+
+.answer-color-0 { background: #a93658; }
+.answer-color-1 { background: #23679b; }
+.answer-color-2 { background: #a36a1f; }
+.answer-color-3 { background: #37805b; }
+
+.student-waiting,
+.student-end {
+  padding: clamp(26px, 7vw, 64px);
+  text-align: center;
+}
+
+.student-waiting h1,
+.student-end h1 {
+  font: 600 clamp(28px, 5vw, 44px)/1.2 Fredoka, sans-serif;
+}
+
+.inline-room-code {
+  color: #d9ceff;
+  letter-spacing: .12em;
+}
+
+.student-tools details + details {
+  margin-top: 12px;
+}
+
+details > summary {
+  color: #e9e3ff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+details[open] > summary {
+  margin-bottom: 14px;
+}
+
+.portal-tag {
+  border: 1px solid #ffffff30;
+  border-radius: 999px;
+  padding: 9px 13px;
+}
+
+.app [hidden] {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  .teacher-game,
+  .student-game {
+    grid-template-columns: 1fr;
+  }
+
+  .student-answers {
+    grid-template-columns: 1fr;
+  }
+
+  .student-answers .answer {
+    min-height: 72px;
+  }
+}

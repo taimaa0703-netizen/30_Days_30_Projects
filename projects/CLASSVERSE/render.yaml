@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: classverse
+    runtime: node
+    rootDir: projects/CLASSVERSE
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: TRUST_PROXY
+        value: "true"
+      - key: ROOM_TTL_HOURS
+        value: "6"

@@ -3,7 +3,24 @@
   "version": "1.0.0",
   "private": true,
   "description": "Live interactive classroom adventure",
-  "scripts": {"start": "node server.js", "dev": "node --watch server.js"},
-  "dependencies": {"express": "^4.21.2", "socket.io": "^4.8.1"},
-  "engines": {"node": ">=20"}
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "@clerk/express": "^2.1.80",
+    "@clerk/localizations": "^4.23.0",
+    "express": "^4.21.2",
+    "pg": "^8.23.1",
+    "qrcode": "^1.5.4",
+    "socket.io": "^4.8.1"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "pg-mem": "^3.0.14",
+    "socket.io-client": "^4.8.4"
+  }
 }

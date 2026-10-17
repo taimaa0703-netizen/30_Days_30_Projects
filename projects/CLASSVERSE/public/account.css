@@ -1,0 +1,54 @@
+/* Teacher accounts, My Games, editor and community library. Uses logical properties so Hebrew/Arabic (RTL) mirror correctly. */
+.ac-page { max-width: 1100px; margin: 0 auto; padding: 28px 22px 70px; display: grid; gap: 20px; }
+.ac-page h1 { font-size: clamp(28px, 4vw, 42px); margin: 0; }
+.ac-page .card { background: var(--paper); border: 1px solid var(--line); border-radius: 22px; padding: 24px; color: var(--ink); }
+.ac-page .muted, .ac-page p.muted { color: var(--muted-ink); }
+.ac-page .input, .ac-page .select { background: #fff; color: var(--ink); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; width: 100%; }
+.ac-page label { color: var(--ink); }
+.ac-page .btn.small { padding: 8px 13px; font-size: 14px; }
+.ac-page .btn.secondary { background: #fff; color: var(--purple-dark); border: 1px solid var(--line); }
+.ac-page .btn.danger { background: #ffe4ea; color: #a3223f; }
+.ac-center { justify-content: center; }
+.ac-gate, .ac-setup { max-width: 720px; margin-inline: auto; }
+.ac-setup h1 { font-size: 28px; }
+.ac-setup ol { padding-inline-start: 22px; line-height: 1.7; }
+.ac-missing { display: flex; gap: 10px; flex-wrap: wrap; list-style: none; padding: 0; }
+.ac-missing code { background: #fff1f4; color: #a3223f; padding: 5px 10px; border-radius: 8px; font-weight: 700; }
+.ac-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+.ac-tab { background: #fff; border: 1px solid var(--line); color: var(--ink); padding: 9px 16px; border-radius: 999px; font-weight: 700; }
+.ac-tab.active { background: var(--purple); border-color: var(--purple); color: #fff; }
+.ac-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
+.ac-game h3 { margin: 8px 0 6px; font-size: 20px; overflow-wrap: anywhere; }
+.ac-game p { margin: 4px 0; overflow-wrap: anywhere; }
+.ac-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+.ac-badge { background: #efeafd; color: var(--purple-dark); border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 800; }
+.ac-badge.ac-published { background: #dcf7ee; color: #1c7a63; }
+.ac-badge.ac-vis-public { background: #e0f0ff; color: #1b5d96; }
+.ac-badge.ac-vis-private { background: #f1f0f5; color: #55536b; }
+.ac-meta { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; }
+.ac-fav.on { color: #d89e00; }
+.ac-search { display: flex; gap: 10px; }
+.ac-form .ac-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; }
+.ac-vis { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.ac-radio { display: block; padding: 6px 0; font-weight: 400; }
+.ac-q { border: 1px solid var(--line); }
+.ac-q legend { font-weight: 800; padding: 0 8px; }
+.ac-save { position: sticky; bottom: 12px; background: var(--canvas); padding: 12px; border-radius: 16px; }
+.ac-who { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+.ac-avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; }
+.ac-avatar-ph { display: grid; place-items: center; background: #efeafd; font-size: 34px; }
+.ac-avatar-sm { border-radius: 50%; vertical-align: middle; }
+.ac-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+.ac-stats > div { background: var(--canvas); border-radius: 14px; padding: 14px; text-align: center; }
+.ac-stats strong { display: block; font-size: 28px; color: var(--purple-dark); }
+.ac-stats span { font-size: 13px; color: var(--muted-ink); }
+.ac-table-wrap { overflow-x: auto; }
+.ac-table { width: 100%; border-collapse: collapse; }
+.ac-table th, .ac-table td { text-align: start; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+.ac-signup { background: var(--purple); color: #fff; border-radius: 999px; }
+.ac-profile-link { display: inline-flex; align-items: center; gap: 6px; }
+@media (max-width: 640px) {
+  .ac-page { padding: 18px 14px 50px; }
+  .ac-search { flex-direction: column; }
+  .ac-grid { grid-template-columns: 1fr; }
+}
