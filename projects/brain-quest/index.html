@@ -1,0 +1,1255 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff7e5">
+  <title>Brain Quest — מסע החידות</title>
+  <style>
+    :root {
+      font-family: "Assistant", "Noto Sans Arabic", Tahoma, Arial, sans-serif;
+      color: #24223a;
+      background: #fff8e9;
+      font-synthesis: none;
+      --accent: #3977e8;
+      --accent-dark: #2357b7;
+      --accent-light: #e5efff;
+      --pop: #ffc857;
+      --ink: #24223a;
+      --muted: #74738b;
+      --panel: #fff;
+      --line: #ebe7f1;
+      --good: #16875a;
+      --bad: #c44658;
+    }
+    * { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 10% 8%, #ffe6a7 0, transparent 27rem),
+        radial-gradient(ellipse at 95% 40%, #dce9ff 0, transparent 30rem),
+        #fff8e9;
+    }
+    body[data-theme="girl"] {
+      --accent: #c64d9a;
+      --accent-dark: #983576;
+      --accent-light: #ffe5f4;
+      --pop: #ffc857;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, input:focus-visible {
+      outline: 3px solid #ffb638;
+      outline-offset: 3px;
+    }
+    .shell { width: min(1040px, 100%); margin: auto; padding: 18px 20px 52px; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; }
+    .brand-mark { display: grid; width: 44px; height: 44px; place-items: center; border-radius: 15px; background: var(--accent); color: white; font-size: 25px; box-shadow: 0 5px 0 var(--accent-dark); }
+    .brand-name { font-size: 19px; font-weight: 900; letter-spacing: .4px; }
+    .top-note { color: var(--muted); font-size: 14px; font-weight: 700; }
+    .language-picker { display: flex; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+    .language-picker button { min-width: 42px; padding: 7px 9px; border: 0; border-radius: 10px; background: transparent; color: #55516d; font-size: 13px; font-weight: 900; }
+    .language-picker button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+    .language-picker button:focus-visible { outline-offset: 1px; }
+    .hero { position: relative; max-width: 780px; margin: 35px auto 26px; text-align: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; border: 1px solid #f2d483; border-radius: 99px; background: #fff3cc; color: #76500a; font-size: 13px; font-weight: 900; }
+    h1 { margin: 12px 0 4px; font-size: clamp(38px, 8vw, 70px); line-height: 1.02; font-weight: 1000; letter-spacing: -2px; }
+    h1 span { color: var(--accent); }
+    .hero p { max-width: 600px; margin: 11px auto; color: #5f5c76; font-size: clamp(16px, 3vw, 20px); line-height: 1.6; }
+    .sparkle { position: absolute; color: #efa82f; font-size: 29px; animation: bob 3s ease-in-out infinite; }
+    .sparkle.one { top: 15px; right: 5%; }
+    .sparkle.two { bottom: 8px; left: 4%; animation-delay: -1.3s; }
+    @keyframes bob { 50% { transform: translateY(-8px) rotate(12deg); } }
+    .card { border: 1px solid #ffffff; border-radius: 25px; background: var(--panel); box-shadow: 0 15px 45px #51426012, 0 3px 9px #5142600b; }
+    .setup { max-width: 720px; margin: 0 auto; padding: clamp(20px, 5vw, 36px); }
+    .setup h2, .finish h2 { margin: 0 0 5px; font-size: clamp(23px, 5vw, 32px); }
+    .setup-intro { margin: 0 0 22px; color: var(--muted); line-height: 1.6; }
+    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+    .field { display: flex; flex-direction: column; gap: 7px; color: #49465f; font-weight: 800; }
+    .field input { width: 100%; min-width: 0; padding: 13px 14px; border: 2px solid var(--line); border-radius: 13px; background: #fff; color: var(--ink); }
+    .field input::placeholder { color: #a5a2b3; }
+    .field select { width: 100%; min-width: 0; padding: 13px 14px; border: 2px solid var(--line); border-radius: 13px; background: #fff; color: var(--ink); font: inherit; }
+    .choice-title { margin: 23px 0 10px; font-weight: 900; }
+    .themes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .theme-choice { display: flex; align-items: center; gap: 12px; min-height: 85px; padding: 14px; border: 2px solid var(--line); border-radius: 17px; background: #fff; color: var(--ink); text-align: start; transition: transform .18s, border-color .18s, background .18s; }
+    .theme-choice:hover { transform: translateY(-2px); }
+    .theme-choice.selected { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 4px 0 color-mix(in srgb, var(--accent) 20%, white); }
+    .theme-icon { display: grid; flex: 0 0 47px; width: 47px; height: 47px; place-items: center; border-radius: 15px; background: var(--accent-light); font-size: 28px; }
+    .theme-choice strong, .theme-choice small { display: block; }
+    .theme-choice small { margin-top: 4px; color: var(--muted); font-size: 12px; font-weight: 600; }
+    .start-row { margin: 22px 0 0; text-align: center; }
+    .button { min-height: 49px; padding: 12px 23px; border: 0; border-radius: 15px; background: var(--accent); color: #fff; font-weight: 900; box-shadow: 0 5px 0 var(--accent-dark); transition: transform .15s, box-shadow .15s, filter .15s; }
+    .button:hover { filter: brightness(1.06); transform: translateY(-1px); box-shadow: 0 6px 0 var(--accent-dark); }
+    .button:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--accent-dark); }
+    .button.secondary { border: 2px solid var(--line); background: #fff; color: var(--ink); box-shadow: none; }
+    .button.secondary:hover { border-color: var(--accent); }
+    .button:disabled { cursor: default; opacity: .55; transform: none; }
+    .helper { margin: 13px 0 0; color: var(--muted); font-size: 13px; }
+    .game[hidden], .setup[hidden], .finish[hidden] { display: none; }
+    .hud { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; margin: 0 0 18px; padding: 16px 19px; }
+    .hud-label { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #55516d; font-weight: 800; }
+    .hud-label strong { color: var(--accent-dark); }
+    .progress-track { height: 12px; margin-top: 9px; overflow: hidden; border-radius: 20px; background: #eeeaf4; }
+    .progress-fill { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), #f2b53d); transition: width .45s ease; }
+    .score-pill { padding: 9px 12px; border: 1px solid #f1dda4; border-radius: 13px; background: #fff8df; color: #785512; font-weight: 900; white-space: nowrap; }
+    .world-map { position: relative; padding: 20px 18px; overflow: hidden; border: 5px solid #fff; border-radius: 25px; background: linear-gradient(135deg, #cdf4e2, #d7eaff 55%, #ffe8bd); box-shadow: 0 9px 25px #43537213; }
+    .world-map::before { position: absolute; inset: 0; background-image: radial-gradient(#fff9 1.5px, transparent 1.5px); background-size: 23px 23px; content: ""; pointer-events: none; }
+    .map-heading { position: relative; margin: 0 0 15px; color: #496070; text-align: center; font-size: 14px; font-weight: 900; }
+    .nodes { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px 7px; }
+    .node { display: flex; min-width: 0; flex-direction: column; align-items: center; gap: 5px; padding: 2px; border: 0; background: transparent; color: #55516d; text-align: center; }
+    .node:disabled { cursor: default; }
+    .node-icon { display: grid; width: 54px; height: 54px; place-items: center; border: 3px solid #ffffff; border-radius: 19px; background: #fff; box-shadow: 0 4px 0 #52657a25; font-size: 27px; filter: grayscale(.85); transition: .2s; }
+    .node.ready .node-icon { border-color: var(--accent); background: var(--accent); color: white; filter: none; animation: glow 1.8s ease-in-out infinite; }
+    .node.done .node-icon { border-color: #54bb8e; background: #e2ffef; filter: none; }
+    .node-name { max-width: 100%; font-size: 11px; font-weight: 900; line-height: 1.2; }
+    @keyframes glow { 50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent), 0 4px 0 #52657a25; transform: translateY(-2px); } }
+    .challenge { max-width: 750px; margin: 19px auto 0; padding: clamp(20px, 5vw, 33px); text-align: center; }
+    .question-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
+    .pill { display: inline-flex; align-items: center; padding: 7px 12px; border: 1px solid #eae3f0; border-radius: 99px; background: #faf8fc; color: #625d76; font-size: 13px; font-weight: 900; }
+    .pill.category { border-color: #cce9dc; background: #eaf9f0; color: #26724d; }
+    .challenge h2 { margin: 15px 0 8px; color: var(--accent-dark); font-size: clamp(20px, 4vw, 27px); }
+    .team { display: flex; justify-content: center; flex-wrap: wrap; gap: 9px; margin: 13px 0 19px; }
+    .team span { padding: 7px 11px; border-radius: 99px; background: var(--accent-light); color: var(--accent-dark); font-size: 13px; font-weight: 900; }
+    .question { margin: 18px auto; color: var(--ink); font-size: clamp(23px, 5vw, 34px); font-weight: 900; line-height: 1.5; }
+    .answer-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+    .answer-row input { width: min(360px, 100%); min-height: 53px; padding: 11px 15px; border: 2px solid #d8d3e1; border-radius: 15px; color: var(--ink); font-size: 20px; text-align: center; }
+    .feedback { min-height: 32px; margin: 15px 0 3px; color: var(--bad); font-size: 17px; font-weight: 900; }
+    .feedback.good { color: var(--good); }
+    .hint { margin: 9px 0 2px; color: #785512; font-weight: 800; }
+    .hint button { padding: 5px 9px; border: 0; border-radius: 8px; background: #fff2cb; color: #785512; font-weight: 900; }
+    .actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+    .finish { max-width: 700px; margin: 30px auto; padding: clamp(25px, 7vw, 48px); text-align: center; }
+    .trophy { display: block; margin-bottom: 14px; font-size: clamp(70px, 18vw, 112px); animation: bob 2.8s ease-in-out infinite; }
+    .finish p { color: var(--muted); font-size: 18px; line-height: 1.7; }
+    .finish-score { display: inline-block; margin: 7px 0 20px; padding: 12px 18px; border-radius: 15px; background: #fff4cf; color: #785512; font-size: 20px; font-weight: 1000; }
+    .footer { margin: 28px 0 0; color: #858196; text-align: center; font-size: 13px; font-weight: 700; }
+    @media (max-width: 560px) {
+      .shell { padding: 14px 13px 34px; }
+      .hero { margin: 26px auto 20px; }
+      .sparkle { font-size: 22px; }
+      .fields { grid-template-columns: 1fr; }
+      .nodes { grid-template-columns: repeat(5, 1fr); gap: 12px 2px; }
+      .node-icon { width: 43px; height: 43px; border-radius: 15px; font-size: 22px; }
+      .node-name { font-size: 10px; }
+      .world-map { padding: 15px 9px; }
+      .hud { grid-template-columns: 1fr; padding: 13px; }
+      .score-pill { justify-self: start; }
+      .answer-row { flex-direction: column; }
+      .answer-row input, .answer-row .button { width: 100%; }
+      .top-note { font-size: 12px; }
+    }
+    @media (max-width: 400px) {
+      .themes { grid-template-columns: 1fr; }
+      .hud-label { flex-wrap: wrap; }
+      .hud-label span { flex: 1 1 auto; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body data-theme="boy">
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Brain Quest">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <span class="brand-name">BRAIN QUEST</span>
+      </a>
+      <span class="top-note" id="topNote">🧠 חושבים, משחקים ומגלים ביחד!</span>
+      <div class="language-picker" id="languagePicker" role="group" aria-label="בחירת שפה">
+        <button type="button" data-language="he" aria-pressed="true">עברית</button>
+        <button type="button" data-language="ar" aria-pressed="false">العربية</button>
+        <button type="button" data-language="en" aria-pressed="false">English</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <span class="sparkle one" aria-hidden="true">✦</span>
+      <span class="sparkle two" aria-hidden="true">✧</span>
+      <div class="eyebrow" id="heroEyebrow">🗺️ מסע גדול של סקרנות</div>
+      <h1><span id="heroLead">מוכנים ל־</span><span id="heroBrand">Brain Quest?</span></h1>
+      <p id="heroDescription">יוצאים למסע בין עשרה עולמות קסומים, פותרים 30 חידות וצוברים כוכבים בדרך לאוצר!</p>
+    </section>
+
+    <section class="card setup" id="setup">
+      <h2 id="setupTitle">מי יוצאים להרפתקה?</h2>
+      <p class="setup-intro" id="setupIntro">בחרו את סגנון המשחק האהוב עליכם. בכל הגרסאות מחכות אותן חידות, הפתעות ועבודת צוות.</p>
+      <div class="fields">
+        <label class="field" for="parentName">
+          <span id="parentLabel">שם ההורה או בן/בת הזוג</span>
+          <input id="parentName" maxlength="24" autocomplete="name" dir="auto" placeholder="למשל: אמא">
+        </label>
+        <label class="field" for="childName">
+          <span id="childLabel">שם הילד או הילדה</span>
+          <input id="childName" maxlength="24" autocomplete="off" dir="auto" placeholder="למשל: נועה">
+        </label>
+        <label class="field" for="grade">
+          <span id="gradeLabel">כיתה</span>
+          <select id="grade">
+            <option value="1-2">כיתות א׳–ב׳</option>
+            <option value="3-4" selected>כיתות ג׳–ד׳</option>
+            <option value="5-6">כיתות ה׳–ו׳</option>
+          </select>
+        </label>
+      </div>
+      <p class="choice-title" id="themeTitle">בחרו את עולם ההרפתקה שלכם:</p>
+      <div class="themes" id="themeGroup" role="group" aria-label="סגנון המשחק">
+        <button class="theme-choice selected" type="button" data-theme-choice="boy" aria-pressed="true">
+          <span class="theme-icon" aria-hidden="true">🦸‍♂️</span>
+          <span><strong id="boyThemeTitle">הרפתקת הגיבורים</strong><small id="boyThemeDescription">כחול, כוכבים ומשימות אמיצות</small></span>
+        </button>
+        <button class="theme-choice" type="button" data-theme-choice="girl" aria-pressed="false">
+          <span class="theme-icon" aria-hidden="true">🦸‍♀️</span>
+          <span><strong id="girlThemeTitle">הרפתקת הגיבורות</strong><small id="girlThemeDescription">ורוד, נצנצים ומשימות מבריקות</small></span>
+        </button>
+      </div>
+      <p class="start-row"><button class="button" id="start">מתחילים את המסע! 🚀</button></p>
+      <p class="helper" id="freshness">בכל משחק תקבלו 30 חידות שונות, ובמשחק חוזר יופיעו חידות חדשות.</p>
+    </section>
+
+    <section class="game" id="game" hidden>
+      <div class="card hud" aria-live="polite">
+        <div>
+          <div class="hud-label"><span id="stageProgress">עולם 1 מתוך 10</span><span id="questionProgress">חידה 1 מתוך 30</span></div>
+          <div class="progress-track" id="progressTrack" role="progressbar" aria-label="התקדמות במסע" aria-valuemin="0" aria-valuemax="30" aria-valuenow="0">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+        <span class="score-pill" id="score">⭐ 0 נקודות</span>
+      </div>
+
+      <section class="world-map" id="worldMap" aria-label="מפת העולמות">
+        <p class="map-heading" id="mapHeading">בחרו יחד את השער הזוהר 🧭</p>
+        <div class="nodes" id="nodes"></div>
+      </section>
+
+      <section class="card challenge" id="challenge">
+        <div class="question-meta">
+          <span class="pill" id="stageName"></span>
+          <span class="pill" id="gradeName"></span>
+          <span class="pill category" id="category"></span>
+          <span class="pill" id="roundLabel"></span>
+        </div>
+        <h2 id="challengeTitle">חושבים ביחד ומפצחים את החידה!</h2>
+        <div class="team" id="team"></div>
+        <p class="question" id="question"></p>
+        <div class="answer-row">
+          <input id="answer" autocomplete="off" dir="auto" aria-label="התשובה שלכם" placeholder="כתבו כאן את התשובה">
+          <button class="button" id="check" type="button">בודקים! ✨</button>
+        </div>
+        <p class="feedback" id="feedback" aria-live="polite"></p>
+        <div class="actions">
+          <button class="button secondary" id="hintButton" type="button">רמז קטן 💡</button>
+          <button class="button" id="next" type="button" hidden>לחידה הבאה ←</button>
+        </div>
+        <p class="hint" id="hint" hidden></p>
+      </section>
+    </section>
+
+    <section class="card finish" id="finish" hidden>
+      <span class="trophy" aria-hidden="true">🏆</span>
+      <div class="eyebrow" id="finishEyebrow">משימה הושלמה!</div>
+      <h2 id="finishTitle">איזה מסע מדהים!</h2>
+      <p id="finishMessage"></p>
+      <div class="finish-score" id="finalScore"></div>
+      <div class="actions">
+        <button class="button" id="again" type="button">למסע חדש עם חידות אחרות! 🔁</button>
+        <button class="button secondary" id="changePlayers" type="button">בחירת שחקנים</button>
+      </div>
+    </section>
+
+    <footer class="footer">30 חידות · 10 עולמות · צוות אחד מנצח ✨</footer>
+  </main>
+
+  <script>
+    const questions = [
+      ["כמה הם 4 ועוד 3?", "7", "מספרים"],
+      ["כמה הם 10 פחות 6?", "4", "מספרים"],
+      ["כמה פינות יש למשולש?", "3", "חשיבה"],
+      ["בסדרה 2, 4, 6 — איזה מספר בא אחר כך?", "8", "חשיבה"],
+      ["כמה הם 5 כפול 2?", "10", "מספרים"],
+      ["איזו חיה מייללת ושמה מתחיל באות ח׳?", "חתול|חתולה", "טבע"],
+      ["מה מאיר ומחמם את כדור הארץ ביום?", "השמש", "טבע"],
+      ["במה מכוסה הגוף של רוב הציפורים?", "נוצות|נוצה", "טבע"],
+      ["איך נקראים מים שקפאו?", "קרח", "טבע"],
+      ["כמה צבעים נהוג למנות בקשת בענן?", "7|שבעה", "טבע"],
+      ["בצלחת היו 3 תפוחים והוסיפו עוד 2. כמה יש עכשיו?", "5", "מספרים"],
+      ["איזה חודש בא מיד אחרי יוני?", "יולי", "ידע כללי"],
+      ["מה האות הראשונה במילה ״שלום״?", "ש", "עברית"],
+      ["מה ההפך מהמילה ״גדול״?", "קטן", "עברית"],
+      ["כמה רגליים יש לעכביש?", "8|שמונה", "טבע"],
+      ["איזו חיה גדולה עם חדק?", "פיל|פילה", "טבע"],
+      ["מה בא אחרי האות מ׳ באלף־בית?", "נ", "עברית"],
+      ["כמה הם 9 פחות 2?", "7", "מספרים"],
+      ["איזה כוכב לכת אנחנו חיים עליו?", "כדור הארץ|הארץ", "טבע"],
+      ["מה צריך צמח לקבל מהשמש כדי לגדול?", "אור", "טבע"],
+      ["כמה הם 3 ועוד 3 ועוד 3?", "9", "מספרים"],
+      ["מה נותן לנו דבורה שמכינים ממנו ממרח מתוק?", "דבש", "טבע"],
+      ["איך קוראים לבית של כלב?", "מלונה", "ידע כללי"],
+      ["איזו צורה עגולה לגמרי ואין לה פינות?", "עיגול", "חשיבה"],
+      ["מה ההפך של ״לילה״?", "יום", "עברית"],
+      ["כמה אצבעות יש בשתי ידיים?", "10|עשר", "ידע כללי"],
+      ["איזו חיה קופצת ויש לה כיס שבו היא נושאת את הגור?", "קנגורו", "טבע"],
+      ["מה צבע הדשא בדרך כלל?", "ירוק", "טבע"],
+      ["כמה הם 10 ועוד 10?", "20", "מספרים"],
+      ["מה צף בשמיים ביום גשום ולעיתים מוריד גשם?", "ענן|עננים", "טבע"],
+      ["באיזה כלי משתמשים כדי לפתוח דלת נעולה?", "מפתח", "חשיבה"],
+      ["מה ההפך מ״מהר״?", "לאט", "עברית"],
+      ["כמה הם 7 ועוד 8?", "15", "מספרים"],
+      ["כמה הם 20 פחות 7?", "13", "מספרים"],
+      ["כמה הם 4 כפול 6?", "24", "מספרים"],
+      ["מהו חצי מתוך 18?", "9", "מספרים"],
+      ["בסדרה 5, 10, 15 — מה המספר הבא?", "20", "חשיבה"],
+      ["כמה דקות יש בשעה אחת?", "60|שישים", "ידע כללי"],
+      ["איזה איבר בגוף עוזר לנו לשמוע?", "אוזן|האוזניים", "ידע כללי"],
+      ["איזה גז אנחנו נושמים וזקוקים לו כדי לחיות?", "חמצן", "טבע"],
+      ["מה קורה למים כשהם רותחים והופכים לגז?", "אדים|קיטור", "טבע"],
+      ["מה השורש של המילה ״מכתבים״?", "כתב", "עברית"],
+      ["כמה צלעות יש למלבן?", "4|ארבע", "חשיבה"],
+      ["אם עכשיו השעה 3 ועוד שעתיים, מה תהיה השעה?", "5", "חשיבה"],
+      ["מה שוקל יותר: קילו נוצות או קילו אבנים?", "שווים|אותו דבר|אותו משקל", "חשיבה"],
+      ["איזו יונקת ימית חכמה חיה בלהקות ושמה מתחיל באות ד׳?", "דולפין", "טבע"],
+      ["כמה הם 36 חלקי 6?", "6", "מספרים"],
+      ["איזו עונה באה אחרי הקיץ?", "סתיו", "טבע"],
+      ["איזה סימן שמים בסוף שאלה?", "סימן שאלה|?", "עברית"],
+      ["איך נקרא התהליך שבו צמח מייצר מזון בעזרת אור השמש?", "פוטוסינתזה", "טבע"],
+      ["מהו האיבר הגדול ביותר בגוף האדם?", "העור", "ידע כללי"],
+      ["כמה הם 15 ועוד 27?", "42", "מספרים"],
+      ["בסדרה 1, 1, 2, 3, 5 — איזה מספר בא אחר כך?", "8", "חשיבה"],
+      ["כמה מעלות יש בזווית ישרה?", "90|תשעים", "חשיבה"],
+      ["איזה כוכב לכת מכונה ״כוכב הלכת האדום״?", "מאדים", "טבע"],
+      ["איזה כלי מודד טמפרטורה?", "מדחום", "ידע כללי"],
+      ["כמה הם שלושה רבעים מתוך 20?", "15", "מספרים"],
+      ["מה מילה נרדפת ל״אמיץ״?", "נועז|גיבור|אמיץ לב|אומץ לב", "עברית"],
+      ["כמה ימים יש בשנה רגילה שאינה מעוברת?", "365", "ידע כללי"],
+      ["איזה איבר בגוף מזרים דם לכל הגוף?", "הלב", "ידע כללי"],
+      ["איך נקרא המקום שבו נהר נשפך לים?", "שפך", "ידע כללי"],
+      ["כמה הם 9 כפול 8?", "72", "מספרים"],
+      ["איזה בעל חיים הופך מזחל לגולם ואז לפרפר?", "פרפר", "טבע"],
+      ["בכיתה 24 תלמידים. הם מתחלקים שווה בשווה ל־4 קבוצות. כמה בכל קבוצה?", "6", "מספרים"],
+      ["מהו האוקיינוס הגדול ביותר בכדור הארץ?", "האוקיינוס השקט|השקט", "ידע כללי"],
+      ["איזו אות באה לפני ת׳ באלף־בית?", "ש", "עברית"],
+      ["איזה כוח מושך חפצים אל הקרקע?", "כוח הכבידה|כבידה|גרביטציה", "טבע"],
+      ["כמה הם 125 ועוד 75?", "200", "מספרים"],
+      ["כמה הם 144 חלקי 12?", "12", "מספרים"],
+      ["אם מחוג הדקות זז 30 דקות, איזה חלק מסיבוב שלם הוא עבר?", "חצי", "חשיבה"],
+      ["איזה איבר בצמח סופג מים מהאדמה?", "שורש|השורשים", "טבע"],
+      ["איך קוראים למשולש שכל הצלעות שלו שוות?", "משולש שווה צלעות", "חשיבה"],
+      ["מה המספר הראשוני הזוגי היחיד?", "2", "מספרים"],
+      ["כמה הם 15 אחוזים מתוך 200?", "30", "מספרים"],
+      ["איזו עיר היא בירת איטליה?", "רומא", "ידע כללי"],
+      ["איזה גז צמחים קולטים מהאוויר בתהליך הפוטוסינתזה?", "פחמן דו חמצני|פחמן דו-חמצני|פחמן דו־חמצני", "טבע"],
+      ["מה שם המספר שיש לו 3 אפסים אחרי הספרה 1?", "אלף|1000", "מספרים"],
+      ["מהו ההיקף של ריבוע שאורך כל אחת מצלעותיו 5 סנטימטרים?", "20|20 סנטימטרים|20 ס״מ", "מספרים"],
+      ["איזה חלק שווה ל־0.5?", "חצי|1/2", "מספרים"],
+      ["מהי בירת יפן?", "טוקיו", "ידע כללי"],
+      ["מהו החומר הטבעי הקשה ביותר בגוף האדם?", "אמייל השן|אמייל", "ידע כללי"],
+      ["סירה שטה צפונה ואז פונה ימינה. לאיזה כיוון היא שטה עכשיו?", "מזרחה|מזרח", "חשיבה"],
+      ["כמה מעלות יש בסכום הזוויות של כל משולש?", "180|180 מעלות", "חשיבה"],
+      ["כמה הם 7 בריבוע?", "49", "מספרים"],
+      ["איך נקרא הרכב שבו אסטרונאוטים נהגו על הירח במשימות אפולו?", "רכב הירח|רובר ירח", "ידע כללי"],
+      ["מה נקרא מעבר של חומר ממוצק לנוזל, כמו קרח למים?", "התכה", "טבע"],
+      ["בסדרה 2, 6, 12, 20 — איזה מספר בא אחר כך?", "30", "חשיבה"],
+      ["כמה הם 2 בשלישית, כלומר 2 כפול 2 כפול 2?", "8", "מספרים"],
+      ["אם כל הוורדים הם פרחים, האם כל הפרחים הם ורדים?", "לא", "חשיבה"],
+      ["איזו יבשת היא הגדולה ביותר בשטחה?", "אסיה", "ידע כללי"],
+      ["כמה הם 3 חמישיות מתוך 40?", "24", "מספרים"],
+      ["מה המספר החסר: 81, 27, 9, 3, __?", "1", "חשיבה"],
+      ["באיזה איבר בגוף נמצאים קולטנים שעוזרים לנו לטעום?", "לשון|הלשון", "ידע כללי"],
+      ["כמה שניות יש ב־4 דקות?", "240", "מספרים"],
+      ["איזה כוכב לכת הוא הגדול ביותר במערכת השמש?", "צדק", "טבע"],
+      ["מהי בירת אוסטרליה?", "קנברה", "ידע כללי"],
+      ["אם מחלקים 45 מדבקות שווה בשווה בין 5 ילדים, כמה יקבל כל ילד?", "9", "מספרים"],
+      ["איזה חלק גדול יותר: 2/3 או 3/5?", "2/3|שני שלישים", "חשיבה"],
+      ["איך נקרא המדע שחוקר את מזג האוויר?", "מטאורולוגיה", "ידע כללי"],
+      ["מהו המספר הקטן ביותר שמתחלק גם ב־4 וגם ב־6?", "12", "מספרים"],
+      ["כמה צלעות יש לריבוע?", "4|ארבע", "חשיבה"],
+      ["כמה הם 1 ועוד 2?", "3", "מספרים"],
+      ["כמה הם 8 פחות 3?", "5", "מספרים"],
+      ["כמה רגליים יש לכלב?", "4|ארבע", "טבע"],
+      ["איזה צבע יש לבננה בשלה בדרך כלל?", "צהוב", "טבע"],
+      ["איזה מספר בא אחרי 1, 2, 3?", "4", "חשיבה"],
+      ["כמה הם 2 ועוד 2?", "4", "מספרים"],
+      ["כמה גלגלים יש למכונית רגילה?", "4|ארבע", "ידע כללי"],
+      ["איזה יום בא אחרי יום שני?", "שלישי", "ידע כללי"],
+      ["איזו חיה אומרת מוּ?", "פרה", "טבע"]
+    ];
+
+    const ui = {
+      he: {
+        browserTitle: "Brain Quest — מסע החידות",
+        languageLabel: "בחירת שפה",
+        topNote: "🧠 חושבים, משחקים ומגלים ביחד!",
+        heroEyebrow: "🗺️ מסע גדול של סקרנות",
+        heroLead: "מוכנים ל־",
+        heroDescription: "יוצאים למסע בין עשרה עולמות קסומים, פותרים 30 חידות וצוברים כוכבים בדרך לאוצר!",
+        setupTitle: "מי יוצאים להרפתקה?",
+        setupIntro: "בחרו את סגנון המשחק האהוב עליכם. בכל הגרסאות מחכות אותן חידות, הפתעות ועבודת צוות.",
+        parentLabel: "שם ההורה או בן/בת הזוג",
+        childLabel: "שם הילד או הילדה",
+        gradeLabel: "באיזו כיתה הילד או הילדה?",
+        gradeOptions: ["כיתות א׳–ב׳ · מתחילים", "כיתות ג׳–ד׳ · מתקדמים", "כיתות ה׳–ו׳ · אתגר"],
+        parentPlaceholder: "למשל: אמא",
+        childPlaceholder: "למשל: נועה",
+        themeTitle: "בחרו את עולם ההרפתקה שלכם:",
+        themeGroup: "סגנון המשחק",
+        boyThemeTitle: "הרפתקת הגיבורים",
+        boyThemeDescription: "כחול, כוכבים ומשימות אמיצות",
+        girlThemeTitle: "הרפתקת הגיבורות",
+        girlThemeDescription: "ורוד, נצנצים ומשימות מבריקות",
+        start: "מתחילים את המסע! 🚀",
+        freshness: "בכל משחק תקבלו 30 חידות שונות, ובמשחק חוזר יופיעו חידות חדשות.",
+        mapLabel: "מפת העולמות",
+        progressLabel: "התקדמות במסע",
+        mapHeading: "בחרו יחד את השער הזוהר 🧭",
+        challengeTitle: "חושבים ביחד ומפצחים את החידה!",
+        answerLabel: "התשובה שלכם",
+        answerPlaceholder: "כתבו כאן את התשובה",
+        check: "בודקים! ✨",
+        hintButton: "רמז קטן 💡",
+        next: "לחידה הבאה ←",
+        finishEyebrow: "משימה הושלמה!",
+        finishTitle: "איזה מסע מדהים!",
+        again: "למסע חדש עם חידות אחרות! 🔁",
+        changePlayers: "בחירת שחקנים",
+        footer: "30 חידות · 10 עולמות · צוות אחד מנצח ✨",
+        stages: ["שער השמש", "יער הקסם", "מערת הקריסטל", "שונית האלמוגים", "הר העננים", "עמק הדינוזאורים", "נהר הקשת", "הספרייה הסודית", "טירת הכוכבים", "אי האוצר"],
+        categories: { "מספרים": "מספרים", "חשיבה": "חשיבה", "טבע": "טבע", "עברית": "עברית", "ידע כללי": "ידע כללי" },
+        stageProgress: (stage, count) => `עולם ${stage} מתוך ${count}`,
+        questionProgress: (question, count) => `חידה ${question} מתוך ${count}`,
+        roundProgress: (round, count) => `חידה ${round} מתוך ${count}`,
+        score: points => `⭐ ${points} נקודות`,
+        gradeBadge: grade => `כיתות ${grade.replace("-", "–")}`,
+        mapStatus: { done: "הושלם", ready: "השלב שלכם עכשיו", locked: "נעול" },
+        emptyAnswer: "כתבו תשובה ואז נבדוק ביחד 😊",
+        correct: "בול! אתם צוות של אלופים! ✨",
+        correctAfterTry: "כל הכבוד על הניסיון ועל שיתוף הפעולה! 🎉",
+        wrong: "עוד לא — חשבו ביחד ונסו שוב! 💪",
+        wrongHint: "לא נורא, אתם בדרך! אפשר לבקש רמז 💡",
+        hints: {
+          "מספרים": "רמז: נסו לפרק את החישוב לצעדים קטנים ולבדוק כל צעד.",
+          "חשיבה": "רמז: חפשו דפוס או קראו שוב כל מילה בשאלה.",
+          "טבע": "רמז: חשבו על מה שלמדתם על צמחים, בעלי חיים וכדור הארץ.",
+          "עברית": "רמז: אמרו את המילה לאט וחשבו על משמעותה.",
+          "ידע כללי": "רמז: היזכרו במה שראיתם, קראתם או למדתם."
+        },
+        finishMessage: (questionsCount, stagesCount, child, parent) => `פתרתם יחד ${questionsCount} חידות וחקרתם ${stagesCount} עולמות! ${child} ו${parent} — אתם צוות נהדר.`,
+        finalScore: (points, count) => `⭐ צברתם ${points} מתוך ${count} כוכבים`,
+        storageReadError: "לא הצלחנו לגשת לשמירת המשחק בדפדפן. אפשרו שמירה מקומית ונסו שוב.",
+        storageWriteError: "לא הצלחנו לשמור את החידות ששיחקתם. אפשרו שמירה מקומית בדפדפן ונסו שוב."
+      },
+      en: {
+        browserTitle: "Brain Quest — The Puzzle Adventure",
+        languageLabel: "Choose a language",
+        topNote: "🧠 Think, play and discover together!",
+        heroEyebrow: "🗺️ A big adventure in curiosity",
+        heroLead: "Ready for ",
+        heroDescription: "Explore ten magical worlds, solve 30 puzzles and collect stars on your way to the treasure!",
+        setupTitle: "Who's joining the adventure?",
+        setupIntro: "Choose your favorite game style. Both adventures feature the same puzzles, surprises and teamwork.",
+        parentLabel: "Parent's or partner's name",
+        childLabel: "Child's name",
+        gradeLabel: "Which grade is your child in?",
+        gradeOptions: ["Grades 1–2 · Beginners", "Grades 3–4 · Explorers", "Grades 5–6 · Challenge"],
+        parentPlaceholder: "For example: Mom",
+        childPlaceholder: "For example: Sam",
+        themeTitle: "Choose your adventure style:",
+        themeGroup: "Game style",
+        boyThemeTitle: "Boys' Adventure",
+        boyThemeDescription: "Blue skies, stars and daring missions",
+        girlThemeTitle: "Girls' Adventure",
+        girlThemeDescription: "Pink sparkles and brilliant missions",
+        start: "Start the adventure! 🚀",
+        freshness: "Every game has 30 different puzzles. Play again to discover new ones.",
+        mapLabel: "World map",
+        progressLabel: "Adventure progress",
+        mapHeading: "Choose the glowing gate together 🧭",
+        challengeTitle: "Put your heads together and solve the puzzle!",
+        answerLabel: "Your answer",
+        answerPlaceholder: "Type your answer here",
+        check: "Check it! ✨",
+        hintButton: "Give us a hint 💡",
+        next: "Next puzzle →",
+        finishEyebrow: "Quest complete!",
+        finishTitle: "What an amazing adventure!",
+        again: "Start a new adventure with different puzzles! 🔁",
+        changePlayers: "Change players",
+        footer: "30 puzzles · 10 worlds · one winning team ✨",
+        stages: ["Sun Gate", "Enchanted Forest", "Crystal Cave", "Coral Reef", "Cloud Mountain", "Dinosaur Valley", "Rainbow River", "Secret Library", "Star Castle", "Treasure Island"],
+        categories: { "מספרים": "Math", "חשיבה": "Brain teasers", "טבע": "Nature & science", "עברית": "Hebrew language", "ידע כללי": "General knowledge" },
+        stageProgress: (stage, count) => `World ${stage} of ${count}`,
+        questionProgress: (question, count) => `Puzzle ${question} of ${count}`,
+        roundProgress: (round, count) => `Puzzle ${round} of ${count}`,
+        score: points => `⭐ ${points} ${points === 1 ? "point" : "points"}`,
+        gradeBadge: grade => `Grades ${grade.replace("-", "–")}`,
+        mapStatus: { done: "Completed", ready: "Your current stage", locked: "Locked" },
+        emptyAnswer: "Type in an answer and we'll check it together 😊",
+        correct: "That's right! You're an amazing team! ✨",
+        correctAfterTry: "Great job sticking with it and working together! 🎉",
+        wrong: "Not quite—think it through together and try again! 💪",
+        wrongHint: "Keep going! You can ask for a hint 💡",
+        hints: {
+          "מספרים": "Hint: Break the calculation into smaller steps and check each one.",
+          "חשיבה": "Hint: Look for a pattern, or read each word in the question again.",
+          "טבע": "Hint: Think about what you've learned about plants, animals and Earth.",
+          "עברית": "Hint: Say the word slowly and think about what it means.",
+          "ידע כללי": "Hint: Think about something you've seen, read or learned."
+        },
+        finishMessage: (questionsCount, stagesCount, child, parent) => `Together, you solved ${questionsCount} puzzles and explored ${stagesCount} worlds! ${child} and ${parent}, you're a fantastic team.`,
+        finalScore: (points, count) => `⭐ You earned ${points} out of ${count} stars`,
+        storageReadError: "Game history could not be loaded. Please allow local storage in your browser and try again.",
+        storageWriteError: "Your played puzzles could not be saved. Please allow local storage in your browser and try again."
+      },
+      ar: {
+        browserTitle: "Brain Quest — مغامرة الألغاز",
+        languageLabel: "اختاروا اللغة",
+        topNote: "🧠 نفكّر ونلعب ونكتشف معًا!",
+        heroEyebrow: "🗺️ مغامرة كبيرة مليئة بالفضول",
+        heroLead: "هل أنتم مستعدون لـ ",
+        heroDescription: "استكشفوا عشرة عوالم سحرية، وحلّوا 30 لغزًا، واجمعوا النجوم في طريقكم إلى الكنز!",
+        setupTitle: "من سينضم إلى المغامرة؟",
+        setupIntro: "اختاروا أسلوب اللعب المفضّل لديكم. تنتظركم الألغاز والمفاجآت والعمل الجماعي في كلتا المغامرتين.",
+        parentLabel: "اسم الوالد/ة أو الشريك/ة",
+        childLabel: "اسم الطفل أو الطفلة",
+        gradeLabel: "في أي صف يدرس الطفل أو الطفلة؟",
+        gradeOptions: ["الصفان الأول والثاني · البداية", "الصفان الثالث والرابع · التقدّم", "الصفان الخامس والسادس · التحدّي"],
+        parentPlaceholder: "مثلًا: أمي",
+        childPlaceholder: "مثلًا: نور",
+        themeTitle: "اختاروا أسلوب مغامرتكم:",
+        themeGroup: "أسلوب اللعبة",
+        boyThemeTitle: "مغامرة الأولاد",
+        boyThemeDescription: "اللون الأزرق والنجوم ومهمات شجاعة",
+        girlThemeTitle: "مغامرة البنات",
+        girlThemeDescription: "اللون الوردي والبريق ومهمات مبهرة",
+        start: "ابدؤوا المغامرة! 🚀",
+        freshness: "في كل لعبة 30 لغزًا مختلفًا. العبوا مجددًا لاكتشاف ألغاز جديدة.",
+        mapLabel: "خريطة العوالم",
+        progressLabel: "التقدّم في المغامرة",
+        mapHeading: "اختاروا البوابة المضيئة معًا 🧭",
+        challengeTitle: "فكّروا معًا وحلّوا اللغز!",
+        answerLabel: "إجابتكم",
+        answerPlaceholder: "اكتبوا إجابتكم هنا",
+        check: "تحقّقوا من الإجابة! ✨",
+        hintButton: "نحتاج إلى تلميح 💡",
+        next: "إلى اللغز التالي ←",
+        finishEyebrow: "اكتملت المهمة!",
+        finishTitle: "يا لها من مغامرة رائعة!",
+        again: "مغامرة جديدة بألغاز مختلفة! 🔁",
+        changePlayers: "تغيير اللاعبين",
+        footer: "30 لغزًا · 10 عوالم · فريق واحد فائز ✨",
+        stages: ["بوابة الشمس", "الغابة الساحرة", "كهف البلّور", "الشعاب المرجانية", "جبل الغيوم", "وادي الديناصورات", "نهر قوس قزح", "المكتبة السرية", "قلعة النجوم", "جزيرة الكنز"],
+        categories: { "מספרים": "الرياضيات", "חשיבה": "ألغاز التفكير", "טבע": "الطبيعة والعلوم", "עברית": "اللغة العبرية", "ידע כללי": "معلومات عامة" },
+        stageProgress: (stage, count) => `العالم ${stage} من ${count}`,
+        questionProgress: (question, count) => `اللغز ${question} من ${count}`,
+        roundProgress: (round, count) => `اللغز ${round} من ${count}`,
+        score: points => `⭐ النقاط: ${points}`,
+        gradeBadge: grade => ({
+          "1-2": "الصفان الأول والثاني",
+          "3-4": "الصفان الثالث والرابع",
+          "5-6": "الصفان الخامس والسادس"
+        })[grade],
+        mapStatus: { done: "مكتملة", ready: "مرحلتكم الحالية", locked: "مغلقة" },
+        emptyAnswer: "اكتبوا إجابة ثم لنتحقق منها معًا 😊",
+        correct: "إجابة صحيحة! أنتم فريق رائع! ✨",
+        correctAfterTry: "أحسنتم المثابرة والعمل معًا! 🎉",
+        wrong: "ليست الإجابة الصحيحة بعد — فكّروا معًا وحاولوا مجددًا! 💪",
+        wrongHint: "لا بأس، أنتم على الطريق الصحيح! يمكنكم طلب تلميح 💡",
+        hints: {
+          "מספרים": "تلميح: قسّموا العملية إلى خطوات صغيرة وتحقّقوا من كل خطوة.",
+          "חשיבה": "تلميح: ابحثوا عن نمط، أو أعيدوا قراءة كلمات السؤال.",
+          "טבע": "تلميح: فكّروا فيما تعلمتموه عن النباتات والحيوانات وكوكب الأرض.",
+          "עברית": "تلميح: انطقوا الكلمة ببطء وفكّروا في معناها.",
+          "ידע כללי": "تلميح: تذكّروا شيئًا شاهدتموه أو قرأتموه أو تعلّمتموه."
+        },
+        finishMessage: (questionsCount, stagesCount, child, parent) => `حللتم معًا ${questionsCount} لغزًا واستكشفتم ${stagesCount} عوالم! ${child} و${parent}، أنتم فريق رائع.`,
+        finalScore: (points, count) => `⭐ النقاط: ${points} من أصل ${count}`,
+        storageReadError: "تعذّر تحميل سجل اللعبة. اسمحوا باستخدام التخزين المحلي في المتصفح ثم حاولوا مجددًا.",
+        storageWriteError: "تعذّر حفظ الألغاز التي لعبتموها. اسمحوا باستخدام التخزين المحلي في المتصفح ثم حاولوا مجددًا."
+      }
+    };
+
+    const translatedQuestions = {
+      en: {
+        prompts: [
+          "What is 4 + 3?", "What is 10 − 6?", "How many corners does a triangle have?",
+          "What number comes next: 2, 4, 6, …?", "What is 5 × 2?",
+          "Which animal meows and starts with the letter C?", "What gives Earth light and warmth during the day?",
+          "What covers most birds' bodies?", "What do we call water when it freezes?", "How many colors are usually counted in a rainbow?",
+          "There are 3 apples on a plate. You add 2 more. How many apples are there now?",
+          "Which month comes right after June?",
+          "What is the first letter of the Hebrew word ״שלום״ (shalom, meaning “peace”)?",
+          "What is the opposite of “big”?", "How many legs does a spider have?",
+          "Which large animal has a trunk?", "In the Hebrew alphabet, which letter comes after מ (mem)?",
+          "What is 9 − 2?", "Which planet do we live on?",
+          "What does a plant need from sunlight to grow?", "What is 3 + 3 + 3?",
+          "What sweet food do bees make?", "What is a dog's home called?",
+          "Which completely round shape has no corners?", "What is the opposite of “night”?",
+          "How many fingers are there on two hands?", "Which hopping animal carries its baby in a pouch?",
+          "What color is grass usually?", "What is 10 + 10?",
+          "What floats in the sky on a rainy day and can bring rain?",
+          "What tool do you use to unlock a door?", "What is the opposite of “fast”?",
+          "What is 7 + 8?", "What is 20 − 7?", "What is 4 × 6?", "What is half of 18?",
+          "What number comes next: 5, 10, 15, …?", "How many minutes are in one hour?",
+          "Which body part helps us hear?", "Which gas do we breathe to stay alive?",
+          "What do we call water when it boils and becomes a gas?", "In Hebrew, what is the root of the word מכתבים (letters)?",
+          "How many sides does a rectangle have?", "If it is 3 o’clock now, what time will it be in two hours?",
+          "Which weighs more: a kilogram of feathers or a kilogram of stones?",
+          "Which smart sea mammal lives in groups and starts with the letter D?", "What is 36 ÷ 6?",
+          "Which season comes after summer?", "Which punctuation mark belongs at the end of a question?",
+          "What is the process by which plants make food using sunlight called?",
+          "What is the largest organ in the human body?", "What is 15 + 27?",
+          "What number comes next: 1, 1, 2, 3, 5, …?", "How many degrees are in a right angle?",
+          "Which planet is known as the Red Planet?", "Which instrument measures temperature?",
+          "What is three-quarters of 20?", "Which word means the same as “brave”?",
+          "How many days are in a regular, non-leap year?", "Which organ pumps blood around the body?",
+          "What is the place where a river flows into the sea called?", "What is 9 × 8?",
+          "Which animal changes from a caterpillar into a chrysalis and then a butterfly?",
+          "A class of 24 students is split equally into 4 groups. How many students are in each group?",
+          "What is the largest ocean on Earth?", "In the Hebrew alphabet, which letter comes before ת (tav)?",
+          "What force pulls objects toward the ground?", "What is 125 + 75?", "What is 144 ÷ 12?",
+          "The minute hand moves 30 minutes. What fraction of a full turn has it made?",
+          "Which part of a plant absorbs water from the soil?",
+          "What do we call a triangle with three equal sides?", "What is the only even prime number?",
+          "What is 15% of 200?", "Which city is the capital of Italy?",
+          "Which gas do plants take in from the air during photosynthesis?",
+          "What number has three zeros after the digit 1?",
+          "What is the perimeter of a square with 5-centimeter sides?",
+          "Which fraction is equal to 0.5?", "What is the capital of Japan?",
+          "What is the hardest natural material in the human body?",
+          "A boat sails north, then turns right. Which direction is it facing now?",
+          "What is the sum of the angles in any triangle?", "What is 7 squared?",
+          "What is the name of the vehicle astronauts drove on the Moon during the Apollo missions?",
+          "What is the change from a solid to a liquid, like ice turning into water, called?",
+          "What number comes next: 2, 6, 12, 20, …?", "What is 2 cubed (2 × 2 × 2)?",
+          "If all roses are flowers, are all flowers roses?", "Which continent is the largest by area?",
+          "What is three-fifths of 40?", "What number is missing: 81, 27, 9, 3, __?",
+          "Which body part contains the receptors that help us taste?",
+          "How many seconds are in 4 minutes?", "Which planet is the largest in our solar system?",
+          "What is the capital of Australia?",
+          "If 45 stickers are shared equally among 5 children, how many does each child get?",
+          "Which fraction is larger: 2/3 or 3/5?", "What is the science that studies weather called?",
+          "What is the smallest number that is divisible by both 4 and 6?",
+          "How many sides does a square have?", "What is 1 + 2?", "What is 8 − 3?",
+          "How many legs does a dog have?", "What color is a ripe banana usually?",
+          "What number comes after 1, 2, 3?", "What is 2 + 2?",
+          "How many wheels does a regular car have?", "Which day comes after Monday?",
+          "Which animal says “moo”?"
+        ],
+        answers: [
+          "7", "4", "3", "8", "10", "cat", "the Sun|sun", "feathers", "ice", "7|seven",
+          "5", "July", "ש|shin", "small", "8|eight", "elephant", "נ|nun", "7",
+          "Earth|planet Earth", "light|sunlight", "9", "honey", "kennel|doghouse", "circle", "day",
+          "10|ten", "kangaroo", "green", "20", "cloud|clouds", "key", "slow|slowly",
+          "15", "13", "24", "9", "20", "60|sixty", "ear|ears", "oxygen", "steam|water vapor",
+          "כתב|K-T-B", "4|four", "5|five|5 o'clock", "the same|equal|the same weight",
+          "dolphin", "6", "autumn|fall", "question mark|?", "photosynthesis", "skin", "42", "8",
+          "90|ninety", "Mars", "thermometer", "15", "brave|courageous", "365",
+          "heart", "river mouth|estuary", "72", "butterfly", "6", "Pacific Ocean|the Pacific",
+          "ש|shin", "gravity", "200", "12", "half|one half|1/2", "root|roots",
+          "equilateral triangle", "2", "30", "Rome", "carbon dioxide|CO2", "one thousand|thousand|1000",
+          "20|20 centimeters|20 cm", "half|one half|1/2|0.5", "Tokyo", "tooth enamel|enamel",
+          "east", "180|180 degrees", "49", "lunar rover|Moon rover", "melting", "30", "8", "no",
+          "Asia", "24", "1", "tongue", "240", "Jupiter", "Canberra", "9", "2/3|two thirds",
+          "meteorology", "12",
+          "4", "3", "5", "4|four", "yellow", "4", "4", "4|four", "Tuesday", "cow"
+        ]
+      },
+      ar: {
+        prompts: [
+          "كم يساوي 4 + 3؟", "كم يساوي 10 − 6؟", "كم زاوية للمثلث؟",
+          "ما العدد التالي في النمط: 2، 4، 6، …؟", "كم يساوي 5 × 2؟",
+          "ما الحيوان الذي يموء ويبدأ اسمه بحرف القاف؟", "ما الذي يضيء الأرض ويدفئها نهارًا؟",
+          "بماذا تُغطّى أجسام معظم الطيور؟", "ماذا نسمي الماء عندما يتجمّد؟", "كم لونًا نعدّ عادةً في قوس قزح؟",
+          "على طبق 3 تفاحات. أضفنا تفاحتين. كم تفاحة على الطبق الآن؟",
+          "أي شهر يأتي مباشرةً بعد يونيو؟",
+          "ما الحرف الأول في الكلمة العبرية «שלום» (شالوم، وتعني السلام)؟",
+          "ما عكس كلمة «كبير»؟", "كم رجلًا للعنكبوت؟",
+          "ما الحيوان الكبير الذي له خرطوم؟", "في الأبجدية العبرية، ما الحرف الذي يأتي بعد م؟",
+          "كم يساوي 9 − 2؟", "على أي كوكب نعيش؟",
+          "ماذا يحتاج النبات من ضوء الشمس كي ينمو؟", "كم يساوي 3 + 3 + 3؟",
+          "ما الطعام الحلو الذي يصنعه النحل؟", "ماذا نسمّي بيت الكلب؟",
+          "ما الشكل المستدير تمامًا الذي ليس له زوايا؟", "ما عكس كلمة «ليل»؟",
+          "كم إصبعًا في اليدين معًا؟", "ما الحيوان القافز الذي يحمل صغيره في جراب؟",
+          "ما لون العشب عادةً؟", "كم يساوي 10 + 10؟",
+          "ما الذي يطفو في السماء في اليوم الماطر وقد يهطل منه المطر؟",
+          "ما الأداة التي نستخدمها لفتح باب مقفل؟", "ما عكس كلمة «سريع»؟",
+          "كم يساوي 7 + 8؟", "كم يساوي 20 − 7؟", "كم يساوي 4 × 6؟", "ما نصف العدد 18؟",
+          "ما العدد التالي في النمط: 5، 10، 15، …؟", "كم دقيقة في الساعة؟",
+          "أي عضو في الجسم يساعدنا على السمع؟", "أي غاز نتنفسه لنعيش؟",
+          "ماذا نسمي الماء عندما يغلي ويتحوّل إلى غاز؟",
+          "في العبرية، ما جذر كلمة «מכתבים» (رسائل)؟",
+          "كم ضلعًا للمستطيل؟", "الساعة الآن الثالثة. كم تصبح بعد ساعتين؟",
+          "أيهما أثقل: كيلوغرام من الريش أم كيلوغرام من الحجارة؟",
+          "ما الثديي البحري الذكي الذي يعيش في مجموعات ويبدأ اسمه بحرف الدال؟",
+          "كم يساوي 36 ÷ 6؟", "أي فصل يأتي بعد الصيف؟",
+          "ما علامة الترقيم التي نضعها في نهاية السؤال؟",
+          "ما اسم العملية التي يصنع فيها النبات غذاءه باستخدام ضوء الشمس؟",
+          "ما أكبر عضو في جسم الإنسان؟", "كم يساوي 15 + 27؟",
+          "ما العدد التالي في النمط: 1، 1، 2، 3، 5، …؟", "كم درجة في الزاوية القائمة؟",
+          "أي كوكب يُعرف بالكوكب الأحمر؟", "ما الأداة التي تقيس درجة الحرارة؟",
+          "كم يساوي ثلاثة أرباع العدد 20؟", "ما مرادف كلمة «شجاع»؟",
+          "كم يومًا في السنة العادية غير الكبيسة؟", "أي عضو يضخ الدم إلى أنحاء الجسم؟",
+          "ماذا نسمّي المكان الذي يصبّ فيه النهر في البحر؟", "كم يساوي 9 × 8؟",
+          "أي حيوان يتحوّل من يرقة إلى شرنقة ثم إلى فراشة؟",
+          "قُسّم 24 طالبًا بالتساوي إلى 4 مجموعات. كم طالبًا في كل مجموعة؟",
+          "ما أكبر محيط على الأرض؟", "في الأبجدية العبرية، ما الحرف الذي يسبق ת؟",
+          "ما القوة التي تجذب الأشياء نحو الأرض؟", "كم يساوي 125 + 75؟", "كم يساوي 144 ÷ 12؟",
+          "تحرّك عقرب الدقائق 30 دقيقة. ما الجزء الذي قطعه من دورة كاملة؟",
+          "أي جزء من النبات يمتص الماء من التربة؟",
+          "ماذا نسمّي المثلث الذي تتساوى أضلاعه الثلاثة؟", "ما العدد الأولي الزوجي الوحيد؟",
+          "كم يساوي 15٪ من 200؟", "أي مدينة هي عاصمة إيطاليا؟",
+          "أي غاز تمتصه النباتات من الهواء خلال عملية البناء الضوئي؟",
+          "ما العدد الذي يتكوّن من الرقم 1 وثلاثة أصفار؟",
+          "ما محيط المربع الذي طول كل ضلع فيه 5 سنتيمترات؟",
+          "أي كسر يساوي 0.5؟", "ما عاصمة اليابان؟",
+          "ما أصلب مادة طبيعية في جسم الإنسان؟",
+          "أبحر قارب نحو الشمال ثم انعطف يمينًا. إلى أي اتجاه يتجه الآن؟",
+          "كم يساوي مجموع زوايا أي مثلث؟", "كم يساوي 7 تربيعًا؟",
+          "ما اسم المركبة التي قادها روّاد الفضاء على القمر في مهمات أبولو؟",
+          "ماذا نسمّي تحوّل المادة من الحالة الصلبة إلى السائلة، مثل تحوّل الجليد إلى ماء؟",
+          "ما العدد التالي في النمط: 2، 6، 12، 20، …؟", "كم يساوي 2 تكعيبًا (2 × 2 × 2)؟",
+          "إذا كانت كل الورود أزهارًا، فهل كل الأزهار ورود؟", "ما أكبر قارة من حيث المساحة؟",
+          "كم يساوي ثلاثة أخماس العدد 40؟", "ما العدد الناقص: 81، 27، 9، 3، __؟",
+          "أي عضو في الجسم يحتوي على مستقبلات تساعدنا على التذوّق؟",
+          "كم ثانية في 4 دقائق؟", "ما أكبر كوكب في مجموعتنا الشمسية؟",
+          "ما عاصمة أستراليا؟",
+          "إذا وُزّعت 45 ملصقًا بالتساوي على 5 أطفال، فكم ملصقًا يأخذ كل طفل؟",
+          "أيهما أكبر: 2/3 أم 3/5؟", "ماذا نسمّي العلم الذي يدرس الطقس؟",
+          "ما أصغر عدد يقبل القسمة على 4 وعلى 6؟",
+          "كم ضلعًا للمربع؟", "كم يساوي 1 + 2؟", "كم يساوي 8 − 3؟",
+          "كم رجلًا للكلب؟", "ما لون الموز الناضج عادةً؟",
+          "ما العدد الذي يأتي بعد 1، 2، 3؟", "كم يساوي 2 + 2؟",
+          "كم عجلة للسيارة العادية؟", "أي يوم يأتي بعد الاثنين؟",
+          "ما الحيوان الذي يقول «موو»؟"
+        ],
+        answers: [
+          "7", "4", "3", "8", "10", "قط", "الشمس", "الريش", "الثلج", "7|سبعة",
+          "5", "يوليو", "ש|شين", "صغير", "8|ثمانية", "فيل", "נ|نون", "7",
+          "الأرض|كوكب الأرض", "الضوء|ضوء الشمس", "9", "عسل", "بيت الكلب|بيت للكلب", "دائرة", "النهار",
+          "10|عشرة", "كنغر", "أخضر", "20", "سحابة|غيمة", "مفتاح", "بطيء|ببطء",
+          "15", "13", "24", "9", "20", "60|ستون", "أذن|الأذنان", "الأكسجين",
+          "بخار الماء|البخار", "כתב|ك ت ب", "4|أربعة", "5|الخامسة|الساعة الخامسة",
+          "متساويان|لهما الوزن نفسه|الوزن نفسه", "دلفين", "6", "الخريف", "علامة الاستفهام|؟",
+          "البناء الضوئي", "الجلد", "42", "8", "90|تسعون", "المريخ",
+          "مقياس الحرارة|ميزان الحرارة|ترمومتر", "15", "شجاع|جريء", "365", "القلب",
+          "مصب النهر|المصب", "72", "فراشة", "6", "المحيط الهادئ|الهادئ", "ש|شين",
+          "الجاذبية|قوة الجاذبية", "200", "12", "النصف|½|1/2", "الجذر|الجذور",
+          "مثلث متساوي الأضلاع", "2", "30", "روما", "ثاني أكسيد الكربون|CO2",
+          "ألف|1000", "20|20 سنتيمترًا|20 سم", "النصف|½|1/2|0.5", "طوكيو",
+          "مينا الأسنان|المينا", "الشرق", "180|180 درجة", "49", "المركبة القمرية|عربة القمر",
+          "الانصهار", "30", "8", "لا", "آسيا", "24", "1", "اللسان", "240", "المشتري",
+          "كانبيرا", "9", "2/3|ثلثان",           "علم الأرصاد الجوية|الأرصاد الجوية", "12",
+          "4|أربعة", "3", "5", "4|أربعة", "أصفر", "4", "4", "4|أربعة", "الثلاثاء", "بقرة"
+        ]
+      }
+    };
+
+    for (const language of ["en", "ar"]) {
+      const localizedBank = translatedQuestions[language];
+      if (localizedBank.prompts.length !== questions.length || localizedBank.answers.length !== questions.length ||
+          localizedBank.prompts.some(value => !value) || localizedBank.answers.some(value => !value)) {
+        throw new Error(`The ${language} question bank must translate all ${questions.length} questions and answers.`);
+      }
+    }
+
+    function localizedNumber(value) {
+      return String(value);
+    }
+
+    function createArithmeticQuestion(left, operator, right, answer, grade) {
+      const operators = {
+        "+": { he: "ועוד", en: "+", ar: "+" },
+        "-": { he: "פחות", en: "−", ar: "−" },
+        "*": { he: "כפול", en: "×", ar: "×" },
+        "/": { he: "חלקי", en: "÷", ar: "÷" }
+      };
+      const symbol = operators[operator];
+      const values = {
+        he: `${localizedNumber(left)} ${symbol.he} ${localizedNumber(right)}`,
+        en: `${left} ${symbol.en} ${right}`,
+        ar: `${localizedNumber(left)} ${symbol.ar} ${localizedNumber(right)}`
+      };
+      return [
+        `כמה הם ${values.he}?`,
+        String(answer),
+        "מספרים",
+        {
+          en: { prompt: `What is ${values.en}?`, answer: String(answer) },
+          ar: { prompt: `كم يساوي ${values.ar}؟`, answer: localizedNumber(answer) }
+        },
+        grade
+      ];
+    }
+
+    function createPercentageQuestion(percent, total, answer) {
+      return [
+        `כמה הם ${percent} אחוזים מתוך ${total}?`,
+        String(answer),
+        "מספרים",
+        {
+          en: { prompt: `What is ${percent}% of ${total}?`, answer: String(answer) },
+          ar: {
+            prompt: `كم يساوي ${localizedNumber(percent)}٪ من ${localizedNumber(total)}؟`,
+            answer: localizedNumber(answer)
+          }
+        },
+        "5-6"
+      ];
+    }
+
+    function createFractionQuestion(numerator, denominator, total, answer) {
+      return [
+        `כמה הם ${numerator}/${denominator} מתוך ${total}?`,
+        String(answer),
+        "מספרים",
+        {
+          en: { prompt: `What is ${numerator}/${denominator} of ${total}?`, answer: String(answer) },
+          ar: {
+            prompt: `كم يساوي ${localizedNumber(numerator)}/${localizedNumber(denominator)} من ${localizedNumber(total)}؟`,
+            answer: localizedNumber(answer)
+          }
+        },
+        "5-6"
+      ];
+    }
+
+    const gradeSpecificQuestions = {
+      "1-2": [
+        [1, "+", 4, 5], [2, "+", 5, 7], [3, "+", 6, 9], [4, "+", 5, 9], [5, "+", 7, 12],
+        [6, "+", 8, 14], [7, "+", 9, 16], [10, "+", 4, 14], [11, "+", 5, 16], [12, "+", 6, 18],
+        [9, "-", 3, 6], [10, "-", 4, 6], [12, "-", 5, 7], [14, "-", 6, 8], [15, "-", 7, 8],
+        [16, "-", 8, 8], [18, "-", 9, 9], [20, "-", 10, 10], [13, "-", 4, 9], [17, "-", 5, 12]
+      ].map(([a, op, b, result]) => createArithmeticQuestion(a, op, b, result, "1-2")),
+      "3-4": [
+        [2, "*", 6, 12], [3, "*", 7, 21], [4, "*", 8, 32], [5, "*", 9, 45], [6, "*", 7, 42],
+        [7, "*", 8, 56], [8, "*", 9, 72], [9, "*", 6, 54], [4, "*", 9, 36], [7, "*", 5, 35],
+        [8, "*", 6, 48], [9, "*", 4, 36], [12, "/", 3, 4], [18, "/", 3, 6], [24, "/", 4, 6],
+        [35, "/", 5, 7], [42, "/", 6, 7], [48, "/", 8, 6], [54, "/", 9, 6], [63, "/", 7, 9],
+        [72, "/", 8, 9], [81, "/", 9, 9], [96, "/", 12, 8]
+      ].map(([a, op, b, result]) => createArithmeticQuestion(a, op, b, result, "3-4")),
+      "5-6": [
+        ...[
+          [12, "*", 11, 132], [13, "*", 12, 156], [14, "*", 15, 210],
+          [16, "*", 17, 272], [18, "*", 14, 252], [19, "*", 13, 247],
+          [22, "*", 14, 308], [25, "*", 16, 400], [24, "*", 18, 432]
+        ].map(([a, op, b, result]) => createArithmeticQuestion(a, op, b, result, "5-6")),
+        ...[
+          [234, "/", 18, 13], [360, "/", 24, 15], [672, "/", 28, 24],
+          [936, "/", 36, 26], [1440, "/", 48, 30], [1560, "/", 60, 26],
+          [1872, "/", 72, 26], [1920, "/", 64, 30]
+        ].map(([a, op, b, result]) => createArithmeticQuestion(a, op, b, result, "5-6")),
+        ...[
+          [35, 240, 84], [12.5, 320, 40], [18, 250, 45], [45, 180, 81], [75, 280, 210]
+        ].map(([percent, total, result]) => createPercentageQuestion(percent, total, result)),
+        ...[
+          [3, 8, 160, 60], [5, 6, 144, 120], [7, 10, 350, 245],
+          [5, 12, 288, 120], [9, 20, 400, 180]
+        ].map(([numerator, denominator, total, result]) => createFractionQuestion(numerator, denominator, total, result))
+      ]
+    };
+
+    const extraIds = {};
+    for (const grade of ["1-2", "3-4", "5-6"]) {
+      const start = questions.length;
+      questions.push(...gradeSpecificQuestions[grade]);
+      extraIds[grade] = Array.from({ length: questions.length - start }, (_, index) => start + index);
+    }
+
+    const stages = [
+      ["שער השמש", "🌞"], ["יער הקסם", "🌳"], ["מערת הקריסטל", "💎"],
+      ["שונית האלמוגים", "🐠"], ["הר העננים", "☁️"], ["עמק הדינוזאורים", "🦕"],
+      ["נהר הקשת", "🌈"], ["הספרייה הסודית", "📚"], ["טירת הכוכבים", "🏰"],
+      ["אי האוצר", "🏝️"]
+    ];
+    const QUESTIONS_PER_STAGE = 3;
+    const GAME_LENGTH = stages.length * QUESTIONS_PER_STAGE;
+    const STORAGE_KEY = "brainQuestPlayedQuestions_v3";
+    const $ = id => document.getElementById(id);
+    const state = { theme: "boy", language: "he", grade: "3-4", selected: [], index: 0, points: 0, misses: 0, locked: false, hintShown: false, feedbackKey: "" };
+
+    function questionIdsForGrade(grade) {
+      let ids;
+      if (grade === "1-2") {
+        ids = [
+          ...Array.from({ length: 30 }, (_, index) => index).filter(index => index !== 4),
+          32,
+          ...Array.from({ length: 10 }, (_, index) => 100 + index),
+          ...extraIds[grade]
+        ];
+      } else if (grade === "3-4") {
+        ids = [
+          ...Array.from({ length: 37 }, (_, index) => 30 + index).filter(index => index !== 32),
+          4,
+          ...extraIds[grade]
+        ];
+      } else if (grade === "5-6") {
+        ids = [...Array.from({ length: 33 }, (_, index) => 67 + index), ...extraIds[grade]];
+      } else {
+        throw new Error(`Unsupported Brain Quest grade: ${grade}`);
+      }
+      if (ids.length < GAME_LENGTH * 2) {
+        throw new Error(`Grade ${grade} must contain at least two games of distinct questions.`);
+      }
+      return ids;
+    }
+
+    function copy() {
+      return ui[state.language];
+    }
+
+    function displayQuestion(index) {
+      const question = questions[index];
+      return question[3]?.[state.language]?.prompt ??
+        (state.language === "he" ? question[0] : translatedQuestions[state.language].prompts[index]);
+    }
+
+    function displayAnswers(index) {
+      const question = questions[index];
+      const answer = question[3]?.[state.language]?.answer ??
+        (state.language === "he" ? question[1] : translatedQuestions[state.language].answers[index]);
+      return answer.split("|").map(normalized);
+    }
+
+    function applyLanguage() {
+      const text = copy();
+      document.documentElement.lang = state.language;
+      document.documentElement.dir = state.language === "en" ? "ltr" : "rtl";
+      document.title = text.browserTitle;
+      $("languagePicker").setAttribute("aria-label", text.languageLabel);
+      $("topNote").textContent = text.topNote;
+      $("heroEyebrow").textContent = text.heroEyebrow;
+      $("heroLead").textContent = text.heroLead;
+      $("heroDescription").textContent = text.heroDescription;
+      $("setupTitle").textContent = text.setupTitle;
+      $("setupIntro").textContent = text.setupIntro;
+      $("parentLabel").textContent = text.parentLabel;
+      $("childLabel").textContent = text.childLabel;
+      $("parentName").placeholder = text.parentPlaceholder;
+      $("childName").placeholder = text.childPlaceholder;
+      $("gradeLabel").textContent = text.gradeLabel;
+      Array.from($("grade").options).forEach((option, index) => {
+        option.textContent = text.gradeOptions[index];
+      });
+      $("themeTitle").textContent = text.themeTitle;
+      $("themeGroup").setAttribute("aria-label", text.themeGroup);
+      $("boyThemeTitle").textContent = text.boyThemeTitle;
+      $("boyThemeDescription").textContent = text.boyThemeDescription;
+      $("girlThemeTitle").textContent = text.girlThemeTitle;
+      $("girlThemeDescription").textContent = text.girlThemeDescription;
+      $("start").textContent = text.start;
+      $("freshness").textContent = text.freshness;
+      $("worldMap").setAttribute("aria-label", text.mapLabel);
+      $("mapHeading").textContent = text.mapHeading;
+      $("progressTrack").setAttribute("aria-label", text.progressLabel);
+      $("challengeTitle").textContent = text.challengeTitle;
+      $("answer").setAttribute("aria-label", text.answerLabel);
+      $("answer").placeholder = text.answerPlaceholder;
+      $("check").textContent = text.check;
+      $("hintButton").textContent = text.hintButton;
+      $("next").textContent = text.next;
+      $("finishEyebrow").textContent = text.finishEyebrow;
+      $("finishTitle").textContent = text.finishTitle;
+      $("again").textContent = text.again;
+      $("changePlayers").textContent = text.changePlayers;
+      document.querySelector(".footer").textContent = text.footer;
+      document.querySelectorAll("[data-language]").forEach(button => {
+        button.setAttribute("aria-pressed", String(button.dataset.language === state.language));
+      });
+      if (!$("game").hidden) renderQuestion(true);
+      if (!$("finish").hidden) renderFinish();
+    }
+
+    function selectLanguage(language) {
+      if (!ui[language]) {
+        throw new Error(`Unsupported Brain Quest language: ${language}`);
+      }
+      state.language = language;
+      applyLanguage();
+    }
+
+    function shuffle(items) {
+      const copy = [...items];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function readHistory() {
+      let stored;
+      try {
+        stored = localStorage.getItem(`${STORAGE_KEY}_${state.grade}`);
+      } catch (error) {
+        $("freshness").textContent = copy().storageReadError;
+        console.error("Could not access Brain Quest question history.", error);
+        throw error;
+      }
+      if (stored === null) return { played: [], lastGame: [] };
+      let parsed;
+      try {
+        parsed = JSON.parse(stored);
+      } catch (error) {
+        console.error("Saved Brain Quest history is invalid; starting a new question cycle.", error);
+        localStorage.removeItem(`${STORAGE_KEY}_${state.grade}`);
+        return { played: [], lastGame: [] };
+      }
+      if (!parsed || !Array.isArray(parsed.played) || !Array.isArray(parsed.lastGame)) {
+        console.error("Saved Brain Quest history has an unexpected format; starting a new question cycle.");
+        localStorage.removeItem(`${STORAGE_KEY}_${state.grade}`);
+        return { played: [], lastGame: [] };
+      }
+      const validIds = new Set(questions.map((_, index) => index));
+      const gradeIds = new Set(questionIdsForGrade(state.grade));
+      if (![...parsed.played, ...parsed.lastGame].every(id => Number.isInteger(id) && validIds.has(id) && gradeIds.has(id))) {
+        console.error("Saved Brain Quest history contains unknown question IDs; starting a new question cycle.");
+        localStorage.removeItem(`${STORAGE_KEY}_${state.grade}`);
+        return { played: [], lastGame: [] };
+      }
+      return parsed;
+    }
+
+    function pickQuestions() {
+      const history = readHistory();
+      const gradeIds = questionIdsForGrade(state.grade);
+      let available = gradeIds.filter(id => !history.played.includes(id));
+      let played = history.played;
+      let pickedIds;
+      if (available.length < GAME_LENGTH) {
+        const availableIds = new Set(available);
+        const lastGameIds = new Set(history.lastGame);
+        const previouslyPlayed = gradeIds.filter(id => !availableIds.has(id) && !lastGameIds.has(id));
+        const needed = GAME_LENGTH - available.length;
+        if (previouslyPlayed.length < needed) {
+          throw new Error("The question bank does not contain enough questions for a fresh replay.");
+        }
+        pickedIds = [...available, ...shuffle(previouslyPlayed).slice(0, needed)];
+        played = [];
+      } else {
+        pickedIds = shuffle(available).slice(0, GAME_LENGTH);
+      }
+      pickedIds = shuffle(pickedIds);
+      try {
+        localStorage.setItem(`${STORAGE_KEY}_${state.grade}`, JSON.stringify({
+          played: [...played, ...pickedIds],
+          lastGame: pickedIds
+        }));
+      } catch (error) {
+        $("freshness").textContent = copy().storageWriteError;
+        console.error("Could not save Brain Quest question history.", error);
+        throw error;
+      }
+      return pickedIds.map(id => questions[id]);
+    }
+
+    function setTheme(theme) {
+      state.theme = theme;
+      document.body.dataset.theme = theme;
+      document.querySelectorAll("[data-theme-choice]").forEach(button => {
+        const selected = button.dataset.themeChoice === theme;
+        button.classList.toggle("selected", selected);
+        button.setAttribute("aria-pressed", String(selected));
+      });
+    }
+
+    function normalized(value) {
+      return value.toLocaleLowerCase(state.language)
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[٠-٩]/g, digit => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit)))
+        .replace(/[۰-۹]/g, digit => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)))
+        .replace(/[״׳"']/g, "")
+        .replace(/[^\p{L}\p{N}]+/gu, "");
+    }
+
+    function currentStage() {
+      return Math.floor(state.index / QUESTIONS_PER_STAGE);
+    }
+
+    function renderMap() {
+      const activeStage = currentStage();
+      const text = copy();
+      $("nodes").innerHTML = stages.map(([, icon], index) => {
+        const done = index < activeStage;
+        const ready = index === activeStage;
+        const name = text.stages[index];
+        const status = done ? text.mapStatus.done : ready ? text.mapStatus.ready : text.mapStatus.locked;
+        return `<button class="node ${done ? "done" : ready ? "ready" : ""}" type="button" data-stage="${index}" aria-label="${name}: ${status}" ${ready ? "" : "disabled"}>
+          <span class="node-icon" aria-hidden="true">${done ? "✅" : ready ? icon : "🔒"}</span>
+          <span class="node-name">${name}</span>
+        </button>`;
+      }).join("");
+      $("nodes").querySelectorAll(".node:not(:disabled)").forEach(button => {
+        button.addEventListener("click", () => $("challenge").scrollIntoView({ behavior: "smooth", block: "center" }));
+      });
+    }
+
+    function renderQuestion(preserve = false) {
+      const stageIndex = currentStage();
+      const question = state.selected[state.index];
+      const questionIndex = questions.indexOf(question);
+      const stageRound = (state.index % QUESTIONS_PER_STAGE) + 1;
+      const text = copy();
+      const answerValue = preserve ? $("answer").value : "";
+      $("stageProgress").textContent = text.stageProgress(stageIndex + 1, stages.length);
+      $("questionProgress").textContent = text.questionProgress(state.index + 1, GAME_LENGTH);
+      $("progressFill").style.width = `${(state.index / GAME_LENGTH) * 100}%`;
+      $("progressTrack").setAttribute("aria-valuenow", String(state.index));
+      $("score").textContent = text.score(state.points);
+      $("stageName").textContent = `${stages[stageIndex][1]} ${text.stages[stageIndex]}`;
+      $("gradeName").textContent = text.gradeBadge(state.grade);
+      $("gradeName").textContent = text.gradeBadge(state.grade);
+      $("category").textContent = text.categories[question[2]];
+      $("roundLabel").textContent = text.roundProgress(stageRound, QUESTIONS_PER_STAGE);
+      $("question").textContent = displayQuestion(questionIndex);
+      const parentName = $("parentName").value.trim() || ({ he: "ההורה", en: "the parent", ar: "الوالد/ة" })[state.language];
+      const childName = $("childName").value.trim() || ({ he: "הילד/ה", en: "the child", ar: "الطفل/ة" })[state.language];
+      $("team").replaceChildren(...[
+        ["🧑‍🚀 ", parentName],
+        ["🚀 ", childName]
+      ].map(([icon, name]) => {
+        const player = document.createElement("span");
+        player.textContent = icon + name;
+        return player;
+      }));
+      $("answer").value = answerValue;
+      $("answer").dir = "auto";
+      $("answer").disabled = state.locked;
+      $("check").disabled = state.locked;
+      $("check").hidden = state.locked;
+      $("next").hidden = !state.locked;
+      $("feedback").textContent = state.feedbackKey ? text[state.feedbackKey] : "";
+      $("feedback").classList.toggle("good", state.feedbackKey === "correct" || state.feedbackKey === "correctAfterTry");
+      $("hint").textContent = state.hintShown ? text.hints[question[2]] : "";
+      $("hint").hidden = !state.hintShown;
+      $("hintButton").hidden = state.hintShown || state.locked;
+      if (!preserve) {
+        state.misses = 0;
+        state.locked = false;
+        state.hintShown = false;
+        state.feedbackKey = "";
+      }
+      if (!preserve) {
+        $("answer").value = "";
+        $("answer").disabled = false;
+        $("check").disabled = false;
+        $("check").hidden = false;
+        $("next").hidden = true;
+        $("feedback").textContent = "";
+        $("feedback").classList.remove("good");
+        $("hint").hidden = true;
+        $("hint").textContent = "";
+        $("hintButton").hidden = false;
+      }
+      renderMap();
+      if (!preserve) $("answer").focus({ preventScroll: true });
+    }
+
+    function startGame() {
+      $("freshness").textContent = copy().freshness;
+      state.grade = $("grade").value;
+      state.selected = pickQuestions();
+      state.index = 0;
+      state.points = 0;
+      $("setup").hidden = true;
+      $("finish").hidden = true;
+      $("game").hidden = false;
+      renderQuestion();
+      $("game").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function revealHint() {
+      const category = state.selected[state.index][2];
+      $("hint").textContent = copy().hints[category];
+      $("hint").hidden = false;
+      state.hintShown = true;
+      $("hintButton").hidden = true;
+    }
+
+    function checkAnswer() {
+      if (state.locked) return;
+      const entered = normalized($("answer").value);
+      if (!entered) {
+        state.feedbackKey = "emptyAnswer";
+        $("feedback").textContent = copy().emptyAnswer;
+        $("answer").focus();
+        return;
+      }
+      const questionIndex = questions.indexOf(state.selected[state.index]);
+      const validAnswers = displayAnswers(questionIndex);
+      if (validAnswers.includes(entered)) {
+        state.locked = true;
+        if (state.misses === 0 && !state.hintShown) state.points++;
+        const text = copy();
+        $("score").textContent = text.score(state.points);
+        state.feedbackKey = state.misses === 0 && !state.hintShown ? "correct" : "correctAfterTry";
+        $("feedback").textContent = text[state.feedbackKey];
+        $("feedback").classList.add("good");
+        $("answer").disabled = true;
+        $("check").hidden = true;
+        $("hintButton").hidden = true;
+        $("next").hidden = false;
+        $("next").focus();
+        return;
+      }
+      state.misses++;
+      state.feedbackKey = state.misses === 1 ? "wrong" : "wrongHint";
+      $("feedback").textContent = copy()[state.feedbackKey];
+      $("feedback").classList.remove("good");
+      if (state.misses >= 2) revealHint();
+      $("answer").select();
+    }
+
+    function showFinish() {
+      $("game").hidden = true;
+      $("finish").hidden = false;
+      $("progressFill").style.width = "100%";
+      $("progressTrack").setAttribute("aria-valuenow", String(GAME_LENGTH));
+      renderFinish();
+      $("finish").scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function renderFinish() {
+      const text = copy();
+      const child = $("childName").value.trim() || ({ he: "הילד/ה", en: "the child", ar: "الطفل/ة" })[state.language];
+      const parent = $("parentName").value.trim() || ({ he: "ההורה", en: "the parent", ar: "الوالد/ة" })[state.language];
+      $("finishMessage").textContent = text.finishMessage(GAME_LENGTH, stages.length, child, parent);
+      $("finalScore").textContent = text.finalScore(state.points, GAME_LENGTH);
+    }
+
+    function nextQuestion() {
+      state.index++;
+      if (state.index === GAME_LENGTH) {
+        showFinish();
+        return;
+      }
+      renderQuestion();
+      $("challenge").scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    document.querySelectorAll("[data-theme-choice]").forEach(button => {
+      button.addEventListener("click", () => setTheme(button.dataset.themeChoice));
+    });
+    document.querySelectorAll("[data-language]").forEach(button => {
+      button.addEventListener("click", () => selectLanguage(button.dataset.language));
+    });
+    $("start").addEventListener("click", startGame);
+    $("check").addEventListener("click", checkAnswer);
+    $("answer").addEventListener("keydown", event => {
+      if (event.key === "Enter") checkAnswer();
+    });
+    $("hintButton").addEventListener("click", revealHint);
+    $("next").addEventListener("click", nextQuestion);
+    $("again").addEventListener("click", startGame);
+    $("changePlayers").addEventListener("click", () => {
+      $("finish").hidden = true;
+      $("setup").hidden = false;
+      $("setup").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    setTheme(state.theme);
+    applyLanguage();
+  </script>
+</body>
+</html>

@@ -131,6 +131,14 @@ const projects = [
   link: "projects/CLASSVERSE/",
   unlocked: true
 },
+{
+  day: 16,
+  name: "BRAIN QUEST",
+  description: "A colorful family puzzle adventure with 100 questions, three grade levels, and Hebrew, Arabic, and English.",
+  tags: ["HTML", "CSS", "JavaScript", "Education", "Multilingual"],
+  link: "projects/brain-quest/index.html",
+  unlocked: true
+},
 
 ];
 
