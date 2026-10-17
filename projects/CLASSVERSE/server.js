@@ -8,6 +8,7 @@ const A = require('./adventure');
 const DB = require('./db');
 const { createApi } = require('./api');
 const { clerkAuth } = require('./auth');
+const BANK = require('./public/question-bank');
 
 const app = express();
 app.disable('x-powered-by');
@@ -44,9 +45,10 @@ async function bootstrapIntegrations(env = process.env) {
 }
 function cspHeader() {
   const clerk = integrations.clerkHost ? ` https://${integrations.clerkHost}` : '';
-  const clerkScripts = integrations.clerkHost ? ' https://cdn.protect.clerk.com' : '';
+  const clerkScripts = integrations.clerkHost ? ' https://*.protect.clerk.com' : '';
+  const clerkConnections = integrations.clerkHost ? ' https://*.protect.clerk.com:*' : '';
   const clerkExtra = integrations.clerkHost ? ' https://img.clerk.com https://challenges.cloudflare.com' : '';
-  return `default-src 'self'; script-src 'self'${clerk}${clerkScripts} https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:${clerkExtra}; connect-src 'self' ws: wss:${clerk}${clerkScripts} https://clerk-telemetry.com; frame-src ${integrations.clerkHost ? 'https://challenges.cloudflare.com' : "'none'"}; worker-src 'self' blob:; frame-ancestors 'none'; base-uri 'none'; form-action 'self'`;
+  return `default-src 'self'; script-src 'self'${clerk}${clerkScripts} https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:${clerkExtra}; connect-src 'self' ws: wss:${clerk}${clerkConnections} https://clerk-telemetry.com; frame-src ${integrations.clerkHost ? `https://challenges.cloudflare.com${clerkScripts}` : "'none'"}; worker-src 'self' blob:; frame-ancestors 'none'; base-uri 'none'; form-action 'self'`;
 }
 app.use((_req, res, next) => {
   res.set({
@@ -72,12 +74,14 @@ setInterval(() => { const now = Date.now(); for (const [code, r] of rooms) if (n
 app.get('/health', (_req, res) => {
   res.set('Access-Control-Allow-Origin', '*').json({ status: 'ok' });
 });
-app.get('/projector', (_req, res) => res.sendFile(path.join(__dirname, 'public', 'projector.html')));
+app.get(['/projector', '/projector.html'], (req, res) => res.redirect(`/?screen=${encodeURIComponent(String(req.query.code || ''))}`));
+app.get(['/worlds.html', '/academy.html'], (_req, res) => res.redirect('/'));
+app.get(['/arena.html', '/quest-studio.html'], (_req, res) => res.redirect('/teacher.html'));
 app.get('/api/qr', async (req, res) => {
   const code = String(req.query.code ?? '').toUpperCase();
   if (!/^[A-Z0-9]{6}$/.test(code) || !rooms.has(code)) return res.status(404).end();
   const origin = `${req.protocol}://${req.get('host')}`;
-  const svg = await QRCode.toString(`${origin}/?room=${code}`, { type: 'svg', margin: 1, color: { dark: '#111111', light: '#ffffff' } });
+  const svg = await QRCode.toString(`${origin}/?room=${code}#join`, { type: 'svg', margin: 1, color: { dark: '#111111', light: '#ffffff' } });
   res.type('image/svg+xml').send(svg);
 });
 // Clerk's own sign-in dialog is translated with its official Hebrew/Arabic packs, served locally (no extra CDN).
@@ -121,11 +125,20 @@ const gamePacks = {
     { q: 'Who is associated with the European printing press?', options: ['Galileo', 'Gutenberg', 'Newton', 'Da Vinci'], answer: 1 }
   ]
 };
-function stateFor(room, teacher) {
+const languageOf = value => BANK.languages.includes(value) ? value : 'en';
+const questionText = (question, language) => question.translations
+  ? { q: question.translations.q[language], options: question.translations.options[language] }
+  : { q: question.q, options: question.options };
+function stateFor(room, teacher, language = room.contentLanguage) {
+  const results = room.stage === 'finished' ? resultsFor(room) : null;
+  const logs = [...room.students.values()].flatMap(student => student.log || []);
+  const correct = logs.filter(answer => answer.correct).length;
   return {
-    code: room.code, title: room.title, world: room.world, stage: room.stage, contentLanguage: room.contentLanguage, gameId: room.gameId,
+    code: room.code, title: BANK.games.find(game => game.id === room.gameId)?.title[language] || room.title, world: room.world, stage: room.stage, contentLanguage: room.contentLanguage, gameId: room.gameId,
+    mode: room.mode || 'quiz', translated: !!room.questions[0]?.translations, hostConnected: !!room.teacherId,
+    cooperative: { correct, answered: logs.length, accuracy: pct(correct, logs.length), target: 70 },
     // Only the teacher sees upcoming questions; everyone else sees the active one.
-    questions: room.questions.map((q, i) => (teacher || i === room.activeQuestion ? { index: i, q: q.q, options: q.options } : { index: i, q: '', options: [] })),
+    questions: room.questions.map((q, i) => (teacher || i === room.activeQuestion ? { index: i, ...questionText(q, language) } : { index: i, q: '', options: [] })),
     students: [...room.students.values()].map(s => ({ id: s.id, name: s.name, avatar: s.avatar, points: s.points, answered: s.answered, team: s.team || null, connected: s.connected !== false })),
     adv: A.publicState(room),
     activeQuestion: room.activeQuestion,
@@ -139,12 +152,14 @@ function stateFor(room, teacher) {
     teacherConnected: Boolean(room.teacherId),
     timeLimit: room.timeLimit, endsAt: room.stage === 'question' ? room.endsAt : null, serverNow: Date.now(),
     revealAnswer: room.stage === 'reveal' && room.activeQuestion >= 0 ? room.questions[room.activeQuestion].answer : null,
-    results: room.stage === 'finished' ? resultsFor(room) : null
+    results: results ? { ...results, questions: results.questions.map(q => ({ ...q, q: questionText(room.questions[q.index], language).q })) } : null
   };
 }
 function broadcast(room) {
-  io.to(room.code).except(room.teacherId || '').emit('room:state', stateFor(room, false));
-  if (room.teacherId) io.to(room.teacherId).emit('room:state', stateFor(room, true));
+  for (const id of io.sockets.adapter.rooms.get(room.code) || []) {
+    const recipient = io.sockets.sockets.get(id);
+    if (recipient) recipient.emit('room:state', stateFor(room, id === room.teacherId, recipient.data.language || room.contentLanguage));
+  }
   room.touched = Date.now();
 }
 
@@ -229,6 +244,13 @@ function rejectIfEnded(room, ack) {
 function resetAnswers(room) { room.answers.clear(); for (const s of room.students.values()) s.answered = false; }
 
 io.on('connection', socket => {
+  socket.on('client:language', (language, ack) => {
+    if (!BANK.languages.includes(language)) return ackReply(ack, { ok: false, error: 'invalidAction' });
+    socket.data.language = language;
+    const room = rooms.get(socket.data.code);
+    if (room) socket.emit('room:state', stateFor(room, room.teacherId === socket.id, language));
+    ackReply(ack, { ok: true });
+  });
   socket.on('teacher:create', async (data, ack) => {
     let teacher, saved = null;
     try {
@@ -254,9 +276,14 @@ io.on('connection', socket => {
     }
     let code = codeGen(); while (rooms.has(code)) code = codeGen();
     const gameId = saved ? '' : clean(data?.gameId, 24);
-    const questions = saved ? saved.questions : gamePacks[gameId] || starter;
+    const pack = BANK.games.find(game => game.id === gameId);
+    const contentLanguage = saved?.game.language || languageOf(data?.language);
+    socket.data.language = languageOf(data?.language);
+    const questions = saved ? saved.questions : pack
+      ? pack.questions.map(q => ({ q: q.q[contentLanguage], options: q.options[contentLanguage], answer: q.answer, translations: q }))
+      : gamePacks[gameId] || starter;
     const title = clean(data?.title, 70) || saved?.game.title || 'Space Mission';
-    const room = { code, gameId, dbGameId: saved?.game.id || null, hostUserId: teacher.user?.id || null, sessionId: null, touched: Date.now(), played: new Set(), finishedAt: null, title, world: clean(data?.world, 30) || 'space', contentLanguage: saved?.game.language || 'en', timeLimit: 20, endsAt: null, timer: null, teacherId: socket.id, teacherToken: crypto.randomUUID(), students: new Map(), questions: questions.map(q => ({ ...q, options: [...q.options] })), activeQuestion: -1, answers: new Map(), proposals: [], surprise: null, stage: 'lobby', storyChoice: null, storyVotes: new Map() };
+    const room = { code, gameId, mode: pack?.mode || 'quiz', dbGameId: saved?.game.id || null, hostUserId: teacher.user?.id || null, sessionId: null, touched: Date.now(), played: new Set(), finishedAt: null, title, world: clean(data?.world, 30) || 'space', contentLanguage, timeLimit: 20, endsAt: null, timer: null, teacherId: socket.id, teacherToken: crypto.randomUUID(), students: new Map(), questions: questions.map(q => ({ ...q, options: [...q.options] })), activeQuestion: -1, answers: new Map(), proposals: [], surprise: null, stage: 'lobby', storyChoice: null, storyVotes: new Map() };
     rooms.set(code, room); socket.data.code = code; socket.data.role = 'teacher'; socket.join(code);
     if (integrations.pool && room.hostUserId && data?.mode !== 'adventure') {
       DB.recordSession(integrations.pool, { gameId: room.dbGameId, builtinKey: room.gameId || null, hostId: room.hostUserId, roomCode: code })
@@ -268,13 +295,15 @@ io.on('connection', socket => {
     }
     ackReply(ack, { ok: true, code, teacherToken: room.teacherToken }); broadcast(room);
   });
-  socket.on('teacher:resume', ({ code, token }, ack) => {
+  socket.on('teacher:resume', ({ code, token, language }, ack) => {
     const room = rooms.get(clean(code, 6).toUpperCase());
     if (!room || room.teacherToken !== token) return ackReply(ack, { ok: false, error: 'teacherSessionInvalid' });
+    socket.data.language = languageOf(language);
     room.teacherId = socket.id; socket.data.code = room.code; socket.data.role = 'teacher'; socket.join(room.code);
     ackReply(ack, { ok: true, code: room.code }); broadcast(room);
   });
   socket.on('student:join', (data, ack) => {
+    socket.data.language = languageOf(data?.language);
     if (tooManyAttempts(socket)) return ackReply(ack, { ok: false, error: 'tooManyAttempts' });
     const code = clean(data?.code, 6).toUpperCase(); const room = rooms.get(code);
     if (!room) return ackReply(ack, { ok: false, error: 'roomNotFound' });
@@ -289,6 +318,7 @@ io.on('connection', socket => {
     ackReply(ack, { ok: true, code, id: socket.id, token }); broadcast(room);
   });
   socket.on('student:rejoin', (data, ack) => {
+    socket.data.language = languageOf(data?.language);
     const room = rooms.get(clean(data?.code, 6).toUpperCase());
     const student = room && [...room.students.values()].find(s => s.token && s.token === data?.token);
     if (!student) return ackReply(ack, { ok: false, error: 'roomNotFound' });
@@ -340,6 +370,7 @@ io.on('connection', socket => {
         room.timeLimit = n; ackReply(ack, { ok: true }); broadcast(room);
       });
       socket.on('projector:join', (data, ack) => {
+        socket.data.language = languageOf(data?.language);
         const room = rooms.get(clean(data?.code, 6).toUpperCase());
         if (!room) return ackReply(ack, { ok: false, error: 'roomNotFound' });
         socket.data.code = room.code; socket.data.role = 'projector'; socket.join(room.code);
@@ -426,9 +457,8 @@ io.on('connection', socket => {
     const room = rooms.get(socket.data.code); if (!room) return;
     if (room.teacherId === socket.id) room.teacherId = null;
     const me = room.students.get(socket.id);
-    // In the lobby leaving removes the player; during a game the seat is kept for a reconnect.
-    if (me && (room.stage === 'lobby' || room.stage === 'finished')) { room.students.delete(socket.id); room.answers.delete(socket.id); room.storyVotes.delete(socket.id); }
-    else if (me) me.connected = false;
+    // Keep the seat for reconnection and preserve completed scores. Teachers can explicitly remove players.
+    if (me) me.connected = false;
     broadcast(room);
   });
 });

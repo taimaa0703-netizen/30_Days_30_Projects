@@ -1,0 +1,1208 @@
+.cosmic-theme {
+  isolation: isolate;
+  --mint: #c3a4ff;
+  --bg: #0a102d;
+  --panel: #151b40;
+  --line: #8e95d333;
+  --muted: #bfc7e4;
+  --text: #f7f4ff;
+  --purple: #d0b3ff;
+  --blue: #9bdcff;
+  background:
+    radial-gradient(ellipse at 47% 32%, #2f257244, transparent 45%),
+    radial-gradient(ellipse at 0 44%, #4447aa55, transparent 30%),
+    #090f2b;
+}
+.cosmic-theme .site-header {
+  background: #0b102be8;
+  border: 0;
+}
+.cosmic-theme #sound-settings:not(:empty) {
+  padding: 10px 24px;
+  background: #151b40;
+  border-bottom: 1px solid var(--line);
+}
+.cosmic-theme .invitation-page {
+  max-width: 560px;
+  margin: 28px auto;
+}
+.cosmic-theme .invitation-page form {display: grid; gap: 18px; margin-top: 24px}
+.cosmic-theme .header-inner {
+  max-width: 1660px;
+  padding: 20px 36px;
+  direction: ltr;
+  gap: 22px;
+  min-height: 94px;
+}
+.cosmic-theme .brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 1.9rem;
+  letter-spacing: .5px;
+}
+.cosmic-theme .brand-word {
+  color: #fcfaff;
+}
+.cosmic-theme .brand-word > span {
+  background: linear-gradient(100deg, #a9b9ff, #dd86f2);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cosmic-theme .brand small {
+  display: block;
+  font-size: .58rem;
+  color: #e4ddfc;
+  font-weight: 600;
+  letter-spacing: 4px;
+  margin-top: 2px;
+}
+.brand-planet, .little-planet {
+  display: block;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 28% 22%, #b5eeff, #8ca5ff 33%, #b270ef 64%, #523193);
+  box-shadow: 0 0 25px #a894ff55, inset -5px -3px 8px #4b2a8080;
+  transform: rotate(-25deg);
+}
+.brand-planet::after, .little-planet::after {
+  content: "";
+  position: absolute;
+  width: 140%;
+  height: 32%;
+  top: 28%;
+  left: -28%;
+  border: 4px solid #ffdfc3;
+  border-top-color: #d6d8ff40;
+  border-right-color: #fff0db;
+  border-radius: 50%;
+}
+.cosmic-theme nav {
+  order: 3;
+  gap: 12px;
+}
+.cosmic-theme nav a {
+  color: #f6f3ff;
+  border: 1px solid #a5aed47d;
+  border-radius: 19px;
+  padding: 12px 20px;
+  font-size: .88rem;
+  white-space: nowrap;
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  background: #24274d55;
+}
+.cosmic-theme nav a:last-child {
+  background: linear-gradient(135deg, #8952ec, #a867f6 65%, #84bafa);
+  border-color: #c5a1ff80;
+  box-shadow: inset 0 1px 1px #ffffff45, 0 7px 25px #8d58ec2b;
+}
+.cosmic-theme nav a:hover {
+  box-shadow: 0 0 22px #b49dff55;
+}
+.cosmic-theme .language {
+  margin-inline-start: auto;
+  background: #161d3b;
+  border-color: #6875a76b;
+  width: 118px;
+  border-radius: 18px;
+  padding: 12px;
+}
+.cosmic-theme main {
+  max-width: 1660px;
+  padding: 0 36px 64px;
+}
+.universe-hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(225px, .95fr) minmax(0, 2.55fr) minmax(230px, .95fr);
+  align-items: center;
+  gap: 0;
+  direction: ltr;
+  min-height: 680px;
+  padding: 0 0 42px;
+  overflow: clip;
+}
+.universe-stars {
+  position: absolute;
+  z-index: -2;
+  inset: -100px -30px 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1px 1px at 18% 23%, #ffffffdd 95%, transparent),
+    radial-gradient(1.5px 1.5px at 75% 42%, #f9d8ff 95%, transparent),
+    radial-gradient(1px 1px at 45% 77%, #9dc2ff 95%, transparent),
+    radial-gradient(2px 2px at 92% 11%, #9aceff 95%, transparent);
+  background-size: 137px 173px, 283px 251px, 187px 211px, 383px 379px;
+  mask-image: linear-gradient(#000, #000 75%, transparent);
+}
+.universe-intro {
+  z-index: 3;
+  align-self: stretch;
+  padding-top: 42px;
+  min-width: 0;
+}
+.universe-intro, .universe-side {
+  direction: inherit;
+}
+html[dir=rtl] .universe-intro, html[dir=rtl] .universe-side {
+  direction: rtl;
+}
+.cosmic-eyebrow {
+  color: #c3b5f0;
+  font-size: .61rem;
+  letter-spacing: 2.4px;
+  font-weight: 700;
+}
+.universe-intro h1 {
+  font-size: clamp(1.6rem, 2.6vw, 2.55rem);
+  font-weight: 750;
+  line-height: 1.3;
+  letter-spacing: -.8px;
+  margin: 16px 0 8px;
+}
+.universe-intro h1 strong {
+  display: block;
+  font-size: clamp(1.7rem, 3vw, 3rem);
+  letter-spacing: -.8px;
+  line-height: 1.25;
+  background: linear-gradient(100deg, #dc8bef 8%, #b9a9ff 54%, #8ce5ff);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.planet-intro {
+  color: #c4cbe5;
+  white-space: pre-line;
+  line-height: 1.65;
+  margin: 12px 0 30px;
+  font-size: 1.1rem;
+}
+.role-cards {
+  display: grid;
+  gap: 12px;
+}
+.role-card {
+  display: grid;
+  grid-template-columns: 52px 1fr 13px;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 16px;
+  background: linear-gradient(120deg, #3b326dba, #3764a5ae);
+  border: 1px solid #a8b8ff55;
+  border-radius: 23px;
+  box-shadow: inset 0 1px 0 #e4ddff22, 0 10px 30px #0002;
+  backdrop-filter: blur(12px);
+}
+.role-card strong {
+  font-size: .98rem;
+  display: block;
+}
+.role-card small {
+  display: block;
+  color: #ced5f4;
+  margin-top: 6px;
+  font-size: .77rem;
+  line-height: 1.65;
+}
+.role-card b {
+  font-size: 1.7rem;
+  font-weight: 400;
+}
+.role-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 57px;
+  color: #eee5ff;
+  background: linear-gradient(145deg, #cb8bff, #7357e7 65%, #b694ff);
+  border: 1px solid #dbb7ff88;
+  border-radius: 17px;
+  box-shadow: inset 0 2px 5px #ffffff44, 0 0 22px #a26aff55;
+  font-size: 2.2rem;
+}
+.teacher-card {
+  background: linear-gradient(130deg, #262b5bd9, #382e64d9 65%, #8c4e7b88);
+}
+.teacher-card .role-icon {
+  background: linear-gradient(145deg, #ffe388, #f6b16f, #ec8b9a);
+  color: #fff6e9;
+  border-color: #ffe3b48c;
+  box-shadow: inset 0 2px 5px #fff6, 0 0 22px #ffc37733;
+}
+.role-card:hover, .explore-worlds:hover {
+  border-color: #d4b5ff;
+  background-color: #6569ad44;
+}
+.curiosity-card {
+  margin-top: 42px;
+  padding: 17px 18px 12px;
+  border: 1px solid #9fa0d13d;
+  border-radius: 23px;
+  background: #22224f9c;
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 4px 13px;
+  max-width: 265px;
+}
+.curiosity-card p {
+  white-space: pre-line;
+  font-size: .8rem;
+  line-height: 1.7;
+  color: #d3d9ed;
+  margin: 0;
+}
+.mini-globe {
+  background: radial-gradient(circle at 33% 30%, #a7efff, #74b6de 38%, #7e6be0);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  color: #e8ed9f;
+  font-size: 1.8rem;
+  margin-top: 5px;
+}
+.cosmic-dots {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 7px;
+  justify-content: center;
+  padding-top: 12px;
+}
+.cosmic-dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #61658c;
+}
+.cosmic-dots i:first-child {
+  background: #b27cf7;
+}
+.world-map {
+  aspect-ratio: 900 / 840;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  direction: ltr;
+}
+.world-artwork {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 22px 55px #120d5bc9);
+  pointer-events: none;
+}
+.world-link {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid #c1d7ff77;
+  border-radius: 15px;
+  background: linear-gradient(150deg, #2c315ded, #111932f5);
+  padding: 10px 12px;
+  min-width: 155px;
+  max-width: 45%;
+  color: #f7f4ff;
+  box-shadow: 0 8px 16px #03071c80, inset 0 1px 1px #fff3, 0 0 20px #ab88fb33;
+  text-align: start;
+  z-index: 4;
+}
+html[dir=rtl] .world-link {
+  direction: rtl;
+}
+.world-link strong {
+  display: block;
+  font-size: .9rem;
+  white-space: nowrap;
+}
+.world-link small {
+  display: block;
+  font-size: .65rem;
+  font-weight: 400;
+  color: #d7d7f2;
+  margin-top: 3px;
+}
+.world-link b {
+  color: #c4c9e9;
+  margin-inline-start: auto;
+  font-size: .8rem;
+}
+.world-icon {
+  color: #87efc6;
+  font-size: 1.9rem;
+  line-height: 1;
+  font-weight: 900;
+}
+.world-science {
+  top: 26%;
+  left: 18%;
+  transform: rotate(-7deg);
+  border-color: #8ee9c9aa;
+}
+.world-math {
+  top: 35%;
+  right: 8%;
+  transform: rotate(8deg);
+  border-color: #8ebcfa99;
+}
+.world-math .world-icon {
+  color: #9ebfff;
+  font-size: 1.1rem;
+  letter-spacing: -2px;
+}
+.world-together {
+  top: 65%;
+  left: 9%;
+  transform: rotate(-6deg);
+  border-color: #f1a4cc99;
+}
+.world-together .world-icon {
+  color: #f4a7db;
+}
+.world-arena {
+  bottom: 15%;
+  right: 10%;
+  transform: rotate(7deg);
+  border-color: #d2adff99;
+}
+.world-arena .world-icon {
+  color: #e2b0ff;
+}
+.world-link:hover:not(:disabled) {
+  border-color: #fff2cb;
+  background: linear-gradient(150deg, #514b84, #25254c);
+  box-shadow: 0 8px 25px #11173c, 0 0 24px #bda0ff66;
+}
+.planet-wordmark {
+  position: absolute;
+  top: 45.3%;
+  left: 32%;
+  width: 38%;
+  text-align: center;
+  pointer-events: none;
+  text-shadow: 0 0 18px #70d5ffbb;
+}
+.planet-wordmark strong {
+  display: block;
+  font-size: clamp(1rem, 2.3vw, 2.4rem);
+  letter-spacing: 1.5px;
+  color: #e3edff;
+}
+.planet-wordmark small {
+  display: block;
+  font-size: clamp(.3rem, .65vw, .6rem);
+  letter-spacing: 3px;
+  color: #ccdfff;
+}
+.little-planet {
+  width: 25px;
+  height: 25px;
+  margin: 0 auto 10px;
+}
+.little-planet::after {
+  border-width: 2px;
+}
+.universe-side {
+  z-index: 3;
+  padding-inline-start: 7px;
+  align-self: stretch;
+  padding-top: 56px;
+}
+.explore-worlds {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  background: linear-gradient(130deg, #202654cc, #302456cc);
+  border: 1px solid #9e9fde55;
+  border-radius: 22px;
+  padding: 20px 17px;
+  box-shadow: inset 0 1px #c8bfff1c;
+}
+.explore-worlds > span:first-child {
+  color: #ffde91;
+  font-size: 1.8rem;
+}
+.explore-worlds strong {
+  font-size: .95rem;
+  display: block;
+}
+.explore-worlds small {
+  display: block;
+  font-size: .7rem;
+  line-height: 1.6;
+  color: #c9cbe8;
+  margin-top: 5px;
+}
+.explore-worlds b {
+  color: #bcb7dd;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+.orbit-friend {
+  position: relative;
+  height: 175px;
+  width: 145px;
+  margin: 10px auto 0;
+  transform: rotate(9deg);
+}
+.friend-rock {
+  position: absolute;
+  bottom: 10px;
+  left: 13px;
+  width: 117px;
+  height: 42px;
+  clip-path: polygon(0 0, 100% 0, 79% 60%, 45% 100%, 21% 70%);
+  background: linear-gradient(120deg, #5e97a6, #7767a0 35%, #443d79 70%, #b190ae);
+  border-top: 8px solid #aa8fbb;
+}
+.astronaut {
+  position: absolute;
+  width: 84px;
+  height: 125px;
+  bottom: 40px;
+  left: 28px;
+  filter: drop-shadow(0 0 12px #b4b4ff44);
+}
+.astronaut-helmet {
+  position: absolute;
+  top: 0;
+  left: 11px;
+  width: 65px;
+  height: 63px;
+  border-radius: 45%;
+  background: linear-gradient(120deg, #e7eeff, #c3a4e0 65%, #7d8fca);
+  border: 3px solid #f4d0df;
+  box-shadow: inset 3px 2px 4px #fff9, 4px 2px 0 #9278b2;
+  z-index: 3;
+}
+.astronaut-visor {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  width: 47px;
+  height: 39px;
+  border-radius: 45%;
+  border: 3px solid #f2c192;
+  background: linear-gradient(145deg, #4a4373, #141832 50%, #38477b);
+}
+.astronaut-visor::after {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 10px;
+  border-radius: 50%;
+  background: #d3f2ff55;
+  margin: 4px 5px;
+  transform: rotate(-30deg);
+}
+.astronaut-body {
+  position: absolute;
+  width: 45px;
+  height: 51px;
+  left: 21px;
+  top: 57px;
+  background: linear-gradient(100deg, #efecff, #c5acd8 75%, #9781b7);
+  border-radius: 14px 14px 22px 22px;
+  border: 2px solid #f5d3de;
+}
+.astronaut-body i {
+  display: block;
+  width: 16px;
+  height: 18px;
+  border: 3px solid #99b4da;
+  margin: 10px auto;
+  border-radius: 5px;
+  background: #937cc4;
+}
+.astronaut-arm {
+  position: absolute;
+  top: 63px;
+  width: 17px;
+  height: 39px;
+  border-radius: 13px;
+  background: linear-gradient(90deg, #f4e0f2, #b5a1d2);
+  border-bottom: 7px solid #e4b3aa;
+}
+.arm-a {left: 9px; transform: rotate(25deg)}
+.arm-b {right: 5px; transform: rotate(-28deg)}
+.astronaut-boot {
+  position: absolute;
+  top: 96px;
+  width: 25px;
+  height: 31px;
+  background: linear-gradient(#d7bded, #a28fc4);
+  border: 3px solid #ded9f5;
+  border-radius: 12px;
+  z-index: 4;
+}
+.boot-a {left: 12px; transform: rotate(20deg)}
+.boot-b {right: 10px; transform: rotate(-20deg)}
+.friend-star {
+  position: absolute;
+  right: 3px;
+  top: 14px;
+  color: #ffcbed;
+  font-size: 2rem;
+  text-shadow: 0 0 15px #d09aff;
+}
+.cosmic-preview {
+  padding: 20px 18px 14px;
+  border: 1px solid #9da2de55;
+  background: linear-gradient(140deg, #212652e8, #292049e8);
+  border-radius: 22px;
+  box-shadow: 0 10px 40px #06071f77;
+}
+.cosmic-preview .question-top {
+  font-size: .65rem;
+  gap: 5px;
+  color: #c1b1e7;
+}
+.cosmic-preview h2 {
+  font-size: .95rem;
+  line-height: 1.65;
+  margin: 14px 0;
+}
+.cosmic-preview .answers {
+  gap: 6px;
+}
+.cosmic-preview .answer {
+  min-height: 54px;
+  font-size: .66rem;
+  padding: 8px;
+  gap: 6px;
+  border-radius: 9px;
+}
+.cosmic-preview .answer .symbol {
+  width: 20px;
+  height: 24px;
+  border-radius: 6px;
+  font-size: .9rem;
+}
+.cosmic-preview .feedback {
+  min-height: 0;
+  font-size: .72rem;
+  margin-top: 10px;
+}
+.cosmic-preview .feedback:empty {
+  display: none;
+}
+.cosmic-preview > button {
+  width: 100%;
+  font-size: .75rem;
+  padding: 9px;
+}
+.world-scroll {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: .7rem;
+  color: #bac1de;
+  letter-spacing: 1px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.world-scroll span {
+  color: #d8a2ff;
+  font-size: 1.2rem;
+}
+.universe-cloud {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  width: 450px;
+  height: 230px;
+  bottom: -30px;
+  background:
+    radial-gradient(ellipse at 22% 65%, #7777c987, transparent 47%),
+    radial-gradient(ellipse at 50% 50%, #a28bcc88, transparent 43%),
+    radial-gradient(ellipse at 80% 72%, #7b83bf88, transparent 40%);
+  filter: blur(10px);
+  opacity: .8;
+}
+.cloud-left {left: -110px}
+.cloud-right {right: -90px; transform: scaleX(-1)}
+.cosmic-theme .cosmic-collection {
+  padding-top: 30px;
+  position: relative;
+  z-index: 3;
+  scroll-margin-top: 110px;
+}
+.cosmic-theme .game-card {
+  background: linear-gradient(150deg, #20254a, #151a36);
+  border-color: #8986bd44;
+}
+.cosmic-theme .game-art {
+  height: 120px;
+  background: linear-gradient(120deg, #537f96, #8ad3b6);
+}
+.cosmic-theme .game-card:nth-child(2) .game-art {
+  background: linear-gradient(120deg, #6763bb, #a7b0ec);
+}
+.cosmic-theme .game-card:nth-child(3) .game-art {
+  background: linear-gradient(120deg, #ac648f, #efb5ca);
+}
+.cosmic-theme .join-panel {
+  background: linear-gradient(120deg, #1e2348, #27204b);
+  border-color: #9080be66;
+  scroll-margin-top: 120px;
+}
+.cosmic-theme input {
+  background: #0e1531;
+}
+.cosmic-theme footer {
+  background: #0c1029;
+}
+.cosmic-theme::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1px 1px at 18% 23%, #ffffffad 95%, transparent),
+    radial-gradient(1.5px 1.5px at 75% 42%, #dfbbffad 95%, transparent),
+    radial-gradient(1px 1px at 45% 77%, #9dc2ffbd 95%, transparent);
+  background-size: 179px 227px, 349px 317px, 263px 281px;
+}
+.cosmic-theme:not(.cosmic-home) main {
+  max-width: 1340px;
+  min-height: calc(100vh - 180px);
+  padding: 38px 36px 70px;
+}
+.cosmic-theme .panel,
+.cosmic-theme .question-editor,
+.cosmic-theme .stat,
+.cosmic-theme .team-stat {
+  background: linear-gradient(135deg, #272951e8, #171c3de8 65%, #30234be0);
+  border-color: #aaa0dc4f;
+  box-shadow: inset 0 1px 0 #eee4ff12, 0 12px 32px #03071d30;
+}
+.cosmic-theme button:not(.answer),
+.cosmic-theme .button {
+  border-color: #aaa4d65c;
+  background: linear-gradient(135deg, #39345a, #262648);
+  border-radius: 14px;
+  color: #f5f0ff;
+  box-shadow: inset 0 1px 0 #ffffff12;
+}
+.cosmic-theme button.primary,
+.cosmic-theme .button.primary {
+  background: linear-gradient(125deg, #8952df, #a269ef 65%, #778fdd);
+  border-color: #cda7ff9c;
+  box-shadow: inset 0 1px 0 #fff4, 0 7px 22px #8454cf33;
+  color: #fff;
+}
+.cosmic-theme button.secondary {
+  background: #1d244b99;
+}
+.cosmic-theme button.danger {
+  color: #ffc5d5;
+  border-color: #d599bd55;
+  background: linear-gradient(135deg, #4e304f, #30223f);
+}
+.cosmic-theme button:hover:not(:disabled),
+.cosmic-theme .button:hover {
+  border-color: #d8b4ff;
+}
+.cosmic-theme input,
+.cosmic-theme select,
+.cosmic-theme textarea {
+  background: #0f1734;
+  border-color: #9295c35c;
+  color: #f5f0ff;
+  box-shadow: inset 0 2px 6px #060a203d;
+}
+.cosmic-theme input::placeholder,
+.cosmic-theme textarea::placeholder {
+  color: #b0b5d0;
+}
+.cosmic-theme label {
+  color: #d7d1ed;
+}
+.cosmic-theme .eyebrow {
+  color: #d0adff;
+}
+.cosmic-theme .pill {
+  background: #27254f9c;
+  border-color: #a49bd44d;
+  color: #d8d4f1;
+}
+.cosmic-theme .pill.accent {
+  color: #e1c4ff;
+  border-color: #b18de87d;
+}
+.cosmic-theme .studio-hero {
+  position: relative;
+  isolation: isolate;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid #b3a2e95c;
+  border-radius: 28px;
+  padding: 34px;
+  min-height: 240px;
+  background: linear-gradient(110deg, #252755ed, #302454d9 62%, #3c33717d);
+  box-shadow: inset 0 1px 0 #efdcff1c, 0 10px 40px #03071d33;
+}
+.cosmic-theme .studio-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -100px -80px -100px auto;
+  width: 440px;
+  background: url("/learning-planet.svg") center / contain no-repeat;
+  opacity: .22;
+  transform: rotate(-12deg);
+  pointer-events: none;
+}
+.cosmic-theme .studio-hero h1 {
+  background: linear-gradient(100deg, #f9f0ff, #c5a7ff 60%, #a4e4ff);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.3;
+}
+.cosmic-theme .studio-hero .lead {
+  max-width: 700px;
+  color: #d1cde7;
+  margin-bottom: 0;
+}
+.cosmic-theme .studio-hero > button {
+  flex-shrink: 0;
+}
+.cosmic-theme #ready-games {
+  scroll-margin-top: 160px;
+}
+.cosmic-theme .join-qr {
+  background: white;
+  border: 10px solid white;
+  border-radius: 18px;
+  flex-shrink: 0;
+}
+.cosmic-theme .lobby-player {display: flex; gap: 12px; align-items: center}
+.cosmic-theme .lobby-player small {display: block; color: var(--muted); margin-top: 5px}
+.cosmic-theme .player-avatar {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 15px;
+  background: #c3a4ff22;
+  font-size: 1.6rem;
+}
+.cosmic-theme .start-game {font-size: 1.25rem; padding: 18px 30px; flex: 2}
+.cosmic-theme.lobby-view main {
+  max-width: 1660px;
+  padding: 18px 24px 40px;
+}
+.cosmic-theme .lobby-stage {
+  position: relative;
+  isolation: isolate;
+  border-radius: 26px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 50%, #7853b755, #151a3944 65%);
+}
+.cosmic-theme .lobby-stage::before {
+  content: "";
+  position: absolute;
+  inset: 65px 14% 0;
+  z-index: -1;
+  opacity: .3;
+  background: url("/learning-planet.svg") center / contain no-repeat;
+  pointer-events: none;
+}
+.cosmic-theme .lobby-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 14px 20px;
+  background: #10152cdd;
+  border-bottom: 1px solid var(--line);
+}
+.cosmic-theme .lobby-columns {
+  display: grid;
+  grid-template-columns: minmax(235px, 290px) minmax(0, 1fr) minmax(250px, 330px);
+  direction: ltr;
+  gap: 24px;
+  padding: 28px 18px;
+  min-height: 620px;
+  align-items: stretch;
+}
+.cosmic-theme .lobby-columns > * {min-width: 0; direction: rtl}
+html[dir="ltr"] .cosmic-theme .lobby-columns > * {direction: ltr}
+.cosmic-theme .lobby-join,
+.cosmic-theme .lobby-roster {
+  background: #17172fe8;
+  border-color: #afa0dd50;
+  padding: 22px;
+}
+.cosmic-theme .lobby-join {align-self: start}
+.cosmic-theme .lobby-join h2 {margin-top: 0}
+.cosmic-theme .lobby-join .join-qr {
+  display: block;
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  margin: 0 auto;
+}
+.cosmic-theme .lobby-join .pin {
+  font-size: clamp(1.9rem, 2.8vw, 2.6rem);
+  letter-spacing: 3px;
+  overflow-wrap: anywhere;
+  margin-bottom: 22px;
+}
+.cosmic-theme .lobby-join .actions {gap: 9px}
+.cosmic-theme .lobby-join .actions button {width: 100%}
+.cosmic-theme .invite-details {margin-top: 18px; font-size: .85rem; line-height: 1.7}
+.cosmic-theme .invite-details summary {cursor: pointer; color: #d8c4ff; padding: 8px 0}
+.cosmic-theme .invite-details input {font-size: .8rem; margin-top: 12px}
+.cosmic-theme .invite-details .status-banner {padding: 12px}
+.cosmic-theme .lobby-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 28px 8px;
+}
+.cosmic-theme .lobby-center h1 {
+  width: 100%;
+  font-size: clamp(1.8rem, 3.2vw, 3.5rem);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  color: #f5eaff;
+  background: #252148d9;
+  border: 1px solid #d2b5ff70;
+  border-radius: 22px;
+  padding: 24px 18px;
+  box-shadow: 0 12px 45px #090d2f77;
+  margin: 22px 0 0;
+}
+.cosmic-theme .lobby-center > .lead {margin: 14px 0}
+.cosmic-theme .lobby-start {width: 100%; max-width: 360px}
+.cosmic-theme .lobby-launch-bar {
+  display: flex;
+  justify-content: flex-end;
+  direction: ltr;
+  padding: 18px 18px 0;
+}
+.cosmic-theme .lobby-launch-bar .start-game {
+  flex: none;
+  min-width: 150px;
+  min-height: 52px;
+  padding: 12px 26px;
+  font-size: 1.1rem;
+  direction: inherit;
+}
+.cosmic-theme .timer-setting {max-width: 220px; margin: 20px auto}
+.cosmic-theme .lobby-roster .section-head {margin: 0; align-items: center}
+.cosmic-theme .lobby-roster h2 {font-size: 1.25rem}
+.cosmic-theme .lobby-roster .lobby-players {max-height: 440px; overflow-y: auto; padding: 3px}
+.cosmic-theme .lobby-roster .lobby-players li {flex-wrap: wrap}
+.cosmic-theme .lobby-player {min-width: 0}
+.cosmic-theme .lobby-player strong {overflow-wrap: anywhere}
+@media (max-width: 1100px) {
+  .cosmic-theme .lobby-columns {grid-template-columns: 220px minmax(0, 1fr) 240px; gap: 14px; padding: 20px 12px}
+  .cosmic-theme .lobby-join, .cosmic-theme .lobby-roster {padding: 16px}
+}
+@media (max-width: 850px) {
+  .cosmic-theme .lobby-columns {grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)}
+  .cosmic-theme .lobby-center {grid-column: 1 / -1; grid-row: 1; padding: 12px}
+  .cosmic-theme .lobby-center h1 {font-size: 2rem}
+  .cosmic-theme .lobby-stage::before {inset: 50px 0}
+}
+@media (max-width: 550px) {
+  .cosmic-theme.lobby-view main {padding: 14px 12px 28px}
+  .cosmic-theme .lobby-columns {grid-template-columns: minmax(0, 1fr)}
+  .cosmic-theme .lobby-toolbar {padding: 14px; gap: 10px}
+  .cosmic-theme .lobby-toolbar .actions {width: 100%}
+  .cosmic-theme .lobby-center h1 {font-size: 1.6rem}
+  .cosmic-theme .lobby-join .pin {font-size: 2.5rem; text-align: center}
+  .cosmic-theme .lobby-roster {min-height: 180px}
+}
+@media (max-width: 650px) {
+  .cosmic-theme .join-qr {width: 120px; height: 120px}
+  .cosmic-theme .game-lobby .section-head {flex-wrap: wrap}
+  .cosmic-theme .lobby-players li {flex-wrap: wrap}
+}
+.cosmic-theme .game-art {
+  box-shadow: inset 0 1px #ffffff4d;
+}
+.cosmic-theme .game-body .actions button {
+  width: 100%;
+}
+.cosmic-theme .account-panel {
+  border-inline-start: 3px solid #b49af2;
+}
+.cosmic-theme .saved-card h3 {
+  color: #ece0ff;
+  font-size: 1.35rem;
+}
+.cosmic-theme .empty {
+  border-color: #aaa0dc66;
+  background: #20234780;
+  line-height: 1.8;
+}
+.cosmic-theme .editor {
+  padding-top: 8px;
+}
+.cosmic-theme .question-editor {
+  border-radius: 22px;
+}
+.cosmic-theme .question-editor legend {
+  border: 1px solid #a89bda70;
+  border-radius: 20px;
+  background: #29234c;
+  color: #dfc5ff;
+  padding: 4px 15px;
+  font-size: .9rem;
+}
+.cosmic-theme .save-bar {
+  background: #1c2046f5;
+  border-color: #b4a1e77d;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 7px 30px #08092299;
+}
+.cosmic-theme .practice-wrap {
+  position: relative;
+  isolation: isolate;
+  padding-top: 10px;
+}
+.cosmic-theme .practice-wrap::before {
+  content: "";
+  width: min(600px, 100%);
+  height: 550px;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: url("/learning-planet.svg") center / contain no-repeat;
+  opacity: .1;
+  z-index: -1;
+  pointer-events: none;
+}
+.cosmic-theme .practice-wrap > h1,
+.cosmic-theme .room-header h1 {
+  color: #ebe0ff;
+}
+.cosmic-theme .question-card {
+  background: linear-gradient(135deg, #312b57f5, #1c2445f5 70%, #272045f5);
+  border-color: #b7a1e78c;
+  box-shadow: inset 0 1px 0 #e6cfff22, 0 15px 45px #080a2b77;
+}
+.cosmic-theme .question-card h2 {
+  color: #f7f0ff;
+}
+.cosmic-theme .answer {
+  border: 1px solid #b2a2d133;
+  border-radius: 17px;
+  box-shadow: inset 0 1px 0 #ffffff12;
+  color: #f4f0ff;
+}
+.cosmic-theme .answer:nth-child(1) {background: linear-gradient(135deg, #55427f, #343153)}
+.cosmic-theme .answer:nth-child(2) {background: linear-gradient(135deg, #354e77, #26314e)}
+.cosmic-theme .answer:nth-child(3) {background: linear-gradient(135deg, #684362, #402c4f)}
+.cosmic-theme .answer:nth-child(4) {background: linear-gradient(135deg, #35646e, #263f55)}
+.cosmic-theme .answer:nth-child(1) .symbol {background: #c6a0f9; color: #31234f}
+.cosmic-theme .answer:nth-child(2) .symbol {background: #9cbef7; color: #263c61}
+.cosmic-theme .answer:nth-child(3) .symbol {background: #eeafce; color: #563047}
+.cosmic-theme .answer:nth-child(4) .symbol {background: #9bdedb; color: #25484e}
+.cosmic-theme .answer.selected:not(.correct) {
+  border: 2px solid #e0bdff;
+  background: linear-gradient(135deg, #6e4a93, #443565);
+}
+.cosmic-theme .answer.correct {
+  border: 2px solid #a1e4d0;
+  background: linear-gradient(135deg, #396b68, #2b475c);
+}
+.cosmic-theme .answer.wrong {
+  border-color: #ffb2cd;
+}
+.cosmic-theme .feedback {
+  color: #b6ebdc;
+}
+.cosmic-theme .room-header {
+  padding: 25px 28px;
+  border: 1px solid #a69cda66;
+  border-radius: 24px;
+  background: linear-gradient(120deg, #302752d9, #1c2b4cd9);
+  box-shadow: inset 0 1px 0 #ffffff17;
+}
+.cosmic-theme .room-header h1 {
+  line-height: 1.5;
+}
+.cosmic-theme .live-question {
+  border-radius: 25px;
+}
+.cosmic-theme .pin {
+  color: #d3bbff;
+  text-shadow: 0 0 24px #ad86ff55;
+}
+.cosmic-theme .timer-count {
+  color: #fff4ff;
+  background: linear-gradient(130deg, #9c64e4, #606ebf);
+  border: 1px solid #d4b6ff;
+  box-shadow: 0 0 20px #af8cf72b;
+}
+.cosmic-theme .player-list li {
+  background: linear-gradient(100deg, #3b335a70, #24335070);
+  border: 1px solid #a9a2d622;
+}
+.cosmic-theme .player-list li > b,
+.cosmic-theme .team-stat b {
+  color: #d6bbff;
+}
+.cosmic-theme .stat {
+  border-radius: 20px;
+}
+.cosmic-theme .stat strong {
+  color: #d7bdff;
+  text-shadow: 0 0 25px #bd97ff33;
+}
+.cosmic-theme .meter {
+  background: #10172f;
+  border: 1px solid #9281bd44;
+  height: 14px;
+}
+.cosmic-theme .meter span {
+  background: linear-gradient(90deg, #9864e6, #b491fb, #92d2ef);
+  box-shadow: 0 0 12px #b08fff88;
+}
+.cosmic-theme .status-banner {
+  background: #213250;
+  border: 1px solid #7ea4d266;
+  color: #d3e6ff;
+}
+.cosmic-theme .error-banner {
+  background: #4b2b4c;
+  border-color: #d299be80;
+  color: #ffe0ed;
+}
+.cosmic-theme .toast {
+  background: linear-gradient(125deg, #37335a, #242c4d);
+  border: 1px solid #c1a6f4;
+  color: #fff3ff;
+  box-shadow: 0 8px 35px #05071dcc;
+}
+@media (max-width: 900px) {
+  .cosmic-theme .studio-hero {padding: 26px}
+  .cosmic-theme .studio-hero > button {margin-top: 20px}
+  .cosmic-theme .studio-hero::after {opacity: .15}
+}
+@media (max-width: 650px) {
+  .cosmic-theme:not(.cosmic-home) main {padding: 24px 16px 45px}
+  .cosmic-theme .studio-hero {padding: 23px; border-radius: 22px}
+  .cosmic-theme .studio-hero h1 {font-size: 2rem}
+  .cosmic-theme .studio-hero::after {width: 330px; inset-inline-end: -150px}
+  .cosmic-theme .room-header {padding: 20px}
+  .cosmic-theme .question-card {padding: 20px}
+  .cosmic-theme .answer {border-radius: 13px; min-height: 82px}
+  .cosmic-theme .cosmic-preview .answer {min-height: 57px}
+  .cosmic-theme .stat {border-radius: 15px}
+  .cosmic-theme .live-layout {gap: 18px}
+}
+@media (min-width: 1550px) {
+  .universe-hero {min-height: 760px}
+  .universe-intro {padding-top: 80px}
+  .universe-side {padding-top: 85px}
+  .curiosity-card {margin-top: 65px}
+}
+@media (max-width: 1150px) {
+  .cosmic-theme .header-inner {padding: 16px 24px; gap: 15px}
+  .cosmic-theme .brand {font-size: 1.5rem}
+  .cosmic-theme .brand small {font-size: .46rem; letter-spacing: 3px}
+  .cosmic-theme main {padding-inline: 24px}
+  .universe-hero {grid-template-columns: 225px minmax(0, 1fr); min-height: 0; padding-bottom: 55px; gap: 0 10px}
+  .universe-intro {padding-top: 26px}
+  .universe-intro h1 {font-size: 1.9rem}
+  .universe-intro h1 strong {font-size: 2rem}
+  .universe-side {grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1.6fr; align-items: center; gap: 25px; padding: 15px 0}
+  .orbit-friend {display: none}
+  .cosmic-preview {display: grid; grid-template-columns: 1fr 1.2fr; gap: 0 18px}
+  .cosmic-preview .question-top {grid-column: 1; align-self: end}
+  .cosmic-preview h2 {grid-column: 1; margin-top: 8px; font-size: 1rem}
+  .cosmic-preview .answers {grid-column: 2; grid-row: 1 / 3}
+  .cosmic-preview .feedback, .cosmic-preview > button {grid-column: 1 / -1}
+  .world-map {width: 100%}
+  .world-link {padding: 9px; gap: 5px; min-width: 132px}
+  .world-link strong {font-size: .75rem}
+  .world-link small {font-size: .58rem}
+  .world-icon {font-size: 1.5rem}
+  .curiosity-card {margin-top: 24px}
+  .cosmic-theme .cosmic-collection {padding-top: 10px}
+}
+@media (max-width: 760px) {
+  .cosmic-theme .header-inner {flex-wrap: wrap; padding: 14px 18px; gap: 12px}
+  .cosmic-theme .brand {font-size: 1.4rem; gap: 10px}
+  .cosmic-theme .brand small {font-size: .42rem; letter-spacing: 3px}
+  .brand-planet {width: 29px; height: 29px}
+  .brand-planet::after {border-width: 3px}
+  .cosmic-theme .language {width: 100px; padding: 9px; font-size: .8rem}
+  .cosmic-theme nav {width: 100%; flex-basis: 100%; border: 0; padding: 0; gap: 10px}
+  .cosmic-theme nav a {justify-content: center; flex: 1; padding: 10px 13px; font-size: .8rem; border-radius: 12px}
+  .cosmic-theme main {padding-inline: 18px}
+  .universe-hero {grid-template-columns: 1fr; padding-top: 12px}
+  .universe-intro {padding-top: 14px; text-align: center}
+  .cosmic-eyebrow {font-size: .55rem}
+  .universe-intro h1 {font-size: 1.6rem; margin: 10px 0}
+  .universe-intro h1 strong {font-size: 2.7rem}
+  .planet-intro {font-size: .95rem; white-space: normal; margin: 8px auto 20px}
+  .role-cards {grid-template-columns: 1fr 1fr; gap: 10px}
+  .role-card {grid-template-columns: 36px 1fr; gap: 9px; padding: 12px 10px; text-align: start; border-radius: 16px}
+  .role-icon {width: 36px; height: 40px; font-size: 1.6rem; border-radius: 12px}
+  .role-card strong {font-size: .8rem}
+  .role-card small {font-size: .65rem; margin-top: 3px}
+  .role-card b {display: none}
+  .curiosity-card {display: none}
+  .world-map {width: 106%; margin: -5px -3% -12px}
+  .world-link {min-width: 119px; max-width: 48%; gap: 5px; padding: 8px 7px; border-radius: 12px}
+  .world-link strong {font-size: .7rem}
+  .world-link small {font-size: .52rem}
+  .world-link b {font-size: .65rem}
+  .world-icon {font-size: 1.25rem}
+  .world-math .world-icon {font-size: .8rem}
+  .world-science {top: 25%; left: 9%}
+  .world-math {right: 3%}
+  .world-together {left: 2%; top: 64%}
+  .world-arena {right: 3%; bottom: 14%}
+  .planet-wordmark {top: 45%; left: 30%; width: 40%}
+  .planet-wordmark strong {font-size: clamp(.95rem, 3.6vw, 1.6rem); letter-spacing: .5px}
+  .planet-wordmark small {font-size: .3rem; letter-spacing: 1px}
+  .little-planet {width: 18px; height: 18px; margin-bottom: 4px}
+  .universe-side {grid-column: 1; grid-template-columns: 1fr; gap: 12px; padding: 0}
+  .explore-worlds {padding: 13px 17px; border-radius: 16px}
+  .explore-worlds > span:nth-child(2) {flex: 1}
+  .explore-worlds strong {font-size: .85rem}
+  .explore-worlds small {font-size: .7rem; margin: 2px 0 0}
+  .cosmic-preview {display: block; padding: 18px}
+  .cosmic-preview .question-top {font-size: .7rem}
+  .cosmic-preview h2 {font-size: 1rem}
+  .cosmic-preview .answer {font-size: .8rem; min-height: 57px; padding: 10px}
+  .cosmic-preview .answer .symbol {width: 26px; height: 28px}
+  .universe-cloud {width: 260px; bottom: 200px; opacity: .4}
+  .cloud-left {left: -18px}
+  .cloud-right {right: -18px}
+  .world-scroll {bottom: 14px; white-space: nowrap; font-size: .6rem}
+  .cosmic-theme .cosmic-collection .section-head {flex-wrap: wrap; margin-top: 25px}
+  .cosmic-theme .cosmic-collection .section-head .pill {font-size: .65rem}
+  .cosmic-theme .game-art {height: 100%}
+  .cosmic-theme .join-panel {scroll-margin-top: 155px}
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {scroll-behavior: smooth}
+  .orbit-friend {animation: space-drift 7s ease-in-out infinite}
+  .world-link {transition: box-shadow .2s, background .2s, border-color .2s}
+  @keyframes space-drift {
+    0%, 100% {transform: translateY(0) rotate(9deg)}
+    50% {transform: translateY(-9px) rotate(5deg)}
+  }
+}

@@ -45,6 +45,20 @@ test('authentication: protected endpoints reject missing and invalid tokens', as
   assert.equal(me.body.user.clerk_id, undefined); // internal identifiers are not exposed
 });
 
+test('Clerk CSP permits required bot-protection scripts, frames and probe ports only when configured', async () => {
+  configure({ pool, verify, publishableKey: 'test-public-key', clerkHost: 'accounts.example.test' });
+  try {
+    const response = await fetch(`${url}/teacher.html`);
+    const csp = response.headers.get('content-security-policy');
+    assert.match(csp, /script-src [^;]*https:\/\/\*\.protect\.clerk\.com/);
+    assert.match(csp, /connect-src [^;]*https:\/\/\*\.protect\.clerk\.com:\*/);
+    assert.match(csp, /frame-src [^;]*https:\/\/\*\.protect\.clerk\.com/);
+    assert.doesNotMatch(csp, /script-src [^;]*'unsafe-inline'/);
+  } finally {
+    configure({ pool, verify });
+  }
+});
+
 test('games: owner CRUD, drafts vs published, validation and persistence', async () => {
   assert.equal((await api('/games', { token: 'tok-alice', method: 'POST', body: { title: '' } })).status, 400);
   assert.equal((await api('/games', { token: 'tok-alice', method: 'POST', body: quiz({ subjectId: 'nope' }) })).body.error, 'subjectInvalid');

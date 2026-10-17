@@ -2,6 +2,37 @@
 
 A real-time, multilingual (English / Hebrew / Arabic) interactive classroom adventure. No camera needed.
 
+## Two-page classroom experience
+
+Home's three ready-made cards and world-map buttons open `/teacher.html?game=<id>` for the selected built-in game. Signed-in teachers get its regular PIN/share lobby automatically once the socket and account are ready; signed-out visitors see the selected game and sign-in controls. Sign-in/signup redirects preserve that selection. Existing teacher sessions resume instead of creating duplicate rooms. Each home card also retains a separate solo practice button.
+
+Teacher Studio has a prominent class-game entry linking to the ready-made games and localized hosting instructions. Choosing a game while signed out opens sign-in; hosting remains account-protected. Once students join the PIN lobby, the teacher starts the first question with **Start game**.
+
+The live lobby shows the PIN, QR invitation, real-time participant names and connection status. Teachers can share through the device share sheet (or clipboard), copy the visible invite link, remove participants, set the timer, and start even without students to try hosting. Share cancellation leaves the lobby unchanged; clipboard/share failures show manual-copy guidance. Invite links prefill the PIN and open the join form without granting teacher access. Localhost invitations display a warning: other devices require a reachable network/deployed origin. Only the authenticated room teacher can start or moderate; students and projectors have no teacher controls.
+
+The lobby uses a presentation-style three-column layout: QR/PIN and sharing on the left, game title and timer in the center, and live participants on the right. A single teacher-only **Start game** button sits above the panels at the top right in all languages. Empty lobbies and disconnected participants do not block starting; the teacher can present, reveal, advance, and finish a game without students. On small screens the start button comes before the stacked panels. Teacher/projector **Enable sound** opts into a quiet, original Web Audio waiting melody with join/start cues; no recording or external audio is downloaded. Sound never autoplays, can be muted, and waiting music stops on start, disconnect, leave, or page hide. Browser audio failures are reported visibly.
+
+A sound status/test bar is available in Teacher Studio before hosting and in teacher/projector game views. **Test sound** enables audio and immediately plays three tones, including during a question when waiting music is intentionally stopped. The output gain is 0.8 (note-envelope peak 0.12); mute stops pending notes. A visible hint recommends checking system speakers and tab/preview mute if playback is active but inaudible.
+
+- `/`: immediately playable four-answer question, three practice games, classroom PIN join, live student play, and class display (`?screen=CODE`).
+- `/teacher.html`: the same persistent navigation and language selector, Clerk sign-in, hosting, and creating/editing/deleting games saved to the teacher's Neon-backed account.
+- Three built-in games have **25 questions each**, with every prompt and answer available in Arabic, Hebrew, and English: Science (individual quiz), Math (three balanced teams with combined member scores), and Together (general knowledge and cooperation reasoning, with a shared 70% accuracy goal).
+- Changing language also changes live built-in question content independently for each player. Custom teacher games use their author-selected content language; they are not automatically translated.
+- Each correct response earns 100 points. Practice runs only on the current device; live play requires a signed-in host and the same running server for all students.
+- Legacy Academy/Worlds routes redirect to home; Arena/Quest Studio redirect to the teacher page. The projector is a display state of the home page, not a third UI page. Legacy assets and database records are retained to avoid destructive migration.
+- The active interface uses `classroom.js`, `classroom.css`, `classroom-i18n.js`, and the shared browser/Node `question-bank.js`. The older feature descriptions below document the retained backend, not additional navigation pages.
+- Both pages load the shared `cosmic-home.css` theme: starfield backgrounds, planet branding, violet/blue gradients, glass panels, and consistent forms, answer cards, scoreboards, and results. Home uses the original local vector illustration `learning-planet.svg` as an interactive map linking directly to all three practice games, PIN joining, and Teacher Studio. The `cosmic-theme` class stays active in every view; `cosmic-home` only marks the landing layout. The question preview remains playable on home. All map and role labels support the same three languages, with responsive keyboard-accessible controls and reduced-motion support.
+
+Restart the Node server after updating backend code. Open `http://localhost:3000/`; hosting and cloud saving still require valid Clerk/Neon settings. `localhost` links work only on the current computer; a public classroom needs the deployed server URL.
+
+When Clerk is configured, CSP permits its documented `*.protect.clerk.com` fraud-protection scripts/frames and `*.protect.clerk.com:*` connections (including its nonstandard probe ports). Other script sources remain restricted.
+
+Focused regression checks:
+
+```powershell
+node --test test\question-bank.test.js test\classroom.test.js test\app.test.js test\accounts.test.js
+```
+
 ## Features
 - Responsive multilingual home, teacher, student, and Explore Games experiences.
 - Ready-to-play subject packs for space, science, math, language arts, and history.
@@ -23,6 +54,8 @@ npm.cmd start
 Open **http://localhost:3000** in your browser. For local two-device testing, both devices must reach the same server (for example, via a deployed public URL).
 
 ## Deploy
+
+QR invitations open a compact nickname-only join view with the room code prefilled. For access from any network, the teacher must create the room on the same public HTTPS service used by students, not on localhost. The root Render blueprint enables `TRUST_PROXY=true` so generated QR links use HTTPS behind Render's proxy. Configure Clerk and Neon in the Render dashboard; local `.env` settings are not deployed. A room created locally cannot be joined on the public server, even if the room code matches.
 
 This is a **Node.js + Socket.IO server**, not a static website. **Do not** publish the `public/` folder alone to Netlify or GitHub Pages: the live classroom will not work.
 

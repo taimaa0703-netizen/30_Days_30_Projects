@@ -41,11 +41,11 @@ test('quiz flow: join, answer, reveal, results, moderation, reconnect, privacy',
   assert.equal(st.questions[1].q, '');
   assert.equal(st.questions[0].options.length, 4);
 
-  const right = 2; // 8 x 7 = 56
+  const right = rooms.get(code).questions[0].answer;
   assert.ok((await call(s1, 'student:answer', right)).correct);
   assert.equal((await call(s1, 'student:answer', right)).error, 'alreadyAnswered');
   assert.equal((await call(s1, 'student:answer', 9)).error, 'alreadyAnswered');
-  assert.equal((await call(s2, 'student:answer', 0)).correct, false);
+  assert.equal((await call(s2, 'student:answer', (right + 1) % 4)).correct, false);
 
   // Reconnect keeps the student's seat and score.
   s2.disconnect();
