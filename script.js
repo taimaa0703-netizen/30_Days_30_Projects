@@ -171,7 +171,7 @@ function renderGalleryCards() {
         <h3>${project.name}</h3>
 
         <p class="project-description" data-project-day="${project.day}">
-            ${projectDescriptions[language]?.[project.day] || project.description}
+            ${project.description}
         </p>
 
         <div class="tags">
@@ -241,93 +241,15 @@ const translations = {
     project: "PROJECT",
     viewProject: "VIEW PROJECT →",
     locked: "LOCKED"
-  },
-  he: {
-    date: "אוקטובר 2026",
-    status: "האתגר בעיצומו",
-    eyebrow: "אתגר התכנות שלי",
-    days: "30 ימים",
-    projects: "30 פרויקטים",
-    intro: "פרויקט חדש בכל יום. לומדת, בונה ומשתפרת, שורת קוד אחת בכל פעם.",
-    scroll: "↓ גללו כדי לגלות",
-    progress: "ההתקדמות באתגר",
-    total: "/ 30 פרויקטים",
-    collection: "האוסף",
-    collectionTitle: "30 דברים שאני בונה.",
-    footer: "30 ימים • 30 פרויקטים",
-    credit: "נבנה על ידי תימא ✦ 2026",
-    project: "פרויקט",
-    viewProject: "לצפייה בפרויקט ←",
-    locked: "נעול"
-  },
-  ar: {
-    date: "أكتوبر 2026",
-    status: "التحدي مستمر",
-    eyebrow: "تحدي البرمجة الخاص بي",
-    days: "30 يوماً",
-    projects: "30 مشروعاً",
-    intro: "مشروع جديد كل يوم. أتعلم وأبني وأتطور، سطراً برمجياً في كل مرة.",
-    scroll: "↓ مرّروا للاكتشاف",
-    progress: "التقدم في التحدي",
-    total: "/ 30 مشروعاً",
-    collection: "المجموعة",
-    collectionTitle: "30 فكرة أعمل على بنائها.",
-    footer: "30 يوماً • 30 مشروعاً",
-    credit: "بناء طعيمة ✦ 2026",
-    project: "المشروع",
-    viewProject: "عرض المشروع ←",
-    locked: "مغلق"
   }
 };
 
-const projectDescriptions = {
-  he: {
-    1: "שומרים על ריכוז. FocusFlow כבר תדע אם דעתכם הוסחה. 👀",
-    2: "בלי דרמות. רק החשבון. 💸",
-    3: "כולנו יודעים מי. בואו נקבע את זה רשמית. 👀",
-    4: "חניתם? אנחנו זוכרים. 🚗📍",
-    5: "הכסף שלכם, בשליטה. תכננו את החודש ועקבו אחר ההוצאות.",
-    6: "מפנים זמן למה שחשוב. מתכננים משימות, מתמקדים ועוקבים אחר ההתקדמות.",
-    7: "תובנות לקמפיינים: מזהים חריגות, משווים ערוצים ומפיקים דוח פרסום.",
-    8: "איכות לפני כמות. מגלים אילו קמפיינים מביאים לידים איכותיים והכנסות.",
-    9: "גלאי נזילות מים חכם עם Arduino, התראות ונתוני חיישנים בזמן אמת.",
-    10: "לוקחים שליטה על ההוצאות הקבועות, עוקבים אחר חידושים ומגלים כמה אפשר לחסוך.",
-    11: "המילים שלכם, הסגנון שלכם. מעצבים פוסטים וסטוריז יפהפיים.",
-    12: "מפענחים סמלי כביסה ושומרים הוראות טיפול לבגדים האהובים עליכם.",
-    13: "עוקבים אחר שינויים בפרויקט, מעריכים עבודה נוספת ומארגנים כל בקשה.",
-    14: "שומרים החלטות, אישורים, שינויים בגרסאות והיסטוריית פעילות במקום אחד.",
-    15: "הופכים כל שיעור להרפתקה כיתתית רב־לשונית ובזמן אמת."
-  },
-  ar: {
-    1: "حافظوا على التركيز. سيعرف FocusFlow إن شرد انتباهكم. 👀",
-    2: "بلا تعقيد. الفاتورة فقط. 💸",
-    3: "كلنا نعرف من هو. لنجعل الأمر رسمياً. 👀",
-    4: "ركنتم السيارة؟ نحن نتذكر. 🚗📍",
-    5: "أموالكم تحت السيطرة. خططوا للشهر وتابعوا نفقاتكم.",
-    6: "خصصوا وقتاً لما يهم. خططوا للمهام وركزوا وتابعوا تقدمكم.",
-    7: "تحليلات الحملات: اكتشفوا الحالات الشاذة وقارنوا القنوات وأنشئوا التقارير.",
-    8: "الجودة أهم من الكمية. اكتشفوا الحملات التي تجلب عملاء محتملين وإيرادات حقيقية.",
-    9: "كاشف ذكي لتسرّب المياه باستخدام Arduino وتنبيهات وقراءات مباشرة.",
-    10: "تحكموا بالمصاريف المتكررة وتابعوا التجديدات واكتشفوا فرص التوفير.",
-    11: "كلماتكم، أسلوبكم. صمموا منشورات وقصصاً جميلة.",
-    12: "تعرفوا على رموز العناية بالملابس واحفظوا تعليمات القطع المفضلة.",
-    13: "تابعوا تغييرات المشروع وقدّروا العمل الإضافي ونظموا كل طلب.",
-    14: "اجمعوا قرارات المشروع وموافقاته وتغييرات الإصدارات وسجل النشاط في مكان واحد.",
-    15: "حوّلوا كل درس إلى مغامرة صفية مباشرة ومتعددة اللغات."
-  }
-};
+const language = "en";
+localStorage.removeItem("gallery-language");
 
-const languageSelect = document.getElementById("languageSelect");
-let language = localStorage.getItem("gallery-language") || "he";
-if (!translations[language]) language = "en";
-languageSelect.value = language;
-
-function applyLanguage(nextLanguage) {
-  language = translations[nextLanguage] ? nextLanguage : "en";
-  localStorage.setItem("gallery-language", language);
-  document.documentElement.lang = language;
-  document.documentElement.dir = language === "en" ? "ltr" : "rtl";
-  languageSelect.value = language;
+function applyLanguage() {
+  document.documentElement.lang = "en";
+  document.documentElement.dir = "ltr";
 
   const textById = {
     challengeDate: translations[language].date,
@@ -357,16 +279,12 @@ function applyLanguage(nextLanguage) {
   grid.querySelectorAll(".project-description").forEach(description => {
     const project = projects[Number(description.dataset.projectDay) - 1];
     description.textContent =
-      projectDescriptions[language]?.[project.day] || project.description;
+      project.description;
   });
   grid.querySelectorAll(".locked-text").forEach(label => {
     label.textContent = translations[language].locked;
   });
 }
-
-languageSelect.addEventListener("change", event => {
-  applyLanguage(event.target.value);
-});
 
 renderGalleryCards();
 applyLanguage(language);
