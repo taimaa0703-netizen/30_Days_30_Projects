@@ -11,9 +11,11 @@ const { clerkAuth } = require('./auth');
 
 const app = express();
 app.disable('x-powered-by');
-if (process.env.TRUST_PROXY) app.set('trust proxy', process.env.TRUST_PROXY === 'true' ? 1 : process.env.TRUST_PROXY);
-
-// Integrations are optional and read from the environment. Missing keys disable the feature instead of faking it.
+if (process.env.TRUST_PROXY === 'true') {
+  app.set('trust proxy', 1);
+} else {
+  app.set('trust proxy', false);
+}// Integrations are optional and read from the environment. Missing keys disable the feature instead of faking it.
 const integrations = { pool: null, verify: null, clerkHost: null, publishableKey: null };
 let apiRouter = null;
 function configure({ pool = null, verify = null, publishableKey = null, clerkHost = null } = {}) {
@@ -42,8 +44,9 @@ async function bootstrapIntegrations(env = process.env) {
 }
 function cspHeader() {
   const clerk = integrations.clerkHost ? ` https://${integrations.clerkHost}` : '';
+  const clerkScripts = integrations.clerkHost ? ' https://cdn.protect.clerk.com' : '';
   const clerkExtra = integrations.clerkHost ? ' https://img.clerk.com https://challenges.cloudflare.com' : '';
-  return `default-src 'self'; script-src 'self'${clerk} https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:${clerkExtra}; connect-src 'self' ws: wss:${clerk}; frame-src ${integrations.clerkHost ? 'https://challenges.cloudflare.com' : "'none'"}; worker-src 'self' blob:; frame-ancestors 'none'; base-uri 'none'; form-action 'self'`;
+  return `default-src 'self'; script-src 'self'${clerk}${clerkScripts} https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:${clerkExtra}; connect-src 'self' ws: wss:${clerk}${clerkScripts} https://clerk-telemetry.com; frame-src ${integrations.clerkHost ? 'https://challenges.cloudflare.com' : "'none'"}; worker-src 'self' blob:; frame-ancestors 'none'; base-uri 'none'; form-action 'self'`;
 }
 app.use((_req, res, next) => {
   res.set({
