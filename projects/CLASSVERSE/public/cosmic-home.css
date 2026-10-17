@@ -22,6 +22,14 @@
   background: #151b40;
   border-bottom: 1px solid var(--line);
 }
+.cosmic-theme .sound-volume {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+.cosmic-theme .sound-volume input {width: 130px; padding: 0; accent-color: #bf9cff}
+.cosmic-theme .sound-volume output {min-width: 4ch; direction: ltr}
 .cosmic-theme .invitation-page {
   max-width: 560px;
   margin: 28px auto;

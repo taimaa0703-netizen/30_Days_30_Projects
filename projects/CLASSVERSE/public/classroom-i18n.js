@@ -83,6 +83,7 @@
     readyToStart: ['جاهزون للبدء؟', 'מוכנים להתחיל?', 'Ready to start?'],
     enableSound: ['تشغيل الصوت', 'הפעלת סאונד', 'Enable sound'],
     soundLabel: ['الصوت', 'סאונד', 'Sound'],
+    volume: ['مستوى الصوت', 'עוצמת שמע', 'Volume'],
     testSound: ['اختبار الصوت', 'בדיקת צליל', 'Test sound'],
     soundOn: ['الصوت مفعّل', 'הסאונד מופעל', 'Sound is on'],
     soundOff: ['اضغط لتشغيل الصوت', 'לחצו להפעלת הסאונד', 'Click to enable sound'],

@@ -19,7 +19,9 @@
   const localized = value => value[state.lang];
   const symbols = ['✳', '◈', '☰', '◎'];
   const teamIds = ['pilots', 'engineers', 'scientists'];
-  let audioContext, audioGain, musicTimer;
+  let audioContext, audioGain, musicTimer, musicRoom;
+  let musicStep = 0, nextMusicTime = 0;
+  let soundVolume = 80;
   let soundEnabled = false;
   let previousSoundRoom = null;
   const soundNodes = new Set();
@@ -29,39 +31,68 @@
     for (const node of soundNodes) node.stop();
     soundNodes.clear();
   }
-  function playNotes(notes, spacing = .2) {
-    if (!soundEnabled || audioContext?.state !== 'running') return;
-    notes.forEach((frequency, index) => {
-      const start = audioContext.currentTime + index * spacing;
+  function playTone(frequency, start, duration, type = 'sine', level = .18, endFrequency = null) {
       const oscillator = audioContext.createOscillator();
       const envelope = audioContext.createGain();
-      oscillator.type = 'sine';
-      oscillator.frequency.value = frequency;
+      oscillator.type = type;
+      oscillator.frequency.setValueAtTime(frequency, start);
+      if (endFrequency) oscillator.frequency.exponentialRampToValueAtTime(endFrequency, start + duration);
       envelope.gain.setValueAtTime(0, start);
-      envelope.gain.linearRampToValueAtTime(.12, start + .025);
-      envelope.gain.exponentialRampToValueAtTime(.001, start + spacing * .9);
+      envelope.gain.linearRampToValueAtTime(level, start + Math.min(.02, duration / 4));
+      envelope.gain.exponentialRampToValueAtTime(.001, start + duration);
       oscillator.connect(envelope);
       envelope.connect(audioGain);
       soundNodes.add(oscillator);
       oscillator.onended = () => { soundNodes.delete(oscillator); oscillator.disconnect(); envelope.disconnect(); };
       oscillator.start(start);
-      oscillator.stop(start + spacing);
-    });
+      oscillator.stop(start + duration + .01);
+  }
+  function playNotes(notes, spacing = .2) {
+    if (!soundEnabled || audioContext?.state !== 'running') return;
+    notes.forEach((frequency, index) => playTone(frequency, audioContext.currentTime + index * spacing, spacing * .9, 'triangle', .24));
+  }
+  function scheduleMusic() {
+    if (!soundEnabled || audioContext.state !== 'running' || !musicRoom) return;
+    // Schedule against the audio clock so redraws and socket updates cannot restart the track.
+    nextMusicTime = Math.max(nextMusicTime, audioContext.currentTime);
+    while (nextMusicTime < audioContext.currentTime + 1.25) {
+      const stage = musicRoom.stage;
+      const roots = stage === 'finished' ? [130.81, 174.61, 196, 130.81] : [110, 87.31, 130.81, 98];
+      const root = roots[Math.floor(musicStep / 16) % roots.length];
+      const step = musicStep % 16;
+      const active = stage === 'question';
+      const arpeggio = [1, 1.5, 2, 2.5, 3, 2.5, 2, 1.5];
+      if (step % 2 === 0) playTone(root / 2, nextMusicTime, .3, 'triangle', .28);
+      if (active || step % 2 === 0) playTone(root * arpeggio[step % 8] * 2, nextMusicTime, .16, 'triangle', active ? .13 : .09);
+      if (step === 0 || step === 8) {
+        for (const ratio of [1, stage === 'finished' ? 1.25 : 1.2, 1.5]) {
+          playTone(root * ratio, nextMusicTime, 1.5, 'sine', .07);
+        }
+      }
+      if (step % 4 === 0 || (active && step % 4 === 2)) playTone(140, nextMusicTime, .16, 'sine', .4, 42);
+      if (step % 4 === 2) playTone(185, nextMusicTime, .09, 'triangle', .16, 70);
+      if (active || step % 2 === 1) playTone(6500, nextMusicTime, .025, 'square', .018, 4200);
+      musicStep++;
+      nextMusicTime += .25;
+    }
   }
   function syncSound(room) {
     const audible = soundEnabled && !state.disconnected && ['teacher', 'projector'].includes(state.role);
-    const inLobby = audible && room?.stage === 'lobby';
-    if (!inLobby) stopMusic();
-    if (inLobby && !musicTimer) {
-      const melody = () => playNotes([261.63, 329.63, 392, 493.88, 440, 392, 329.63, 293.66], .4);
-      melody();
-      musicTimer = setInterval(melody, 4000);
+    musicRoom = audible ? room : null;
+    if (!musicRoom) stopMusic();
+    if (musicRoom && !musicTimer) {
+      musicStep = 0;
+      nextMusicTime = audioContext.currentTime;
+      scheduleMusic();
+      musicTimer = setInterval(scheduleMusic, 100);
     }
     if (audible && room && previousSoundRoom?.code === room.code) {
       if (room.stage === 'lobby' && room.students.some(player => player.connected && !previousSoundRoom.players.has(player.id))) {
         playNotes([659.25, 880], .14);
       }
       if (previousSoundRoom.stage === 'lobby' && room.stage === 'question') playNotes([392, 523.25, 659.25, 783.99], .18);
+      if (previousSoundRoom.stage !== room.stage && room.stage === 'reveal') playNotes([523.25, 659.25, 783.99], .14);
+      if (previousSoundRoom.stage !== room.stage && room.stage === 'finished') playNotes([523.25, 659.25, 783.99, 1046.5], .22);
     }
     previousSoundRoom = room ? { code: room.code, stage: room.stage, players: new Set(room.students.filter(player => player.connected).map(player => player.id)) } : null;
   }
@@ -77,11 +108,18 @@
         if (!window.AudioContext) throw new Error('Web Audio is unavailable');
         audioContext = new window.AudioContext();
         audioGain = audioContext.createGain();
-        audioGain.connect(audioContext.destination);
+        const compressor = audioContext.createDynamicsCompressor();
+        compressor.threshold.value = -14;
+        compressor.knee.value = 20;
+        compressor.ratio.value = 5;
+        compressor.attack.value = .005;
+        compressor.release.value = .15;
+        audioGain.connect(compressor);
+        compressor.connect(audioContext.destination);
       }
       await audioContext.resume();
       if (audioContext.state !== 'running') throw new Error('Audio playback is blocked');
-      audioGain.gain.value = .8;
+      audioGain.gain.value = soundVolume / 100;
       soundEnabled = true;
       syncSound(state.room);
       if (testOnly || state.room?.stage !== 'lobby') playNotes([523.25, 659.25, 783.99], .3);
@@ -165,7 +203,7 @@
       renderedLanguage = headerKey;
     }
     document.getElementById('footer').textContent = t('footer');
-    document.getElementById('sound-settings').innerHTML = teacherPage || state.role === 'projector' ? `<div class="actions"><span>${t('soundLabel')}</span>${!state.room ? button(soundEnabled ? 'muteSound' : 'enableSound', 'toggleSound', 'secondary', `aria-pressed="${soundEnabled}"`) : ''}${button('testSound', 'testSound', 'secondary')}<span class="muted">${t(soundEnabled ? 'soundOn' : 'soundOff')}</span></div>` : '';
+    document.getElementById('sound-settings').innerHTML = teacherPage || state.role === 'projector' ? `<div class="actions"><span>${t('soundLabel')}</span>${!state.room ? button(soundEnabled ? 'muteSound' : 'enableSound', 'toggleSound', 'secondary', `aria-pressed="${soundEnabled}"`) : ''}${button('testSound', 'testSound', 'secondary')}<label class="sound-volume" for="sound-volume">${t('volume')} <input type="range" id="sound-volume" min="0" max="100" value="${soundVolume}"><output id="volume-value" for="sound-volume">${soundVolume}%</output></label><span class="muted">${t(soundEnabled ? 'soundOn' : 'soundOff')}</span></div>` : '';
     document.getElementById('connection').innerHTML = state.disconnected ? `<div class="status-banner" role="alert">${t('reconnecting')}</div>` : '';
   }
   function answers(options, action, { selected = null, correct = null, disabled = false } = {}) {
@@ -438,6 +476,11 @@
     Promise.resolve(action(target.dataset.action)).catch(report).finally(() => { state.busy = false; render(); });
   });
   document.addEventListener('input', event => {
+    if (event.target.id === 'sound-volume') {
+      soundVolume = Math.max(0, Math.min(100, Number(event.target.value)));
+      if (audioGain && soundEnabled) audioGain.gain.setTargetAtTime(soundVolume / 100, audioContext.currentTime, .03);
+      document.getElementById('volume-value').textContent = `${soundVolume}%`;
+    }
     if (event.target.closest('#editor-form')) state.dirty = true;
   });
   document.addEventListener('change', event => {

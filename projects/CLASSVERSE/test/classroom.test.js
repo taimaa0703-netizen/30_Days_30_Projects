@@ -57,8 +57,8 @@ test('both pages share the cosmic theme and serve local artwork with complete tr
   const teacher = await (await fetch(url + '/teacher.html')).text();
   assert.match(home, /cosmic-home\.css/);
   assert.match(teacher, /cosmic-home\.css/);
-  assert.match(home, /classroom\.js\?v=11/);
-  assert.match(teacher, /classroom\.js\?v=11/);
+  assert.match(home, /classroom\.js\?v=12/);
+  assert.match(teacher, /classroom\.js\?v=12/);
   const art = await fetch(url + '/learning-planet.svg');
   assert.equal(art.status, 200);
   assert.match(art.headers.get('content-type'), /image\/svg\+xml/);
@@ -72,7 +72,7 @@ test('both pages share the cosmic theme and serve local artwork with complete tr
   const context = { window: {} };
   vm.runInNewContext(await (await fetch(url + '/classroom-i18n.js')).text(), context);
   for (const language of ['ar', 'he', 'en']) {
-    for (const key of ['readyToStart', 'enableSound', 'muteSound', 'soundError', 'testSound', 'soundLabel', 'soundOn', 'soundOff', 'soundEnabledHint', 'selectedGame', 'selectedGameHint']) {
+    for (const key of ['readyToStart', 'enableSound', 'muteSound', 'soundError', 'testSound', 'soundLabel', 'soundOn', 'soundOff', 'soundEnabledHint', 'volume', 'selectedGame', 'selectedGameHint']) {
       assert.ok(context.window.CLASSVERSE_COPY[language][key]?.trim(), `${language}.${key}`);
     }
     for (const key of ['welcome', 'planetIntro', 'studentRole', 'teacherRole', 'scienceWorld', 'mathWorld', 'togetherWorld', 'arenaWorld', 'joinPin', 'mapLabel', 'exploreWorlds', 'chooseGame', 'hostSteps', 'start', 'shareGame', 'copyLink', 'inviteLink', 'scanJoin', 'shareHint', 'localShareWarning', 'connectedPlayers', 'playerConnected', 'playerOffline', 'lobbyHostHint', 'liveUpdates', 'inviteStudents', 'waitForPlayers', 'teacherControlsStart', 'linkCopied', 'copyManually']) {
@@ -83,21 +83,29 @@ test('both pages share the cosmic theme and serve local artwork with complete tr
 test('lobby shares only the student invite and reserves start and removal controls for the teacher', async () => {
   const vm = require('node:vm');
   const handlers = {}, listeners = {}, emitted = [], copied = [], tones = [], stopped = [], redirects = [];
-  let musicLoops = 0;
+  let musicLoops = 0, musicCallback, liveLoops = 0;
+  let audioInstance;
+  const gains = [];
   class FakeAudioContext {
+    constructor() { audioInstance = this; }
     state = 'running';
     currentTime = 0;
     destination = {};
     resume() { return Promise.resolve(); }
     createGain() {
-      return { gain: { value: 0, setValueAtTime() {}, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {} }, connect() {}, disconnect() {} };
+      const gain = { value: 0, setValueAtTime() {}, setTargetAtTime(value) { this.value = value; }, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {} };
+      gains.push(gain);
+      return { gain, connect() {}, disconnect() {} };
+    }
+    createDynamicsCompressor() {
+      return { threshold: {}, knee: {}, ratio: {}, attack: {}, release: {}, connect() {} };
     }
     createOscillator() {
-      return { frequency: { value: 0 }, connect() {}, disconnect() {},
+      return { frequency: { setValueAtTime() {}, exponentialRampToValueAtTime() {} }, connect() {}, disconnect() {},
         start(time) { tones.push(time); }, stop() { stopped.push(true); } };
     }
   }
-  const elements = Object.fromEntries(['main', 'navigation', 'footer', 'connection', 'toast', 'sound-settings'].map(id => [id, { innerHTML: '', textContent: '', hidden: true }]));
+  const elements = Object.fromEntries(['main', 'navigation', 'footer', 'connection', 'toast', 'sound-settings', 'volume-value'].map(id => [id, { innerHTML: '', textContent: '', hidden: true }]));
   const context = {
     window: { addEventListener() {}, AudioContext: FakeAudioContext }, URL, URLSearchParams, console,
     location: { pathname: '/', search: '', origin: 'http://localhost:3000', hostname: 'localhost', assign: value => redirects.push(value) },
@@ -109,8 +117,8 @@ test('lobby shares only the student invite and reserves start and removal contro
       addEventListener: (event, handler) => { listeners[event] = handler; }
     },
     navigator: { clipboard: { writeText: async value => { copied.push(value); } } },
-    setInterval(callback, delay) { if (delay === 4000) musicLoops++; return 1; },
-    clearInterval() {}, setTimeout() {}, clearTimeout() {},
+    setInterval(callback, delay) { if (delay === 100) { musicLoops++; liveLoops++; musicCallback = callback; } return delay; },
+    clearInterval(id) { if (id === 100) liveLoops--; }, setTimeout() {}, clearTimeout() {},
     io: () => ({
       connected: true,
       on: (event, handler) => { handlers[event] = handler; },
@@ -146,8 +154,13 @@ test('lobby shares only the student invite and reserves start and removal contro
   for (const id of ['science', 'math', 'together']) await click(`host:${id}`);
   assert.deepEqual(redirects, ['science', 'math', 'together'].map(id => `/teacher.html?game=${id}`));
   await click('toggleSound');
-  assert.equal(tones.length, 8);
+  const musicNotes = tones.length;
+  assert.ok(musicNotes >= 7, 'music combines bass, chords, melody and percussion');
   assert.equal(musicLoops, 1);
+  assert.equal(gains[0].value, .8);
+  listeners.input({ target: { id: 'sound-volume', value: '100', closest: () => null } });
+  assert.equal(gains[0].value, 1);
+  assert.equal(elements['volume-value'].textContent, '100%');
   assert.match(elements.main.innerHTML, /aria-pressed="true"/);
   handlers['room:state'](room);
   assert.equal(musicLoops, 1, 'state updates must not duplicate the music loop');
@@ -170,7 +183,7 @@ test('lobby shares only the student invite and reserves start and removal contro
   assert.match(elements.toast.textContent, /Copy the displayed invite link manually/);
   room.students.push({ id: 'student', name: '<Explorer>', connected: true, avatar: '🚀', points: 0 });
   handlers['room:state'](room);
-  assert.equal(tones.length, 10, 'joining plays a two-note cue');
+  assert.equal(tones.length, musicNotes + 2, 'joining plays a two-note cue');
   assert.match(elements.main.innerHTML, /&lt;Explorer&gt;/);
   assert.match(elements.main.innerHTML, /data-action="kick:student"/);
   assert.doesNotMatch(elements.main.innerHTML, /data-action="launch:0"[^>]*disabled/);
@@ -179,21 +192,38 @@ test('lobby shares only the student invite and reserves start and removal contro
   const questionRoom = { ...room, stage: 'question', activeQuestion: 0,
     questions: [{ q: 'Question', options: ['a', 'b', 'c', 'd'] }], answersCount: 0 };
   handlers['room:state'](questionRoom);
-  assert.equal(tones.length, 14, 'starting stops music and plays the start cue');
-  assert.ok(stopped.length > 14);
+  assert.equal(tones.length, musicNotes + 6, 'starting plays the start cue without stopping music');
+  assert.equal(liveLoops, 1);
+  assert.equal(musicLoops, 1);
+  assert.equal(stopped.length, tones.length, 'no extra stop calls at question transition');
+  for (const stage of ['reveal', 'question', 'finished']) {
+    handlers['room:state']({ ...questionRoom, stage, results: { players: [], classAccuracy: null, questionsPlayed: 1 } });
+    assert.equal(liveLoops, 1, `music continues in ${stage}`);
+    assert.equal(musicLoops, 1, 'stage changes do not start extra schedulers');
+    const previousNotes = tones.length;
+    audioInstance.currentTime += 2;
+    musicCallback();
+    assert.ok(tones.length > previousNotes, `scheduler produces new notes in ${stage}`);
+  }
+  const beforeMute = tones.length;
   await click('toggleSound');
+  assert.equal(liveLoops, 0);
   assert.match(elements.main.innerHTML, /aria-pressed="false"/);
   await click('testSound');
-  assert.equal(tones.length, 17, 'sound test plays immediately during a question');
+  assert.ok(tones.length >= beforeMute + musicNotes + 3, 'sound test restarts music and plays a cue');
   assert.match(elements.main.innerHTML, /aria-pressed="true"/);
+  assert.equal(gains[0].value, 1, 'chosen volume survives mute and re-enable');
   await click('toggleSound');
+  const mutedNotes = tones.length;
+  musicCallback();
+  assert.equal(tones.length, mutedNotes, 'a stale scheduler cannot play after mute');
   context.window.AudioContext.prototype.resume = async () => { throw new Error('Blocked audio'); };
   await click('toggleSound');
   assert.match(elements.toast.textContent, /Audio could not start/);
   assert.match(elements.main.innerHTML, /aria-pressed="false"/);
   room.students[0].connected = false;
   handlers['room:state'](room);
-  assert.equal(tones.length, 17, 'muted lobby must not play audio');
+  assert.equal(tones.length, mutedNotes, 'muted lobby must not play audio');
   assert.doesNotMatch(elements.main.innerHTML, /data-action="launch:0"[^>]*disabled/);
   await click('launch:0');
   assert.equal(emitted.filter(event => event === 'teacher:launch').length, 3, 'disconnected players do not block starting');

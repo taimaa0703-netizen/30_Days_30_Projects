@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CLASSVERSE is a multilingual, real-time classroom adventure for teachers and students.">
+  <title>CLASSVERSE | 30 Days, 30 Projects</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #09070a;
+      color: #fff9fc;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 32px 20px;
+      background:
+        radial-gradient(circle at 80% 10%, #40142c 0, transparent 32%),
+        #09070a;
+    }
+
+    main {
+      width: min(100%, 760px);
+      padding: clamp(28px, 7vw, 64px);
+      border: 1px solid rgba(255, 95, 162, .25);
+      border-radius: 24px;
+      background: rgba(18, 16, 20, .9);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .35);
+    }
+
+    .eyebrow {
+      color: #ff5fa2;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .language-picker {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 36px;
+    }
+
+    .language-picker select {
+      border: 1px solid rgba(255, 95, 162, .35);
+      border-radius: 999px;
+      background: #121014;
+      color: #fff9fc;
+      padding: 9px 14px;
+      font: inherit;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    h1 {
+      margin: 16px 0;
+      font-size: clamp(2.5rem, 9vw, 5rem);
+      line-height: 1;
+    }
+
+    .intro {
+      max-width: 590px;
+      color: #c4b9c0;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    ul {
+      display: grid;
+      gap: 12px;
+      margin: 30px 0;
+      padding-left: 22px;
+      color: #f6bfd8;
+    }
+
+    .notice {
+      margin: 30px 0;
+      padding: 18px 20px;
+      border-inline-start: 3px solid #ff5fa2;
+      background: rgba(255, 95, 162, .08);
+      color: #e5d9df;
+      line-height: 1.6;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border: 1px solid rgba(255, 95, 162, .45);
+      border-radius: 999px;
+      color: #fff9fc;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .action-primary {
+      border-color: #ff5fa2;
+      background: #ff5fa2;
+      color: #09070a;
+    }
+
+    .action:hover { filter: brightness(1.12); }
+
+    ul { padding-inline-start: 22px; }
+
+    a { color: #ff8abb; }
+
+    .back {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: .9rem;
+      text-decoration: none;
+    }
+
+    .back:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <main>
+    <label class="language-picker">
+      <span class="visually-hidden">Language</span>
+      <select id="languageSelect" aria-label="Language">
+        <option value="en">English</option>
+        <option value="he">עברית</option>
+        <option value="ar">العربية</option>
+      </select>
+    </label>
+    <p class="eyebrow" id="eyebrow">Project 15 · Education</p>
+    <h1>CLASSVERSE</h1>
+    <p class="intro" id="intro">
+      Turn a lesson into a shared classroom adventure. Teachers host live missions;
+      students join from their own devices, answer challenges, earn points, and
+      shape the story together.
+    </p>
+    <ul>
+      <li id="featureLanguages">English, Hebrew, and Arabic with right-to-left layouts</li>
+      <li id="featureLive">Live room codes, quizzes, student-created questions, and story votes</li>
+      <li id="featureDevices">Designed for phones and classroom screens</li>
+    </ul>
+    <p class="notice">
+      <span id="noticeIntro">The live classroom runs on its own server. Open it using the button below; if the free server has been idle, it may take a moment to wake.</span>
+    </p>
+    <div class="actions">
+      <a class="action action-primary" id="playLink" href="https://classverse-day15.onrender.com/">Open live classroom</a>
+      <a class="action" id="readmeLink" href="README.md">Deployment details</a>
+    </div>
+    <p class="intro" id="deployHelp">Teachers and students must open the same live classroom link. On the free hosting plan, the first visit after inactivity can take around a minute.</p>
+    <a class="back" href="../../" id="backLink">← Back to 30 Days, 30 Projects</a>
+  </main>
+  <script>
+    const translations = {
+      en: {
+        title: "CLASSVERSE | 30 Days, 30 Projects",
+        eyebrow: "Project 15 · Education",
+        intro: "Turn a lesson into a shared classroom adventure. Teachers host live missions; students join from their own devices, answer challenges, earn points, and shape the story together.",
+        featureLanguages: "English, Hebrew, and Arabic with right-to-left layouts",
+        featureLive: "Live room codes, quizzes, student-created questions, and story votes",
+        featureDevices: "Designed for phones and classroom screens",
+        noticeIntro: "The live classroom runs on its own server. Open it using the button below; if the free server has been idle, it may take a moment to wake.",
+        readmeLink: "Deployment details",
+        noticeTail: "",
+        playLink: "Open live classroom",
+        deployHelp: "Teachers and students must open the same live classroom link. On the free hosting plan, the first visit after inactivity can take around a minute.",
+        backLink: "← Back to 30 Days, 30 Projects"
+      },
+      he: {
+        title: "CLASSVERSE | 30 ימים, 30 פרויקטים",
+        eyebrow: "פרויקט 15 · חינוך",
+        intro: "הופכים שיעור להרפתקה כיתתית משותפת. מורים פותחים משימות בזמן אמת, ותלמידים מצטרפים מהמכשירים שלהם, עונים על אתגרים, צוברים נקודות ומשפיעים יחד על הסיפור.",
+        featureLanguages: "באנגלית, בעברית ובערבית, עם תמיכה בכתיבה מימין לשמאל",
+        featureLive: "קודי הצטרפות, חידונים, שאלות מתלמידים והצבעות על הסיפור",
+        featureDevices: "מותאם לטלפונים ולמסכים בכיתה",
+        noticeIntro: "הכיתה החיה פועלת בשרת נפרד. היכנסו אליה בכפתור למטה; אם השרת החינמי לא היה פעיל, ייתכן שייקח לו רגע להתעורר.",
+        readmeLink: "פרטי הפריסה",
+        noticeTail: "",
+        playLink: "פתיחת הכיתה החיה",
+        deployHelp: "המורים והתלמידים צריכים להיכנס לאותו קישור לכיתה. באחסון החינמי, הכניסה הראשונה אחרי חוסר פעילות עשויה לארוך כדקה.",
+        backLink: "חזרה ל‑30 ימים, 30 פרויקטים ←"
+      },
+      ar: {
+        title: "CLASSVERSE | 30 يوماً، 30 مشروعاً",
+        eyebrow: "المشروع 15 · التعليم",
+        intro: "حوّلوا الدرس إلى مغامرة صفية مشتركة. ينشئ المعلمون مهاماً مباشرة، وينضم الطلاب من أجهزتهم للإجابة عن التحديات وجمع النقاط والمشاركة في صنع القصة.",
+        featureLanguages: "بالإنجليزية والعبرية والعربية، مع دعم الكتابة من اليمين إلى اليسار",
+        featureLive: "رموز صفية مباشرة، اختبارات، أسئلة من الطلاب وتصويت على القصة",
+        featureDevices: "مصمم للهواتف وشاشات الصف",
+        noticeIntro: "يعمل الصف المباشر على خادم مستقل. افتحوه باستخدام الزر أدناه؛ وإذا كان الخادم المجاني غير نشط فقد يحتاج لحظة ليستيقظ.",
+        readmeLink: "تفاصيل النشر",
+        noticeTail: "",
+        playLink: "فتح الصف المباشر",
+        deployHelp: "يجب على المعلمين والطلاب استخدام رابط الصف المباشر نفسه. قد يستغرق أول دخول بعد الخمول نحو دقيقة على الاستضافة المجانية.",
+        backLink: "العودة إلى 30 يوماً، 30 مشروعاً ←"
+      }
+    };
+
+    const languageSelect = document.getElementById("languageSelect");
+    const fields = ["eyebrow", "intro", "featureLanguages", "featureLive", "featureDevices", "noticeIntro", "readmeLink", "playLink", "deployHelp", "backLink"];
+    let language = localStorage.getItem("gallery-language") || "he";
+
+    function applyLanguage(nextLanguage) {
+      language = translations[nextLanguage] ? nextLanguage : "en";
+      localStorage.setItem("gallery-language", language);
+      document.documentElement.lang = language;
+      document.documentElement.dir = language === "en" ? "ltr" : "rtl";
+      document.title = translations[language].title;
+      languageSelect.value = language;
+      fields.forEach(id => {
+        document.getElementById(id).textContent = translations[language][id];
+      });
+    }
+
+    languageSelect.addEventListener("change", event => applyLanguage(event.target.value));
+    applyLanguage(language);
+  </script>
+</body>
+</html>
