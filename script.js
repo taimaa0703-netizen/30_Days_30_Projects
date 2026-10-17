@@ -128,7 +128,7 @@ const projects = [
   name: "CLASSVERSE",
   description: "Turn every lesson into a multilingual, real-time classroom adventure.",
   tags: ["Node.js", "Socket.IO", "Education", "Multilingual"],
-  link: "http://localhost:3000/teacher.html",
+  link: "http://localhost:3000/",
   unlocked: true
 },
 {
