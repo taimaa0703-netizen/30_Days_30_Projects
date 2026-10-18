@@ -139,6 +139,14 @@ const projects = [
   link: "projects/brain-quest/index.html",
   unlocked: true
 },
+{
+  day: 17,
+  name: "LIFE REWIND",
+  description: "A beautifully organized space to save and revisit the moments that shape your life.",
+  tags: ["HTML", "CSS", "JavaScript", "Memories"],
+  link: "projects/life-rewind/",
+  unlocked: true
+},
 
 ];
 
