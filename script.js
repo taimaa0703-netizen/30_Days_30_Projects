@@ -147,6 +147,14 @@ const projects = [
   link: "projects/life-rewind/",
   unlocked: true
 },
+{
+  day: 18,
+  name: "PACKED.",
+  description: "Every trip starts with a suitcase. Plan your packing, organize an interactive suitcase, and travel lighter in English, Hebrew, or Arabic.",
+  tags: ["HTML", "CSS", "JavaScript", "Travel", "Multilingual"],
+  link: "projects/PACKED/index.html",
+  unlocked: true
+},
 
 ];
 
