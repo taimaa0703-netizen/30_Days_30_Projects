@@ -155,6 +155,14 @@ const projects = [
   link: "projects/PACKED/index.html",
   unlocked: true
 },
+{
+  day: 19,
+  name: "AURA SEATING",
+  description: "Plan elegant event seating, manage guest lists, track arrivals, and customize table names and capacity.",
+  tags: ["HTML", "CSS", "JavaScript", "Event Planning"],
+  link: "projects/AURA_SEATING_STUDIO/index.html",
+  unlocked: true
+},
 
 ];
 
