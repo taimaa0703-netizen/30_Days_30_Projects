@@ -171,6 +171,14 @@ const projects = [
   link: "projects/REWEAR_DAY20/index.html",
   unlocked: true
 },
+{
+  day: 21,
+  name: "BUSLY.",
+  description: "Plan bus seating, manage passengers, and track who has boarded.",
+  tags: ["HTML", "CSS", "JavaScript", "Trip Planning", "Multilingual"],
+  link: "projects/BUSLY_DAY21/index.html",
+  unlocked: true
+},
 
 ];
 
