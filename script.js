@@ -163,6 +163,14 @@ const projects = [
   link: "projects/AURA_SEATING_STUDIO/index.html",
   unlocked: true
 },
+{
+  day: 20,
+  name: "REWEAR.",
+  description: "Rediscover your wardrobe, style new outfits, and save looks worth wearing again.",
+  tags: ["HTML", "CSS", "JavaScript", "Fashion", "Multilingual"],
+  link: "projects/REWEAR_DAY20/index.html",
+  unlocked: true
+},
 
 ];
 
