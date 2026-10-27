@@ -187,6 +187,14 @@ const projects = [
   link: "projects/queueless/index.html",
   unlocked: true
 },
+{
+  day: 23,
+  name: "ATTRIBUTION X",
+  description: "Discover which marketing touchpoints drive revenue with flexible attribution models.",
+  tags: ["HTML", "CSS", "JavaScript", "Marketing Analytics"],
+  link: "projects/ATTRIBUTION_X/index.html",
+  unlocked: true
+},
 
 ];
 
