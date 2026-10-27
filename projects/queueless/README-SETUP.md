@@ -35,6 +35,8 @@ The QR links to `?view=guest`; visitors do NOT need accounts. This build retains
 
 The login screen offers two choices:
 
+Browser Back and Forward restore the login steps, customer booking pages, and dashboard sections. Refreshing a direct link keeps the requested page. The shared `navigation.js` helper avoids adding history entries while restoring an earlier screen.
+
 - **I'm a customer**: opens the booking screen. The customer picks a business, a day, and a free time slot. Slots come from the owner's business hours, and taken times are shown as unavailable. The customer then enters name and phone (required) plus an optional note. After booking, they get a confirmation page (`?booking=<id>`) that shows the live status and lets them cancel.
 - **I'm the business owner**: signs in with email, Google, or **Continue without email** (business name + phone number + PIN). The **Appointments** page in the dashboard shows the day's timeline: free and booked slots, customer name and phone, note, a "now" marker, and Arrived / Done / No-show / Cancel actions. New bookings appear instantly through Supabase Realtime. Owners set business hours and appointment length there and share their direct link `?book=<businessId>`.
 

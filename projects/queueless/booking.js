@@ -90,7 +90,7 @@ document.body.appendChild(layer);
 
 const C = { view: null, arg: null, biz: null, list: [], days: [], day: null, slot: null, busy: [], busyErr: null, query: '', poll: null };
 const paint = (html) => { $('bkMain').innerHTML = html; };
-function setUrl(key, value) { history.replaceState(null, '', `${location.pathname}?${key}${value ? `=${encodeURIComponent(value)}` : ''}`); }
+function setUrl(key, value) { window.QL_NAV.go(`?${key}${value ? `=${encodeURIComponent(value)}` : ''}`); }
 function openLayer(view, arg) {
  clearInterval(C.poll); C.poll = null; C.view = view; C.arg = arg;
  layer.classList.remove('hidden'); layer.dir = lang === 'en' ? 'ltr' : 'rtl'; layer.lang = lang;
@@ -99,10 +99,10 @@ function openLayer(view, arg) {
  layer.querySelectorAll('[data-bk-lang]').forEach((b) => b.classList.toggle('active', b.dataset.bkLang === lang));
  layer.scrollTo?.(0, 0);
 }
-function closeLayer() {
+function closeLayer(navigate = true) {
  clearInterval(C.poll); C.poll = null; C.view = null;
  layer.classList.add('hidden');
- history.replaceState(null, '', location.pathname);
+ if (navigate) window.QL_NAV.go();
 }
 const myBookings = () => { try { return JSON.parse(localStorage.getItem(MY_KEY) || '[]').filter((id) => UUID.test(id)); } catch { return []; } };
 const rememberBooking = (id) => localStorage.setItem(MY_KEY, JSON.stringify([id, ...myBookings().filter((x) => x !== id)].slice(0, 10)));
@@ -112,6 +112,7 @@ async function showList() {
  paint(`<section class="bk-head"><span class="eyebrow dark">${tx('bookKicker')}</span><h1>${tx('chooseBiz')}</h1><p>${tx('chooseBizSub')}</p></section><div id="bkMine"></div><input class="bk-search" id="bkSearch" type="search" placeholder="${esc(tx('search'))}" value="${esc(C.query)}" autocomplete="off"><div class="bk-list" id="bkList"><p class="bk-muted">${tx('loading')}</p></div>`);
  $('bkSearch').addEventListener('input', (e) => { C.query = e.target.value; drawList(); });
  await ready;
+ if (C.view !== 'list') return;
  const c = client();
  if (!c) { $('bkList').innerHTML = `<p class="bk-error">${tx('errSetup')}</p>`; return; }
  const { data, error } = await c.from('businesses').select(BIZ_COLS).order('name');
@@ -144,6 +145,7 @@ async function showBusiness(id) {
  openLayer('business', id); setUrl('book', id); C.slot = null;
  paint(`<p class="bk-muted">${tx('loading')}</p>`);
  await ready;
+ if (C.view !== 'business' || C.arg !== id) return;
  const c = client();
  if (!c) { paint(`<p class="bk-error">${tx('errSetup')}</p>`); return; }
  let biz = C.list.find((b) => b.id === id);
@@ -239,6 +241,7 @@ async function showBooking(id) {
  openLayer('booking', id); setUrl('booking', id);
  paint(`<p class="bk-muted">${tx('loading')}</p>`);
  await ready;
+ if (C.view !== 'booking' || C.arg !== id) return;
  const c = client();
  if (!c) { paint(`<p class="bk-error">${tx('errSetup')}</p>`); return; }
  const load = async () => {
@@ -470,6 +473,14 @@ document.addEventListener('click', (e) => {
  }, 0);
 });
 document.addEventListener('ql-open-booking', () => showList());
+document.addEventListener('ql-navigate', () => {
+ const params = new URLSearchParams(location.search);
+ if (params.has('booking')) showBooking(params.get('booking') || '');
+ else if (params.has('book')) {
+  const id = params.get('book');
+  if (id) showBusiness(id); else showList();
+ } else closeLayer(false);
+});
 document.addEventListener('ql-auth', () => { ready.then(ownerSync); });
 ready.then(ownerSync);
 renderOwner();
