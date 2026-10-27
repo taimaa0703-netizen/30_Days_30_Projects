@@ -203,6 +203,22 @@ const projects = [
   link: "projects/BUDGET_PILOT/index.html",
   unlocked: true
 },
+{
+  day: 25,
+  name: "ORDER RESCUE",
+  description: "Triage blocked ecommerce orders, prioritize revenue risk, and track each exception through resolution.",
+  tags: ["HTML", "CSS", "JavaScript", "Ecommerce"],
+  link: "projects/ORDER_RESCUE/index.html",
+  unlocked: true
+},
+{
+  day: 26,
+  name: "CLASS PULSE",
+  description: "A multilingual classroom dashboard for student mastery, attendance, assignments, and learning insights.",
+  tags: ["HTML", "CSS", "JavaScript", "Education", "Multilingual"],
+  link: "projects/class-pulse22/index.html",
+  unlocked: true
+},
 
 ];
 
