@@ -1,0 +1,19 @@
+html[lang="ar"] body,
+html[lang="ar"] body * {
+  font-family: "Noto Sans Arabic", Tahoma, Arial, sans-serif;
+  letter-spacing: normal;
+}
+
+html[lang="ar"] {
+  font-feature-settings: "calt" 1, "ccmp" 1, "rlig" 1;
+}
+
+.auth-guest {
+  width: 100%;
+  margin-top: 12px;
+}
+
+[dir="rtl"] .auth-art-copy h2 {
+  unicode-bidi: plaintext;
+  text-align: right;
+}

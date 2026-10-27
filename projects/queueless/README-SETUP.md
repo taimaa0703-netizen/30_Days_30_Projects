@@ -23,7 +23,7 @@ window.QUEUELESS_SUPABASE = {
 
 ## 2. Run
 
-Use VS Code Live Server for local testing, or publish all six files to GitHub Pages. Do not open the HTML using `file://`; auth redirect and dynamic module imports need an HTTP(S) page. After setup, sign up using an email + password, open the confirmation email, confirm the address, then sign in. Forgot-password sends a recovery email. The round Q icon shows signed-in account details and sign-out.
+Use VS Code Live Server for local testing, or publish all files in this folder to GitHub Pages. Do not open the HTML using `file://`; auth redirect and dynamic module imports need an HTTP(S) page. After setup, sign up using an email + password, open the confirmation email, confirm the address, then sign in. Forgot-password sends a recovery email. The round Q icon shows signed-in account details and sign-out. Visitors can continue without an email using visitor mode.
 
 ## 3. Guest and QR flow
 
@@ -33,7 +33,7 @@ The QR links to `?view=guest`; visitors do NOT need accounts. This build retains
 
 ## 4. Included
 
-- `index.html`, `styles.css`, `app.js`, `qr.js`: existing project and styling, extended with an auth layout
+- `index.html`, `styles.css`, `arabic.css`, `app.js`, `qr.js`: project UI, Arabic font and text layout, queue behavior, and QR support
 - `auth.js`: sign-up, email confirmation / password sign-in, password recovery, persistent session, sign-out, guest access; EN/HE/AR
 - `supabase-config.js`: user-configured public project identifiers only
 

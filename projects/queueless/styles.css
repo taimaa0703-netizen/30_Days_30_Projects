@@ -6,3 +6,8 @@
 
 /* Google login option; existing layout unchanged */
 .auth-social[hidden]{display:none!important}.auth-social .auth-divider{margin:20px 0 14px}.auth-google{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;min-height:52px;padding:12px 18px;background:#fff;border:1px solid #dce1e8;border-radius:12px;color:#1b2b40;font:700 13px Manrope,'DM Sans',Arial,sans-serif;box-shadow:0 3px 12px #14213609;transition:background .2s,transform .2s,border-color .2s}.auth-google:hover{background:#f9fafc;border-color:#c0cbd5;transform:translateY(-1px)}.auth-google:disabled{opacity:.65;cursor:wait;transform:none}.auth-google svg{flex-shrink:0}.auth-form-wrap .auth-social .auth-divider span{white-space:nowrap}[dir=rtl] .auth-google{direction:rtl}
+html[lang="he"] body{letter-spacing:.02em}html[lang="he"] .hero h1,html[lang="he"] .section-heading h2,html[lang="he"] .page-head h1,html[lang="he"] .panel h3,html[lang="he"] .auth-form-wrap h1,html[lang="he"] .auth-art-copy h2{letter-spacing:.02em}
+
+/* Compact auth header: removes the large empty space in the art panel */
+.auth-layer{grid-template-columns:1fr;grid-template-rows:max-content max-content;align-content:start}.auth-art{min-height:auto;justify-content:flex-start;gap:18px;padding:28px 6vw}.auth-art-copy h2{font-size:clamp(32px,3.4vw,46px);letter-spacing:-1px;margin:10px 0 0}.auth-art-copy p,.auth-ornament{display:none}.auth-art:before{width:300px;height:300px;top:-20%}.auth-art:after{width:220px;height:220px;top:-5%}.auth-form-area{padding:8px 7vw 24px}.auth-form-wrap{padding:24px 0}
+.auth-form-wrap .auth-guest{background:#fff;color:#263651;border:1px solid #dde2e9}.auth-form-wrap .auth-guest:hover{background:#f7f8fa}
