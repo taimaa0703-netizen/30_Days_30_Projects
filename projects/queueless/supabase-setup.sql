@@ -14,6 +14,25 @@ create table if not exists public.businesses (
   created_at timestamptz not null default now()
 );
 
+-- Owners without email sign in with their phone number and a PIN instead of Supabase Auth.
+create extension if not exists pgcrypto with schema extensions;
+alter table public.businesses alter column owner_id drop not null;
+alter table public.businesses add column if not exists login_phone text unique;
+alter table public.businesses add column if not exists pin_hash text;
+alter table public.businesses add column if not exists pin_fails int not null default 0;
+alter table public.businesses add column if not exists locked_until timestamptz;
+alter table public.businesses drop constraint if exists businesses_has_owner;
+alter table public.businesses add constraint businesses_has_owner
+  check (owner_id is not null or (login_phone is not null and pin_hash is not null));
+
+create table if not exists public.owner_sessions (
+  token_hash text primary key,
+  business_id uuid not null references public.businesses(id) on delete cascade,
+  created_at timestamptz not null default now()
+);
+alter table public.owner_sessions enable row level security;
+revoke all on table public.owner_sessions from anon, authenticated;
+
 create table if not exists public.appointments (
   id uuid primary key default gen_random_uuid(),
   business_id uuid not null references public.businesses(id) on delete cascade,
@@ -36,8 +55,11 @@ alter table public.appointments enable row level security;
 
 -- Only expose what each role needs. Customers never read the appointments table directly.
 revoke all on table public.businesses, public.appointments from anon, authenticated;
+-- Column grants keep login_phone, pin_hash and lockout fields private.
 grant select (id, name, phone, slot_minutes, hours, timezone) on public.businesses to anon;
-grant select, insert, update on public.businesses to authenticated;
+grant select (id, owner_id, name, phone, slot_minutes, hours, timezone, created_at) on public.businesses to authenticated;
+grant insert (name, phone, timezone) on public.businesses to authenticated;
+grant update (name, phone, slot_minutes, hours, timezone) on public.businesses to authenticated;
 grant select, update on public.appointments to authenticated;
 
 drop policy if exists "Businesses are listed publicly" on public.businesses;
@@ -172,6 +194,169 @@ grant execute on function public.busy_slots(uuid, timestamptz, timestamptz) to a
 grant execute on function public.book_appointment(uuid, timestamptz, text, text, text) to anon, authenticated;
 grant execute on function public.get_booking(uuid) to anon, authenticated;
 grant execute on function public.cancel_booking(uuid) to anon, authenticated;
+
+-- ---------------------------------------------------------------------
+-- Owner sign-in with phone number + PIN (no email needed).
+-- The browser keeps a random session token; only its SHA-256 hash is stored.
+-- ---------------------------------------------------------------------
+drop function if exists public.phone_owner_enter(text, text, text, text);
+create function public.phone_owner_enter(p_name text, p_phone text, p_pin text, p_timezone text default 'Asia/Jerusalem')
+returns jsonb
+language plpgsql security definer set search_path = public, extensions as $$
+declare
+  v_key text := regexp_replace(coalesce(p_phone, ''), '[^0-9]', '', 'g');
+  b businesses;
+  tok text;
+  tz text := coalesce(nullif(btrim(p_timezone), ''), 'Asia/Jerusalem');
+begin
+  -- Errors are returned (not raised) so failed-attempt counters are not rolled back.
+  if btrim(coalesce(p_phone, '')) !~ '^[0-9+() .-]{5,30}$' or char_length(v_key) not between 7 and 15 then
+    return jsonb_build_object('error', 'INVALID_PHONE');
+  end if;
+  if coalesce(p_pin, '') !~ '^[0-9]{4,8}$' then return jsonb_build_object('error', 'INVALID_PIN'); end if;
+  if not exists (select 1 from pg_timezone_names where name = tz) then tz := 'Asia/Jerusalem'; end if;
+
+  select * into b from businesses where login_phone = v_key for update;
+  if found then
+    if b.locked_until is not null and b.locked_until > now() then
+      return jsonb_build_object('error', 'LOCKED');
+    end if;
+    if b.pin_hash is null or crypt(p_pin, b.pin_hash) <> b.pin_hash then
+      update businesses
+        set pin_fails = case when b.pin_fails + 1 >= 5 then 0 else b.pin_fails + 1 end,
+            locked_until = case when b.pin_fails + 1 >= 5 then now() + interval '15 minutes' else null end
+        where id = b.id;
+      return jsonb_build_object('error', case when b.pin_fails + 1 >= 5 then 'LOCKED' else 'WRONG_PIN' end);
+    end if;
+    update businesses set pin_fails = 0, locked_until = null where id = b.id;
+  else
+    p_name := btrim(coalesce(p_name, ''));
+    if char_length(p_name) not between 1 and 80 then return jsonb_build_object('error', 'INVALID_NAME'); end if;
+    begin
+      insert into businesses (owner_id, name, phone, timezone, login_phone, pin_hash)
+      values (null, p_name, btrim(p_phone), tz, v_key, crypt(p_pin, gen_salt('bf')))
+      returning * into b;
+    exception when unique_violation then
+      return jsonb_build_object('error', 'TRY_AGAIN');
+    end;
+  end if;
+
+  tok := encode(gen_random_bytes(32), 'hex');
+  insert into owner_sessions (token_hash, business_id) values (encode(digest(tok, 'sha256'), 'hex'), b.id);
+  return jsonb_build_object('token', tok, 'business_id', b.id, 'name', b.name, 'phone', b.phone);
+end;
+$$;
+
+drop function if exists public.owner_business_id(text);
+create function public.owner_business_id(p_token text)
+returns uuid
+language plpgsql stable security definer set search_path = public, extensions as $$
+declare bid uuid;
+begin
+  select s.business_id into bid from owner_sessions s
+  where s.token_hash = encode(digest(coalesce(p_token, ''), 'sha256'), 'hex');
+  if bid is null then raise exception 'NOT_SIGNED_IN'; end if;
+  return bid;
+end;
+$$;
+
+drop function if exists public.owner_business(text);
+create function public.owner_business(p_token text)
+returns table (id uuid, name text, phone text, slot_minutes int, hours jsonb, timezone text)
+language plpgsql stable security definer set search_path = public as $$
+declare bid uuid := owner_business_id(p_token);
+begin
+  return query select b.id, b.name, b.phone, b.slot_minutes, b.hours, b.timezone from businesses b where b.id = bid;
+end;
+$$;
+
+drop function if exists public.owner_appointments(text, timestamptz, timestamptz);
+create function public.owner_appointments(p_token text, p_from timestamptz, p_to timestamptz)
+returns setof public.appointments
+language plpgsql stable security definer set search_path = public as $$
+declare bid uuid := owner_business_id(p_token);
+begin
+  return query select a.* from appointments a
+  where a.business_id = bid and a.starts_at >= p_from and a.starts_at < p_to
+    and p_to - p_from <= interval '62 days'
+  order by a.starts_at;
+end;
+$$;
+
+drop function if exists public.owner_next_appointment(text);
+create function public.owner_next_appointment(p_token text)
+returns table (starts_at timestamptz, customer_name text)
+language plpgsql stable security definer set search_path = public as $$
+declare bid uuid := owner_business_id(p_token);
+begin
+  return query select a.starts_at, a.customer_name from appointments a
+  where a.business_id = bid and a.status in ('booked', 'arrived') and a.ends_at > now()
+  order by a.starts_at limit 1;
+end;
+$$;
+
+drop function if exists public.owner_new_bookings(text, timestamptz);
+create function public.owner_new_bookings(p_token text, p_since timestamptz)
+returns setof public.appointments
+language plpgsql stable security definer set search_path = public as $$
+declare bid uuid := owner_business_id(p_token);
+begin
+  return query select a.* from appointments a
+  where a.business_id = bid and a.created_at > p_since and a.created_at > now() - interval '1 day'
+  order by a.created_at limit 20;
+end;
+$$;
+
+drop function if exists public.owner_set_status(text, uuid, text);
+create function public.owner_set_status(p_token text, p_id uuid, p_status text)
+returns boolean
+language plpgsql security definer set search_path = public as $$
+begin
+  if p_status not in ('booked', 'arrived', 'done', 'cancelled', 'no_show') then raise exception 'INVALID_STATUS'; end if;
+  update appointments set status = p_status
+  where id = p_id and business_id = owner_business_id(p_token);
+  return found;
+end;
+$$;
+
+drop function if exists public.owner_update_business(text, text, text, jsonb, int);
+create function public.owner_update_business(p_token text, p_name text, p_phone text, p_hours jsonb, p_slot_minutes int)
+returns table (id uuid, name text, phone text, slot_minutes int, hours jsonb, timezone text)
+language plpgsql security definer set search_path = public as $$
+declare bid uuid := owner_business_id(p_token);
+begin
+  if p_hours is null or jsonb_typeof(p_hours) <> 'object' then raise exception 'INVALID_HOURS'; end if;
+  update businesses b
+    set name = btrim(p_name), phone = nullif(btrim(coalesce(p_phone, '')), ''), hours = p_hours, slot_minutes = p_slot_minutes
+    where b.id = bid;
+  return query select b.id, b.name, b.phone, b.slot_minutes, b.hours, b.timezone from businesses b where b.id = bid;
+end;
+$$;
+
+drop function if exists public.owner_sign_out(text);
+create function public.owner_sign_out(p_token text)
+returns void
+language sql security definer set search_path = public, extensions as $$
+  delete from owner_sessions where token_hash = encode(digest(coalesce(p_token, ''), 'sha256'), 'hex');
+$$;
+
+revoke all on function public.phone_owner_enter(text, text, text, text) from public;
+revoke all on function public.owner_business_id(text) from public, anon, authenticated;
+revoke all on function public.owner_business(text) from public;
+revoke all on function public.owner_appointments(text, timestamptz, timestamptz) from public;
+revoke all on function public.owner_next_appointment(text) from public;
+revoke all on function public.owner_new_bookings(text, timestamptz) from public;
+revoke all on function public.owner_set_status(text, uuid, text) from public;
+revoke all on function public.owner_update_business(text, text, text, jsonb, int) from public;
+revoke all on function public.owner_sign_out(text) from public;
+grant execute on function public.phone_owner_enter(text, text, text, text) to anon, authenticated;
+grant execute on function public.owner_business(text) to anon, authenticated;
+grant execute on function public.owner_appointments(text, timestamptz, timestamptz) to anon, authenticated;
+grant execute on function public.owner_next_appointment(text) to anon, authenticated;
+grant execute on function public.owner_new_bookings(text, timestamptz) to anon, authenticated;
+grant execute on function public.owner_set_status(text, uuid, text) to anon, authenticated;
+grant execute on function public.owner_update_business(text, text, text, jsonb, int) to anon, authenticated;
+grant execute on function public.owner_sign_out(text) to anon, authenticated;
 
 -- Live updates on the owner's dashboard.
 do $$

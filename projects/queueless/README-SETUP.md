@@ -36,12 +36,12 @@ The QR links to `?view=guest`; visitors do NOT need accounts. This build retains
 The login screen offers two choices:
 
 - **I'm a customer**: opens the booking screen. The customer picks a business, a day, and a free time slot. Slots come from the owner's business hours, and taken times are shown as unavailable. The customer then enters name and phone (required) plus an optional note. After booking, they get a confirmation page (`?booking=<id>`) that shows the live status and lets them cancel.
-- **I'm the business owner**: signs in with email, Google, or **Continue without email**. The **Appointments** page in the dashboard shows the day's timeline: free and booked slots, customer name and phone, note, a "now" marker, and Arrived / Done / No-show / Cancel actions. New bookings appear instantly through Supabase Realtime. Owners set business hours and appointment length there and share their direct link `?book=<businessId>`.
+- **I'm the business owner**: signs in with email, Google, or **Continue without email** (business name + phone number + PIN). The **Appointments** page in the dashboard shows the day's timeline: free and booked slots, customer name and phone, note, a "now" marker, and Arrived / Done / No-show / Cancel actions. New bookings appear instantly through Supabase Realtime. Owners set business hours and appointment length there and share their direct link `?book=<businessId>`.
 
 One-time setup:
 
 1. Open **Supabase → SQL Editor → New query**, paste all of `supabase-setup.sql`, and click **Run**. It creates the `businesses` and `appointments` tables, RLS policies, secure booking functions, and the realtime publication. It is safe to run again.
-2. Optional, for owners without email: enable **Authentication → Sign In / Providers → Allow anonymous sign-ins**. A no-email owner then gets a real anonymous account tied to this browser; signing out loses access to it. If this is disabled, "Continue without email" falls back to the device-only queue demo.
+2. No extra provider setup is needed for owners without email. **Continue without email** asks for the business name, the phone number and a 4–8 digit PIN. The first time, this creates the business; afterwards, the same phone and PIN sign in on any device. The PIN is stored only as a bcrypt hash, the browser keeps a random session token (stored server-side as a SHA-256 hash), and 5 wrong PINs lock the phone for 15 minutes. Phone owners' boards refresh every 10 seconds instead of using Realtime. Note: there is no SMS check, so the PIN (not the phone number) is what proves ownership.
 
 Customers never read the appointments table directly. They can see only taken time ranges (`busy_slots`), and can read or cancel only the booking whose unguessable id they hold.
 

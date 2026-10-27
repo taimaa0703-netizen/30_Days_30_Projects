@@ -1,6 +1,8 @@
 /* Role chooser on the login screen */
 .auth-roles{display:grid;gap:14px;margin-top:6px}
-.auth-roles[hidden],#authOwner[hidden]{display:none!important}
+.auth-roles[hidden],#authOwner[hidden],.auth-form-wrap [hidden]{display:none!important}
+.auth-phone #authBizName{direction:inherit;text-align:start}
+.auth-phone-hint{font-size:12px;color:#7f8a99;line-height:1.6;margin:12px 0 0}
 .role-card{display:flex;align-items:center;gap:16px;width:100%;padding:20px 22px;border:1px solid #e3e7ee;border-radius:16px;background:#fff;color:var(--ink);text-align:start;transition:transform .16s,box-shadow .16s,border-color .16s}
 .role-card:hover{transform:translateY(-2px);box-shadow:0 14px 34px #1a2b4514;border-color:#f2b3a3}
 .role-card.dark{background:#14213a;color:#fff;border-color:#14213a}

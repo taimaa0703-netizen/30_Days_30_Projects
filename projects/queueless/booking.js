@@ -9,11 +9,11 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 const T = {
  en:{bookKicker:'BOOK AN APPOINTMENT',chooseBiz:'Where would you like to book?',chooseBizSub:'Choose a business, then pick a free day and time.',search:'Search businesses…',noBiz:'No businesses are taking online bookings yet.',bookHere:'Book →',myBookings:'Your upcoming bookings',loading:'Loading…',back:'Back',step1:'Choose a day',step2:'Choose a time',step3:'Your details',free:'Free',taken:'Taken',noSlots:'No free times on this day. Please try another day.',name:'Full name',phone:'Phone number',note:'Note for the business (optional)',notePh:'Anything they should know?',confirm:'Confirm booking',pickSlot:'Choose a day and a time above.',selected:'Your appointment',booked:'You’re booked!',bookedSub:'Your appointment is confirmed. Keep this page to check its status at any time.',cancelledTitle:'Appointment cancelled',cancelledSub:'This appointment is no longer active.',where:'Business',who:'Name',noteL:'Note',status:'Status',copyLink:'Copy my booking link',cancel:'Cancel appointment',cancelAsk:'Cancel this appointment?',cancelled:'Your appointment was cancelled.',another:'Book another appointment',st_booked:'Confirmed',st_arrived:'Checked in',st_done:'Completed',st_cancelled:'Cancelled',st_no_show:'Missed',errTaken:'Sorry — this time was just taken. Please choose another one.',errName:'Please enter your name.',errPhone:'Please enter a valid phone number.',errTime:'This time is no longer available.',errClosed:'The business is closed at this time.',errTooMany:'You already have 3 upcoming bookings with this business.',errGeneric:'Something went wrong. Please try again.',errSetup:'Online booking is not set up yet. Run supabase-setup.sql in Supabase first.',notFound:'This booking could not be found.',linkCopied:'Link copied.',copyFailed:'Could not copy the link.',call:'Call',openToday:'Open today',closedToday:'Closed today',
-  apKicker:'APPOINTMENTS',apTitle:'Your day, booked.',apDesc:'Customers book online, and every booking appears here instantly.',bookingLink:'Your customer booking link',copy:'Copy link',openPage:'Open booking page ↗',today:'Today',bookedCount:'Booked',bookedSub2:'appointments this day',freeCount:'Free slots',freeSub:'still available this day',nextUp:'Next appointment',nextNone:'No upcoming bookings',now:'NOW',inProgress:'Happening now',freeSlot:'Free',arrived:'Arrived',done:'Done',noShow:'No-show',cancelAppt:'Cancel',cancelApptAsk:'Cancel this customer’s appointment?',closedDay:'Closed on this day. Change your hours on the right.',hoursTitle:'Hours & booking settings',slotLen:'Appointment length',minutes:'min',saveHours:'Save settings',hoursSaved:'Settings saved. Customers see the new times right away.',hoursInvalid:'Closing time must be after opening time.',setupTitle:'Open online booking',setupDesc:'Enter your business name and phone number. Customers will see them when they book.',bizName:'Business name',bizPhone:'Business phone',create:'Start taking bookings →',needAccount:'Online booking needs a connected business account so customers on other phones can book with you.',activate:'Activate online booking',anonOff:'To use it without email, enable Anonymous sign-ins in Supabase → Authentication → Sign In / Providers.',newBooking:'New booking',live:'Live updates on'},
+  apKicker:'APPOINTMENTS',apTitle:'Your day, booked.',apDesc:'Customers book online, and every booking appears here instantly.',bookingLink:'Your customer booking link',copy:'Copy link',openPage:'Open booking page ↗',today:'Today',bookedCount:'Booked',bookedSub2:'appointments this day',freeCount:'Free slots',freeSub:'still available this day',nextUp:'Next appointment',nextNone:'No upcoming bookings',now:'NOW',inProgress:'Happening now',freeSlot:'Free',arrived:'Arrived',done:'Done',noShow:'No-show',cancelAppt:'Cancel',cancelApptAsk:'Cancel this customer’s appointment?',closedDay:'Closed on this day. Change your hours on the right.',hoursTitle:'Hours & booking settings',slotLen:'Appointment length',minutes:'min',saveHours:'Save settings',hoursSaved:'Settings saved. Customers see the new times right away.',hoursInvalid:'Closing time must be after opening time.',setupTitle:'Open online booking',setupDesc:'Enter your business name and phone number. Customers will see them when they book.',bizName:'Business name',bizPhone:'Business phone',create:'Start taking bookings →',needAccount:'Online booking needs a connected business account so customers on other phones can book with you.',activate:'Sign in with phone number',newBooking:'New booking',live:'Live updates on'},
  he:{bookKicker:'קביעת תור',chooseBiz:'איפה קובעים תור?',chooseBizSub:'בוחרים עסק, ואז יום ושעה פנויים.',search:'חיפוש עסק…',noBiz:'עדיין אין עסקים שמקבלים הזמנות אונליין.',bookHere:'לקביעת תור ←',myBookings:'התורים הקרובים שלך',loading:'טוען…',back:'חזרה',step1:'בחירת יום',step2:'בחירת שעה',step3:'הפרטים שלך',free:'פנוי',taken:'תפוס',noSlots:'אין שעות פנויות ביום הזה. אפשר לנסות יום אחר.',name:'שם מלא',phone:'מספר טלפון',note:'הערה לעסק (לא חובה)',notePh:'משהו שחשוב שהעסק ידע?',confirm:'אישור התור',pickSlot:'בחרו יום ושעה למעלה.',selected:'התור שלך',booked:'התור נקבע!',bookedSub:'התור שלך אושר. שמרו את הדף הזה כדי לבדוק את הסטטוס בכל רגע.',cancelledTitle:'התור בוטל',cancelledSub:'התור הזה כבר לא פעיל.',where:'עסק',who:'שם',noteL:'הערה',status:'סטטוס',copyLink:'העתקת הקישור לתור שלי',cancel:'ביטול התור',cancelAsk:'לבטל את התור?',cancelled:'התור בוטל.',another:'קביעת תור נוסף',st_booked:'מאושר',st_arrived:'הגעת',st_done:'הסתיים',st_cancelled:'בוטל',st_no_show:'לא הגעת',errTaken:'מצטערים, השעה הזו נתפסה הרגע. בחרו שעה אחרת.',errName:'נא להזין שם.',errPhone:'נא להזין מספר טלפון תקין.',errTime:'השעה הזו כבר לא זמינה.',errClosed:'העסק סגור בשעה הזו.',errTooMany:'כבר יש לך 3 תורים עתידיים בעסק הזה.',errGeneric:'משהו השתבש. נסו שוב.',errSetup:'ההזמנות אונליין עדיין לא הוגדרו. יש להריץ קודם את supabase-setup.sql ב-Supabase.',notFound:'התור לא נמצא.',linkCopied:'הקישור הועתק.',copyFailed:'לא הצלחנו להעתיק את הקישור.',call:'התקשרות',openToday:'פתוח היום',closedToday:'סגור היום',
-  apKicker:'הזמנות',apTitle:'היום שלך, מתוזמן.',apDesc:'לקוחות קובעים תור אונליין, וכל הזמנה מופיעה כאן מיד.',bookingLink:'הקישור להזמנת תורים ללקוחות',copy:'העתקת קישור',openPage:'פתיחת דף ההזמנה ↗',today:'היום',bookedCount:'תורים',bookedSub2:'נקבעו ליום הזה',freeCount:'שעות פנויות',freeSub:'עדיין פנויות ביום הזה',nextUp:'התור הבא',nextNone:'אין תורים קרובים',now:'עכשיו',inProgress:'מתרחש עכשיו',freeSlot:'פנוי',arrived:'הגיע/ה',done:'הסתיים',noShow:'לא הגיע/ה',cancelAppt:'ביטול',cancelApptAsk:'לבטל את התור של הלקוח?',closedDay:'העסק סגור ביום הזה. אפשר לשנות את השעות בצד.',hoursTitle:'שעות פעילות והגדרות הזמנה',slotLen:'משך כל תור',minutes:'דק׳',saveHours:'שמירת הגדרות',hoursSaved:'ההגדרות נשמרו. הלקוחות רואים את השעות החדשות מיד.',hoursInvalid:'שעת הסגירה חייבת להיות אחרי שעת הפתיחה.',setupTitle:'פתיחת הזמנות אונליין',setupDesc:'הזינו את שם העסק ומספר הטלפון. הלקוחות יראו אותם בזמן קביעת התור.',bizName:'שם העסק',bizPhone:'טלפון העסק',create:'מתחילים לקבל הזמנות ←',needAccount:'כדי שלקוחות מטלפונים אחרים יוכלו לקבוע אצלך תור, צריך חשבון עסקי מחובר.',activate:'הפעלת הזמנות אונליין',anonOff:'כדי להשתמש ללא אימייל, יש להפעיל Anonymous sign-ins ב-Supabase ← Authentication ← Sign In / Providers.',newBooking:'הזמנה חדשה',live:'עדכונים חיים פעילים'},
+  apKicker:'הזמנות',apTitle:'היום שלך, מתוזמן.',apDesc:'לקוחות קובעים תור אונליין, וכל הזמנה מופיעה כאן מיד.',bookingLink:'הקישור להזמנת תורים ללקוחות',copy:'העתקת קישור',openPage:'פתיחת דף ההזמנה ↗',today:'היום',bookedCount:'תורים',bookedSub2:'נקבעו ליום הזה',freeCount:'שעות פנויות',freeSub:'עדיין פנויות ביום הזה',nextUp:'התור הבא',nextNone:'אין תורים קרובים',now:'עכשיו',inProgress:'מתרחש עכשיו',freeSlot:'פנוי',arrived:'הגיע/ה',done:'הסתיים',noShow:'לא הגיע/ה',cancelAppt:'ביטול',cancelApptAsk:'לבטל את התור של הלקוח?',closedDay:'העסק סגור ביום הזה. אפשר לשנות את השעות בצד.',hoursTitle:'שעות פעילות והגדרות הזמנה',slotLen:'משך כל תור',minutes:'דק׳',saveHours:'שמירת הגדרות',hoursSaved:'ההגדרות נשמרו. הלקוחות רואים את השעות החדשות מיד.',hoursInvalid:'שעת הסגירה חייבת להיות אחרי שעת הפתיחה.',setupTitle:'פתיחת הזמנות אונליין',setupDesc:'הזינו את שם העסק ומספר הטלפון. הלקוחות יראו אותם בזמן קביעת התור.',bizName:'שם העסק',bizPhone:'טלפון העסק',create:'מתחילים לקבל הזמנות ←',needAccount:'כדי שלקוחות מטלפונים אחרים יוכלו לקבוע אצלך תור, צריך חשבון עסקי מחובר.',activate:'כניסה עם מספר טלפון',newBooking:'הזמנה חדשה',live:'עדכונים חיים פעילים'},
  ar:{bookKicker:'حجز موعد',chooseBiz:'أين تريد أن تحجز؟',chooseBizSub:'اختر النشاط التجاري، ثم اختر يومًا ووقتًا متاحين.',search:'ابحث عن نشاط تجاري…',noBiz:'لا توجد أنشطة تجارية تستقبل الحجوزات عبر الإنترنت بعد.',bookHere:'احجز ←',myBookings:'حجوزاتك القادمة',loading:'جارٍ التحميل…',back:'رجوع',step1:'اختر اليوم',step2:'اختر الوقت',step3:'بياناتك',free:'متاح',taken:'محجوز',noSlots:'لا توجد أوقات متاحة في هذا اليوم. جرّب يومًا آخر.',name:'الاسم الكامل',phone:'رقم الهاتف',note:'ملاحظة للنشاط التجاري (اختياري)',notePh:'هل هناك ما يجب أن يعرفوه؟',confirm:'تأكيد الحجز',pickSlot:'اختر يومًا ووقتًا في الأعلى.',selected:'موعدك',booked:'تم حجز موعدك!',bookedSub:'تم تأكيد موعدك. احتفظ بهذه الصفحة لمتابعة حالته في أي وقت.',cancelledTitle:'تم إلغاء الموعد',cancelledSub:'هذا الموعد لم يعد فعّالًا.',where:'النشاط التجاري',who:'الاسم',noteL:'ملاحظة',status:'الحالة',copyLink:'نسخ رابط حجزي',cancel:'إلغاء الموعد',cancelAsk:'هل تريد إلغاء هذا الموعد؟',cancelled:'تم إلغاء موعدك.',another:'حجز موعد آخر',st_booked:'مؤكَّد',st_arrived:'تم الحضور',st_done:'مكتمل',st_cancelled:'ملغى',st_no_show:'لم يحضر',errTaken:'عذرًا، تم حجز هذا الوقت للتو. يرجى اختيار وقت آخر.',errName:'يرجى إدخال اسمك.',errPhone:'يرجى إدخال رقم هاتف صحيح.',errTime:'هذا الوقت لم يعد متاحًا.',errClosed:'النشاط التجاري مغلق في هذا الوقت.',errTooMany:'لديك بالفعل 3 حجوزات قادمة لدى هذا النشاط التجاري.',errGeneric:'حدث خطأ ما. يرجى المحاولة مرة أخرى.',errSetup:'لم يتم إعداد الحجز عبر الإنترنت بعد. شغّل الملف supabase-setup.sql في Supabase أولًا.',notFound:'تعذّر العثور على هذا الحجز.',linkCopied:'تم نسخ الرابط.',copyFailed:'تعذّر نسخ الرابط.',call:'اتصال',openToday:'مفتوح اليوم',closedToday:'مغلق اليوم',
-  apKicker:'المواعيد',apTitle:'يومك، منظَّم بالكامل.',apDesc:'يحجز الزبائن عبر الإنترنت، ويظهر كل حجز هنا فورًا.',bookingLink:'رابط الحجز لزبائنك',copy:'نسخ الرابط',openPage:'فتح صفحة الحجز ↗',today:'اليوم',bookedCount:'المواعيد',bookedSub2:'محجوزة في هذا اليوم',freeCount:'الأوقات المتاحة',freeSub:'ما زالت متاحة في هذا اليوم',nextUp:'الموعد التالي',nextNone:'لا توجد مواعيد قادمة',now:'الآن',inProgress:'يجري الآن',freeSlot:'متاح',arrived:'حضر',done:'انتهى',noShow:'لم يحضر',cancelAppt:'إلغاء',cancelApptAsk:'هل تريد إلغاء موعد هذا الزبون؟',closedDay:'النشاط مغلق في هذا اليوم. يمكنك تغيير ساعات العمل في الجانب.',hoursTitle:'ساعات العمل وإعدادات الحجز',slotLen:'مدة الموعد',minutes:'دقيقة',saveHours:'حفظ الإعدادات',hoursSaved:'تم حفظ الإعدادات. يرى الزبائن الأوقات الجديدة فورًا.',hoursInvalid:'يجب أن يكون وقت الإغلاق بعد وقت الفتح.',setupTitle:'تفعيل الحجز عبر الإنترنت',setupDesc:'أدخل اسم نشاطك التجاري ورقم الهاتف. سيراهما الزبائن عند الحجز.',bizName:'اسم النشاط التجاري',bizPhone:'هاتف النشاط التجاري',create:'ابدأ باستقبال الحجوزات ←',needAccount:'يتطلب الحجز عبر الإنترنت حساب نشاط تجاري متصلًا، حتى يتمكن الزبائن من الحجز من هواتفهم.',activate:'تفعيل الحجز عبر الإنترنت',anonOff:'للاستخدام دون بريد إلكتروني، فعّل Anonymous sign-ins في Supabase ← Authentication ← Sign In / Providers.',newBooking:'حجز جديد',live:'التحديثات المباشرة مفعّلة'}
+  apKicker:'المواعيد',apTitle:'يومك، منظَّم بالكامل.',apDesc:'يحجز الزبائن عبر الإنترنت، ويظهر كل حجز هنا فورًا.',bookingLink:'رابط الحجز لزبائنك',copy:'نسخ الرابط',openPage:'فتح صفحة الحجز ↗',today:'اليوم',bookedCount:'المواعيد',bookedSub2:'محجوزة في هذا اليوم',freeCount:'الأوقات المتاحة',freeSub:'ما زالت متاحة في هذا اليوم',nextUp:'الموعد التالي',nextNone:'لا توجد مواعيد قادمة',now:'الآن',inProgress:'يجري الآن',freeSlot:'متاح',arrived:'حضر',done:'انتهى',noShow:'لم يحضر',cancelAppt:'إلغاء',cancelApptAsk:'هل تريد إلغاء موعد هذا الزبون؟',closedDay:'النشاط مغلق في هذا اليوم. يمكنك تغيير ساعات العمل في الجانب.',hoursTitle:'ساعات العمل وإعدادات الحجز',slotLen:'مدة الموعد',minutes:'دقيقة',saveHours:'حفظ الإعدادات',hoursSaved:'تم حفظ الإعدادات. يرى الزبائن الأوقات الجديدة فورًا.',hoursInvalid:'يجب أن يكون وقت الإغلاق بعد وقت الفتح.',setupTitle:'تفعيل الحجز عبر الإنترنت',setupDesc:'أدخل اسم نشاطك التجاري ورقم الهاتف. سيراهما الزبائن عند الحجز.',bizName:'اسم النشاط التجاري',bizPhone:'هاتف النشاط التجاري',create:'ابدأ باستقبال الحجوزات ←',needAccount:'يتطلب الحجز عبر الإنترنت حساب نشاط تجاري متصلًا، حتى يتمكن الزبائن من الحجز من هواتفهم.',activate:'الدخول برقم الهاتف',newBooking:'حجز جديد',live:'التحديثات المباشرة مفعّلة'}
 };
 const LOCALE = { en: 'en-GB', he: 'he-IL', ar: 'ar-u-nu-latn' };
 const getLang = () => { const l = localStorage.getItem('queueless-language'); return ['en', 'he', 'ar'].includes(l) ? l : 'en'; };
@@ -25,6 +25,14 @@ const backLabel = () => (lang === 'en' ? '← ' : '→ ') + tx('back');
 const ready = new Promise((resolve) => { if (window.QL_READY) resolve(); else document.addEventListener('ql-ready', () => resolve(), { once: true }); });
 const client = () => window.QL_SUPABASE || null;
 const session = () => window.QL_SESSION || null;
+// Owners who signed in with phone + PIN use token RPCs instead of a Supabase Auth session.
+const ownerToken = () => (session() ? null : window.QL_OWNER_TOKEN || null);
+const OWNER_COLS = 'id,owner_id,name,phone,slot_minutes,hours,timezone';
+async function ownerCall(fn, args = {}) {
+ const res = await client().rpc(fn, { p_token: ownerToken(), ...args });
+ if (res.error && /NOT_SIGNED_IN/.test(res.error.message || '')) document.dispatchEvent(new CustomEvent('ql-owner-expired'));
+ return res;
+}
 
 function toast(message) {
  const el = $('toast'); el.textContent = message; el.classList.add('show');
@@ -275,19 +283,23 @@ function rerenderCustomer() {
 // =====================================================================
 // Owner appointments board
 // =====================================================================
-const O = { uid: undefined, biz: null, loaded: false, err: null, day: null, appts: [], next: null, channel: null, timer: null, note: '' };
+const O = { uid: undefined, biz: null, loaded: false, err: null, day: null, appts: [], next: null, channel: null, timer: null, since: null, seen: new Set() };
 const root = () => $('apptRoot');
 const OWNER_STATUS = { arrived: 'arrived', done: 'done', no_show: 'noShow' };
 const bookingUrl = () => `${location.origin}${location.pathname}?book=${O.biz.id}`;
 
 async function ownerSync() {
- const s = session(), uid = s?.user?.id || null;
- if (uid === O.uid && O.loaded) { renderOwner(); return; }
- O.uid = uid; O.biz = null; O.loaded = false; O.err = null; O.appts = []; unsubscribe();
+ const tok = ownerToken(), uid = session()?.user?.id || null;
+ const ident = tok ? `t:${tok}` : uid ? `u:${uid}` : null;
+ if (ident === O.uid && O.loaded) { renderOwner(); return; }
+ O.uid = ident; O.biz = null; O.loaded = false; O.err = null; O.appts = []; unsubscribe();
  renderOwner();
- if (!uid) { O.loaded = true; renderOwner(); return; }
- const { data, error } = await client().from('businesses').select('*').eq('owner_id', uid).maybeSingle();
- if (O.uid !== uid) return;
+ if (!ident) { O.loaded = true; renderOwner(); return; }
+ if (!client()) { O.loaded = true; O.err = tx('errSetup'); renderOwner(); return; }
+ const { data, error } = tok
+  ? await ownerCall('owner_business').then((r) => ({ data: r.data?.[0] || null, error: r.error }))
+  : await client().from('businesses').select(OWNER_COLS).eq('owner_id', uid).maybeSingle();
+ if (O.uid !== ident) return;
  O.loaded = true; O.err = error ? errText(error) : null; O.biz = data || null;
  if (O.biz) { O.day = todayIn(O.biz.timezone); subscribe(); }
  renderOwner();
@@ -298,8 +310,8 @@ function renderOwner() {
  const head = `<div class="page-head"><div><span class="eyebrow dark">${tx('apKicker')}</span><h1>${tx('apTitle')}</h1><p>${tx('apDesc')}</p></div>${O.biz ? `<div class="ap-head-actions"><button type="button" class="btn btn-outline" id="apCopy">${tx('copy')}</button><a class="btn btn-primary" id="apOpen" href="${esc(bookingUrl())}" target="_blank" rel="noopener">${tx('openPage')}</a></div>` : ''}</div>`;
  if (!O.loaded && O.uid) { el.innerHTML = `${head}<div class="panel ap-empty"><p class="bk-muted">${tx('loading')}</p></div>`; return; }
  if (!O.uid) {
-  el.innerHTML = `${head}<div class="panel ap-empty"><div class="ap-empty-icon">◫</div><p>${tx('needAccount')}</p>${client() ? `<button type="button" class="btn btn-primary" id="apActivate">${tx('activate')} <span>↗</span></button>` : `<p class="bk-error">${tx('errSetup')}</p>`}<p class="bk-error" id="apActivateErr">${esc(O.note)}</p></div>`;
-  $('apActivate')?.addEventListener('click', activateAnonymous);
+  el.innerHTML = `${head}<div class="panel ap-empty"><div class="ap-empty-icon">◫</div><p>${tx('needAccount')}</p>${client() ? `<button type="button" class="btn btn-primary" id="apActivate">${tx('activate')} <span>↗</span></button>` : `<p class="bk-error">${tx('errSetup')}</p>`}</div>`;
+  $('apActivate')?.addEventListener('click', () => document.dispatchEvent(new CustomEvent('ql-owner-phone')));
   return;
  }
  if (O.err) { el.innerHTML = `${head}<div class="panel ap-empty"><p class="bk-error">${esc(O.err)}</p></div>`; return; }
@@ -334,21 +346,19 @@ function renderSetup(el, head) {
   if (!name) { err.textContent = tx('errName'); return; }
   if (!validPhone(phone)) { err.textContent = tx('errPhone'); return; }
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Jerusalem';
-  const { data, error } = await client().from('businesses').insert({ name, phone, timezone }).select('*').single();
+  const { data, error } = await client().from('businesses').insert({ name, phone, timezone }).select(OWNER_COLS).single();
   if (error) { err.textContent = errText(error); return; }
   O.biz = data; O.day = todayIn(data.timezone); subscribe(); renderOwner(); loadAppts();
  });
-}
-async function activateAnonymous() {
- const btn = $('apActivate'); btn.disabled = true; O.note = '';
- const { error } = await client().auth.signInAnonymously();
- if (error) { O.note = `${tx('anonOff')} (${error.message})`; btn.disabled = false; $('apActivateErr').textContent = O.note; }
 }
 async function loadAppts() {
  if (!O.biz) return;
  const biz = O.biz, day = O.day;
  const from = dayStart(biz, day).toISOString(), to = dayStart(biz, shiftDay(day, 1)).toISOString();
- const [list, next] = await Promise.all([
+ const [list, next] = ownerToken() ? await Promise.all([
+  ownerCall('owner_appointments', { p_from: from, p_to: to }),
+  ownerCall('owner_next_appointment')
+ ]) : await Promise.all([
   client().from('appointments').select('*').eq('business_id', biz.id).gte('starts_at', from).lt('starts_at', to).order('starts_at'),
   client().from('appointments').select('starts_at,customer_name').eq('business_id', biz.id).in('status', ['booked', 'arrived']).gt('ends_at', new Date().toISOString()).order('starts_at').limit(1)
  ]);
@@ -390,7 +400,9 @@ function drawTimeline() {
 }
 async function setStatus(id, status) {
  if (status === 'cancelled' && !confirm(tx('cancelApptAsk'))) return;
- const { error } = await client().from('appointments').update({ status }).eq('id', id);
+ const { error } = ownerToken()
+  ? await ownerCall('owner_set_status', { p_id: id, p_status: status })
+  : await client().from('appointments').update({ status }).eq('id', id);
  if (error) toast(errText(error)); else loadAppts();
 }
 async function saveHours(e) {
@@ -405,19 +417,37 @@ async function saveHours(e) {
  if (!name) { err.textContent = tx('errName'); return; }
  if (phone && !validPhone(phone)) { err.textContent = tx('errPhone'); return; }
  err.textContent = '';
- const { data, error } = await client().from('businesses').update({ name, phone: phone || null, hours, slot_minutes: Number($('apSlotLen').value) }).eq('id', O.biz.id).select('*').single();
+ const slot_minutes = Number($('apSlotLen').value);
+ const { data, error } = ownerToken()
+  ? await ownerCall('owner_update_business', { p_name: name, p_phone: phone || null, p_hours: hours, p_slot_minutes: slot_minutes }).then((r) => ({ data: r.data?.[0] || null, error: r.error }))
+  : await client().from('businesses').update({ name, phone: phone || null, hours, slot_minutes }).eq('id', O.biz.id).select(OWNER_COLS).single();
  if (error) { err.textContent = errText(error); return; }
  O.biz = data; toast(tx('hoursSaved')); renderOwner(); loadAppts();
+}
+// Toasts once for each booking created after the board was opened.
+function notifyNew(a) {
+ if (!a || O.seen.has(a.id) || Date.parse(a.created_at) < O.since || a.status !== 'booked') return;
+ O.seen.add(a.id);
+ const d = new Date(a.starts_at);
+ toast(`${tx('newBooking')}: ${a.customer_name} · ${fmt(d, O.biz.timezone, { weekday: 'short', day: 'numeric', month: 'short' })} ${fmtTime(d, O.biz.timezone)}`);
 }
 function subscribe() {
  unsubscribe();
  const biz = O.biz, c = client();
+ O.since = Date.now(); O.seen = new Set();
+ // Phone owners have no Auth session, so realtime RLS would hide rows from them: poll more often instead.
+ if (ownerToken()) {
+  O.timer = setInterval(async () => {
+   if (document.visibilityState !== 'visible') return;
+   const r = await ownerCall('owner_new_bookings', { p_since: new Date(O.since).toISOString() });
+   if (O.biz === biz) (r.data || []).forEach(notifyNew);
+   loadAppts();
+  }, 10000);
+  return;
+ }
  O.channel = c.channel(`ql-appointments-${biz.id}`)
   .on('postgres_changes', { event: '*', schema: 'public', table: 'appointments', filter: `business_id=eq.${biz.id}` }, (payload) => {
-   if (payload.eventType === 'INSERT' && payload.new) {
-    const d = new Date(payload.new.starts_at);
-    toast(`${tx('newBooking')}: ${payload.new.customer_name} · ${fmt(d, biz.timezone, { weekday: 'short', day: 'numeric', month: 'short' })} ${fmtTime(d, biz.timezone)}`);
-   }
+   if (payload.eventType === 'INSERT' && payload.new) notifyNew(payload.new);
    loadAppts();
   })
   .subscribe();
