@@ -219,6 +219,14 @@ const projects = [
   link: "projects/class-pulse22/index.html",
   unlocked: true
 },
+{
+  day: 27,
+  name: "TENANT DESK",
+  description: "Manage property maintenance requests, coordinate vendors, track repair costs, and import requests from CSV.",
+  tags: ["HTML", "CSS", "JavaScript", "Property Management", "CSV"],
+  link: "projects/tenant-desk/index.html",
+  unlocked: true
+},
 
 ];
 
