@@ -31,15 +31,31 @@ The QR links to `?view=guest`; visitors do NOT need accounts. This build retains
 
 **Security boundary:** Owner screens are gated by a verified Supabase sign-in in the user interface. The queue records in localStorage are NOT a server-side protected datastore; never rely on front-end hiding as data security. For a production service, move all protected records into Supabase tables with appropriate RLS and server-side authorization. Do not store sensitive customer information in this local demo.
 
-## 4. Included
+## 4. Online appointment booking (customer ↔ business owner)
+
+The login screen offers two choices:
+
+- **I'm a customer**: opens the booking screen. The customer picks a business, a day, and a free time slot. Slots come from the owner's business hours, and taken times are shown as unavailable. The customer then enters name and phone (required) plus an optional note. After booking, they get a confirmation page (`?booking=<id>`) that shows the live status and lets them cancel.
+- **I'm the business owner**: signs in with email, Google, or **Continue without email**. The **Appointments** page in the dashboard shows the day's timeline: free and booked slots, customer name and phone, note, a "now" marker, and Arrived / Done / No-show / Cancel actions. New bookings appear instantly through Supabase Realtime. Owners set business hours and appointment length there and share their direct link `?book=<businessId>`.
+
+One-time setup:
+
+1. Open **Supabase → SQL Editor → New query**, paste all of `supabase-setup.sql`, and click **Run**. It creates the `businesses` and `appointments` tables, RLS policies, secure booking functions, and the realtime publication. It is safe to run again.
+2. Optional, for owners without email: enable **Authentication → Sign In / Providers → Allow anonymous sign-ins**. A no-email owner then gets a real anonymous account tied to this browser; signing out loses access to it. If this is disabled, "Continue without email" falls back to the device-only queue demo.
+
+Customers never read the appointments table directly. They can see only taken time ranges (`busy_slots`), and can read or cancel only the booking whose unguessable id they hold.
+
+## 5. Included
 
 - `index.html`, `styles.css`, `arabic.css`, `app.js`, `qr.js`: project UI, Arabic font and text layout, queue behavior, and QR support
-- `auth.js`: sign-up, email confirmation / password sign-in, password recovery, persistent session, sign-out, guest access; EN/HE/AR
+- `auth.js`: login role chooser, sign-up, email confirmation / password sign-in, password recovery, persistent session, sign-out, no-email access; EN/HE/AR
+- `booking.js`, `booking.css`: customer booking screen and the owner's live appointments board; EN/HE/AR
+- `supabase-setup.sql`: database tables, security policies and functions for online booking
 - `supabase-config.js`: user-configured public project identifiers only
 
 **Notes**: Email confirmation and recovery depend on Supabase service configuration and redirects. No database or Supabase credentials have been created for you. This ZIP cannot independently send verification emails until you configure your project.
 
-## 5. Google OAuth sign-in (optional, alongside email/password)
+## 6. Google OAuth sign-in (optional, alongside email/password)
 
 1. In **Supabase → Authentication → Sign In / Providers → Google**, find and copy the **Callback URL**. It normally looks like `https://YOUR_PROJECT_REF.supabase.co/auth/v1/callback`.
 2. In **Google Cloud Console** (`https://console.cloud.google.com/`), select/create a Google Cloud project. Open **Google Auth Platform** and configure **Branding** and **Audience** (external for public users; in Testing add your own Google account as a test user).
