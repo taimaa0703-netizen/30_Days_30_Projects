@@ -179,6 +179,14 @@ const projects = [
   link: "projects/BUSLY_DAY21/index.html",
   unlocked: true
 },
+{
+  day: 22,
+  name: "QUEUELESS",
+  description: "Manage a waiting line, keep guests informed, and let business owners sign in with email or Google.",
+  tags: ["HTML", "CSS", "JavaScript", "Supabase", "Multilingual"],
+  link: "projects/queueless/index.html",
+  unlocked: true
+},
 
 ];
 
