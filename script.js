@@ -195,6 +195,14 @@ const projects = [
   link: "projects/ATTRIBUTION_X/index.html",
   unlocked: true
 },
+{
+  day: 24,
+  name: "BUDGET PILOT",
+  description: "Plan marketing spend, analyze channel performance, and import your own campaign data.",
+  tags: ["HTML", "CSS", "JavaScript", "Marketing Analytics"],
+  link: "projects/BUDGET_PILOT/index.html",
+  unlocked: true
+},
 
 ];
 
