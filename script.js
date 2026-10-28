@@ -227,6 +227,14 @@ const projects = [
   link: "projects/tenant-desk/index.html",
   unlocked: true
 },
+{
+  day: 28,
+  name: "FUTURE ME",
+  description: "Explore careers, plan your Bagrut, and discover academic paths in Israel.",
+  tags: ["HTML", "CSS", "JavaScript", "Education", "Multilingual"],
+  link: "projects/future-me/",
+  unlocked: true
+},
 
 ];
 
