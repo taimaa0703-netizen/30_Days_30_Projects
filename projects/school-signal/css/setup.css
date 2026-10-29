@@ -10,9 +10,12 @@
 .family-progress-metrics>div{display:grid;grid-template-columns:1fr auto;gap:7px}
 .family-progress-metrics .progress-track{grid-column:1/-1}
 .family-progress-metrics>div>span:first-child{color:var(--muted);font-size:12px}
+.history-controls{display:flex;align-items:center;gap:6px}
+.history-controls .icon-button:disabled{opacity:.42;cursor:not-allowed;background:#f7f6fa}
 .page-intro.centered-intro{flex-direction:column;justify-content:center;text-align:center;gap:12px}
 .centered-intro>div:first-child{width:100%;text-align:center}
 .centered-intro h1{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:.25em}
 .centered-intro .page-cta{justify-content:center}
 .no-demo .demo-pill,.no-demo .side-section-label,.no-demo .page-intro .eyebrow,.no-demo .editor-aside p:last-child,.no-demo .demo-callout{display:none}
 @media(max-width:680px){.setup-forms,.family-progress-metrics{grid-template-columns:1fr}}
+@media(max-width:430px){.mobile-brand{display:none}.top-actions{margin-inline-start:auto}}
