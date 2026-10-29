@@ -117,7 +117,7 @@ window.addEventListener('click',event=>{
 window.addEventListener('popstate',event=>{
   if(!event.state?.schoolSignal)return;
   saveSession(event.state);
-  location.reload();
+  window.dispatchEvent(new CustomEvent('school-signal:history', {detail:event.state}));
 });
 
 new MutationObserver(updateControls).observe(document.getElementById('app'),{childList:true,subtree:true});
