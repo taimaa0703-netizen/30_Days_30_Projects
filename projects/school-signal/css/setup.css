@@ -1,0 +1,18 @@
+.setup-forms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:18px 0}
+.setup-forms .form-panel{margin:0;text-align:start}
+.setup-forms h2{margin:0 0 12px}
+.onboarding>#school-form{margin:18px auto}
+.family-progress-list{display:grid;gap:16px}
+.family-progress-card{padding:16px;border:1px solid var(--border);border-radius:16px;background:#fff}
+.family-progress-heading,.family-progress-metrics>div{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.family-progress-heading small{display:block;color:var(--muted)}
+.family-progress-metrics{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:14px}
+.family-progress-metrics>div{display:grid;grid-template-columns:1fr auto;gap:7px}
+.family-progress-metrics .progress-track{grid-column:1/-1}
+.family-progress-metrics>div>span:first-child{color:var(--muted);font-size:12px}
+.page-intro.centered-intro{flex-direction:column;justify-content:center;text-align:center;gap:12px}
+.centered-intro>div:first-child{width:100%;text-align:center}
+.centered-intro h1{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:.25em}
+.centered-intro .page-cta{justify-content:center}
+.no-demo .demo-pill,.no-demo .side-section-label,.no-demo .page-intro .eyebrow,.no-demo .editor-aside p:last-child,.no-demo .demo-callout{display:none}
+@media(max-width:680px){.setup-forms,.family-progress-metrics{grid-template-columns:1fr}}

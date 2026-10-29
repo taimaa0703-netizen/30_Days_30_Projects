@@ -235,6 +235,14 @@ const projects = [
   link: "projects/future-me/",
   unlocked: true
 },
+{
+  day: 29,
+  name: "SCHOOL SIGNAL",
+  description: "Connect students, parents, and teachers with shared homework progress, class updates, and school schedules.",
+  tags: ["HTML", "CSS", "JavaScript", "Education", "Multilingual"],
+  link: "projects/school-signal/",
+  unlocked: true
+},
 
 ];
 
