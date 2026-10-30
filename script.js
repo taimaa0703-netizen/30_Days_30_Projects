@@ -243,6 +243,14 @@ const projects = [
   link: "projects/school-signal/",
   unlocked: true
 },
+{
+  day: 30,
+  name: "TAMO",
+  description: "A creative technology studio that turns ideas into thoughtful websites and digital experiences.",
+  tags: ["HTML", "CSS", "JavaScript", "Creative Studio"],
+  link: "projects/TAMO_DAY30_REBUILT_HE_EN/",
+  unlocked: true
+},
 
 ];
 

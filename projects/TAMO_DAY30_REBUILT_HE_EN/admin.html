@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#161123">
+  <meta name="robots" content="noindex,nofollow">
+  <title>TAMO | Inquiry dashboard</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <main class="admin-shell">
+    <header class="admin-header">
+      <a class="admin-brand" href="index.html">TAMO<span>.</span></a>
+      <a class="back-link" href="index.html">חזרה לאתר</a>
+    </header>
+    <section class="login-card" id="login-card">
+      <p class="eyebrow">PRIVATE WORKSPACE</p>
+      <h1>ניהול פניות</h1>
+      <p class="intro">כניסה מאובטחת באמצעות חשבון המנהלת ב־Supabase</p>
+      <form id="login-form">
+        <label>כתובת מייל<input id="login-email" type="email" autocomplete="username" required value="taimaa.openu@gmail.com"></label>
+        <label>סיסמה<input id="login-password" type="password" autocomplete="current-password" required></label>
+        <button class="primary-button" id="login-button" type="submit">כניסה ללוח</button>
+      </form>
+      <p class="feedback" id="login-feedback" role="status" aria-live="polite"></p>
+    </section>
+    <section class="dashboard" id="dashboard" hidden>
+      <div class="dashboard-heading">
+        <div><p class="eyebrow">TAMO / INQUIRIES</p><h1>פניות חדשות</h1><p class="intro">פניות שנשמרו במאגר הנתונים</p></div>
+        <div class="dashboard-actions"><button class="secondary-button" id="refresh-button" type="button">רענון</button><button class="secondary-button" id="logout-button" type="button">יציאה</button></div>
+      </div>
+      <p class="feedback" id="dashboard-feedback" role="status" aria-live="polite"></p>
+      <div class="inquiry-list" id="inquiry-list"></div>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="admin.js" defer></script>
+</body>
+</html>

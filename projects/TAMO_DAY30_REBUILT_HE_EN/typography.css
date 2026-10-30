@@ -1,0 +1,437 @@
+#app h1,
+#app h2,
+#app h3,
+#app h4,
+#app h5,
+#app h6,
+#app p,
+body > footer p {
+  text-align: center;
+}
+
+#app .hero-content,
+#app .split-heading,
+#app .service-card,
+#app .insight-left,
+#app .insight-result,
+#app .method-head,
+#app .method-grid,
+#app .process-detail,
+#app .form-heading,
+#app .wizard-copy,
+#app .wizard-body,
+#app .forward-note,
+#app .mail-disclosure,
+body > footer .footer-top {
+  text-align: center;
+}
+
+#app .scenario,
+#app .process-step,
+#app .option-card,
+#app .field {
+  text-align: center;
+}
+
+#app .service-link {
+  justify-content: center;
+}
+
+#app .split-heading {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: 20px;
+}
+
+#app .split-heading h2,
+#app .split-heading p {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#app .hero h1 {
+  font-size: clamp(36px, 4vw, 60px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#app .split-heading h2,
+#app .form-heading h2 {
+  font-size: clamp(32px, 3.8vw, 56px);
+}
+
+body > footer .footer-top {
+  align-items: center;
+}
+
+body > footer .footer-email {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 12px 18px;
+  border: 1px solid rgb(205 169 243 / 38%);
+  border-radius: 999px;
+  color: #ead9f8;
+  font-size: clamp(14px, 1.4vw, 18px);
+  font-weight: 700;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+body > footer .footer-email:hover {
+  transform: translateY(-2px);
+  border-color: #cda9f3;
+  background: rgb(205 169 243 / 10%);
+}
+
+#app .method-head {
+  flex-direction: row-reverse;
+}
+
+#app .hero-content {
+  width: 100%;
+  min-width: 0;
+  max-width: 720px;
+  justify-self: center;
+  padding: clamp(24px, 3vw, 42px);
+  border: 1px solid rgb(210 181 243 / 16%);
+  border-radius: 28px;
+  background: linear-gradient(145deg, rgb(43 31 60 / 88%), rgb(29 21 43 / 94%));
+  box-shadow: 0 24px 70px rgb(7 4 12 / 20%);
+}
+
+#app .hero .eyebrow {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #d3b5f3;
+}
+
+#app .hero h1 {
+  max-width: 620px;
+  font-size: clamp(42px, 4.7vw, 68px);
+  line-height: 1.04;
+  letter-spacing: -1.8px;
+  text-wrap: balance;
+}
+
+#app .hero-content > p {
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.7;
+}
+
+#app .hero-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 36px;
+}
+
+#app .hero-highlights div {
+  min-width: 0;
+  min-height: 82px;
+  padding: 13px 10px;
+  border: 1px solid rgb(207 176 239 / 14%);
+  border-radius: 15px;
+  background: rgb(255 255 255 / 4%);
+  color: #eee3f8;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  line-height: 1.4;
+}
+
+#app .hero-value {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+#app .hero-value > span {
+  color: #cda9f3;
+  font-size: 10px;
+  letter-spacing: 1.4px;
+}
+
+#app .hero-actions {
+  justify-content: center;
+  gap: 10px;
+}
+
+#app .hero-actions .btn {
+  min-height: 48px;
+  padding: 12px 18px;
+  gap: 12px;
+  font-size: 13px;
+}
+
+#app .hero-actions .outline {
+  border-color: rgb(205 169 243 / 40%);
+  background: rgb(255 255 255 / 3%);
+}
+
+#app .hero-art {
+  width: 100%;
+  min-width: 0;
+  max-width: 580px;
+  justify-self: center;
+}
+
+#app .hero {
+  background: radial-gradient(ellipse at 76% 34%, rgb(91 58 122 / 23%), transparent 42%), #1a1427;
+}
+
+#app .process-layout {
+  grid-template-columns: minmax(270px, 0.78fr) minmax(0, 1.22fr);
+  align-items: stretch;
+  gap: clamp(20px, 3vw, 42px);
+}
+
+#app .steps {
+  gap: 12px;
+}
+
+#app .process-step {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) 28px;
+  min-height: 84px;
+  padding: 18px 22px;
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgb(38 28 50 / 4%);
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+#app .process-step:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgb(38 28 50 / 9%);
+}
+
+#app .process-step.active {
+  background: #2d213f;
+  border-color: #2d213f;
+  box-shadow: 0 14px 30px rgb(45 33 63 / 18%);
+}
+
+#app .process-number {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+#app .process-indicator {
+  font-size: 17px;
+}
+
+#app .process-detail {
+  min-height: 0;
+  padding: clamp(24px, 3.2vw, 40px);
+  border: 1px solid rgb(83 57 118 / 10%);
+  border-radius: 24px;
+  background: linear-gradient(150deg, #fbf8fc, #eee6f1);
+  box-shadow: 0 12px 32px rgb(38 28 50 / 6%);
+}
+
+#app .detail-illustration {
+  height: 104px;
+  margin: 18px 0 8px;
+}
+
+#app .detail-square {
+  position: relative;
+  top: auto;
+  left: auto;
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto;
+  transform: none;
+  border: 1px solid rgb(255 255 255 / 24%);
+  border-radius: 22px;
+  background: linear-gradient(145deg, #694e89, #493266);
+  box-shadow: 0 12px 22px rgb(54 37 75 / 16%);
+  font-size: 32px;
+  font-weight: 700;
+}
+
+#app .detail-circle {
+  display: none;
+}
+
+#app .detail-line {
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c9b8d2, transparent);
+}
+
+#app .detail-top {
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgb(120 91 142 / 14%);
+}
+
+#app .process-detail h3 {
+  margin: 18px 0 8px;
+  color: #281e34;
+  font-size: clamp(25px, 2.5vw, 33px);
+  line-height: 1.2;
+}
+
+#app .process-detail > p {
+  max-width: 540px;
+  margin: 0 auto 20px;
+  color: #716779;
+  font-size: clamp(15px, 1.3vw, 17px);
+  line-height: 1.7;
+}
+
+#app .deliverable {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  justify-content: center;
+  gap: 8px 12px;
+  margin-top: 4px;
+  padding-top: 16px;
+  border-top: 1px solid rgb(120 91 142 / 16%);
+  color: #5f5569;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+#app .deliverable strong {
+  color: #4a3860;
+  font-size: 12px;
+}
+
+#app .step-controls {
+  margin-top: 20px;
+}
+
+#app .step-controls button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgb(83 57 118 / 13%);
+  border-radius: 14px;
+  background: #533976;
+  color: #fff;
+  font-size: 18px;
+  transition: background-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+#app .step-controls button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: #392551;
+  box-shadow: 0 8px 16px rgb(45 33 63 / 15%);
+}
+
+#app .step-controls button:disabled {
+  background: #d3cad9;
+  color: #fff;
+  opacity: 1;
+}
+
+@media (max-width: 860px) {
+  #app .hero-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #app .hero-content {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 680px;
+  }
+
+  #app .hero-art {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  #app .process-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #app .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  #app .process-detail {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  #app .hero-content {
+    padding: 24px 18px;
+    border-radius: 22px;
+  }
+
+  #app .hero h1 {
+    font-size: clamp(39px, 10vw, 52px);
+    letter-spacing: -1px;
+  }
+
+  #app .hero-highlights {
+    gap: 7px;
+    margin-top: 28px;
+  }
+
+  #app .hero-highlights div {
+    min-height: 76px;
+    padding: 10px 6px;
+    font-size: 10px;
+  }
+
+  #app .hero-actions {
+    gap: 8px;
+  }
+
+  #app .hero-actions .btn {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 11px 9px;
+    gap: 7px;
+    font-size: 11px;
+  }
+
+  #app .process-step {
+    min-height: 68px;
+    padding: 14px;
+  }
+
+  #app .process-detail {
+    min-height: 0;
+    padding: 22px 18px;
+  }
+
+  #app .detail-illustration {
+    height: 92px;
+    margin: 16px 0 6px;
+  }
+
+  #app .detail-square {
+    width: 68px;
+    height: 68px;
+    border-radius: 19px;
+    font-size: 28px;
+  }
+
+  #app .deliverable {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 5px;
+    font-size: 13px;
+  }
+
+  #app .deliverable strong {
+    font-size: 11px;
+  }
+
+  #app .step-controls button {
+    width: 46px;
+    height: 46px;
+  }
+}
