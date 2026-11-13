@@ -216,7 +216,7 @@ const projects = [
   name: "CLASS PULSE",
   description: "A multilingual classroom dashboard for student mastery, attendance, assignments, and learning insights.",
   tags: ["HTML", "CSS", "JavaScript", "Education", "Multilingual"],
-  link: "projects/class-pulse22/index.html",
+  link: "projects/CLASS_PULSE_2_READY/index.html#/home",
   unlocked: true
 },
 {
