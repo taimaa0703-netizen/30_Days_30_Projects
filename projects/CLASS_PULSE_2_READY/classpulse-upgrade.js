@@ -224,6 +224,7 @@ function v2ShowLogin(){
   sessionStorage.setItem(v2LoginKey,'1');
   v2LoginInert.forEach(el=>el.inert=false);v2LoginInert=[];
   document.body.classList.remove('cp-locked');
+  render();
   wrap.classList.add('leaving');
   setTimeout(()=>wrap.remove(),matchMedia('(prefers-reduced-motion: reduce)').matches?0:450);
  };
